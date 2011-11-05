@@ -1,0 +1,79 @@
+<script type="text/javascript">
+$(document).ready(function() {
+   var chart = new Highcharts.Chart({
+      chart: {
+         renderTo: "daily_registered_users",
+         margin: [ 40, 10, 70, 30],
+         borderWidth: 0,
+         plotBorderWidth: 0,
+         width: 1000,
+         shadow: false,
+         plotShadow: false,
+         backgroundColor: "#F4F4F4"
+      },
+			title: {
+			   text: "<%= user_count %> users"
+			},
+			credits: {
+         enabled: false
+      },
+      xAxis: {
+         categories: <%= raw (start_date..Date.today).map { |date| date.to_s(:short) } %>,
+         labels: {
+            rotation: -45,
+            align: "right",
+            style: {
+                font: "normal 13px Verdana, sans-serif"
+            }
+         }
+      },
+      plotOptions: {
+      	series: {
+      		pointWidth: 25,
+      		color: "#da0c87",
+					borderWidth: 0,
+					shadow: false
+      	}
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: null
+         }
+      },
+      legend: {
+         enabled: false
+      },
+      tooltip: {
+      	enabled: false
+      },
+      series: [{
+         name: "Users",
+         type: "column",
+         data: <%= raw users_by_day.to_a %>,
+         dataLabels: {
+            enabled: true,
+            color: "#000000",
+            formatter: function() {
+               return this.y;
+            },
+            style: {
+               font: "normal 13px Verdana, sans-serif"
+            }
+         },
+         enableMouseTracking: false
+      },
+			{
+				type: 'line',
+				name: 'Regression Line',
+				data: [[0, 40], [30, 40]],
+				marker: {
+				   enabled: false
+				},
+      	color: "#000000",
+      	enableMouseTracking: false
+      }]
+   });
+});
+</script>
+<div id="daily_registered_users"></div>

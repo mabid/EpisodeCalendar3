@@ -1,0 +1,23 @@
+<% if @shows.any? %>
+  <div id="show_anchors">
+    <h1>My unwatched episodes</h1>
+    <span id="reload" class="hidden"><%= icon_tag("arrow_circle") %> <strong><a href="#" class="alternative">Reload <span></span></a></strong></span>
+    <span id="unwatched_loader" class="hidden"><%= image_tag("icons/ajax-loader.gif", :class => "icon blank") %> <strong>Loading...</strong></span>
+    <ul>
+    <% @shows.each do |following| %>
+      <li id="show_<%= following.show_id %>">
+        <a href="<%= get_unwatched_episodes_path(following.show_id) %>">
+          <%= raw "#{following.name} (<span>#{following.available_episodes_count.to_i - following.marked_episodes_count}</span>)" %>
+        </a>
+      </li>
+    <% end %>
+    </ul>
+  </div>
+  
+  <div id="unwatched_episodes"></div>
+  
+<% end %>
+<div id="big_notice" class="<%= "hidden" if @shows.any? %>">
+  <h1>Awesome job! You have watched every available episode!</h1>
+  <h2>Looking for more? Go and <%= link_to("browse", shows_path) %> for some new shows.</h2>
+</div>

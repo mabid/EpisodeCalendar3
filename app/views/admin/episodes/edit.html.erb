@@ -1,0 +1,27 @@
+<% title "Edit episode for #{@episode.show.name}" %>
+<h2>Edit episode for <%= @episode.show.name %></h2>
+<% form_for([:admin, @episode]) do |f| %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :season_number %><br />
+    <%= f.text_field :season_number %>
+  </p>
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p class="date_select">
+    <%= f.label :air_date %><br />
+    <%= f.datetime_select :air_date %>
+  </p>
+  <p>
+    <%= f.label :overview %><br />
+    <%= f.text_area :overview, :cols => 70, :rows => 6 %>
+  </p>
+  <p>
+    <%= f.submit "Save", :class => "submit" %> - <strong><%= link_to("Delete", [:admin, @episode], :confirm => "Are you sure that you want to delete [#{@episode.name}]?", :method => :delete, :class => :red) %></strong>
+  </p>
+<% end %>

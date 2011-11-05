@@ -1,0 +1,58 @@
+<% title @current.to_s(:title_date) %>
+<% share_url public_with_date_url(:year => @current.year, :month => @current.month) %>
+<% share_title "TV Episode Calendar - #{yield(:title)}" %>
+
+<%= link_to("print", "javascript:window.print();", :id => :print, :class => :icon) %>
+<%= render :partial => "partials/month_navigation", :locals => {:current => @current, :public => true} %>
+
+<dl id="status_legend">
+  <dt><img width="16" height="16" src="/images/pixel.gif?1" class="icon clock" alt=""></dt> <dd>This public calendar is shown in US time zones.<br />It can be personalized by creating an account.</dd>
+</dl>
+
+<table id="calendar" cellspacing="2" cellpadding="0">
+	<tr>
+	<%	0.upto(6) do |i| %>
+		<th class="calendar_weekday_name"><div><%= week_day(i) %></div></th>
+	<% end %>
+	</tr>
+	<tr>
+  	<% @start_day.upto(@end_day) do |date| %>
+  	<% corrected_date = date - 1.day %>
+  	<% current_day_date = corrected_date.to_s(:air_date) %>
+		<td class="<%=get_cell_css_class(corrected_date, @current, $TODAY)%>" rel="<%= date.wday == 0 ? 7 : date.wday %>">
+			<div class="calendar_date"><%= print_date(corrected_date) %></div>
+			<% show_episodes = @episodes.select {|e| e.air_date.to_s(:air_date) == current_day_date} %>
+		  <% if show_episodes.any? %>
+      <div class="calendar_cell_content">
+      	<ul>
+      	<% show_episodes.each do |e| %>
+      	  <li>
+      	    <%= print_calendar_episode(e, false) %>
+        	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(1)})" %></h3><span><%= e.friendly_overview %></span></div>
+        	</li>
+      	<% end %>
+      	</ul>
+      </div>
+		  <% end %>
+		</td>
+		<% if (date.wday % 7) == 0 && date < @end_day %>
+	</tr>
+	<tr>
+		<%- end -%>
+	<%- end -%>
+	</tr>
+</table>
+
+<div id="bottom_legend">
+  <%= icon_tag("information") %> <strong class="premiere">Season premiere</strong> <strong class="normal">Normal episode</strong>
+</div>
+
+<% unless logged_in? %>
+<div id="start" class="clearfix center">
+	<div id="public_box">
+		<h2>Don't want to see all these unnessesary TV shows?</h2>
+    <%= link_to "Sign up now!", new_user_registration_path, :class => "big_button" %>
+    <span>A private account lets you select <strong>only the shows YOU want</strong> to track!</span>
+	</div>
+</div>
+<% end %>

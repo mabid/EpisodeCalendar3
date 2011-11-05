@@ -1,0 +1,65 @@
+<ul id="system_log">
+  
+  <li>
+    <h2>Shows</h2>
+    <ul>
+      <% @shows_updated.each do |log| %>
+        <% if log.failed? %>
+          <li class="red" title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <strong title="<%= log.additional_data %>">Failed</strong></li>
+        <% else %>
+          <li title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <%= pluralize(log.value, "update") %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+  
+  <li>
+    <h2>Episodes</h2>
+    <ul>
+      <% @episodes_updated.each do |log| %>
+        <% if log.failed? %>
+          <li class="red" title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <strong title="<%= log.additional_data %>">Failed</strong></li>
+        <% else %>
+          <li title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <%= pluralize(log.value, "update") %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+  
+  <li>
+    <h2>Banners</h2>
+    <ul>
+      <% @banners_updated.each do |log| %>
+        <% if log.failed? %>
+          <li class="red" title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <strong title="<%= log.additional_data %>">Failed</strong></li>
+        <% else %>
+          <li title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <%= pluralize(log.value, "update") %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+  
+  <li>
+    <h2>Trends</h2>
+    <ul>
+      <% @show_trends_updated.each do |log| %>
+        <% if log.failed? %>
+          <li class="red" title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <strong title="<%= log.additional_data %>">Failed</strong></li>
+        <% else %>
+          <li title="<%= elapsed_time(log) %>"><%= log.created_at.to_s(:short) %> - <%= pluralize(log.value, "update") %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+  
+  <li>
+    <h2>App logins</h2>
+    <ul>
+      <li>iPhone: 3</li>
+      <li>Android : 3</li>
+      <li>WP7: 3</li>
+      <li>Adobe Air: 3</li>
+    </ul>
+  </li>
+  
+</ul>

@@ -1,0 +1,28 @@
+<div id="trends">
+  <div class="note_wrapper">
+    <dl class="note">
+      <% @top_shows.each_with_index do |show, i| %>
+      <dt>#<%= show.current_trend_position %>. <%= show.name %> <span><%= show.followers %> followers (<%= print_trend(show) %>)</span></dt>
+      <dd><%= print_popularity(show) %></dd>
+      <% end %>
+    </dl>
+  </div>
+  
+  <div class="note_wrapper">
+    <dl class="note">
+      <% @top_new_followers.each_with_index do |show, i| %>
+      <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= print_trend(show) %>)</span></dt>
+      <dd><span class="green">+<%= show.new_followers %> followers</span></dd>
+      <% end %>
+    </dl>
+  </div>
+  
+  <div class="note_wrapper">
+    <dl class="note">
+      <% @highest_grow.each_with_index do |show, i| %>
+      <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= show.followers %> followers)</span></dt>
+      <dd><span class="green">+<%= (show.grow.to_f * 100).round %>%</span></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>

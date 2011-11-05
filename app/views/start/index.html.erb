@@ -1,0 +1,22 @@
+<% body_class "start" %>
+<div id="screenshots"></div>
+<div id="start">
+  <h1>Never miss an episode</h1>
+  <h3>Having trouble keeping track of all the TV shows you want to watch? Episode Calendar is here to help!</h3>
+  <ul>
+    <li class="calendar">
+      <h2>Get Organized</h2>
+      <p>Add and manage your favorite TV shows in your own personal calendar.</p>
+    </li>
+    <li class="mail">
+      <h2>Stay Notified</h2>
+      <p>Receive emails when your shows air.</p>
+    </li>
+    <li class="tick">
+      <h2>Keep Track</h2>
+      <p>Remember what comes next. Check off episodes after you watch them.</p>
+    </li>
+  </ul>
+  <%= link_to "Sign up now!", new_user_registration_path, :class => "big_button" %>
+  <%= link_to "View the calendar as a <strong>Guest</strong> &raquo;".html_safe, public_path, :id => "public" %>
+</div>

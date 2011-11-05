@@ -1,0 +1,36 @@
+<% if @query.blank? %>
+  <h2 class="center">You entered a blank show name. Please try again.</h2>
+<% else %>
+  <h2 class="center">Found <%= @shows.size%> shows matching '<%= @query %>'</h2>
+  <% if @shows.any? %>
+    <table id="search_results" width="100%" cellspacing="2" cellpadding="0">
+      <thead>
+        <tr>
+          <th><div>Show</div></th>
+          <th><div>Status</div></th>
+          <th><div>Info</div></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @shows.each do |show| %>
+      <tr class="<%= get_css_for(show) %>">
+        <td>
+          <%= link_to(icon_tag("plus_big", 24), add_show_path(show.permalink), :class => :add, :title => "Add to my list") if current_user %>          
+          <h3><%= link_to(highlight(show.name, @query, :highlighter => '<strong>\1</strong>'), show_path(show)) %></h3>
+        </td>
+        <td>
+          <% if show.ended? %>
+            <strong class="red">Started airing: <%= print_air_start(show.first_aired) %></strong><em>Ended</em>
+          <% else %>
+            <strong>Started airing: <%= print_air_start(show.first_aired) %></strong><em>Still airing</em>
+          <% end %>
+        </td>
+        <td>
+          <strong><%= show.followers %> followers</strong><em><%= show.episodes_count %> episodes</em>
+        </td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>

@@ -1,0 +1,38 @@
+<% episodes.group_by(&:season_number).each do |season_number, episodes| %>
+  <div class="options">
+    You can mark full seasons as watched at this season's <%= link_to("overview", show_season_path(@show.permalink, season_number)) %>.
+  </div>
+  <h2><%= link_to(season_number > 0 ? "#{@show.name} - Season #{season_number}" : "#{@show.name} - Extras", show_season_path(@show.permalink, season_number), :class => :alternative) %></h2>
+  <div class="season_list">
+    <% episodes.sort_by{ |e| [e.number] }.each do |e| %>
+    <% corrected_air_date = (current_user ? e.air_date + current_user.day_offset.days : e.air_date)%>
+    <% tr_class = cycle("odd", "even", :name => "classes") %>
+    <% tr_class += " highlighted" if @next_air_date == e.air_date %>
+    <div id="episode_<%= e.id %>" rel="show_<%= e.show_id %>" class="episode <%=tr_class%>">
+      <div class="name">
+        <strong><%= format_episode_number(e) %></strong>: <%= e.name %>
+        <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
+        <div class="rating"><span class="r<%= get_rating(e.rating) %>"></span></div>
+      </div>
+      <div class="overview">
+        <% if e.friendly_overview.size > 180 %>
+          <div class="short"><%= truncate(e.friendly_overview, :length => 180, :separator => " ") %> <%= link_to("read more &raquo;", "#", :class => :toggle, :rel => "full") %></div>
+          <div class="full hidden"><%= e.friendly_overview %> <%= link_to("&laquo; read less", "#", :class => :toggle, :rel => "short") %></div>
+        <% else %>
+          <div class="short"><%= e.friendly_overview %></div>
+        <% end %>
+      </div>
+      <div class="date">
+        <span>Air date:</span>
+        <%= format_date(corrected_air_date) %>
+      </div>
+      <div class="seen center">
+        <span>Mark and hide</span><br />
+        <%= link_to("", {:controller => "seen_episodes", :action => "mark_episode", :id => e.id, :season => e.season_id}, :class => "ui-checkbox ajaxLink hide_while_loading", :rel => "ajax_loader_#{e.id}") %>
+        <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{e.id}", :class => :ajaxLoader) %>
+      </div>
+    </div>
+    <% end %>
+    <% reset_cycle("classes") %>
+  </div>
+<% end %>

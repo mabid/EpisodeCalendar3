@@ -1,0 +1,34 @@
+<% body_class "info" %>
+<div id="devise">
+  
+  <div class="width_50">
+    
+    <h2>Forgot your password?</h2>
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <p>
+        <%= f.label :email %><br />
+        <%= f.text_field :email, :class => :big %>
+      </p>
+    
+      <p><%= f.submit "Send", :class => :submit %></p>
+    <% end %>
+    
+		<% flash.each do |key, msg| %>
+		  <%= content_tag(:div, msg, :id => key) %>
+		<% end %>
+    
+  </div>
+  <div class="width_50">
+
+    <h2>Did you know?</h2>
+    <p class="big">Episode Calendar offers you mobile apps!</p>
+    <p>
+      <%= image_tag("phones/iphone.png?1", :width => 64) %>
+      <%= image_tag("phones/android.png?1", :width => 64) %>
+      <%= image_tag("phones/windows.png?1", :width => 64) %>
+    </p><br /><br />
+    <p><%= link_to("Other features", info_path, :class => :submit) %></p>
+  
+  </div>
+  
+</div>

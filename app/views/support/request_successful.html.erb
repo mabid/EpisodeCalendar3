@@ -1,0 +1,6 @@
+<div id="big_notice">
+  <h1>"<%= @show.name %>" has been added to the system queue.</h1>
+  <h2>Please allow <em>up to 1 hour</em> for the system to fetch all the information.</h2>
+  <h3>In the meantime, you can add <%= link_to(@show.name, show_path(@show)) %> to your list.</h3>
+  <h4>If any problems occur, please <%= link_to("contact", info_path(:anchor => :contact)) %> us.</h4>
+</div>

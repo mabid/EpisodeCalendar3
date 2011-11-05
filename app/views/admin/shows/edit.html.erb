@@ -1,0 +1,39 @@
+<% title "Edit #{@show.name}" %>
+<h2>Edit <%= @show.name %></h2>
+<% form_for([:admin, @show]) do |f| %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :permalink %><br />
+    <%= f.text_field :permalink %>
+  </p>
+  <p>
+    <%= f.label :episodes_count, "Episodes count: #{@episodes_count}" %><br />
+    <%= f.text_field :episodes_count %>
+  </p>
+  <p>
+    <%= f.label :followers, "Followers count: #{@followers}" %><br />
+    <%= f.text_field :followers %>
+  </p>
+  <p>
+    <%= f.label :first_aired %><br />
+    <%= f.text_field :first_aired %>
+  </p>
+  <p class="date_select">
+    <%= label_tag :status, "Status: #{@show.status}" %><br />
+    <%= f.select :status, options_for_select([["Continuing", "Continuing"], ["Ended", "Ended"]]), :include_blank => true %>
+  </p>
+  <p class="date_select">
+    <%= f.label :updated_at, "Updated #{time_ago_in_words(@show.updated_at)} ago" %><br />
+    <%= f.datetime_select :updated_at %>
+  </p>
+  <p class="date_select">
+    <%= label_tag :add_update %><br />
+    <%= select :add_update, :type, options_for_select([["All episodes", "all_episodes"], ["Banner", "banner"]]), :include_blank => true %>
+  </p>
+  <p>
+    <%= f.submit "Save", :class => "submit" %>
+  </p>
+<% end %>

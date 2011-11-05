@@ -1,0 +1,32 @@
+<% body_class "settings" %>
+
+<div id="request_header">
+  <h1>Missing a show? Try searching for it here.</h1>
+  <%= form_tag("/support/request_show", :method => :get) do %>
+    <%= text_field_tag :query, params[:query] %>
+    <%= submit_tag "Search", :name => nil, :class => :submit %>
+  <% end %>
+</div>
+
+<% if params[:query] %>
+  <% if @shows.any? %>
+    <ul id="requested_shows">
+    <% @shows.each do |show| %>
+      <li>
+        <h2><%= show[:name] %> <span class="grey">(<%= print_first_aired(show[:first_aired]) %>)</span></h2>
+        <p><%= show[:overview] %></p>
+        <% if show[:exists] %>
+          <p class="add"><strong class="green">This show is already in the system</strong><br /><br /><%= link_to("View", show_path(show[:exists]), :class => "awesome medium") %></p>
+        <% else %>
+          <p class="add"><%= link_to("Add show to the system", queue_requested_show_path(show[:id], show[:name]), :class => "awesome medium magenta") %></p>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p id="error" class="static">No results were found for '<%= params[:query] %>'. Note that you can get a better search result by removing numbers and punctuation.</p>
+  <% end %>
+  <p>All data is collected from <%= link_to("The TV Database", "http://www.thetvdb.com", :rel => :external) %>.</p>
+<% else %>
+  <p class="margin_top_big">All data is collected from <%= link_to("The TV Database", "http://www.thetvdb.com", :rel => :external) %>.</p>
+<% end %>

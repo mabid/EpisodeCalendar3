@@ -1,0 +1,12 @@
+<h2>Login</h2>
+<%= form_tag(session_path) do %>
+	<label for="login_username">Username</label><br/>
+	<div><%= text_field_tag "login", nil, :id => "login_username" %></div><br/>
+	
+	<label for="login_password">Password</label><br/>
+	<div><%= password_field_tag "password", nil, :id => "login_password" %></div><br/>
+	
+	<div><%= check_box_tag "remember_me", 1, nil, {:class => "checkbox"} %><label for="remember_me">Remember me</label></div><br/>
+	
+	<%= submit_tag "Login", :class => "submit" %>
+<% end %>

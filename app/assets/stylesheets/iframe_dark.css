@@ -1,0 +1,12 @@
+body { background: transparent; }
+#page_container { background: none; padding: 0; position: static; }
+#calendar { margin: 0 0 10px 0; }
+.calendar_day, .calendar_day_other_month { 	background: #000 url("/images/cell_bg_dark.png?1") 0 0 repeat-x; }
+.calendar_today { 	background: #806f7c url("/images/cell_bg_today_dark.png?1") 0 0 repeat-x; }
+.calendar_date { background: #292929; border-color: #333; color: #fff; }
+.calendar_day_other_month .calendar_date { background: #111; border-color: #222; color: #666; }
+.calendar_cell_content { color: #fff; }
+.calendar_day_other_month .calendar_cell_content { color: #666; }
+h1 { font-size: 18px; color: #fff; }
+h2 { font-size: 14px; color: #fff }
+h3 { font-size: 12px; color: #fff }

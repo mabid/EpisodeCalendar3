@@ -1,0 +1,243 @@
+<%
+    @user_count = User.count
+    @user_show_count = Following.count
+    @avg = @user_show_count.to_f / @user_count.to_f
+    
+    z = 2.hours
+    
+    @users_last_month = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", 1.month.ago.beginning_of_month+z, 1.month.ago.end_of_month+z]).size
+    @users_this_month = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", Date.today.beginning_of_month.beginning_of_day, Date.today.end_of_month.end_of_day]).size
+
+    @users_last_week = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", 1.week.ago.beginning_of_week+z, 1.week.ago.end_of_week+z]).size
+    @users_this_week = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", Date.today.beginning_of_week.beginning_of_day, Date.today.end_of_week.end_of_day]).size
+
+    @users_yesterday = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", 1.day.ago.beginning_of_day+z, 1.day.ago.end_of_day+z]).size
+    @users_today = User.find(:all, :conditions => ["created_at > ?", Date.today.beginning_of_day]).size
+
+    @uniq_show_ids = Following.find(:all, :group => :show_id, :order => "show_id ASC")
+    @uniq_shows = Show.find(:all, :conditions => ["id IN (?)", @uniq_show_ids.collect(&:show_id)], :order => "followers DESC", :limit => 25)
+
+    @users = User.find(:all, :order => "followings_count DESC", :conditions => "followings_count > 0", :limit => 25)
+    
+    @active_users = User.find(:all, :conditions => ["last_sign_in_at > ?", Date.today - 30.days]).size
+    @inactive_users = @user_count - @active_users
+    
+    @users_by_day = users_chart_series(4.weeks.ago.utc)
+%>
+<script type='text/javascript' src='http://www.google.com/jsapi'></script>
+
+<h2>Statistics</h2>
+
+<script type='text/javascript'>
+  google.load('visualization', '1', {packages:['imagechart']});
+  google.setOnLoadCallback(drawLineChart);
+  function drawLineChart() {
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn('string');
+    dataTable.addColumn('number');
+    
+    <% @users_by_day = get_chart_data() %>
+    
+    dataTable.addRows([
+    <% @users_by_day.each do |data_item| %>
+      ['<%= data_item[0] %>',<%= data_item[1].to_i %>],
+    <% end %>
+    ]);
+
+    var max = <%= max(@users_by_day) %>;
+    var maxVal = max + (max/10);
+    var interval = Math.floor((maxVal/100)*10);
+    var y_delimiter = (100 / maxVal)*interval;
+    var x_delimiter = (100 / <%= @users_by_day.size %>);
+  
+    var options = {min: 0, max: <%= max(get_chart_data()) %>, valueLabelsInterval: 2, width: 1000, height: 200, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm:'o,da0c87cc,0,-1,8'};
+
+    var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 1000, height: 200, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bvg', chds: '0,' + maxVal + '', chco: 'da0c87cc|860954cc'};
+    var chart = new google.visualization.ImageChart(document.getElementById('daily_registered_users_v'));
+    chart.draw(dataTable, options);
+  }
+</script>
+<div class="graphBox margin_bottom">
+  <h3><span>Number of registered users the last 20 days, day by day</span></h3>
+  <div id="daily_registered_users_v" class="graph"></div> 
+</div>
+<p><strong>Total users:</strong> <%= User.all.size %></p>
+
+<div class="clearfix margin_bottom">
+  <div class="width_33 float_left">
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        
+        dataTable.addColumn('string');
+        dataTable.addColumn('number');
+        dataTable.addRows([
+          ['Last month', <%= @users_last_month %>],
+          ['This month', <%= @users_this_month %>]
+        ]);
+    
+        <% largest = @users_last_month > @users_this_month ? @users_last_month : @users_this_month %>
+        var maxVal = <%= largest + (largest.to_f / 10) %>;
+        var interval = Math.floor((maxVal/100)*10);
+        if (interval < 1.0)
+          interval = 1;
+        var y_delimiter = 100 / 2;
+        var x_delimiter = (100 / maxVal)*interval;
+        
+        <% color = @users_last_month > @users_this_month ? "cc0000cc" : "00cc00cc" %>
+    
+        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 380, height: 100, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|<%= color %>'};
+        var chart = new google.visualization.ImageChart(document.getElementById('this_month'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div class="graphBox">
+      <h3><span>Registered users - This month vs. last month</span></h3>
+      <div id="this_month" class="graph"></div>
+    </div>
+  </div>
+  
+  <div class="width_34 float_left">
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        
+        dataTable.addColumn('string');
+        dataTable.addColumn('number');
+        dataTable.addRows([
+          ['Last week', <%= @users_last_week %>],
+          ['This week', <%= @users_this_week %>]
+        ]);
+    
+        <% largest = @users_last_week > @users_this_week ? @users_last_week : @users_this_week %>
+        var maxVal = <%= largest + (largest.to_f / 10) %>;
+        var interval = Math.floor((maxVal/100)*10);
+        if (interval < 1.0)
+          interval = 1;
+        var y_delimiter = 100 / 2;
+        var x_delimiter = (100 / maxVal)*interval;
+
+        <% color = @users_last_week > @users_this_week ? "cc0000cc" : "00cc00cc" %>
+    
+        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 380, height: 100, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|<%= color %>'};
+        var chart = new google.visualization.ImageChart(document.getElementById('this_week'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div class="graphBox">
+      <h3><span>Registered users - This week vs. last week</span></h3>
+      <div id="this_week" class="graph"></div>
+    </div>
+  </div>
+  
+  <div class="width_33 float_left">
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        
+        dataTable.addColumn('string');
+        dataTable.addColumn('number');
+        dataTable.addRows([
+          ['Yesterday', <%= @users_yesterday %>],
+          ['Today', <%= @users_today %>]
+        ]);
+    
+        <% largest = @users_yesterday > @users_today ? @users_yesterday : @users_today %>
+        var maxVal = <%= largest + (largest.to_f / 10) %>;
+        var interval = Math.floor((maxVal/100)*10);
+        if (interval < 1.0)
+          interval = 1;
+        var y_delimiter = 100 / 2;
+        var x_delimiter = (100 / maxVal)*interval;
+
+        <% color = @users_yesterday > @users_today ? "cc0000cc" : "00cc00cc" %>
+    
+        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 380, height: 100, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|<%= color %>'};
+        var chart = new google.visualization.ImageChart(document.getElementById('today'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div class="graphBox">
+      <h3><span>Registered users - Today vs. yesterday</span></h3>
+      <div id="today" class="graph"></div>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix margin_bottom">
+  <div class="width_50 float_left">
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        
+        dataTable.addColumn('string');
+        dataTable.addColumn('number');
+        
+        dataTable.addRows([
+        <% @uniq_shows.each do |show| %>
+          ['<%= escape_javascript(show.name) %>',<%= show.followers %>],
+        <% end %>
+        ]);
+    
+        var maxVal = <%= @uniq_shows[0].followers + (@uniq_shows[0].followers / 10) %>;
+        var interval = Math.floor((maxVal/100)*10);
+        var y_delimiter = 100 / <%= @uniq_shows.size %>;
+        var x_delimiter = (100 / maxVal)*interval;
+    
+        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 550, height: 500, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|860954cc'};
+        var chart = new google.visualization.ImageChart(document.getElementById('top_followed_shows'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div class="graphBox">
+      <h3><span>Shows with the most followers</span></h3>
+      <div id="top_followed_shows" class="graph"></div>
+      <h4>Number of different shows followed: <%= @uniq_show_ids.size %></h4>
+    </div>
+  </div>
+  
+  <div class="width_50 float_left">
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        
+        dataTable.addColumn('string');
+        dataTable.addColumn('number');
+        
+        dataTable.addRows([
+        <% @users.each do |user| %>
+          ['<%= user.name %>',<%= user.followings_count %>],
+        <% end %>
+        ]);
+        
+        var maxVal = <%= @users[0].followings_count + (@users[0].followings_count / 10) %>;
+        var interval = Math.floor((maxVal/100)*10);
+        var y_delimiter = 100 / <%= @users.size %>;
+        var x_delimiter = (100 / maxVal)*interval;
+    
+        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 550, height: 500, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter +',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|860954cc'};
+        var chart = new google.visualization.ImageChart(document.getElementById('top_users'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div class="graphBox">
+      <h3><span>Users with the most shows followed</span></h3>
+      <div id="top_users" class="graph"></div>
+      <h4>Average per user: <%= (@avg * 10**2).round.to_f / 10**2 %></h4>
+    </div>
+  </div>
+</div>
+
+<div class="graphBox">
+  <h3><span>Active users (Logged in at least once in the last 30 days)</span></h3>
+  <div id="active_users" class="graph">
+    <% @active_percentage = (@active_users.to_f / @user_count) * 100 %>
+    <% @inactive_percentage = (@inactive_users.to_f / @user_count) * 100 %>
+    <img src="http://chart.apis.google.com/chart?cht=p&amp;chs=430x240&amp;chd=t:<%= @active_percentage.round %>,<%= @inactive_percentage.round %>&amp;chl=Active (<%= @active_percentage.round %>%)|Inactive (<%= @inactive_percentage.round %>%)&amp;chco=00cc00cc|cc0000cc">
+  </div>
+</div>

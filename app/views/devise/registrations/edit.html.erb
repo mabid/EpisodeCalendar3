@@ -1,0 +1,192 @@
+<%#= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+
+<% title "My settings" %>
+<% body_class "settings" %>
+
+<div id="settings">
+
+  <h1>Settings</h1>
+  <% flash.each do |key, msg| %>
+    <%= content_tag :div, msg, :id => key %>
+  <% end %>
+  
+  <ul id="settings_pagination">  
+    <li class="selected">
+      <a href="#1"><%= icon_tag("calendar_big", 24) %> Calendar format</a>
+    </li>
+    <li>
+      <a href="#2"><%= icon_tag("globe_big", 24) %> Time zone</a>
+    </li>
+    <li>
+      <a href="#3"><%= icon_tag("mail_big", 24) %> Notifications</a>
+    </li>
+    <li>
+      <a href="#4"><%= icon_tag("feed_big", 24) %> RSS/iCal feeds</a>
+    </li>
+    <li>
+      <a href="#5"><%= icon_tag("user_big", 24) %> Avatar</a>
+    </li>
+    <li>
+      <a href="#6"><%= icon_tag("zone", 24) %> Calendar widget</a>
+    </li>
+    <li>
+      <a href="#7"><%= icon_tag("key", 24) %> Account</a>
+    </li>
+  </ul>
+  
+  <div id="content_carousel">
+    <div id="carousel_items">
+      
+      <div class="item">
+        <h2>How do you want your calendar to look like?</h2>
+        <div id="setting_formatting" class="group">
+          <div class="group">
+            <h3>With episode name</h3>
+            <%= set_calendar_setting_url("show_with_episode_1x1_with_name", 2, 2, current_user, "Short numbering") %>
+            <%= set_calendar_setting_url("show_with_episode_s01e01_with_name", 2, 3, current_user, "Detailed numbering") %>
+          </div>
+          <div class="group">
+            <h3>No episode name</h3>
+            <%= set_calendar_setting_url("show_with_episode_1x1", 1, 2, current_user, "Short numbering") %>
+            <%= set_calendar_setting_url("show_with_episode_s01e01", 1, 3, current_user, "Detailed numbering") %>
+          </div>
+        </div>
+      </div> <!-- .item -->
+      
+      <div class="item">
+        <h2>Where do you live?</h2>
+        <div id="world_map">
+          <%= image_tag("settings/world_map.gif") %>
+        </div>
+        <% form_for @current_user do |f| %>
+          <%= hidden_field_tag :tab, 2 %>
+          <%= f.label :time_zone %><br />
+          <div class="select_wrapper">
+            <%= f.time_zone_select(:time_zone, ActiveSupport::TimeZone.us_zones) %>
+          </div><br />
+        
+          <%= f.label :sun_to_sat, "First day of the week" %><br />
+          <div class="select_wrapper">
+            <%= f.select :sun_to_sat, options_for_select({ "Monday" => "false", "Sunday" => "true" }, @current_user.sun_to_sat.to_s) %>
+          </div><br />
+          
+          <p>
+            Useful for users outside American timezones. Moves all episodes a day forward.<br />
+            <%= f.check_box :day_offset, :class => :checkbox %> <%= f.label :day_offset, "+1 day please" %>
+          </p>
+          
+          <%= f.submit("Update", :class => "submit") %>
+        <% end %>
+      </div> <!-- .item -->
+      
+      <div class="item">
+        <h2>Would you like to recieve emails?</h2> 
+        <% form_for @current_user do |f| %>
+          <%= hidden_field_tag :tab, 3 %>
+          <p>
+            Get your daily fix straight to your inbox!<br />
+            <%= f.check_box :daily_notification, :class => :checkbox %> <%= f.label :daily_notification %>
+          </p>
+          <p>
+            This option will send you the upcoming week's episodes every Sunday.<br />
+            <%= f.check_box :weekly_notification, :class => "checkbox toggler", :rel => :user_only_premiere_notification %> <%= f.label :weekly_notification %>
+          </p>
+          <p>
+            Sends the weekly email only when there are premiering episodes.<br />
+            <%= f.check_box :only_premiere_notification, :class => :checkbox %> <%= f.label :only_premiere_notification, "Only premieres" %>
+          </p>
+
+          <%= f.submit("Update", :class => "submit") %>
+        <% end %>
+      </div> <!-- .item -->
+      
+      <div class="item">
+        <h2>Do you prefer RSS readers?</h2>
+        <p>
+          <strong>Subscribe to your episodes with RSS using this link</strong><br />
+          <%#= text_field_tag "ical", rss_url(current_user.email.downcase), :class => :long, :readonly => :readonly %>
+        </p>
+  
+        <p>
+          <strong>Add your iCal feed to your Google Calendar using this link</strong><br />
+          <%#= text_field_tag "ical", ical_url(current_user.email.downcase), :class => :long, :readonly => :readonly %>
+        </p>
+        
+        <% form_for @current_user do |f| %>
+          <%= hidden_field_tag :tab, 4 %>          
+          <p>
+            Hide the episode overview in my feeds.<br />
+            <%= f.check_box :hide_overview_in_rss, :class => :checkbox %> <%= f.label :hide_overview_in_rss, "Avoid spoilers" %>
+          </p>          
+          <%= f.submit("Update", :class => "submit") %>
+        <% end %>
+      </div> <!-- .item -->
+      
+      <div class="item">
+        <h2>How do I change my avatar?</h2>
+        <div id="gravatar_video">
+          <object type="application/x-shockwave-flash" data="http://s0.videopress.com/player.swf?v=1.02" style="width: 400px; height: 224px;">
+          <param name="movie" value="http://s0.videopress.com/player.swf?v=1.02">
+          <param name="wmode" value="transparent">
+          <param name="seamlesstabbing" value="true">
+          <param name="allowfullscreen" value="true">
+          <param name="allowscriptaccess" value="always">
+          <param name="overstretch" value="high">
+          <param name="flashvars" value="guid=UyDfmflZ">
+              <%= link_to("Gravatar.com", "http://www.gravatar.com", :rel => :external) %>
+          </object>
+        </div>
+        <p>
+          <strong>Episode Calendar uses gravatar.com</strong><br />
+          <blockquote><p><span>&ldquo;</span>A Globally Recognized Avatar our Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog. Avatars help identify your posts on blogs and web forums, so why not on any site?<span>&bdquo;</span></p></blockquote>
+        </p>
+        <p>
+          Simply sign up at Gravatar with your account's email: <strong><%= current_user.email %></strong>, and your image will show here automatically!<br /><br /><br />
+          <%= link_to("Get a Gravatar", "http://www.gravatar.com", :rel => :external, :class => :submit) %>
+        </p>
+      </div> <!-- .item -->
+      
+      <div class="item">
+        <h2>Embed your calendar at your own site!</h2>
+        <label for="code">Copy this code</label><br />
+        <textarea id="code" rows="3" cols="100"><iframe src="<%= embed_url(current_user) %>" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe></textarea><br /><br />
+        <ul class="list">
+          <li><strong>Theme:</strong> Set the ending of the <strong>src</strong> value (v=light) to either <strong>light</strong> or <strong>dark</strong>.</li>
+          <li><strong>Width</strong> and <strong>Height:</strong> Choose values to fit your page. Pixel and percentage values work.</li>
+          <li><strong>Scrolling:</strong> Since the widget only streches horizontally, we recommend setting scrolling to <strong>auto</strong>.<br />If you don't want a vertical scrollbar, set the value to <strong>no</strong> and adjust the <strong>height</strong> value instead.</li>
+        </ul><br />
+        <%= link_to("View an example", "#{HOST}/iframe_example.html", :rel => :external, :class => "awesome small magenta") %>
+      </div> <!-- .item -->
+
+      <div class="item">
+        <h2>Changing your profile?</h2>
+        <%# form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f| %>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+          <%= devise_error_messages! %>
+          <div class="width_33">
+            <%= f.label :name %><span class="label">(Your profile name. If it's blank, your email will be used)</span><br />
+            <p><%= f.text_field :name %></p>
+  
+            <%= f.label :email %><br />
+            <p><%= f.text_field :email %></p>
+          </div>
+          <div class="width_33">
+            <%= f.label :password %><span class="label">(Leave blank if you don't want to change it)</span><br />
+            <p><%= f.password_field :password %></p>
+          
+            <%= f.label :password_confirmation %><br />
+            <p><%= f.password_field :password_confirmation %></p>
+          </div>
+          <div class="width_33">
+            <strong><%= f.label :current_password %></strong><span class="label">(We need your current password to confirm your changes)</span><br />
+            <p><%= f.password_field :current_password %></p><br /><br />
+  
+            <%= f.submit "Update", :class => :submit %>
+          </div>
+        <% end %>
+      </div> <!-- .item -->
+
+    </div>
+  </div>
+  
+</div>

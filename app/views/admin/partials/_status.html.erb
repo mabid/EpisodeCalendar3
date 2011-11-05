@@ -1,0 +1,91 @@
+<ul id="system_status">
+  <% if @shows_updated.any? %>
+  <li>
+    <h2>Queue</h2>
+    <p><%= system_status(@shows_updated.first.created_at, @queue_update.run_interval) %></p>
+    <p>
+      <strong>Update interval</strong><br />
+      <%= @queue_update.humanize.capitalize %>
+    </p>
+    <p>
+      <strong>Last occurance</strong><br />
+      <%= time_ago_in_words(@shows_updated.first.created_at) %> ago
+    </p>
+  </li>
+  <% end %>
+
+  <% if @shows_updated.any? %>
+  <li>
+    <h2>Shows</h2>
+    <p><%= system_status(@shows_updated.first.created_at, @shows_update.run_interval) %></p>
+    <p>
+      <strong>Update interval</strong><br />
+      <%= @shows_update.humanize.capitalize %>
+    </p>
+    <p>
+      <strong>Last occurance</strong><br />
+      <%= time_ago_in_words(@shows_updated.first.created_at) %> ago
+    </p>
+  </li>
+  <% end %>
+
+  <% if @episodes_updated.any? %>
+  <li>
+    <h2>Episodes</h2>
+    <p><%= system_status(@episodes_updated.first.created_at, @episodes_update.run_interval) %></p>
+    <p>
+      <strong>Update interval</strong><br />
+      <%= @episodes_update.humanize.capitalize %>
+    </p>
+    <p>
+      <strong>Last occurance</strong><br />
+      <%= time_ago_in_words(@episodes_updated.first.created_at) %> ago
+    </p>
+  </li>
+  <% end %>
+
+  <% if @banners_updated.any? %>
+  <li>
+    <h2>Banners</h2>
+    <p><%= system_status(@banners_updated.first.created_at, @banners_update.run_interval) %></p>
+    <p>
+      <strong>Update interval</strong><br />
+      <%= @banners_update.humanize.capitalize %>
+    </p>
+    <p>
+      <strong>Last occurance</strong><br />
+      <%= time_ago_in_words(@banners_updated.first.created_at) %> ago
+    </p>
+  </li>
+  <% end %>
+
+  <% if @show_trends_updated.any? %>
+  <li>
+    <h2>Trends</h2>
+    <p><%= system_status(@show_trends_updated.first.created_at, @trends_update.run_interval) %></p>
+    <p>
+      <strong>Update interval</strong><br />
+      <%= @trends_update.humanize.capitalize %>
+    </p>
+    <p>
+      <strong>Last occurance</strong><br />
+      <%= time_ago_in_words(@show_trends_updated.first.created_at) %> ago
+    </p>
+  </li>
+  <% end %>
+
+  <% if @show_trends_updated.any? %>
+  <li>
+    <h2>Emailer</h2>
+    <p><%= system_status(@show_trends_updated.first.created_at, @trends_update.run_interval, @next_email.blank?) %></p>
+    <p>
+      <strong>Update interval</strong><br />
+      <%= @send_emails.humanize.capitalize %>
+    </p>
+    <p>
+      <strong>First queued</strong><br />
+      <%= @next_email ? @next_email.created_on.to_s(:short) : "No emails to send." %>
+    </p>
+  </li>
+  <% end %>
+</ul>

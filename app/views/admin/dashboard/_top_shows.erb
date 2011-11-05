@@ -1,0 +1,29 @@
+<%
+@uniq_show_ids = Following.find(:all, :group => :show_id, :order => "show_id ASC")
+@uniq_shows = Show.find(:all, :conditions => ["id IN (?)", @uniq_show_ids.collect(&:show_id)], :order => "followers DESC", :limit => 25)
+%>
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        
+        dataTable.addColumn('string');
+        dataTable.addColumn('number');
+        
+        dataTable.addRows([
+        <% @uniq_shows.each do |show| %>
+          ['<%= escape_javascript(show.name) %>',<%= show.followers %>],
+        <% end %>
+        ]);
+    
+        var maxVal = <%= @uniq_shows[0].followers + (@uniq_shows[0].followers / 10) %>;
+        var interval = Math.floor((maxVal/100)*10);
+        var y_delimiter = 100 / <%= @uniq_shows.size %>;
+        var x_delimiter = (100 / maxVal)*interval;
+    
+        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 550, height: 500, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter + ',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|860954cc'};
+        var chart = new google.visualization.ImageChart(document.getElementById('top_followed_shows'));
+        chart.draw(dataTable, options);
+      }
+    </script>
+    <div id="top_followed_shows" class="graph"></div>

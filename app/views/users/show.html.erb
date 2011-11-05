@@ -1,0 +1,23 @@
+<% title "#{@user.display_name}'s profile" %>
+<% body_class "user_profile" %>
+<div class="user_profile_image"><%= image_tag(@user.gravatar_size(110)) %></div>
+<h2><%= "#{@user.display_name.capitalize}'s profile" %></h2>
+<p><strong>Member since:</strong> <%= @user.created_at.to_s(:long) %></p>
+<% if admin? %>
+<p><%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome red") %></p>
+<% end %>
+
+<h2 class="center">Top shows</h2>
+<div class="margin_bottom">
+  <ul class="shows">
+  <% @top_shows.each do |following| %>
+	  <li class="popular">
+	    <div class="banner">
+	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{following.show.banner(:small)}') 50% 50% no-repeat;") %>	      
+      </div>
+	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
+      <p><%= following.marked_episodes_count %>/<%= following.show.episodes_count %> = <%= (following.marked_episodes_count.to_f / following.show.episodes_count).round(2) * 100 %>%</p>
+    </li>
+  <% end %>
+  </ul>
+</div>

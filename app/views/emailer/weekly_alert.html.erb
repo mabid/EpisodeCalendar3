@@ -1,0 +1,6 @@
+<h2 style="font-size: 16px;">Hi <span style="font-size: 24px; color: #da0c87;"><%= @user.display_name %>!</span> <%= @user.only_premiere_notification ? "New premieres this upcoming week!" : "These are your episodes for the upcoming week!" %></h2>
+
+<% @episodes.each do |episode| %>
+  <strong style="font-size: 14px;"><%= episode[0] %></strong><br />
+  <span style="color: #666666;"><%= episode[1] %>:</span> <%= episode[2] %><br /><br />
+<% end %>

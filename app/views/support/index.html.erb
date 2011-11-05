@@ -1,0 +1,155 @@
+<% title "Information" %>
+<% body_class "info" %>
+
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+  feedback_widget_options.display = "overlay";  
+  feedback_widget_options.company = "episode_calendar";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#000";
+  feedback_widget_options.style = "idea";
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
+
+<%# cache do %>
+<div id="features_wrapper">
+  <h1 class="center">Episode Calendar Features</h1>
+  <ul id="features">
+    <li>
+      <%= image_tag("info/calendar.jpg?1") %>
+      <h2>Personal TV-show calendar</h2>
+      <p>Keep track of air dates for all your favorite TV-shows in your personal calendar.</p>
+    </li>
+    <li>
+      <%= image_tag("info/show.jpg?1") %>
+      <h2>Detailed show summary</h2>
+      <p>Get a detailed summary for all your shows including episode recaps and statistics.</p>
+    </li>
+    <li>
+      <%= image_tag("info/checklist.jpg?1") %>
+      <h2>Practical episode checklist</h2>
+      <p>Check off an episode once you’ve seen it to easily keep track of what to see next.</p>
+    </li>
+  </ul>
+
+  <h2 class="center">Other awesome features</h2>
+  <ul id="additional">
+    <li>
+      <%= image_tag("icons/big/notifications.png?1") %>
+      <h3>Notifications</h3>
+      <p>Daily or weekly emails.</p>
+    </li>
+    <li>
+      <%= image_tag("icons/big/rss.png?1") %>
+      <h3>RSS feeds</h3>
+      <p>Instant updates in your favorite reader.</p>
+    </li>
+    <li>
+      <%= image_tag("icons/big/user.png?1") %>
+      <%= image_tag("icons/big/coming_soon.png?1", :class => :coming_soon) %>
+      <h3>User profiles</h3>
+      <p>See what your friends are watching.</p>
+    </li>
+    <li>
+      <%= image_tag("icons/big/phones.png?1") %>
+      <h3>Mobile support</h3>
+      <p>Use Episode Calendar in your mobile device.</p>
+    </li>
+  </ul>
+  
+  <h2 class="center">Mobile apps</h2>
+  <p class="center">These apps are not intended to be full-featured mobile versions of the website. Functionality might be extended in the future.</p>
+  <ul id="apps">
+    <li>
+      <%= image_tag("phones/iphone.png?1") %>
+      <h3>Apple iPhone</h3>
+      <p>Available at the<br /><%= link_to("App Store", "http://itunes.apple.com/en/app/episodecalendar/id469786383", :rel => "external") %>.</p>
+    </li>
+    <li>
+      <%= image_tag("phones/android.png?1") %>
+      <h3>Google Android</h3>
+      <p>Available at the<br /><%= link_to("Android Market", "https://market.android.com/details?id=com.mk.episodecalendar", :rel => "external") %>.</p>
+    </li>
+    <li>
+      <%= image_tag("phones/windows.png?1") %>
+      <h3>Windows Phone 7</h3>
+      <p>Development discontinued until WP7 gets popular.</p>
+    </li>
+    <li>
+      <%= image_tag("phones/adobe.png?1") %>
+      <h3>Desktop application</h3>
+      <p>For PC, Mac and Linux! <%= link_to("Download", "/air/com.flashpatric.episodecalendar.air", :rel => "external") %>.</p>
+    </li>
+  </ul>
+</div>
+<%# end %>
+
+<div id="contact"> 
+  
+  <div class="width_33">
+    <h2 class="center">Contact &amp; suggestions</h2>
+    <p>
+      <h3>Do you have a question or a suggestion?</h3>
+      Let me know by filling out the form to your right,<br />and I'll answer as soon as I can!
+    </p>
+    <p>
+      <h3>Missing a show?</h3>
+      <%= link_to("Search and request a show", request_show_path, :class => "awesome medium magenta") %>
+    </p>
+    <p>
+      <h3>Any incorrect data?</h3>
+      All show- and episode information is fetched from <%= link_to("The TV Database", "http://www.thetvdb.com", :rel => :external) %>.
+    </p>
+  </div>
+  <div class="width_66">  
+    <%= form_for @ticket do |f| %>
+      <fieldset>
+        <div class="pad">
+            <div class="width_34">
+              <% if logged_in? %>
+                <div class="form_element">
+                  <%= f.label :from, "Sent from" %><br />
+                  <%= f.text_field :from, :value => current_user.display_name, :disabled => true %>
+                </div>
+              <% else %>
+                <div class="form_element">
+                  <%= f.label :email, "Your email" %><br />
+                  <%= f.text_field :email %>
+                </div>
+              <% end %>
+              <div class="form_element">
+                <%= f.label :subject %><br />
+                <%= f.text_field :subject %>
+              </div>
+              <div class="form_element">
+                <%= f.label :category %><br />
+                <div class="select_wrapper">
+                  <%= f.select(:category, options_for_select(Constant.ticket_categories.map(&:value)), :include_blank => true) %>
+                </div>
+              </div>
+            </div>
+            <div class="width_66">
+              <div class="form_element">
+                <%= f.label :message %><br />
+                <%= f.text_area :message, :rows => 8 %>
+              </div>
+              <div class="form_element">
+                <%= f.submit "Send", :class => :submit %>
+                <%= f.text_field :human %>
+              </div>
+            </div>
+        </div>
+        <%= render "partials/error_messages", :model => @ticket %>
+        <%= content_tag(:div, flash[:notice], :id => :notice, :class => :static) if flash[:notice] %>
+        <%= content_tag(:div, flash[:error], :id => :error, :class => :static) if flash[:error] %>
+      </fieldset>
+    <% end %>
+  </div>
+  
+</div>

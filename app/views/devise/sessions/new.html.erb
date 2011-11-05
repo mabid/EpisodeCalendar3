@@ -1,0 +1,39 @@
+<% body_class "info" %>
+<div id="devise">
+  
+  <div class="width_50">
+    
+    <h2>Login now</h2>    
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <p>
+        <%= f.label :email %><br />
+        <%= f.text_field :email, :class => :big %>
+      </p>
+    
+      <p>
+        <%= f.label :password %><br />
+        <%= f.password_field :password, :class => :big %>
+      </p>
+    
+      <% if devise_mapping.rememberable? %>
+        <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+      <% end -%>
+    
+      <p><%= f.submit "Enter", :class => :submit %></p>
+    <% end %>
+    
+		<% flash.each do |key, msg| %>
+		  <%= content_tag(:div, msg, :id => key) %>
+		<% end %>
+    
+  </div>
+  <div class="width_50">
+
+    <h2>Oh no!</h2>
+    <p class="big">I forgot my password. What do I do?</p>
+    <p>Don't worry. You can easily get a new one.</p>
+    <p><%= link_to("Renew password", new_user_password_path, :class => :submit) %></p>
+  
+  </div>
+  
+</div>

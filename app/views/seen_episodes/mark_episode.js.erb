@@ -1,0 +1,21 @@
+$("#ajax_loader_<%= @episode.id %>").hide();
+$("#ajax_loader_<%= @episode.id %>").siblings(".hide_while_loading").show();
+
+if ($("#unwatched_episodes")) {
+  var show_id = $("#episode_<%= @episode.id %>").attr("rel");
+  var $anchor_counter = $("#" + show_id).find("a span");
+  var new_count = parseInt($anchor_counter.text());
+  <%= @mark_as_seen %> == 1 ? new_count-- : new_count++;
+  $anchor_counter.text(new_count);
+  
+  if (new_count == 0) {
+    $("#" + show_id + "_episodes").slideUp(500);
+    $anchor_counter.parents("li").hide(500, function() {
+      var $anchors = $("#show_anchors").find("li:visible");
+      if ($anchors.length == 0) {
+        $("#show_anchors h1, #show_anchors ul").delay(300).slideUp(300);
+        $("#big_notice").delay(300).slideDown(300);
+      }
+    });
+  }
+}
