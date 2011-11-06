@@ -1,0 +1,7 @@
+api_key: 3C6AD70177AD3172
+updates_url: http://www.thetvdb.com/api/Updates.php?type=all&time=<time>
+show_url: http://www.thetvdb.com/api/<api_key>/series/<show_id>/en.xml
+show_with_episodes_url: http://www.thetvdb.com/api/<api_key>/series/<show_id>/all/en.xml
+episode_url: http://www.thetvdb.com/api/<api_key>/episodes/<episode_id>/en.xml
+search_url: http://www.thetvdb.com/api/GetSeries.php?seriesname=<query>&language=all
+banner_url: http://www.thetvdb.com/api/<api_key>/series/<show_id>/banners.xml

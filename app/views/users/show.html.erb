@@ -1,22 +1,29 @@
 <% title "#{@user.display_name}'s profile" %>
-<% body_class "user_profile" %>
 <div class="user_profile_image"><%= image_tag(@user.gravatar_size(110)) %></div>
-<h2><%= "#{@user.display_name.capitalize}'s profile" %></h2>
+<h1 class="big"><%= "#{@user.display_name.capitalize}'s profile" %></h1>
 <p><strong>Member since:</strong> <%= @user.created_at.to_s(:long) %></p>
 <% if admin? %>
 <p><%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome red") %></p>
 <% end %>
 
-<h2 class="center">Top shows</h2>
+<h1 class="center">Top shows</h1>
 <div class="margin_bottom">
   <ul class="shows">
   <% @top_shows.each do |following| %>
-	  <li class="popular">
+	  <li class="user_show">
 	    <div class="banner">
 	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{following.show.banner(:small)}') 50% 50% no-repeat;") %>	      
       </div>
 	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
-      <p><%= following.marked_episodes_count %>/<%= following.show.episodes_count %> = <%= (following.marked_episodes_count.to_f / following.show.episodes_count).round(2) * 100 %>%</p>
+	    <% percentage = (following.marked_episodes_count.to_f / following.show.episodes_count).round(2) * 100 %>
+	    <div class="progress_small_header"><%= following.show.episodes_count - following.marked_episodes_count %> episodes left</div>
+      <div class="progress_small_bar_wrapper progress_small">
+      	<div class="progress_bar">
+      		<div class="bar" style="width: <%= percentage %>%">
+      			<p><%= percentage %>%</p>
+      		</div>
+      	</div>
+      </div>
     </li>
   <% end %>
   </ul>

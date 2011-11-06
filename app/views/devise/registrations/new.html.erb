@@ -1,34 +1,39 @@
-<% body_class "info" %>
-<div id="devise">
-  
-  <div class="width_50">
-    
-    <h2>Forgot your password?</h2>
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+<% body_class "info" %>  
+<div class="width_50 center">
+  <div class="pad">
+    <h1><strong>Create an account</strong></h1>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
       <p>
-        <%= f.label :email %><br />
-        <%= f.text_field :email, :class => :big %>
+        <%= f.label :email, :class => :big %><br />
+        <%= f.text_field :email, :class => "center big" %>
+      </p>
+      <p>
+        <%= f.label :password, :class => :big %><br />
+        <%= f.password_field :password, :class => "center big" %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation, :class => :big %><br />
+        <%= f.password_field :password_confirmation, :class => "center big" %>
+      </p>
+      <p class="hidden">
+        <%= label_tag :username, :class => :big %><br />
+        <%= text_field_tag :username, nil, :class => "center big" %>
       </p>
     
-      <p><%= f.submit "Send", :class => :submit %></p>
+      <p><%= f.submit "Create", :class => "awesome magenta" %></p>
     <% end %>
-    
-		<% flash.each do |key, msg| %>
-		  <%= content_tag(:div, msg, :id => key) %>
-		<% end %>
-    
   </div>
-  <div class="width_50">
-
-    <h2>Did you know?</h2>
+</div>
+<div class="width_50 center">
+  <div class="pad">
+    <h1><strong>Did you know?</strong></h1>
     <p class="big">Episode Calendar offers you mobile apps!</p>
     <p>
       <%= image_tag("phones/iphone.png?1", :width => 64) %>
       <%= image_tag("phones/android.png?1", :width => 64) %>
       <%= image_tag("phones/windows.png?1", :width => 64) %>
     </p><br /><br />
-    <p><%= link_to("Other features", info_path, :class => :submit) %></p>
-  
-  </div>
-  
+    <p><%= link_to("Other features", info_path, :class => "awesome magenta") %></p>
+  </div>  
 </div>

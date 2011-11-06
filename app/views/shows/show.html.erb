@@ -66,11 +66,11 @@
     <% if @is_following %>
       <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoader") %>
       <span class="hide_while_loading">
-        <%= link_to("Mark show as watched", mark_show_path(@show.id), :class => "ajaxLink button", :rel => "ajaxLoader") %>
+        <%= link_to("Mark full show as watched", mark_show_path(@show.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
         <strong>or</strong> 
-        <%= link_to("Mark season as watched", mark_season_path(@show.id, @season.id), :class => "ajaxLink button", :rel => "ajaxLoader") %>
+        <%= link_to("Mark season as watched", mark_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
         <strong>or</strong> 
-        <%= link_to("Mark season as unwatched", unmark_season_path(@show.id, @season.id), :class => "ajaxLink button", :rel => "ajaxLoader") %>
+        <%= link_to("Mark season as unwatched", unmark_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
       </span>
     <% else %>
       You need to <%= logged_in? ? "add this show to your list" : "be logged in" %> to mark episodes as watched.
@@ -85,15 +85,15 @@
     <div class="episode <%= css_class %>">
       <div class="name">
         <strong><%= format_episode_number(e) %></strong>: <%= e.name %>
-        <%= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
+        <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
         <div class="rating"><span class="r<%= get_rating(e.rating) %>"></span></div>
       </div>
       <div class="overview">
         <% if e.friendly_overview.size > 180 %>
-          <div class="short"><%= truncate(e.friendly_overview, :length => 180, :separator => " ") %> <%= link_to(raw("read more &raquo;"), "#", :class => :toggle, :rel => "full") %></div>
-          <div class="full hidden"><%= e.friendly_overview %> <%= link_to(raw("&laquo; read less"), "#", :class => :toggle, :rel => "short") %></div>
+          <div class="short"><%= raw truncate(e.friendly_overview, :length => 180, :separator => " ") %> <%= link_to(raw("read more &raquo;"), "#", :class => :toggle, :rel => "full") %></div>
+          <div class="full hidden"><%= raw e.friendly_overview %> <%= link_to(raw("&laquo; read less"), "#", :class => :toggle, :rel => "short") %></div>
         <% else %>
-          <div class="short"><%= e.friendly_overview %></div>
+          <div class="short"><%= raw e.friendly_overview %></div>
         <% end %>
       </div>
       <div class="date">

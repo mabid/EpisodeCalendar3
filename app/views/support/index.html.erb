@@ -19,70 +19,70 @@
 
 <%# cache do %>
 <div id="features_wrapper">
-  <h1 class="center">Episode Calendar Features</h1>
+  <h1 class="center"><strong>Episode Calendar Features</strong></h1>
   <ul id="features">
     <li>
-      <%= image_tag("info/calendar.jpg?1") %>
+      <%= image_tag("info/calendar.jpg") %>
       <h2>Personal TV-show calendar</h2>
       <p>Keep track of air dates for all your favorite TV-shows in your personal calendar.</p>
     </li>
     <li>
-      <%= image_tag("info/show.jpg?1") %>
+      <%= image_tag("info/show.jpg") %>
       <h2>Detailed show summary</h2>
       <p>Get a detailed summary for all your shows including episode recaps and statistics.</p>
     </li>
     <li>
-      <%= image_tag("info/checklist.jpg?1") %>
+      <%= image_tag("info/checklist.jpg") %>
       <h2>Practical episode checklist</h2>
       <p>Check off an episode once you’ve seen it to easily keep track of what to see next.</p>
     </li>
   </ul>
 
-  <h2 class="center">Other awesome features</h2>
+  <h2 class="center big"><strong>Other awesome features</strong></h2>
   <ul id="additional">
     <li>
-      <%= image_tag("icons/big/notifications.png?1") %>
+      <%= image_tag("icons/big/notifications.png") %>
       <h3>Notifications</h3>
       <p>Daily or weekly emails.</p>
     </li>
     <li>
-      <%= image_tag("icons/big/rss.png?1") %>
+      <%= image_tag("icons/big/rss.png") %>
       <h3>RSS feeds</h3>
       <p>Instant updates in your favorite reader.</p>
     </li>
     <li>
-      <%= image_tag("icons/big/user.png?1") %>
-      <%= image_tag("icons/big/coming_soon.png?1", :class => :coming_soon) %>
+      <%= image_tag("icons/big/user.png") %>
+      <%= image_tag("icons/big/coming_soon.png", :class => :coming_soon) %>
       <h3>User profiles</h3>
       <p>See what your friends are watching.</p>
     </li>
     <li>
-      <%= image_tag("icons/big/phones.png?1") %>
+      <%= image_tag("icons/big/phones.png") %>
       <h3>Mobile support</h3>
       <p>Use Episode Calendar in your mobile device.</p>
     </li>
   </ul>
   
-  <h2 class="center">Mobile apps</h2>
+  <h2 class="center big"><strong>Mobile apps</strong></h2>
   <p class="center">These apps are not intended to be full-featured mobile versions of the website. Functionality might be extended in the future.</p>
   <ul id="apps">
     <li>
-      <%= image_tag("phones/iphone.png?1") %>
+      <%= image_tag("phones/iphone.png") %>
       <h3>Apple iPhone</h3>
       <p>Available at the<br /><%= link_to("App Store", "http://itunes.apple.com/en/app/episodecalendar/id469786383", :rel => "external") %>.</p>
     </li>
     <li>
-      <%= image_tag("phones/android.png?1") %>
+      <%= image_tag("phones/android.png") %>
       <h3>Google Android</h3>
       <p>Available at the<br /><%= link_to("Android Market", "https://market.android.com/details?id=com.mk.episodecalendar", :rel => "external") %>.</p>
     </li>
     <li>
-      <%= image_tag("phones/windows.png?1") %>
+      <%= image_tag("phones/windows.png") %>
       <h3>Windows Phone 7</h3>
       <p>Development discontinued until WP7 gets popular.</p>
     </li>
     <li>
-      <%= image_tag("phones/adobe.png?1") %>
+      <%= image_tag("phones/adobe.png") %>
       <h3>Desktop application</h3>
       <p>For PC, Mac and Linux! <%= link_to("Download", "/air/com.flashpatric.episodecalendar.air", :rel => "external") %>.</p>
     </li>
@@ -93,17 +93,17 @@
 <div id="contact"> 
   
   <div class="width_33">
-    <h2 class="center">Contact &amp; suggestions</h2>
+    <h2 class="center big"><strong>Contact &amp; suggestions</strong></h2>
+    <h3><strong>Do you have a question or a suggestion?</strong></h3>
     <p>
-      <h3>Do you have a question or a suggestion?</h3>
       Let me know by filling out the form to your right,<br />and I'll answer as soon as I can!
     </p>
+    <h3><strong>Missing a show?</strong></h3>
     <p>
-      <h3>Missing a show?</h3>
       <%= link_to("Search and request a show", request_show_path, :class => "awesome medium magenta") %>
     </p>
+    <h3><strong>Any incorrect data?</strong></h3>
     <p>
-      <h3>Any incorrect data?</h3>
       All show- and episode information is fetched from <%= link_to("The TV Database", "http://www.thetvdb.com", :rel => :external) %>.
     </p>
   </div>
@@ -140,7 +140,7 @@
                 <%= f.text_area :message, :rows => 8 %>
               </div>
               <div class="form_element">
-                <%= f.submit "Send", :class => :submit %>
+                <%= f.submit "Send", :class => "awesome magenta" %>
                 <%= f.text_field :human %>
               </div>
             </div>

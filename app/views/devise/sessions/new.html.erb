@@ -1,39 +1,35 @@
 <% body_class "info" %>
-<div id="devise">
-  
-  <div class="width_50">
-    
-    <h2>Login now</h2>    
+<div class="center width_50">
+  <div class="pad">
+    <h1><strong>Login now</strong></h1>    
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
       <p>
-        <%= f.label :email %><br />
-        <%= f.text_field :email, :class => :big %>
+        <%= f.label :email, :class => :big %><br />
+        <%= f.text_field :email, :class => "center big" %>
       </p>
     
       <p>
-        <%= f.label :password %><br />
-        <%= f.password_field :password, :class => :big %>
+        <%= f.label :password, :class => :big %><br />
+        <%= f.password_field :password, :class => "center big" %>
       </p>
     
       <% if devise_mapping.rememberable? %>
-        <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+        <p><%= f.check_box :remember_me %> <%= f.label :remember_me, :class => :big %></p>
       <% end -%>
     
-      <p><%= f.submit "Enter", :class => :submit %></p>
+      <p><%= f.submit "Enter", :class => "awesome magenta" %></p>
     <% end %>
     
-		<% flash.each do |key, msg| %>
-		  <%= content_tag(:div, msg, :id => key) %>
-		<% end %>
-    
+  	<% flash.each do |key, msg| %>
+  	  <%= content_tag(:div, msg, :id => key) %>
+  	<% end %>
   </div>
-  <div class="width_50">
-
-    <h2>Oh no!</h2>
+</div>
+<div class="width_50 center">
+  <div class="pad">
+    <h1><strong>Oh no!</strong></h1>
     <p class="big">I forgot my password. What do I do?</p>
     <p>Don't worry. You can easily get a new one.</p>
-    <p><%= link_to("Renew password", new_user_password_path, :class => :submit) %></p>
-  
+    <p><%= link_to("Renew password", new_user_password_path, :class => "awesome magenta") %></p>
   </div>
-  
 </div>
