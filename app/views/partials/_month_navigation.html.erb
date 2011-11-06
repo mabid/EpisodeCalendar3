@@ -11,9 +11,9 @@ current_month = "#{Date::MONTHNAMES[current.month]}"
 %>
 <table id="month_navigation" width="100%">
 	<tr>
-		<td width="44%" align="right"><%= content_tag(:h2, prev_link) if !@prev_limit %></td>
-		<td><%= content_tag(:h1, current_month) %></td>
-		<td width="44%"><%= content_tag(:h2, next_link) if !@next_limit %></td>
+		<td width="44%" align="right"><%= content_tag(:h3, prev_link) if !@prev_limit %></td>
+		<td><%= content_tag(:h2, current_month) %></td>
+		<td width="44%"><%= content_tag(:h3, next_link) if !@next_limit %></td>
 	</tr>
 </table>
-<%= content_tag(:h3, @current.year, :class => "month") %>
+<%= content_tag(:p, raw("<strong>#{@current.year}</strong>"), :class => "month") %>

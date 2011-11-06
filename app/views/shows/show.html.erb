@@ -1,66 +1,68 @@
 <% title @show.name %>
-<% body_class "show_page" %>
 <% meta @show.overview %>
 <% share_url show_url(:permalink => @show.permalink) %>
 <% share_title "TV Episode Calendar - #{yield(:title)}" %>
 
-<div id="show_info">
-  <div class="banner_shadow"></div>
-  <% if @show.banner %>
-  <div class="banner">
-      <%= image_tag(@show.banner, :alt => @show.name, :width => 758, :height => 140) %>
-  </div>
-  <% else %>
-  <%= content_tag(:h1, @show.name) %>
-  <div class="banner">
-    <%= image_tag("missing_show_banner.png", :alt => @show.name, :width => 758, :height => 140) %>
-  </div>
-  <% end %>
-  <div id="secondary_show_info">
-    <div class="note_wrapper">
-      <%= link_to("Edit", edit_admin_show_path(@show), :id => :edit_link) if admin? %>
-      <div id="status_icon"><%= print_status_icon(@show) %></div>
-      <ul class="note">
-        <li class="first"><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
-        <% if @seasons.any? %>
-        <li><strong>Seasons:</strong> <%= @season_size %></li>
-        <li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
-        <li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
-        <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= print_popularity(@show) %></li>
-        <% else %>
-        <li><strong>Seasons:</strong> 0</li>
-        <li><strong>Episodes:</strong> 0</li>
-        <li><strong>Followers:</strong> <%= @show.followers %> <%= print_trend(@show) %></li>
-        <li><strong>Popularity rank:</strong> <%= raw print_popularity(@show) %></li>
-        <% end %>
-      </ul>
+<div class="page_header">
+  <div id="show_info">
+    <div class="banner_shadow"></div>
+    <% if @show.banner %>
+    <div class="banner">
+        <%= image_tag(@show.banner, :alt => @show.name, :width => 758, :height => 140) %>
     </div>
-    <div id="time_and_network">
-      <p><%= raw print_air_time(@show) unless @show.ended? %></p>
+    <% else %>
+    <%= content_tag(:h1, @show.name) %>
+    <div class="banner">
+      <%= image_tag("missing_show_banner.png", :alt => @show.name, :width => 758, :height => 140) %>
     </div>
-    <% if logged_in? %>
-      <div id="add_or_like">
-      <% unless current_user.is_following(@show) %>
-        <%= link_to("Add to My shows", add_show_path(@show.permalink), :id => :add_button) %>
-      <% else %>
-          <%= icon_tag("smiley", 24) %> <strong>You are following this show</strong>
-          <span id="facebook_button"><span><%= @show.id %></span></span>
-      <% end %>
-      </div>
     <% end %>
+    <div id="secondary_show_info">
+      <div class="note_wrapper">
+        <%= link_to("Edit", edit_admin_show_path(@show), :id => :edit_link) if admin? %>
+        <div id="status_icon"><%= print_status_icon(@show) %></div>
+        <ul class="note">
+          <li class="first"><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
+          <% if @seasons.any? %>
+          <li><strong>Seasons:</strong> <%= @season_size %></li>
+          <li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
+          <li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
+          <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= print_popularity(@show) %></li>
+          <% else %>
+          <li><strong>Seasons:</strong> 0</li>
+          <li><strong>Episodes:</strong> 0</li>
+          <li><strong>Followers:</strong> <%= @show.followers %> <%= print_trend(@show) %></li>
+          <li><strong>Popularity rank:</strong> <%= raw print_popularity(@show) %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div id="time_and_network">
+        <p><%= raw print_air_time(@show) unless @show.ended? %></p>
+      </div>
+      <% if logged_in? %>
+        <div id="add_or_like">
+        <% unless current_user.is_following(@show) %>
+          <%= link_to("Add to My shows", add_show_path(@show.permalink), :id => :add_button) %>
+        <% else %>
+            <%= icon_tag("smiley", 24) %> <strong>You are following this show</strong>
+            <span id="facebook_button"><span><%= @show.id %></span></span>
+        <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-
-<% if @seasons.any? %>
 
   <h3 id="season_pagination_header">Seasons:</h3>
   <ul id="season_pagination">
   <% @seasons.each do |season| %>
-    <li class="<%= @season.number == season.number ? "selected" : ""%>">
+    <li class="tab <%= @season.number == season.number ? "selected" : ""%>">
       <%= link_to(season.display_name, show_season_path(:permalink => @show.permalink, :season => season.number)) %>
     </li>
   <% end %>
   </ul>
+  
+</div>
+
+<% if @seasons.any? %>
   
   <div class="options">
     <% if @is_following %>

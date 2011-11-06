@@ -28,7 +28,7 @@
       	<% show_episodes.each do |e| %>
       	  <li>
       	    <%= print_calendar_episode(e, false) %>
-        	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(1)})" %></h3><span><%= e.friendly_overview %></span></div>
+        	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(1)})" %></h3><span><%= raw e.friendly_overview %></span></div>
         	</li>
       	<% end %>
       	</ul>

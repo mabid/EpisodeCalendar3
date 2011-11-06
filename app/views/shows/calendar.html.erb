@@ -26,7 +26,7 @@
       	    <% seen = @seen_episodes.include?(e.id) %>
       	    <%= raw print_calendar_episode(e, seen) %>
         	  <div id="tip_<%= e.id %>" class="hidden">
-        	    <h3><%= "#{e.name} (#{e.format(current_user.episode_format)})" %></h3><span><%= e.friendly_overview %></span>
+        	    <h3><%= "#{e.name} (#{e.format(current_user.episode_format)})" %></h3><span><%= raw e.friendly_overview %></span>
         	    <div class="<%= "seen" if seen %>"><%= seen ? icon_tag("status_green") + " This episode is marked as watched." : icon_tag("status_red") + " You have not watched this episode." %></div>
       	    </div>
         	</li>

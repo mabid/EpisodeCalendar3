@@ -1,11 +1,13 @@
 <% body_class "settings" %>
 
-<div id="request_header">
-  <h1>Missing a show? Try searching for it here.</h1>
-  <%= form_tag("/support/request_show", :method => :get) do %>
-    <%= text_field_tag :query, params[:query] %>
-    <%= submit_tag "Search", :name => nil, :class => :submit %>
-  <% end %>
+<div class="page_header">
+  <div id="request_header">
+    <h1><strong>Missing a show? Try searching for it here.</strong></h1>
+    <%= form_tag("/support/request_show", :method => :get) do %>
+      <%= text_field_tag :query, params[:query] %>
+      <%= submit_tag "Search", :name => nil, :class => "awesome magenta" %>
+    <% end %>
+  </div>
 </div>
 
 <% if params[:query] %>

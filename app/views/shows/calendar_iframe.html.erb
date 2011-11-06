@@ -24,7 +24,7 @@
       	<% show_episodes.each do |e| %>
       	  <li>
       	    <%= print_iframe_calendar_episode(e, @user) %>
-        	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(@user.episode_format)})" %></h3><span><%= e.friendly_overview %></span></div>
+        	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(@user.episode_format)})" %></h3><span><%= raw e.friendly_overview %></span></div>
         	</li>
       	<% end %>
       	</ul>

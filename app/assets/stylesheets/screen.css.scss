@@ -86,6 +86,8 @@ body {
   background: #fff;
   padding: 26px 0 50px 0;
   position: relative;
+  overflow: hidden;
+  z-index: 0;
 }
 
   /* Shadow */
@@ -98,15 +100,12 @@ body {
     width: 100%;
     border-top: 1px solid #9c9c9c;
     @include linear-gradient(#c0c0c0, #f9f9f9);
+    z-index: 9999px;
   }
   
   body.start #page_container { 
     @include linear-gradient(#fff, #eaeaea);
     padding-bottom: 0;
-  }
-  
-  body.show_page #page_container { 
-    background: #fff image-url("gradients/show_page_gradient.png") 0 0 repeat-x;
   }
   
   body.info #page_container { 
@@ -116,8 +115,25 @@ body {
     }
   }
   
-  body.settings #page_container { 
-    background: #fff image-url("gradients/settings_page_gradient.png") 0 0 repeat-x;
+  .page_header {
+    position: relative;
+    z-index: 0;
+    padding: 0 0 1px 0;
+    margin: 0 0 20px 0;
+    & > * {
+      position: relative;
+    }
+    &:before {
+      content: "";
+      @include linear-gradient(#f6f6f6, #eee);
+      border-bottom: 1px solid #d2d2d2;
+      position: absolute;
+      left: -9999px;
+      top: -19px;
+      right: -9999px;
+      bottom: 0;
+      z-index: 0;
+    }
   }
 
   #page {
@@ -182,11 +198,11 @@ a,
 a:link,
 a:visited,
 a:hover {
-  color: #6481E7;
+  color: $blue_theme_color;
 }
 
 span.cancelled {
-  border-bottom: 1px solid #aaf;
+  border-bottom: 1px solid $light_blue_theme_color;
   color: #FF0000;
   font-weight: bold;
 }
@@ -398,8 +414,10 @@ fieldset #notice
   cursor: pointer;
 }
 
-/* CLASSES ---------------------------------------------------------------------------------------------------------------------- */
+/* Classes
+ * ---------------------------------------------------------------------------------------------------------------------- */
 
+.hidden { display: none; }
 .center { text-align: center; }
 .center div { margin: 0 auto; }
 
@@ -418,7 +436,7 @@ fieldset #notice
 a.red, .red { color: #f00; }
 a.alternative {
   color: #000;
-  border-bottom: 1px solid #aaf;
+  border-bottom: 1px solid $light_blue_theme_color;
 }
 
 .float_left, .column { float: left; }
@@ -431,29 +449,29 @@ a.alternative {
   position: relative;
 }
 
-#print {
-  position: absolute;
-  top: 42px;
-  z-index: 1;
-  background-position: -160px -16px;
-  padding: 0 0 0 20px;
-  font-size: 10px;
-  font-weight: bold;
-  line-height: 16px;
-  margin: 0 0 0 1220px;
+.tab {
+  float: left;
+  a {
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    color: #aaa;
+    border: 1px solid #d7d7d7;
+    border-bottom: 0;
+    @include border-radius(5px 5px 0 0);
+    @include linear-gradient(#f6f6f6, #f4f4f4);
+    &:hover {
+      color: $pink_theme_color;
+    }
+  }
+  &.selected a {
+    @include linear-gradient(#a00d65, #d00b81);
+    color: #fff !important;
+  }
 }
-
-.note_wrapper {
-  float: right;
-  background: #000;
-  border: 5px #000 solid;
-  color: #fff;
-  width: 380px;
-  position: relative;
-  padding: 5px;
-  @include border-radius(5px);
-  @include box-shadow(0 2px 4px #999);
-}
+  
+/* Trends
+ * ---------------------------------------------------------------------------------------------------------------------- */
 
 #trends {
   overflow: hidden;
@@ -544,6 +562,30 @@ a.alternative {
   top: -23px;
 }
 
+#print {
+  position: absolute;
+  top: 42px;
+  z-index: 1;
+  background-position: -160px -16px;
+  padding: 0 0 0 20px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 16px;
+  margin: 0 0 0 1220px;
+}
+
+.note_wrapper {
+  float: right;
+  background: #000;
+  border: 5px #000 solid;
+  color: #fff;
+  width: 380px;
+  position: relative;
+  padding: 5px;
+  @include border-radius(5px);
+  @include box-shadow(0 2px 4px #999);
+}
+
 #notice {
   margin: 20px 0;
   padding: 10px;
@@ -621,12 +663,6 @@ a.alternative {
   margin: 0 0 0 15px;
 }
 
-#page .boxes .active_div { background: image-url("box_active.png") 50% 0 no-repeat; }
-#page .boxes .active_div h2 { text-shadow: 1px 1px 0 #e4ffe4; }
-
-#page .boxes .active_div_error { background: image-url("box_error.png") 50% 0 no-repeat; }
-#page .boxes .active_div_error h2 { text-shadow: 1px 1px 0 #faa; }
-
 /* HEADER ------------------------------------------------------------------------------------------------------------------------- */
 
 #header {
@@ -681,10 +717,9 @@ a.alternative {
       @include border-radius(5px 0 0 5px);
       color: #999;
       font-size: 0.9em;
-    }
-    
-    #search #q:focus {
-      color: #fff;
+      &:focus {
+        color: #fff;
+      }
     }
     
     #search input.submit {
@@ -701,12 +736,11 @@ a.alternative {
       margin: 6px 0 4px 4px;
       color: #fff;
       font-size: 0.8em;
-    }
-    
-      #search p a {
+      a {
         font-size: 1.1em;
-        color: #aaf;
+        color: $light_blue_theme_color;
       }
+    }
 
 #menu_wrapper { float: right; }
 
@@ -806,11 +840,11 @@ ul#menu li {
 
 #container #header #menu_wrapper ul a:hover,
 #container #header #menu_wrapper ul a.active {
-  @include linear-gradient(#830952, #da0c87);
+  @include linear-gradient(#830952, $pink_theme_color);
 }
 
 #header ul a:active {
-  @include linear-gradient(#830952, #da0c87);
+  @include linear-gradient(#830952, $pink_theme_color);
 }
 
 #header ul img.icon { margin: 0 5px 0 0; }
@@ -834,47 +868,33 @@ ul#menu li {
 
 /* CALENDAR ------------------------------------------------------------------------------------------------------------------------- */
 
-#month_navigation h1 {
+#month_navigation h2 {
   margin: 0 auto;
-  font-family: Arial;
-  letter-spacing: -1px;
-  font-size: 2.4em;
   text-align: center;
-  padding: 0;
 }
 
-#month_navigation h2 {
-  font-size: 1.6em;
-  font-weight: normal;
+#month_navigation h3 {
   margin: 0 20px 0 20px;
   text-shadow: none;
 }
 
-#page h3.month {
+#page .month {
   margin: -5px auto 10px auto;
-  padding: 0;
   text-align: center;
-  font-size: 0.8em;
   color: #ccc;
   width: 100px;
-  font-family: Tahoma, Verdana, Helvetica, Arial, Sans-serif;
-  text-shadow: none;
 }
 
 #calendar {
-  margin: 0 auto;
   width: 100%;
-  font-size: 1em;
 }
 
 #calendar a {
-  font-size: 1em;
   color: #000;
-  border-bottom: 1px #aaf solid;
+  border-bottom: 1px $light_blue_theme_color solid;
 }
 
 #calendar a:hover {
-  font-size: 1em;
   color: #77f;
   border-bottom: 1px #000 solid;
 }
@@ -892,13 +912,11 @@ a.premiere:hover {
 }
 
 #calendar .calendar_day_other_month a {
-  font-size: 1em;
   color: #999;
-  border-bottom: 1px #aaf solid;
+  border-bottom: 1px $light_blue_theme_color solid;
 }
 
 #calendar .calendar_day_other_month a:hover {
-  font-size: 1em;
   color: #7777FF;
   border-bottom: 1px #999 solid;
 }
@@ -1066,8 +1084,6 @@ a.premiere:hover {
 
 #request_header h1 {
   margin: 0 0 18px 0;
-  font-weight: bold;
-  font-size: 2.75em;
 }
 
 #requested_shows {
@@ -1406,7 +1422,7 @@ a.premiere:hover {
 
     #page .shows li a {
       color: #000;
-      border-bottom: 1px #aaf solid;
+      border-bottom: 1px $light_blue_theme_color solid;
       font-weight: bold;
     }
 
@@ -1462,7 +1478,7 @@ a.premiere:hover {
 
 .my_shows strong a {
   color: #000;
-  border-bottom: 1px #aaf solid;
+  border-bottom: 1px $light_blue_theme_color solid;
 }
 
 .my_shows strong a:hover {
@@ -1594,7 +1610,7 @@ a.premiere:hover {
   }
   
   #show_info h2 a span {
-    border-bottom: 1px #aaf solid;
+    border-bottom: 1px $light_blue_theme_color solid;
     color: #000;
     text-shadow: none;
   }
@@ -1659,32 +1675,29 @@ h3#season_pagination_header {
 
 #season_pagination {
   overflow: hidden;
-  margin: 0 0 20px 0;
+  position: relative;
 }
 
   #season_pagination li {
     float: left;
-    background: image-url("sprites/pagination_tabs.png") 100% -24px no-repeat;
+    //background: image-url("sprites/pagination_tabs.png") 100% -24px no-repeat;
     margin: 0 -1px 0 0
   }
 
   #season_pagination li a {
-    background: image-url("sprites/pagination_tabs.png") 0 0 no-repeat;
-    display: block;
+    //background: image-url("sprites/pagination_tabs.png") 0 0 no-repeat;
     line-height: 26px;
     height: 24px;
-    text-align: center;
-    color: #aaa;
     font-size: 15px;
-    font-weight: bold;
     padding: 0 20px;
     font-family: arial, sans-serif;
   }
-  #season_pagination li a:hover { color: #da0c87; }
   
-  #season_pagination li.selected { background-position: 100% -72px; }
+  #season_pagination li.selected {
+    //background-position: 100% -72px;
+  }
   #season_pagination li.selected a {
-    background-position: 0 -48px;
+    //background-position: 0 -48px;
     color: #fff;
   }
   
@@ -1856,7 +1869,7 @@ h3#season_pagination_header {
     
     #show_anchors ul a:hover,
     #show_anchors ul a.selected {
-      @include linear-gradient(#830952, #da0c87);
+      @include linear-gradient(#830952, $pink_theme_color);
     }
 
 .season_list {
@@ -1876,12 +1889,12 @@ h3#season_pagination_header {
 .season_group h3 a,
 .season_group_static h3 a {
   color: #000;
-  border-bottom: 1px solid #6481E7;
+  border-bottom: 1px solid $blue_theme_color;
 }
 
 .season_group h3 a:hover,
 .season_group_static h3 a:hover {
-  color: #6481E7;
+  color: $blue_theme_color;
   border-bottom: 1px solid #000;
 }
 
@@ -2013,7 +2026,7 @@ h3#season_pagination_header {
 
 #search_results h3 a {
   color: #000;
-  border-bottom: 1px #aaf solid;
+  border-bottom: 1px $light_blue_theme_color solid;
   font-size: 1.4em;
 }
 
@@ -2061,6 +2074,10 @@ h3#season_pagination_header {
   float: left;
 }
 
+.asd {
+  background: #fff image-url("gradients/settings_page_gradient.png") 0 0 repeat-x;
+}
+
 #settings h2 {
   font-size: 2.4em;
   margin: 0 0 1em 0;
@@ -2080,39 +2097,22 @@ h3#season_pagination_header {
 
   #settings_pagination {
     overflow: hidden;
-    margin: 0 0 50px 0;
     clear: both;
+    position: relative;
   }
   
-    #settings_pagination li {
-      float: left;
-      background: image-url("sprites/settings_tabs.png") 100% -38px no-repeat;
-    }
-  
     #settings_pagination li a {
-      background: image-url("sprites/settings_tabs.png") 0 0 no-repeat;
-      display: block;
       line-height: 42px;
       height: 38px;
-      text-align: center;
       color: #000;
       font-size: 15px;
-      font-weight: bold;
       padding: 0 20px 0 15px;
-      font-family: Arial, sans-serif;
       outline: none;
     }
     
     #settings_pagination li .icon {
       top: 7px;
       margin: 0 5px 0 0;
-    }
-    #settings_pagination li a:hover { color: #da0c87; }
-    
-    #settings_pagination li.selected { background-position: 100% -114px; }
-    #settings_pagination li.selected a {
-      background: image-url("sprites/settings_tabs.png") 0 -76px no-repeat;
-      color: #fff;
     }
     
   #content_carousel {
@@ -2219,7 +2219,7 @@ h3#season_pagination_header {
 }
 
 #user_pagination a, #show_pagination a {
-  border-bottom: 1px solid #aaf;
+  border-bottom: 1px solid $light_blue_theme_color;
   color: #000;
 }
 
@@ -2252,7 +2252,7 @@ h3#season_pagination_header {
 }
 
 #users .avatar a {
-  border-bottom:1px solid #aaf;
+  border-bottom:1px solid $light_blue_theme_color;
   color:#000;
   font-size:1em;
   font-weight: bold;
@@ -2285,7 +2285,7 @@ h3#season_pagination_header {
 .user_profile_image {
   float: left;
   margin: 0 20px 10px 0;
-  border: 3px solid #da0c87;
+  border: 3px solid $pink_theme_color;
   padding: 1px;
   @include border-radius(3px);
 }
@@ -2297,67 +2297,12 @@ h3#season_pagination_header {
 }
 
 #unwatched_episodes h3 {
-  font-size: 1.2em;
   padding: 5px;
 }
 
 #unwatched_episodes .options {
   margin: 20px 0 0 0;
 }
-
-/* ADMIN --------------------------------------------------------------------------------------------------------------------------------- */
-
-#system_log {
-  overflow: hidden;
-}
-
-  #system_log > li {
-    display: inline-block;
-    vertical-align: top;
-    width: 19%;
-  }
-
-  #system_log li ul {
-    border-top: 1px solid #ccc;
-    width: 90%;
-  }
-
-  #system_log li li {
-    padding: 5px 3px;
-    border-bottom: 1px solid #ccc;
-  }
-
-  #system_log li li:nth-child(2n+1) {
-    background: #eee;
-  }
-
-  #system_log li li.red strong {
-    cursor: help;
-  }
-
-#system_status {
-  overflow: hidden;
-}
-
-  #system_status > li {
-    display: inline-block;
-    vertical-align: top;
-    width: 16%;
-    text-align: center;
-  }
-
-  #system_status li ul {
-  }
-
-/* DEVISE --------------------------------------------------------------------------------------------------------------------------------- */
-
-#devise {
-  padding: 30px 0 0 0;
-}
-  
-  #devise span.ui-checkbox {
-    top: 2px;
-  }
 
 /* TAG CLOUD ----------------------------------------------------------------------------------------------------------------------------- */
 
@@ -2378,6 +2323,11 @@ h3#season_pagination_header {
   line-height: 1.1;
 }
 
+#tag_cloud a:hover {
+  color: #66f;
+  background-color: #eee;
+}
+
 #tag_cloud a.tag1  { font-size: 0.80em; font-weight: 100; color: #666; }
 #tag_cloud a.tag2  { font-size: 0.85em; font-weight: 200; color: #777; }
 #tag_cloud a.tag3  { font-size: 0.90em; font-weight: 300; color: #888; }
@@ -2389,12 +2339,8 @@ h3#season_pagination_header {
 #tag_cloud a.tag9  { font-size: 2.15em; font-weight: 900; color: #eee; }
 #tag_cloud a.tag10 { font-size: 2.40em; font-weight: 900; color: #fff; }
 
-#tag_cloud a:hover {
-  color: #66f;
-  background-color: #eee;
-}
-
-/* TOOLTIP ----------------------------------------------------------------------------------------------------------------------- */
+/* TOOLTIP
+ * ----------------------------------------------------------------------------------------------------------------------- */
 
 .tip { cursor: help; }
 
@@ -2415,9 +2361,8 @@ h3#season_pagination_header {
   color: #3DB901;
 }
 
-.hidden { display: none; }
-
-/* CHECKBOXES */
+/* CHECKBOXES
+ * ----------------------------------------------------------------------------------------------------------------------- */
 
 .ui-helper-hidden-accessible { display: none; }
 
@@ -2451,7 +2396,8 @@ label.ui-checkbox {
 .ui-checkbox-state-disabled,
 .ui-checkbox-state-disabled-hover { background-position: 0 -112px; }
 
-/* FOOTER SHARES ------------------------------------------------------------------------------------------------------------------------- */
+/* Footer shares
+ * ------------------------------------------------------------------------------------------------------------------------- */
 
 #share {
   clear: both;
@@ -2465,10 +2411,9 @@ label.ui-checkbox {
     float: left;
     margin: 0 0 0 25px;
     border: 0;
-  }
-  
-  #share .item:first-child {
-    margin: 0;
+    &:first-child {
+      margin: 0;
+    }
   }
   
   #paypal {
@@ -2480,7 +2425,8 @@ label.ui-checkbox {
     @include border-radius(0);
   }
 
-/* AWESOME BUTTONS ----------------------------------------------------------------------------------------------------------------------- */
+/* Awesome buttons
+ * ----------------------------------------------------------------------------------------------------------------------- */
 
 .awesome, .awesome:link, .awesome:visited {
   background: #222 image-url("button_overlay.png") repeat-x; 
@@ -2515,7 +2461,8 @@ label.ui-checkbox {
 .yellow.awesome, .yellow.awesome:visited { background-color: #ffb515; }
 .yellow.awesome:hover { background-color: #fc9200; }
 
-/* FACEBOOK LIKE ----------------------------------------------------------------------------------------------------------------------- */
+/* Facebook like
+ * ----------------------------------------------------------------------------------------------------------------------- */
 
 #facebook_button {
   height: 22px;
@@ -2523,6 +2470,7 @@ label.ui-checkbox {
   width: 90px;
   margin: 8px 0 0 0;
   float: right;
+  span {
+    display: none;
+  }
 }
-
-  #facebook_button span { display: none; }

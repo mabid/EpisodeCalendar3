@@ -1,38 +1,36 @@
-<%#= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-
 <% title "My settings" %>
-<% body_class "settings" %>
 
 <div id="settings">
-
-  <h1>Settings</h1>
-  <% flash.each do |key, msg| %>
-    <%= content_tag :div, msg, :id => key %>
-  <% end %>
-  
-  <ul id="settings_pagination">  
-    <li class="selected">
-      <a href="#1"><%= icon_tag("calendar_big", 24) %> Calendar format</a>
-    </li>
-    <li>
-      <a href="#2"><%= icon_tag("globe_big", 24) %> Time zone</a>
-    </li>
-    <li>
-      <a href="#3"><%= icon_tag("mail_big", 24) %> Notifications</a>
-    </li>
-    <li>
-      <a href="#4"><%= icon_tag("feed_big", 24) %> RSS/iCal feeds</a>
-    </li>
-    <li>
-      <a href="#5"><%= icon_tag("user_big", 24) %> Avatar</a>
-    </li>
-    <li>
-      <a href="#6"><%= icon_tag("zone", 24) %> Calendar widget</a>
-    </li>
-    <li>
-      <a href="#7"><%= icon_tag("key", 24) %> Account</a>
-    </li>
-  </ul>
+  <div class="page_header">
+    <h1>Settings</h1>
+    <% flash.each do |key, msg| %>
+      <%= content_tag :div, msg, :id => key %>
+    <% end %>
+    
+    <ul id="settings_pagination">
+      <li class="tab selected">
+        <a href="#1"><%= icon_tag("calendar_big", 24) %> Calendar format</a>
+      </li>
+      <li class="tab">
+        <a href="#2"><%= icon_tag("globe_big", 24) %> Time zone</a>
+      </li>
+      <li class="tab">
+        <a href="#3"><%= icon_tag("mail_big", 24) %> Notifications</a>
+      </li>
+      <li class="tab">
+        <a href="#4"><%= icon_tag("feed_big", 24) %> RSS/iCal feeds</a>
+      </li>
+      <li class="tab">
+        <a href="#5"><%= icon_tag("user_big", 24) %> Avatar</a>
+      </li>
+      <li class="tab">
+        <a href="#6"><%= icon_tag("zone", 24) %> Calendar widget</a>
+      </li>
+      <li class="tab">
+        <a href="#7"><%= icon_tag("key", 24) %> Account</a>
+      </li>
+    </ul>
+  </div>
   
   <div id="content_carousel">
     <div id="carousel_items">
@@ -58,7 +56,7 @@
         <div id="world_map">
           <%= image_tag("settings/world_map.gif") %>
         </div>
-        <% form_for @current_user do |f| %>
+        <%= form_for @current_user do |f| %>
           <%= hidden_field_tag :tab, 2 %>
           <%= f.label :time_zone %><br />
           <div class="select_wrapper">
@@ -75,13 +73,13 @@
             <%= f.check_box :day_offset, :class => :checkbox %> <%= f.label :day_offset, "+1 day please" %>
           </p>
           
-          <%= f.submit("Update", :class => "submit") %>
+          <%= f.submit("Update", :class => "awesome magenta") %>
         <% end %>
       </div> <!-- .item -->
       
       <div class="item">
         <h2>Would you like to recieve emails?</h2> 
-        <% form_for @current_user do |f| %>
+        <%= form_for @current_user do |f| %>
           <%= hidden_field_tag :tab, 3 %>
           <p>
             Get your daily fix straight to your inbox!<br />
@@ -96,7 +94,7 @@
             <%= f.check_box :only_premiere_notification, :class => :checkbox %> <%= f.label :only_premiere_notification, "Only premieres" %>
           </p>
 
-          <%= f.submit("Update", :class => "submit") %>
+          <%= f.submit("Update", :class => "awesome magenta") %>
         <% end %>
       </div> <!-- .item -->
       
@@ -118,7 +116,7 @@
             Hide the episode overview in my feeds.<br />
             <%= f.check_box :hide_overview_in_rss, :class => :checkbox %> <%= f.label :hide_overview_in_rss, "Avoid spoilers" %>
           </p>          
-          <%= f.submit("Update", :class => "submit") %>
+          <%= f.submit("Update", :class => "awesome magenta") %>
         <% end %>
       </div> <!-- .item -->
       
@@ -142,7 +140,7 @@
         </p>
         <p>
           Simply sign up at Gravatar with your account's email: <strong><%= current_user.email %></strong>, and your image will show here automatically!<br /><br /><br />
-          <%= link_to("Get a Gravatar", "http://www.gravatar.com", :rel => :external, :class => :submit) %>
+          <%= link_to("Get a Gravatar", "http://www.gravatar.com", :rel => :external, :class => "awesome magenta") %>
         </p>
       </div> <!-- .item -->
       
@@ -160,7 +158,6 @@
 
       <div class="item">
         <h2>Changing your profile?</h2>
-        <%# form_for resource_name, resource, :url => registration_path(resource_name), :html => { :method => :put } do |f| %>
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
           <%= devise_error_messages! %>
           <div class="width_33">
@@ -181,7 +178,7 @@
             <strong><%= f.label :current_password %></strong><span class="label">(We need your current password to confirm your changes)</span><br />
             <p><%= f.password_field :current_password %></p><br /><br />
   
-            <%= f.submit "Update", :class => :submit %>
+            <%= f.submit "Update", :class => "awesome magenta" %>
           </div>
         <% end %>
       </div> <!-- .item -->
