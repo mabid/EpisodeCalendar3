@@ -115,6 +115,7 @@ Episodecalendar2::Application.routes.draw do
 	match "/search" => "shows#search"
   match "/set-format/:show_format/:episode_format" => "users#set_format", :show_format => /\d{1}/, :episode_format => /\d{1}/
   match "/sitemap" => "support#sitemap", :format => "rxml"
+  match "/amazon_products/:product_type/:product_name" => "ad#amazon_product", :format => :js
   match "/statistics" => redirect("/")
 
 	#Mobile

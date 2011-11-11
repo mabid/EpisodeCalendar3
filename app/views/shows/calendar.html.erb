@@ -12,9 +12,9 @@
 	<% end %>
 	</tr>
 	<tr>
-  	<% @start_day.upto(@end_day) do |date|	%>
-  	<% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
-  	<% current_day_date = corrected_date.to_s(:air_date) %>
+  	<% @start_day.upto(@end_day) do |date| %>
+  		<% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
+  		<% current_day_date = corrected_date.to_s(:air_date) %>
 		<td class="<%= get_cell_css_class(corrected_date, @current, $TODAY)%>" rel="<%= date.wday == 0 ? 7 : date.wday %>">
 			<div class="calendar_date"><%= print_date(corrected_date) %></div>
 			<% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
@@ -36,8 +36,8 @@
 		  <% end %>
 		</td>
 		<% if (date.wday % 7) == 0 && date < @end_day %>
-	</tr>
-	<tr>
+			</tr>
+			<tr>
 		<% end %>
 	<% end %>
 	</tr>

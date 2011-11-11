@@ -319,7 +319,7 @@ function initUnwatchedAnchors() {
       
     return false;    
   });
-  //$("#show_anchors li:first a").click();
+  $("#show_anchors li:first a").click();
   
   $("#reload a").click(function(){
     $link = $("#show_anchors ul .selected");
@@ -327,4 +327,14 @@ function initUnwatchedAnchors() {
     $("#" + id + "_episodes").remove();
     $link.click();
   });
+}
+
+function initProductAds() {
+  if ($("#amazon_products")) {
+    var $container = $("#amazon_products");
+    $container.find("li").each(function(){
+      $.ajax({ url: "/amazon_products/" + $container.data("product-type") + "/" + $(this).text() });
+    });
+    $container.empty();
+  }
 }

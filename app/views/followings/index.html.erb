@@ -51,6 +51,11 @@
     <p id="quick_note">
       <%= icon_tag("information") %> Note that the <strong>Extras</strong> episodes are also included in the "unwatched episodes" count.
     </p>
+    <ul id="amazon_products" class="products" data-product-type="DVD">
+      <% @followings_active.shuffle.first(5).each do |following| %>
+        <li><%= following.show.name %></li>
+      <% end %>
+    </ul>
   <% end %>
   
   <% if @followings_ended.any? %>

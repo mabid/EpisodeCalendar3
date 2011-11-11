@@ -57,5 +57,8 @@ $(document).ready(function(){
   
   //Unwatched show links
   initUnwatchedAnchors();
+  
+  //Init buyable products
+  initProductAds();
 
 });

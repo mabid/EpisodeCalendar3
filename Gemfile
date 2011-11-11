@@ -26,6 +26,7 @@ gem "time_diff"
 gem "has_permalink"
 gem "paperclip"
 gem "icalendar"
+gem "amazon_product"
 
 #Racks
 gem "activeadmin"
