@@ -1,11 +1,14 @@
 //= require jquery_ujs
 //= require_tree ./jquery
 //= require functions
+//= require todoist
 
 $(document).ready(function(){
 
   //External links
-  $("a[rel=external]").attr({ target: "_blank" });
+  $("a[rel=external]").live("click", function(e) {
+    $(this).attr({ target: "_blank" });
+  });
 
   //Hide flashes
   hideFlashes();
@@ -40,9 +43,6 @@ $(document).ready(function(){
   //Seen Progress
   renderProgress();
   
-  //Settings tabs
-  initTabs();
-  
   //Facebook like
   initFacebookLike();
 
@@ -51,6 +51,9 @@ $(document).ready(function(){
   
   //Toggle episode overview
   initEpisodeOverviewToggle();
+
+  //Toggle episode overview
+  initEpisodeHider();
   
   //Content carousel
   initContentCarousel();
@@ -60,5 +63,8 @@ $(document).ready(function(){
   
   //Init buyable products
   initProductAds();
+
+  //Init Todoist.com tasks
+  initTodoList();
 
 });

@@ -1,0 +1,15 @@
+%h1= @mail_balancer.username
+%p#notice= notice
+%p
+  %b Username:
+  = @mail_balancer.username
+%p
+  %b Date:
+  = @mail_balancer.date
+%p
+  %b Usage Count:
+  = @mail_balancer.usage_count
+
+= link_to 'Edit', edit_mail_balancer_path(@mail_balancer)
+\|
+= link_to 'Back', mail_balancers_path

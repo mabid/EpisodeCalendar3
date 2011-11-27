@@ -44,11 +44,11 @@ module ShowsHelper
     return "<span>Unknown</span>" if show.previous_trend_position_followers.blank?
     dir = show.current_trend_position == show.previous_trend_position ? 0 : (show.current_trend_position > show.previous_trend_position ? 1 : -1)
     diff = show.previous_trend_position - show.current_trend_position
-    #case dir
-    #when -1 : "<span class=\"green\">+#{diff} places</span>"
-    #when 0 : "<span>&plusmn;0</span>"
-    #when 1 : "<span class=\"red\">#{diff} places</span>"
-    #end
+    case dir
+      when -1 then "<span class=\"green\">+#{diff} places</span>"
+      when 0 then "<span>&plusmn;0</span>"
+      when 1 then "<span class=\"red\">#{diff} places</span>"
+    end
   end
   
   def print_trend(show)

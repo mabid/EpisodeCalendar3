@@ -18,7 +18,7 @@
 	<link rel="icon" href="/favicon.png?1" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
 </head>
-<body class="<%= yield :body_class %>">
+<body class="<%= find_named_routes.join(" ") %> <%= yield :body_class %>">
 	<div id="container">
 		<div id="header">
 		  <div id="header_content">

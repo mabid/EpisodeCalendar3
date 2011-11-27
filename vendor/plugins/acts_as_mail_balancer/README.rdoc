@@ -1,0 +1,67 @@
+= ActsAsMailBalancer
+
+ActsAsMailBalancer is a rails plugin that sends ActionMailer messages using different user accounts to enable you send huge number of messages per day.
+
+
+= Why ActsAsMailBalancer
+
+If you want to send huge number of mail messages (eg. 1000 message per day) using ActionMailer, your SMTP server may outbound sending limits.
+
+For example, Google Apps for domain account limits sent messages to 500 per 24 hours period. One solution is to make multiple user accounts (Account_1, Account_2) and send 500 messages using each one to reach 1000 messages. http://www.google.com/support/a/bin/answer.py?answer=166852
+
+Mail Balancer tracks every user account usages and keep balancing sent messages over them per day. You can use any number of user accounts to distribute ActionMailer messages.
+
+
+= Installation
+
+First,
+
+  rails plugin install git@github.com:mahkhaled/acts_as_mail_balancer.git
+
+Then,
+  
+  # generate migration to create mail_balancers table
+  rails g mail_balancer
+  rake db:migrate
+
+Finally, include your user accounts in vendor/plugins/acts_as_mail_balancer/config/mails.yml
+
+  development: &development
+    mails:
+      mail_1:
+        user_name: "no-reply1@mydomain.com"
+        password: "no-reply1_password"
+      mail_2:
+        user_name: "no-reply2@mydomain.com"
+        password: "no-reply2_password"
+      mail_3:
+        user_name: "no-reply1@anotherdomain.com"
+        password: "no-reply1_password"
+      mail_4:
+        user_name: "no-reply2@anotherdomain.com"
+        password: "no-reply2_password"
+      
+      
+  production:
+    <<: *development
+    
+  staging:
+    <<: *developm
+
+
+= Features
+
+* Configure ActionMailer to use different user accounts
+* Add any number of user accounts
+* Scaffold views to show you all user accounts statistics including usage count per day eg. http://localhost:3000/mail_balancers
+
+
+= WARNINGS
+
+* Don't forget to add admin authorization to mail_balancers_controller to prevent NON admin users from accessing this controller actions.
+* If you are using Gmail SMTP and sending bulk of messages once at the same time, Google may mark your account as spam sender and don't send your messages. 
+
+
+= COPYRIGHT
+
+Copyright (c) 2011 [Mahmoud Khaled], released under the MIT license

@@ -1,48 +1,54 @@
 <% title "Browse shows in #{@letter.upcase}" %>
-<div id="show_pagination">
-  <%= link_to("0-9", shows_by_letter_path("0-9"), :class => @letter == "0-9" ? "active" : "normal") %>
-  <% @alphabet.each do |letter| %>
-    <%= link_to(letter.upcase, shows_by_letter_path(letter), :class => @letter == letter ? "active" : "normal") %>
-  <% end %>
+
+<div class="page_header">
+  <div class="narrow_column">
+    <div id="show_pagination">
+      <%= link_to("0-9", shows_by_letter_path("0-9"), :class => @letter == "0-9" ? "active" : "normal") %>
+      <% @alphabet.each do |letter| %>
+        <%= link_to(letter.upcase, shows_by_letter_path(letter), :class => @letter == letter ? "active" : "normal") %>
+      <% end %>
+    </div>
+
+    <h2 class="center">Top shows in <%= @letter.capitalize %></h2>
+    <div class="margin_bottom">
+      <ul class="show_list popular">
+      <% @top_shows.each do |show| %>
+        <li>
+          <div class="banner">
+            <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), show, :style => "background: url('http://www.episodecalendar.com#{show.banner(:small)}') 50% 50% no-repeat;") %>
+          </div>
+          <%= link_to(show.name, show_path(:permalink => show.permalink)) %>
+          <p>Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %><%= raw " | <strong>ended</strong>" if show.ended? %></p>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<h2 class="center">Top shows in <%= @letter.capitalize %></h2>
-<div class="margin_bottom">
-  <ul class="shows">
-  <% @top_shows.each do |show| %>
-	  <li class="popular">
-	    <div class="banner">
-	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), show, :style => "background: url('#{show.banner(:small)}') 50% 50% no-repeat;") %>	      
-      </div>
-	    <%= link_to(show.name, show_path(:permalink => show.permalink)) %>
-      <p>Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %><%= raw " | <strong>ended</strong>" if show.ended? %></p>
-    </li>
-  <% end %>
-  </ul>
-</div>
-
-<h2 class="center">Active shows</h2>
-<div class="margin_bottom">
-  <ul class="shows">
-  <% @active_shows.each do |show| %>
-	  <li>
-	    <%= link_to(show.name, show_path(:permalink => show.permalink)) %>
-      <p>Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %><%= raw " | <strong>ended</strong>" if show.ended? %></p>
-    </li>
-  <% end %>
-  </ul>
-</div>
-
-<% if @ended_shows.any? %>
-  <h2 class="center">Ended shows</h2>
-  <div class="margin_bottom">
-    <ul class="shows">
-    <% @ended_shows.each do |show| %>
-  	  <li>
-  	    <%= link_to(show.name, show_path(:permalink => show.permalink)) %>
-        <p>Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %><%= raw " | <strong>ended</strong>" if show.ended? %></p>
-      </li>
-    <% end %>
+<div class="narrow_column">
+  <h2>Active shows</h2>
+  <div class="product_sidebar">
+    <%= render :partial => "partials/amazon_products", :locals => { :names => @top_shows.map{ |s| s.name } } %>
+  </div>
+  <div class="margin_bottom_big">
+    <ul class="show_list">
+      <% @active_shows.each do |show| %>
+    	  <li class="<%= cycle("even", "odd") %>">
+    	    <%= link_to(show.name, show_path(:permalink => show.permalink)) %> <span class="darker_grey">| Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %><%= raw " | <strong>ended</strong>" if show.ended? %></span>
+        </li>
+      <% end %>
     </ul>
   </div>
-<% end %>
+
+  <% if @ended_shows.any? %>
+    <h2>Ended shows</h2>
+    <ul class="show_list">
+    <% @ended_shows.each do |show| %>
+  	  <li class="<%= cycle("even", "odd") %>">
+  	    <%= link_to(show.name, show_path(:permalink => show.permalink)) %> <span class="darker_grey">Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %></span><%= raw " | <strong>ended</strong>" if show.ended? %>
+      </li>
+    <% end %>
+    </ul>    
+  <% end %>
+</div>

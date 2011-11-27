@@ -8,10 +8,6 @@ module FollowingsHelper
     end
   end
   
-  def get_css_for(show)
-    cycle("even", "odd")
-  end
-  
   def wasted_in_words(to)
     time_hash = Time.diff(Time.now, Time.now + to.minutes)
     wasted = []

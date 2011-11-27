@@ -8,7 +8,7 @@
 img.icon { position: relative; top: 3px; }
 td img.icon, th img.icon { top: 0; }
 
-.icon { background-image: image-url("sprites/icons.png?5") !important; background-position: 0 0; background-repeat: no-repeat; }
+.icon { background-image: image-url("sprites/icons.png") !important; background-position: 0 0; background-repeat: no-repeat; }
 .blank { background-position: 16px 16px; }
 .arrow_down { background-position: 0 0; }
 .plus_button { background-position: -16px 0; }
@@ -33,6 +33,7 @@ td img.icon, th img.icon { top: 0; }
 .lock { background-position: -128px -16px; }
 .tick { background-position: -144px -16px; }
 
+.gear { background-position: -48px -32px; }
 .question { background-position: -64px -32px; }
 .movie_folder { background-position: -80px -32px; }
 .television { background-position: -96px -32px; }
@@ -52,17 +53,11 @@ td img.icon, th img.icon { top: 0; }
 .mail_big { background-position: -24px -64px; }
 .feed_big { background-position: -48px -64px; }
 .key { background-position: -72px -64px; }
-.monitor { background-position: -96px -64px; }
-.log { background-position: -120px -64px; }
-.battery { background-position: -144px -64px; }
 
 .globe_big { background-position: 0px -88px; }
 .calendar_big { background-position: -24px -88px; }
-.terminal { background-position: -48px -88px; }
 .zone { background-position: -72px -88px; }
 .smiley { background-position: -96px -88px; }
-.plus_big { background-position: -120px -88px; }
-.tick_big { background-position: -144px -88px; }
 
 /* Containers
  * ------------------------------------------------------------------------------------------------------------------------- */
@@ -84,7 +79,7 @@ body {
 
 #page_container {
   background: #fff;
-  padding: 26px 0 50px 0;
+  padding: 26px 10px 50px 10px;
   position: relative;
   overflow: hidden;
   z-index: 0;
@@ -106,13 +101,6 @@ body {
   body.start #page_container { 
     @include linear-gradient(#fff, #eaeaea);
     padding-bottom: 0;
-  }
-  
-  body.info #page_container { 
-    @include linear-gradient(#e9e9e9, #fff);
-    &:before {
-      @include linear-gradient(#c0c0c0, #e9e9e9);
-    }
   }
   
   .page_header {
@@ -137,7 +125,7 @@ body {
   }
 
   #page {
-    width: 1280px;
+    max-width: 1280px;
     margin: 0 auto;
     position: relative;
   }
@@ -175,7 +163,7 @@ p {
   &.big { font-size: 17px; }
 }
 
-/* ASD
+/* Tags
  * -------------------------------------------------------------------------- */
 
 img.border {
@@ -187,6 +175,10 @@ img.border {
 img.ajaxLoader {
   display: none;
   background-position: 100px 100px;
+}
+
+img.ajaxLoaderSmall {
+  display: none;
 }
 
 p {
@@ -422,8 +414,14 @@ fieldset #notice
 .center div { margin: 0 auto; }
 
 .margin_top { margin-top: 20px; }
-.margin_bottom { margin: 0 0 20px 0; }
 .margin_top_big { margin-top: 50px; }
+.margin_bottom { margin-bottom: 20px; }
+.margin_bottom_big { margin-bottom: 50px; }
+
+.narrow_column {
+  margin: 0 auto;
+  max-width: 900px;
+}
 
 .width_50 { width: 50%; float: left; }
 .width_33 { width: 33%; float: left; }
@@ -431,12 +429,18 @@ fieldset #notice
 .width_66 { width: 66%; float: left; }
 
 .small { font-size: 0.8em; }
-.grey { color: #bbb; text-shadow: none; }
+.grey { color: #bbb; }
+.darker_grey { color: #999; }
 .green { color: #990; }
 a.red, .red { color: #f00; }
+
 a.alternative {
   color: #000;
   border-bottom: 1px solid $light_blue_theme_color;
+  &:hover {
+    color: $light_blue_theme_color;
+    border-bottom: 1px solid #000;
+  }
 }
 
 .float_left, .column { float: left; }
@@ -469,7 +473,7 @@ a.alternative {
     color: #fff !important;
   }
 }
-  
+
 /* Trends
  * ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -563,15 +567,12 @@ a.alternative {
 }
 
 #print {
-  position: absolute;
-  top: 42px;
-  z-index: 1;
+  float: right;
   background-position: -160px -16px;
   padding: 0 0 0 20px;
   font-size: 10px;
   font-weight: bold;
   line-height: 16px;
-  margin: 0 0 0 1220px;
 }
 
 .note_wrapper {
@@ -668,28 +669,22 @@ a.alternative {
 #header {
   border-bottom: 3px #666 solid;
   position: relative;
+  padding: 0 10px;
 }
 
   #header_content {
     overflow: hidden;
-    width: 1280px;
-    margin: 0 auto;
+    max-width: 1280px;
+    margin: 8px auto;
   }
 
   #logo {
     float: left;
-    background: image-url("logos/logo.png") 0 0 no-repeat;
-    width: 330px;
-    height: 100px;
-    color: #fff;
     outline: none;
   }
   
   #search {
-    float: left;
-    padding: 10px 0 0 10px;
-    margin: 0 0 0 20px;
-    position: relative;
+    margin: 5px 0 0 0;
   }
   
     #search form {
@@ -708,7 +703,7 @@ a.alternative {
     
     #search #q {
       background: #222;
-      width: 145px;
+      width: 130px;
       height: 20px;
       padding: 5px 7px 6px;
       line-height: 20px;
@@ -748,7 +743,7 @@ a.alternative {
   display: inline-block;
   text-align: right;
   float: right;
-  margin: 10px 10px 6px 0;
+  margin: 0 0 6px 0;
 }
 
 #header #user_menu li {
@@ -775,8 +770,8 @@ a.alternative {
 #profile {
   border: 1px #666 solid;
   padding: 1px;
-  margin: 8px 0 0 0;
   float: right;
+  margin: 0 0 0 10px;
   @include border-radius(5px);
   width: 80px;
   height: 80px;
@@ -805,7 +800,6 @@ a.alternative {
 
 ul#menu {
   color: #fff;
-  margin: 0 10px 0 0;
   clear: both;
   text-align: right;
 }
@@ -864,130 +858,6 @@ ul#menu li {
   display: block;
   margin-top: 5px;
   font-family: Arial;
-}
-
-/* CALENDAR ------------------------------------------------------------------------------------------------------------------------- */
-
-#month_navigation h2 {
-  margin: 0 auto;
-  text-align: center;
-}
-
-#month_navigation h3 {
-  margin: 0 20px 0 20px;
-  text-shadow: none;
-}
-
-#page .month {
-  margin: -5px auto 10px auto;
-  text-align: center;
-  color: #ccc;
-  width: 100px;
-}
-
-#calendar {
-  width: 100%;
-}
-
-#calendar a {
-  color: #000;
-  border-bottom: 1px $light_blue_theme_color solid;
-}
-
-#calendar a:hover {
-  color: #77f;
-  border-bottom: 1px #000 solid;
-}
-
-#calendar a.premiere {
-  color: #3db901;
-  font-size: 1.1em;
-  border-color: #000;
-}
-
-a.premiere:hover {
-  color: #000;
-  font-size: 1.1em;
-  border-color: #3db901;
-}
-
-#calendar .calendar_day_other_month a {
-  color: #999;
-  border-bottom: 1px $light_blue_theme_color solid;
-}
-
-#calendar .calendar_day_other_month a:hover {
-  color: #7777FF;
-  border-bottom: 1px #999 solid;
-}
-
-#calendar th { text-align: center; }
-#calendar tr td { height: 100px; }
-
-.calendar_date {
-  border: 1px #ccc solid;
-  background-color: #D6D6D6;
-  font-weight: bold;
-  padding: 2px;
-}
-
-.calendar_cell_content {
-  padding: 5px;
-  margin-bottom: 0;
-}
-
-.calendar_cell_content li { padding-bottom: 5px; }
-
-.calendar_weekday_name {
-  width: 13%;
-  height: 1%;
-}
-
-.calendar_weekday_name div {
-  text-align: center;
-}
-
-.calendar_today {
-  width: 13%;
-  height: 10%;
-  vertical-align: top;
-  font-size: 0.9em;
-  @include linear-gradient(#f0f944, #fff);
-}
-
-.calendar_day {
-  width: 13%;
-  height: 10%;
-  vertical-align: top;
-  font-size: 0.9em;
-}
-
-.calendar_day_other_month {
-  width: 13%;
-  height: 10%;
-  vertical-align: top;
-  color: #999;
-  font-size: 0.9em;
-}
-
-.calendar_day, .calendar_day_other_month {
-  background: #fff image-url("cell_bg.png") 0 0 repeat-x;
-}
-
-.calendar_day_other_month .calendar_date {
-  border: 1px #ddd solid;
-  background-color: #eee;
-  font-weight: bold;
-  padding: 2px;
-}
-
-#public_box {
-  font-size: 1.2em;
-  margin-top: 2em;
-}
-
-#public_box .big_button {
-  margin: 2em auto;
 }
 
 /* Start
@@ -1110,177 +980,36 @@ a.premiere:hover {
     width: 300px;
     padding: 0 0 3px 0;
   }
-  
-/* INFO --------------------------------------------------------------------------------------------------------------------------- */
-
-#features_wrapper {
-  width: 1224px;
-  margin: 0 auto;
-}
-
-  #features_wrapper h1 {
-    margin: 0;
-  }
-  
-  #features_wrapper h2 {
-    margin: 0 0 0.5em 0;
-  }
-
-#features {
-  overflow: hidden;
-  margin: 40px 0 70px 0;
-}
-
-  #features li {
-    margin: 0 10px;
-    float: left;
-    width: 388px;
-    background: image-url("info/plate.png") 0 0 no-repeat;
-    padding: 4px 0 15px 0;
-    text-align: center;
-  }
-
-  #features h2 {
-    margin: 30px 0 0 0;
-  }
-
-  #features p {
-    font-size: 15px;
-    margin: 5px 0 0 0;
-    padding: 0 30px;
-  }
-
-#additional {
-  overflow: hidden;
-  margin: 30px 0 50px 0;
-  padding: 0 0 20px 0;
-}
-
-  #additional li {
-    margin: 0 10px;
-    float: left;
-    width: 242px;
-    background: image-url("info/feature_box.png") 0 100% no-repeat;
-    padding: 0 20px 15px 20px;
-    position: relative;
-  }
-
-    #additional img {
-      margin: 0 15px 0 0;
-      float: left;
-    }
-
-    #additional img.coming_soon {
-      position: absolute;
-      bottom: 10px;
-      right: -25px;
-    }
-
-    #additional h3 {
-      margin: 18px 0 0 0;
-      text-shadow: none;
-    }
-  
-    #additional p {
-      font-size: 13px;
-      margin: 0;
-    }
-
-#apps {
-  overflow: hidden;
-  margin: 30px 0 80px 0;
-}
-
-  #apps li {
-    background: image-url("info/small_plate.png") 0 100% no-repeat;
-    margin: 0 10px;
-    float: left;
-    width: 246px;
-    height: 160px;
-    padding: 0 20px 15px 20px;
-  }
-  
-    #apps li img {
-      margin: 0 10px 0 0;
-      float: left;
-    }
-  
-    #apps h3 {
-      margin: 0 0 0.5em 0;
-      font-size: 20px;
-      text-shadow: none;
-      line-height: 1;
-    }
-  
-    #apps p {
-      font-size: 13px;
-      margin: 0 0 1em 0;
-    }
-
-#contact h2 {
-  text-align: left;
-}
-
-#contact p {
-  font-size: 14px;
-}
-
-#contact .separator {
-  border-right: 1px #ccc solid;
-  padding: 0 50px 10px 0;
-  width: 300px;
-}
-
-#contact h2 {
-  margin: 0 0 0.5em 0;
-}
-
-#contact h3 {
-  margin: 0 0 0.5em 0;
-}
-
-#contact fieldset {
-  @include linear-gradient(#e9e9e9, #fff);
-  @include box-shadow(0 3px 5px #bbb);
-  @include border-radius(5px);
-  border: 1px solid #ccc;
-  width: 803px;
-  float: right;
-  margin: 0 0 20px 0;
-}
-
-#contact textarea {
-  width: 478px;
-}
-
-#ticket_human { display: none; }
 
 /* FOOTER ------------------------------------------------------------------------------------------------------------------------- */
 
 #footer {
   background-color: #000;
   border-top: 3px #666 solid;
+  padding: 0 10px;
 }
 
   #footer_content {
     color: #fff;
     padding: 30px 0 30px 0;
-    width: 1280px;
+    max-width: 1280px;
     margin: 0 auto;
     overflow: hidden;
   }
 
     #footer .box {
-      @include linear-gradient(#212121, #000000);
-      width: 360px;
       float: left;
-      padding: 10px 27px 5px 27px;
-      @include border-radius(20px);
-      border: 0;
-      min-height: 310px;
+      width: 33%;
+      .inner {
+        @include linear-gradient(#212121, #000000);
+        padding: 10px 27px 5px 27px;
+        @include border-radius(20px);
+        border: 0;
+        min-height: 310px;
+      }
     }
 
-    #footer .middle { margin: 0 19px; }
+    #footer .middle .inner { margin: 0 19px; }
     
     #footer h3 {
       padding: 0;
@@ -1315,8 +1044,9 @@ a.premiere:hover {
       
     #follow {
       border-bottom: 1px dotted #333;
-      padding: 0 0 15px 0;
-      margin: 0 0 15px 0;
+      border-top: 1px dotted #333;
+      padding: 10px 0 15px 0;
+      margin: 10px 0 15px 0;
     }
     
     #frexuz_logo
@@ -1371,37 +1101,41 @@ a.premiere:hover {
 
 /* SHOW LIST ------------------------------------------------------------------------------------------------------------------------------ */
 
-#page .shows {
-  width: 1212px;
-  margin: 0 auto;
-  overflow: hidden;
+.shows_by_letter h2 {
+  margin-left: auto;
+  margin-right: auto;
 }
   
-  #page .shows li {
-    float: left;
-    background: #f6f6f6;
-    width: 268px;
+  .show_list .odd {
+    background: #fcfcfc;
+  }
+
+  .show_list li {
+    display: block;
     line-height: 1.5em;
     @include border-radius(5px);
-    margin: 0 10px 5px 10px;
-    padding: 5px;
-    border: 1px #eee solid;
-    height: 54px;
+    margin: 0 0 5px 0;
+    padding: 10px;
+    border: 1px #ddd solid;
   }
 
-  #page .shows li.popular {
-    height: 160px;
+.show_list.popular {
+    text-align: center;
+}
+
+  .show_list.popular li {
+    background: none;
+    border: 0 none;
+    display: inline-block;
+    margin: 10px 0 0 0;
+    width: 268px;
   }
 
-  #page .shows li:hover {
-    border-color: #bbb;
+  .show_list li:hover {
+    background: #fbffc0;
   }
   
-  #page .shows li.selected {
-    border-color: green;
-  }
-  
-    #page .shows li .banner {
+    .show_list li .banner {
       width: 252px;
       background: image-url("missing_banner.jpg") 0 0 no-repeat;
       height: 86px;
@@ -1410,54 +1144,40 @@ a.premiere:hover {
       margin: 0 0 4px 0;
     }
   
-      #page .shows li .banner img {
+      .show_list li .banner img {
         width: 252px;
         height: 86px;
       }
   
-      #page .shows li .banner a {
+      .show_list li .banner a {
         display: block;
         border: 0;
     }
 
-    #page .shows li a {
+    .show_list li a {
       color: #000;
       border-bottom: 1px $light_blue_theme_color solid;
       font-weight: bold;
     }
 
-    #page .shows li p {
+    .show_list li p {
       font-size: 11px;
       margin: 0;
       color: #999;
     }
 
-    #page .shows li p strong {
+    .show_list strong {
       color: #f00;
     }
-
-  #page .shows li.selected p {
-    color: #0f0;
-  }
-
-#top_shows {
-  margin-bottom: 20px;
-}
-
-  #top_shows .shows li p {
-    margin: 0 0 0 21px;
-  }
 
 /* MY SHOWS ------------------------------------------------------------------------------------------------------------------------------ */
 
 .my_shows .ui-checkbox,
-.season_list .ui-checkbox {
-  top: 1px;
-}
-
-.my_shows {
-  margin: 0 0 2em 0;
-}
+.season_list .ui-checkbox,
+.my_shows .ajaxLoader,
+.season_list .ajaxLoader {
+  vertical-align: top;
+} 
 
 .my_shows td {
   padding: 4px 12px 7px 12px;
@@ -1476,16 +1196,6 @@ a.premiere:hover {
   background: #fdffbe;
 }
 
-.my_shows strong a {
-  color: #000;
-  border-bottom: 1px $light_blue_theme_color solid;
-}
-
-.my_shows strong a:hover {
-  color: #7777FF;
-  border-bottom: 1px #000 solid;
-}
-
 .my_shows img.status_green,
 .my_shows img.status_red,
 .my_shows img.status_normal,
@@ -1499,6 +1209,10 @@ a.premiere:hover {
 .my_shows em.green
 {
   color: #990;
+}
+
+.my_shows a.red {
+  border-bottom: 1px dotted #000;
 }
 
 #status_legend {
@@ -1680,24 +1394,18 @@ h3#season_pagination_header {
 
   #season_pagination li {
     float: left;
-    //background: image-url("sprites/pagination_tabs.png") 100% -24px no-repeat;
     margin: 0 -1px 0 0
   }
 
   #season_pagination li a {
-    //background: image-url("sprites/pagination_tabs.png") 0 0 no-repeat;
     line-height: 26px;
     height: 24px;
     font-size: 15px;
     padding: 0 20px;
     font-family: arial, sans-serif;
   }
-  
-  #season_pagination li.selected {
-    //background-position: 100% -72px;
-  }
+
   #season_pagination li.selected a {
-    //background-position: 0 -48px;
     color: #fff;
   }
   
@@ -1788,7 +1496,7 @@ h3#season_pagination_header {
     margin: 0;
   }
   
-    #page .shows li.user_show {
+    .show_list li.user_show {
       height: auto;
     }
     
@@ -1809,7 +1517,7 @@ h3#season_pagination_header {
         @include linear-gradient($progress_green_dark, $progress_green_light);
       }
       
-        #page .shows li .progress_small .progress_bar .bar p {
+        .show_list li .progress_small .progress_bar .bar p {
           line-height: 24px;
           margin: 0;
           font-weight: bold;
@@ -1907,28 +1615,71 @@ h3#season_pagination_header {
   padding: 10px;
 }
 
+  .season_list .episode > div {
+    margin-left: 3%;
+    border-left: 1px solid #ddd;
+    &:first-child {
+      margin: 0;
+      border: 0;
+    }
+  }
+
 .season_list .odd {
   background: #fcfcfc;
 }
 
-.season_list .episode:hover {
+.season_list .episode:hover,
+.season_list .episode.hidden:hover {
   background: #fbffc0;
+}
+
+.season_list .episode.hidden {
+  background: #fffce6;
+  border: 1px dashed #ff7f7f;
+  color: #666;
+  display: block;
+  .rating,
+  .overview,
+  .date span,
+  .seen > span,
+  .seen > a,
+  .seen .hide {
+    display: none !important; /* important because of jQuery checkbox applies style inline-block */
+  }
+  .seen .unhide {
+    display: block;
+  }
+  .date {
+    margin: 0;
+    border: 0;
+    text-align: left;
+  }
+  .seen {
+    float: right;
+    width: 137px;
+  }
+  small {
+    display: block;
+    padding: 2px;
+  }
 }
 
 .season_list .highlighted { background-color: #FBFF8F; }
 
   .season_list .name {
     float: left;
-    width: 290px;
+    width: 22%;
     border-right: 1px #ddd solid;
     margin-right: 25px;
-    padding-right: 10px;
   }
   
   .season_list .overview {
     float: left;
-    width: 555px;
+    width: 45%;
     padding: 1px 0 0 0;
+    & > div {
+      padding-left: 25px;
+    }
   }
 
   .season_list .overview .toggle {
@@ -1937,13 +1688,14 @@ h3#season_pagination_header {
   
   .season_list .date {
     float: left;
-    width: 200px;
-    border-left: 1px #ddd solid;
-    border-right: 1px #ddd solid;
-    margin: 0 25px;
+    width: 15%;
     text-align: center;
     font-size: 13px;
     font-weight: bold;
+    p {
+      padding: 0 10px;
+      margin: 0;
+    }
   }
     
     .season_list .date span {
@@ -1956,7 +1708,8 @@ h3#season_pagination_header {
 
   .season_list .seen {
     float: left;
-    width: 110px;
+    width: 11%;
+    margin: 0 !important;
   }
   
     .season_list .seen span {
@@ -2012,203 +1765,6 @@ h3#season_pagination_header {
   .rating span.r9 { width: 144px; }
   .rating span.r95 { width: 152px; }
   .rating span.r10 { width: 160px; }
-
-/* SEARCH RESULTS ------------------------------------------------------------------------------------------------------------------------------ */
-
-#search_results td {
-  padding: 4px 12px 7px 12px;
-  max-width: 300px;
-}
-
-#search_results tr:hover td {
-  background: #fdffbe;
-}
-
-#search_results h3 a {
-  color: #000;
-  border-bottom: 1px $light_blue_theme_color solid;
-  font-size: 1.4em;
-}
-
-#search_results a.add {
-  border: none;
-  display: block;
-  float: left;
-  margin-right: 10px;
-}
-
-#search_results h3 a strong {
-  background: yellow;
-}
-
-#search_results h3 a:hover {
-  color: #7777FF;
-  border-bottom: 1px #000 solid;
-}
-
-#search_results a.red {
-  display: block;
-  float: left;
-  margin: 8px 15px 5px 0;
-}
-
-#search_results td em {
-  color: #999;
-  font-size: 10px;
-  font-style: normal;
-  display: block;
-  margin: 3px 0 0 0;
-}
-
-#search_results em.green
-{
-  color: #990;
-}
-
-/* SETTINGS ------------------------------------------------------------------------------------------------------------------------------ */
-
-#settings h1 {
-  margin: 0 0 28px 0;
-  font-weight: bold;
-  font-size: 2.75em;
-  float: left;
-}
-
-.asd {
-  background: #fff image-url("gradients/settings_page_gradient.png") 0 0 repeat-x;
-}
-
-#settings h2 {
-  font-size: 2.4em;
-  margin: 0 0 1em 0;
-}
-
-#settings #notice,
-#settings #error {
-  float: left;
-  margin: 12px 0 0 20px;
-  clear: none;
-}
-
-#settings p {
-  font-size: 14px;
-  line-height: 1.25;
-}
-
-  #settings_pagination {
-    overflow: hidden;
-    clear: both;
-    position: relative;
-  }
-  
-    #settings_pagination li a {
-      line-height: 42px;
-      height: 38px;
-      color: #000;
-      font-size: 15px;
-      padding: 0 20px 0 15px;
-      outline: none;
-    }
-    
-    #settings_pagination li .icon {
-      top: 7px;
-      margin: 0 5px 0 0;
-    }
-    
-  #content_carousel {
-    width: 1280px;
-    position: relative;
-    overflow: hidden;
-    min-height: 320px;
-  }
-  
-    #content_carousel #carousel_items {
-      left: 0;
-      top: 0;
-      overflow: hidden;
-      width: 8960px;
-    }
-  
-      #carousel_items .item {
-        width: 1280px;
-        float: left;
-      }
-      
-#setting_formatting {
-  margin: 0 0 50px 0;
-}
-  
-  #setting_formatting .setting {
-    float: left;
-    margin: 0 6px 6px 0;
-    padding: 5px;
-    background: #fff;
-    @include border-radius(5px);
-  }
-  
-  #setting_formatting .setting:hover {
-    background: #eecae0;
-  }
-  
-  #setting_formatting .active,
-  #setting_formatting .active:hover {
-    background: #bd0c75;
-  }
-  
-  #setting_formatting .group {
-    float: left;
-  }
-  
-    #setting_formatting a {
-      display: block;
-    }
-
-    #setting_formatting h3 {
-      font-size: 15px;
-      color: #999;
-      text-align: center;
-      margin: 0 0 20px 0;
-    }
-
-    #setting_formatting img {
-      border: 1px solid #eee;
-    }
-
-    #setting_formatting p {
-      margin: 0;
-      padding: 10px 10px 5px 10px;
-      color: #999;
-      font-size: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    #setting_formatting .active p,
-    #setting_formatting .setting:hover p {
-      color: #fff;
-    }
-
-#world_map {
-  float: right;
-  margin: 0 600px 0 0;
-}
-
-#gravatar_video {
-  float: right;
-  margin: 0 400px 0 50px;
-  border: 3px solid #000;
-  @include border-radius(3px);
-  padding: 1px;
-  background: image-url("icons/ajax-loader.gif") 50% 50% no-repeat;
-}
-
-  #gravatar_video a {
-    display: block;
-    width: 400px;
-    height: 224px;
-    background: image-url("settings/gravatar_video.jpg") 0 0 no-repeat;
-    text-indent: -9999px;
-  }
 
 /* USERS -------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -2388,6 +1944,9 @@ label.ui-checkbox {
   background-position: 0 -48px;
 }
 
+.ui-checkbox.small { width: 9px; height: 9px; background-position: 0 -144px; }
+.ui-checkbox-state-checked.small { width: 9px; height: 9px; background-position: 0 -160px; }
+
 .ui-checkbox-state-checked { background-position: 0 0; }
 .ui-checkbox-state-checked-disabled { background-position: 0 -96px; }
 .ui-checkbox-state-checked-disabled-hover { background-position: 0 -96px; }
@@ -2399,21 +1958,18 @@ label.ui-checkbox {
 /* Footer shares
  * ------------------------------------------------------------------------------------------------------------------------- */
 
-#share {
+ul#share {
   clear: both;
   overflow: hidden;
-  border-bottom: 1px dotted #333;
-  padding: 0 0 15px 0;
-  margin: 0 0 15px 0;
+  padding: 0;
+  margin: 0 0 0 -25px;
 }
 
   #share .item {
     float: left;
     margin: 0 0 0 25px;
     border: 0;
-    &:first-child {
-      margin: 0;
-    }
+    min-height: 70px;
   }
   
   #paypal {
@@ -2442,6 +1998,7 @@ label.ui-checkbox {
   cursor: pointer;
 }
 
+.mini.awesome, .mini.awesome:visited { font-size: 10px; padding: 2px 5px; }
 .awesome:hover  { background-color: #111; color: #fff; }
 .small.awesome, .small.awesome:visited { font-size: 11px; }
 .awesome, .awesome:visited,
@@ -2472,5 +2029,86 @@ label.ui-checkbox {
   float: right;
   span {
     display: none;
+  }
+}
+
+/* Amazon products
+ * ----------------------------------------------------------------------------------------------------------------------- */
+
+.products {
+  display: none;
+  h3 {
+    display: none;
+  }
+  &.completed {
+    overflow: hidden;
+    display: block;
+    @include border-radius(10px);
+    background: #eee;
+    padding: 20px 10px;
+    h3 {
+      display: block;
+      margin: 0 0 20px 0;
+    }
+  }
+  li, li:hover {
+    float: left;
+    text-align: center;
+    width: 20%;
+    background: none;
+  }
+  .image {
+    height: 170px;
+    vertical-align: middle;
+    margin: 0 auto;
+    max-width: 212px;
+    padding: 0 10px;
+    img {
+      box-shadow: 0 0 10px #666;
+      max-width: 75%;
+    }
+  }
+  p {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: #000;
+    padding: 0 10px;
+    strong {
+      color: #000;
+    }
+  }
+}
+
+.product_sidebar {
+  float: right;
+  width: 254px;
+  border: 0;
+  padding: 0;
+  margin: 0 0 0 20px;
+  text-align: right;
+  #products_loader {
+    position: relative;
+    top: -35px;
+  }
+  .completed {
+    text-align: center;
+    @include border-radius(5px);
+    padding: 20px 0;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px #ccc;
+    li {
+      @include border-radius(0);
+      border-top: 1px solid #ccc;
+      padding: 10px 0;
+      float: none;
+      margin: 0 auto;
+      width: 90%;
+      &:first-child {
+        border: 0;
+      }
+    }
+    p {
+      margin: 10px 0 0 0;
+    }
   }
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111016203553) do
+ActiveRecord::Schema.define(:version => 20111115192146) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -115,10 +115,20 @@ ActiveRecord::Schema.define(:version => 20111016203553) do
     t.integer  "marked_episodes_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "watch_later",           :default => false
+    t.integer  "hidden_episodes_count", :default => 0
   end
 
   add_index "followings", ["user_id", "show_id"], :name => "index_followings_on_user_id_and_show_id"
   add_index "followings", ["user_id"], :name => "index_followings_on_user_id"
+
+  create_table "hidden_episodes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "season_id"
+    t.integer  "episode_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "logs", :force => true do |t|
     t.string   "key"
@@ -129,6 +139,14 @@ ActiveRecord::Schema.define(:version => 20111016203553) do
   end
 
   add_index "logs", ["key"], :name => "index_logs_on_key"
+
+  create_table "mail_balancers", :force => true do |t|
+    t.integer  "usage_count"
+    t.string   "username"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "seasons", :force => true do |t|
     t.integer  "api_show_id"

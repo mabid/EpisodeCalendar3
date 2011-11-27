@@ -47,10 +47,13 @@ end
 
 group :development do
   gem "mongrel", "1.2.0.pre2"
-  gem "rails-dev-boost", :git => "git://github.com/thedarkone/rails-dev-boost.git", :require => "rails_development_boost"
+  gem 'rails-dev-tweaks', '~> 0.5.1'
   gem "bullet"
+  gem "letter_opener"
+  gem "nifty-generators", :group => :development
 end
 
 group :test do
   gem "turn", :require => false
 end
+gem "mocha", :group => :test

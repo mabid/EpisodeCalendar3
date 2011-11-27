@@ -8,7 +8,7 @@
     <div class="banner_shadow"></div>
     <% if @show.banner %>
     <div class="banner">
-        <%= image_tag(@show.banner, :alt => @show.name, :width => 758, :height => 140) %>
+        <%= image_tag("http://www.episodecalendar.com" + @show.banner, :alt => @show.name, :width => 758, :height => 140) %>
     </div>
     <% else %>
     <%= content_tag(:h1, @show.name) %>
@@ -26,7 +26,7 @@
           <li><strong>Seasons:</strong> <%= @season_size %></li>
           <li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
           <li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
-          <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= print_popularity(@show) %></li>
+          <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= raw print_popularity(@show) %></li>
           <% else %>
           <li><strong>Seasons:</strong> 0</li>
           <li><strong>Episodes:</strong> 0</li>
@@ -84,7 +84,7 @@
     <% css_class = cycle("odd", "even", :name => "classes") %>
     <% corrected_air_date = (current_user ? e.air_date + current_user.day_offset.days : e.air_date) %>
     <% css_class += " highlighted" if @next_air_date == e.air_date %>
-    <div class="episode <%= css_class %>">
+    <div class="episode <%= css_class %><%= " hidden" if @hidden_episode_ids.include?(e.id) %>">
       <div class="name">
         <strong><%= format_episode_number(e) %></strong>: <%= e.name %>
         <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
@@ -102,15 +102,18 @@
         <span>Air date:</span>
         <%= format_date(corrected_air_date) %>
       </div>
-      <div class="seen center">
+      <div class="seen">
         <% if e.air_date < $TODAY.end_of_day %>
-          <span>Watched this episode?</span><br />
-            <% if logged_in? && @is_following %>
-              <%= link_to("", {:controller => "seen_episodes", :action => "mark_episode", :id => e.id, :season => e.season_id}, :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if @seen_episode_ids.include?(e.id)}", :rel => "ajax_loader_#{e.id}") %>
-              <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{e.id}", :class => :ajaxLoader) %>
-            <% else %>
-              <span class="ui-checkbox ui-checkbox-state-checked ui-checkbox-state-checked-disabled"></span>
-            <% end %>
+          <span>Watched this episode?</span>
+          <% if logged_in? && @is_following %>
+            <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if @seen_episode_ids.include?(e.id)}", :rel => "ajax_loader_#{e.id}") %>
+            <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{e.id}", :class => "ajaxLoader") %>
+            <small class="hide"><%= link_to "Mark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
+            <small class="unhide hidden"><%= link_to "Unmark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
+            <%= image_tag("icons/ajax-loader-small.gif", :id => "ajax_loader_small_#{e.id}", :class => "ajaxLoaderSmall") %>
+          <% else %>
+            <span class="ui-checkbox ui-checkbox-state-checked ui-checkbox-state-checked-disabled"></span>
+          <% end %>
         <% end %>
       </div>
     </div>

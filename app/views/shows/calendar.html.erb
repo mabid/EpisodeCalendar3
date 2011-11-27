@@ -2,8 +2,19 @@
 <% share_url public_with_date_url(:year => @current.year, :month => @current.month) %>
 <% share_title "TV Episode Calendar - #{yield(:title)}" %>
 
-<%= link_to("print", "javascript:window.print();", :id => :print, :class => :icon) %>
 <%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
+
+<script>
+$(function(){
+  $(".small_checkbox").css({ cursor: "pointer" }).click(function(){
+    var $icon = $(this);
+    $icon.removeClass().attr("src", $icon.attr("src").replace("pixel.gif", "icons/ajax-loader-small.gif"));
+    setTimeout(function(){
+      $icon.addClass("icon tick_small").attr("src", $icon.attr("src").replace("icons/ajax-loader-small.gif", "pixel.gif"));
+    }, 1000);
+  });
+});
+</script>
 
 <table id="calendar" cellspacing="2" cellpadding="0">
 	<tr>
@@ -15,34 +26,37 @@
   	<% @start_day.upto(@end_day) do |date| %>
   		<% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
   		<% current_day_date = corrected_date.to_s(:air_date) %>
-		<td class="<%= get_cell_css_class(corrected_date, @current, $TODAY)%>" rel="<%= date.wday == 0 ? 7 : date.wday %>">
-			<div class="calendar_date"><%= print_date(corrected_date) %></div>
-			<% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
-		  <% if show_episodes.any? %>
-      <div class="calendar_cell_content">
-      	<ul>
-      	<% show_episodes.each do |e| %>
-      	  <li>
-      	    <% seen = @seen_episodes.include?(e.id) %>
-      	    <%= raw print_calendar_episode(e, seen) %>
-        	  <div id="tip_<%= e.id %>" class="hidden">
-        	    <h3><%= "#{e.name} (#{e.format(current_user.episode_format)})" %></h3><span><%= raw e.friendly_overview %></span>
-        	    <div class="<%= "seen" if seen %>"><%= seen ? icon_tag("status_green") + " This episode is marked as watched." : icon_tag("status_red") + " You have not watched this episode." %></div>
-      	    </div>
-        	</li>
-      	<% end %>
-      	</ul>
-      </div>
-		  <% end %>
-		</td>
-		<% if (date.wday % 7) == 0 && date < @end_day %>
-			</tr>
-			<tr>
-		<% end %>
-	<% end %>
+  		<td class="<%= get_cell_css_class(corrected_date, @current, $TODAY)%>" rel="<%= date.wday == 0 ? 7 : date.wday %>">
+  			<div class="calendar_date"><%= print_date(corrected_date) %></div>
+  			<% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
+  		  <% if show_episodes.any? %>
+        <div class="calendar_cell_content">
+        	<ul>
+        	<% show_episodes.each do |e| %>
+        	  <li>
+        	    <% seen = @seen_episodes.include?(e.id) %>
+        	    <%= raw print_calendar_episode(e) %>
+              <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading small #{"ui-checkbox-state-checked" if seen}", :rel => "ajax_loader_#{e.id}") if corrected_date <= $TODAY %>
+              <%= image_tag("icons/ajax-loader-small.gif", :id => "ajax_loader_#{e.id}", :class => "ajaxLoader small") %>
+          	  <div id="tip_<%= e.id %>" class="hidden">
+          	    <h3><%= "#{e.name} (#{e.format(current_user.episode_format)})" %></h3><span><%= raw e.friendly_overview %></span>
+          	    <div class="<%= "seen" if seen %>"><%= seen ? icon_tag("status_green") + " This episode is marked as watched." : icon_tag("status_red") + " You have not watched this episode." %></div>
+        	    </div>
+          	</li>
+        	<% end %>
+        	</ul>
+        </div>
+  		  <% end %>
+  		</td>
+  		<% if (date.wday % 7) == 0 && date < @end_day %>
+  			</tr>
+  			<tr>
+  		<% end %>
+    <% end %>
 	</tr>
 </table>
 
 <div id="bottom_legend">
+  <%= link_to("print", "javascript:window.print();", :id => :print, :class => :icon) %>
   <%= icon_tag("information") %> <strong class="premiere">Season premiere</strong> <strong class="normal">Normal episode</strong>
 </div>

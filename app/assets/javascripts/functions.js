@@ -224,20 +224,6 @@ function hideFlashes()
     $("#error").delay(10000).slideUp();
 }
 
-function initTabs()
-{  
-  $("#settings_pagination a").click(function(){
-    $("#setting_list li").removeClass("active");
-    $(this).parents("li").addClass("active");
-    
-    var tab_id = "#setting_" + $(this).attr("rel");
-    $("#settings_content div.tab").hide();
-    $(tab_id).fadeIn();
-    
-    return false;
-  });
-}
-
 function initFacebookLike(){
   if ($("#facebook_button").length > 0)
     setTimeout("insertFacebookButton()", 1000);
@@ -330,11 +316,75 @@ function initUnwatchedAnchors() {
 }
 
 function initProductAds() {
-  if ($("#amazon_products")) {
-    var $container = $("#amazon_products");
-    $container.find("li").each(function(){
-      $.ajax({ url: "/amazon_products/" + $container.data("product-type") + "/" + $(this).text() });
-    });
-    $container.empty();
+  if (!$("#amazon_products"))
+    return;
+
+  var ajaxReqs = [];
+  //window.amazon_requests_completed = 0;
+  var $container = $("#amazon_products");
+  $container.find("li").each(function() {
+    var product_name = $(this).data("name");
+    var product_type = $container.data("product-type");
+    ajaxReqs.push(
+      $.ajax({
+        url: "http://virtualhost:9292/amazon_products/" + product_type + "/" + product_name + "?callback=?",
+        dataType: "json",
+        success: function(data) { drawProduct(data, product_name); }
+      })
+    );
+  });
+
+  $.when.apply($, ajaxReqs).then(function() {
+    // all requests are complete
+    $("#products_loader").hide();
+    $container.hide().addClass("completed").slideDown();
+  });
+}
+
+function drawProduct(product, product_name) {
+  $container = $("#amazon_products ul");
+  $li = $container.find('li[data-name="' + product_name + '"]');
+
+  if (product === null) {
+    $li.remove();
+    return;
   }
+
+  if (product.MediumImage)
+    $(document.createElement("img")).attr("src", product.MediumImage.URL).appendTo($li.find(".image"));
+
+  $li.find(".link").attr("href", product.DetailPageURL).text("Buy via Amazon").addClass("awesome magenta small");
+  $li.find(".title").text(product.ItemAttributes.Title);
+}
+
+function initEpisodeHider() {
+  $(".episode .hide a, .episode .unhide a").click(function(){
+
+    var $link = $(this);
+    var $episode = $link.parents(".episode");
+    
+    var hide = $episode.hasClass("hidden") ? 0 : 1;
+    
+    $loader = $("#" + $link.attr("rel"));
+    $loader.show();
+    $episode.find(".hide_while_loading_small").hide();
+    
+    ajaxUrl = $link.attr("href") + ($link.attr("href").indexOf("?") > 0 ? "&" : "?") + "hide=" + hide;
+    
+    //Send ajax request
+    $.ajax({
+      type: "POST",
+      url: ajaxUrl,
+      dataType: "script",
+      data: {},
+      success: function(){
+        $episode.find(".hide_while_loading_small").show();
+        $episode.find(".ui-checkbox-state-checked").removeClass("ui-checkbox-state-checked");
+        $loader.hide();
+        hide === 0 ? $episode.removeClass("hidden") : $episode.addClass("hidden")
+      }
+    });
+    
+    return false;
+  });
 }

@@ -1,22 +1,21 @@
 module DateHelper
   
   def format_date(d)
-    return d.strftime("%B #{d.day.ordinalize}, %Y") unless d.nil?
+    d.strftime("%B #{d.day.ordinalize}, %Y") unless d.blank?
   end
   
   def print_date(d)
-    return d.strftime("%b. #{d.day.ordinalize}") unless d.nil?
+    d.strftime("%b. #{d.day.ordinalize}") unless d.blank?
   end
   
   def week_day(i)
     i = 0 if i == 7
-    return Date::ABBR_DAYNAMES[i]
+    Date::ABBR_DAYNAMES[i]
   end
   
   def week_day_full(i)
     i = 0 if i == 7
-    return "Daily" if i == -1
-    return "#{Date::DAYNAMES[i]}s"
+    i == -1 ? "Daily" : "#{Date::DAYNAMES[i]}s"
   end
   
   def w3c_date(date)
@@ -24,6 +23,11 @@ module DateHelper
   end
   
   def print_air_start(d)
+    if d.blank?
+      content_tag(:em, "Unknown")
+    else
+      d.strftime("%B %Y") unless d.nil?
+    end
   end
   
 end

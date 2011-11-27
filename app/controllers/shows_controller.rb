@@ -6,7 +6,7 @@ class ShowsController < ApplicationController
     @letter = params[:letter].blank? ? "a" : params[:letter]
     @active_shows = Show.active.find_by_letter(@letter)
     @ended_shows = Show.ended.find_by_letter(@letter)
-    @top_shows = Show.find(:all, :conditions => ["id IN (?)", @active_shows.collect(&:id)], :order => "followers desc, name asc, first_aired desc", :limit => 8)
+    @top_shows = Show.find(:all, :conditions => ["id IN (?)", @active_shows.collect(&:id)], :order => "followers desc, name asc, first_aired desc", :limit => 6)
     @alphabet = "a".."z"
   end
   
@@ -38,10 +38,11 @@ class ShowsController < ApplicationController
       @show_ids = current_user.shows.collect(&:id)
     #end
     #@episodes = Rails.cache.fetch([current_user.id, "episodes", year, month]) do
+      hidden_episodes_ids = HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
       @episodes = Episode.all(
         :joins => :show,
-        :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
-        :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days],
+        :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
+        :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ? AND episodes.id NOT IN (?)", @show_ids, @start_day - 1.days, @end_day + 1.days, hidden_episodes_ids],
         :order => "show_name asc, episodes.season_number asc, episodes.number asc"
         )
     #end
@@ -142,6 +143,8 @@ class ShowsController < ApplicationController
       if current_user
         @seen_episode_ids = []
         @seen_episode_ids = SeenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id) if @seasons.any?
+        @hidden_episode_ids = []
+        @hidden_episode_ids = HiddenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id) if @seasons.any?
         @is_following = current_user.is_following(@show)
       end
       if @show.episodes.empty?
@@ -150,11 +153,6 @@ class ShowsController < ApplicationController
     else
       redirect_to search_path(:q => params[:permalink].gsub("-", " "))
     end    
-  end
-  
-  def top_shows
-    @user_shows = current_user.user_shows
-    @top_shows = Show.all(:order => "user_shows_count desc", :limit => 100)
   end
   
   def trends

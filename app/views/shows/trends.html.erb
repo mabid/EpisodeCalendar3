@@ -2,8 +2,8 @@
   <div class="note_wrapper">
     <dl class="note">
       <% @top_shows.each_with_index do |show, i| %>
-      <dt>#<%= show.current_trend_position %>. <%= show.name %> <span><%= show.followers %> followers (<%= print_trend(show) %>)</span></dt>
-      <dd><%= print_popularity(show) %></dd>
+      <dt>#<%= show.current_trend_position %>. <%= show.name %> <span><%= show.followers %> followers (<%= raw print_trend(show) %>)</span></dt>
+      <dd><%= raw print_popularity(show) %></dd>
       <% end %>
     </dl>
   </div>
@@ -11,7 +11,7 @@
   <div class="note_wrapper">
     <dl class="note">
       <% @top_new_followers.each_with_index do |show, i| %>
-      <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= print_trend(show) %>)</span></dt>
+      <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= raw print_trend(show) %>)</span></dt>
       <dd><span class="green">+<%= show.new_followers %> followers</span></dd>
       <% end %>
     </dl>
@@ -25,4 +25,8 @@
       <% end %>
     </dl>
   </div>
+</div>
+
+<div class="margin_top_big margin_bottom_big">
+  <%= render :partial => "partials/amazon_products", :locals => { :names => @top_shows.shuffle.first(5).map{ |s| s.name } } %>
 </div>

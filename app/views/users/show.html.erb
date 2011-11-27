@@ -1,14 +1,35 @@
 <% title "#{@user.display_name}'s profile" %>
-<div class="user_profile_image"><%= image_tag(@user.gravatar_size(110)) %></div>
-<h1 class="big"><%= "#{@user.display_name.capitalize}'s profile" %></h1>
-<p><strong>Member since:</strong> <%= @user.created_at.to_s(:long) %></p>
-<% if admin? %>
-<p><%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome red") %></p>
-<% end %>
+
+<div class="page_header">
+  <div class="note_wrapper">
+    <a id="edit_link" href="/admin/shows/desperate-housewives/edit">Edit</a>
+    <div id="status_icon"><img src="/assets/icons/big/accept_64.png" class="status_icon" alt=""><span class="green">Still airing</span></div>
+    <ul class="note">
+      <li class="first"><strong>Started airing:</strong> October 2004</li>
+      <li><strong>Seasons:</strong> 8</li>
+      <li><strong>Episodes:</strong> 157 <span>(Avg. 17 per season)</span></li>
+      <li><strong>Followers:</strong> 1755 <span>+9%</span></li>
+      <li><strong>Popularity rank:</strong> #31 <span class="green">+1 places</span></li>
+    </ul>
+  </div>
+  <div class="user_profile_image"><%= image_tag(@user.gravatar_size(110)) %></div>
+  <h1 class="big"><%= "#{@user.display_name.capitalize}'s profile" %></h1>
+  <p><strong>Member since:</strong> <%= @user.created_at.to_s(:long) %></p>
+  <% if admin? %>
+  <p><%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome red") %></p>
+  <% end %>
+</div>
+
+<h2>recent_episodes</h2>
+<ul>
+  <% @recent_episodes.each do |recent_episode| %>
+  <li><strong><%= recent_episode.episode.show.name %>:</strong> <%= recent_episode.episode.name %> (<%= recent_episode.episode.format(@user.episode_format) %>)</li>
+  <% end %>
+</ul>
 
 <h1 class="center">Top shows</h1>
 <div class="margin_bottom">
-  <ul class="shows">
+  <ul class="show_list">
   <% @top_shows.each do |following| %>
 	  <li class="user_show">
 	    <div class="banner">

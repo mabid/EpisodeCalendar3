@@ -1,32 +1,51 @@
+<% title "Search" %>
+
 <% if @query.blank? %>
   <h2 class="center">You entered a blank show name. Please try again.</h2>
 <% else %>
-  <h2 class="center">Found <%= @shows.size%> shows matching '<%= @query %>'</h2>
+  <h2 class="center">Found <%= @shows.size%> shows matching <span class="highlight"><%= @query %></span></h2>
   <% if @shows.any? %>
-    <table id="search_results" width="100%" cellspacing="2" cellpadding="0">
+    <table width="100%" cellspacing="2" cellpadding="0">
       <thead>
         <tr>
-          <th><div>Show</div></th>
+          <th colspan="2"><div>Show</div></th>
           <th><div>Status</div></th>
           <th><div>Info</div></th>
         </tr>
       </thead>
       <tbody>
       <% @shows.each do |show| %>
-      <tr class="<%= get_css_for(show) %>">
+      <% is_following = current_user ? current_user.is_following(show) : false %>
+      <tr class="<%= cycle("even", "odd") %><%= " green" if is_following %>">
         <td>
-          <%= link_to(icon_tag("plus_big", 24), add_show_path(show.permalink), :class => :add, :title => "Add to my list") if current_user %>          
-          <h3><%= link_to(highlight(show.name, @query, :highlighter => '<strong>\1</strong>'), show_path(show)) %></h3>
+          <div class="banner">
+            <% if show.banner %>
+              <%= image_tag("http://www.episodecalendar.com/" + show.banner(:small)) %>
+              <%#= image_tag(show.banner(:small)) %>
+            <% else %>
+              <p>Missing banner</p>
+            <% end %>
+          </div>
         </td>
         <td>
-          <% if show.ended? %>
-            <strong class="red">Started airing: <%= print_air_start(show.first_aired) %></strong><em>Ended</em>
-          <% else %>
-            <strong>Started airing: <%= print_air_start(show.first_aired) %></strong><em>Still airing</em>
+          <%= content_tag(show.popular? ? :h2 : :h3, link_to(highlight(show.name, @query, :highlighter => '<strong>\1</strong>'), show_path(show), :class => :alternative)) %>
+          <% if current_user %>
+            <% if is_following %>
+              <%= icon_tag("tick") %> <strong>Already in my list</strong>
+            <% else %>
+              <%= link_to("Add", add_show_path(show.permalink), :class => "awesome small magenta", :title => "Add to my list") %>
+            <% end %>
           <% end %>
         </td>
-        <td>
-          <strong><%= show.followers %> followers</strong><em><%= show.episodes_count %> episodes</em>
+        <td width="20%">
+          <% if show.ended? %>
+            <strong class="red">Started airing: <%= print_air_start(show.first_aired) %></strong><span>Ended</span>
+          <% else %>
+            <strong>Started airing: <%= print_air_start(show.first_aired) %></strong><span>Still airing</span>
+          <% end %>
+        </td>
+        <td width="20%">
+          <strong><%= show.followers %> followers</strong><span><%= show.episodes_count %> episodes</span>
         </td>
       </tr>
       <% end %>

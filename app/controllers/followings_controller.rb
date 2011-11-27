@@ -8,10 +8,12 @@ class FollowingsController < ApplicationController
     @followings = []
     unless current_user.followings.nil?
       #@followings = Rails.cache.fetch([current_user.id, "followings"]) do
-        @followings = Following.find(:all, :conditions => { :user_id => current_user.id }, :include => [:show], :order => "shows.name")
+        #@followings = Following.find(:all, :conditions => { :user_id => current_user.id }, :include => [:show], :order => "shows.name")
+        @followings = Following.where(:user_id => current_user.id).joins(:show).order("shows.name")
       #end
-      @followings_active = @followings.select{ |f| f.show.status == "Continuing" }
-      @followings_ended = @followings.select{ |f| f.show.status == "Ended" }
+      @followings_active = @followings.select{ |f| f.show.status == "Continuing" && f.watch_later == false }
+      @followings_ended = @followings.select{ |f| f.show.status == "Ended" && f.watch_later == false }
+      @followings_watch_later = @followings.select{ |f| f.watch_later == true }
     end
   end
     
@@ -53,6 +55,12 @@ class FollowingsController < ApplicationController
         format.js
       end
     end
+  end
+
+  def set_watch_later
+    @following = Following.find(params[:show_id])
+    @following.update_attributes(:watch_later => params[:mark].to_i, :send_reminder => false)
+    redirect_to(followings_path)
   end
   
   def create_multiple

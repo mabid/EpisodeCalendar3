@@ -1,62 +1,7 @@
 Episodecalendar2::Application.routes.draw do
 
+  #Active admin
   ActiveAdmin.routes(self)
-
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
   
   #Devise
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -64,6 +9,7 @@ Episodecalendar2::Application.routes.draw do
 	
   resources :tickets
   resources :seen_episodes, :as => "unwatched"
+  resources :hidden_episodesr
   resources :banners
 	resources :followings, :path => "my-shows"
 	resources :episodes
@@ -79,8 +25,8 @@ Episodecalendar2::Application.routes.draw do
   
   #User links
   match "/profile/:id" => "users#show", :as => "profile", :constraints => { :id => /.*/} #This regex breaks ajax calls
-  match "/ical_feed/:id" => "users#ical", :as => "ical_feed", :constraints => { :id => /.*/} #This regex breaks ajax calls
-  match "/rss_feed/:id" => "users#rss", :as => "rss_feed", :constraints => { :id => /.*/} #This regex breaks ajax calls
+  match "/ical_feed/:id" => "users#ical", :as => "ical", :constraints => { :id => /.*/} #This regex breaks ajax calls
+  match "/rss_feed/:id" => "users#rss", :as => "rss", :constraints => { :id => /.*/} #This regex breaks ajax calls
 
   #Calendar
 	match "/calendar" => "shows#calendar"  
@@ -93,14 +39,19 @@ Episodecalendar2::Application.routes.draw do
 	match "/show/:permalink" => "shows#show", :as => "show"
 	match "/show/:permalink/season/:season" => "shows#show", :as => "show_season"
 	match "/add-show/:permalink" => "followings#create", :as => "add_show"
-	match "/mark_episode/:episode" => "seen_episodes#mark_episode"
+
+	match "/mark_episode/:episode_id/:season_id" => "seen_episodes#mark_episode", :as => "mark_episode"
 	match "/show/:show_id/mark-season/:season_id" => "seen_episodes#mark_season", :as => "mark_season"
 	match "/show/:show_id/unmark-season/:season_id" => "seen_episodes#unmark_season", :as => "unmark_season"
 	match "/show/:show_id/mark" => "seen_episodes#mark_show", :as => "mark_show"
+
+  match "/hide_episode/:episode_id/:season_id" => "hidden_episodes#hide_episode", :as => "hide_episode"
+
   match "/render_progress" => "followings#render_progress"
   match "/facebook_button/:id" => "shows#facebook_button"
   match "/unwatched" => "seen_episodes#index", :as => "unwatched"
   match "/get_unwatched_episodes/:show_id" => "seen_episodes#unwatched_episodes", :format => "js", :as => "get_unwatched_episodes"
+  match "/show/:show_id/watch_later/:mark" => "followings#set_watch_later", :as => "set_watch_later"
   
   #Support
   match "/request-show/" => "support#request_show", :as => "request_show"
@@ -115,7 +66,6 @@ Episodecalendar2::Application.routes.draw do
 	match "/search" => "shows#search"
   match "/set-format/:show_format/:episode_format" => "users#set_format", :show_format => /\d{1}/, :episode_format => /\d{1}/
   match "/sitemap" => "support#sitemap", :format => "rxml"
-  match "/amazon_products/:product_type/:product_name" => "ad#amazon_product", :format => :js
   match "/statistics" => redirect("/")
 
 	#Mobile

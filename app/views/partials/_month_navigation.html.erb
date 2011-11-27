@@ -1,11 +1,11 @@
 <%
 prev_date = current - 1.month
 prev_url = public ? "/public/#{prev_date.year}/#{prev_date.month}" : "/calendar/#{prev_date.year}/#{prev_date.month}"
-prev_link = content_tag(:span, link_to(raw("&laquo; #{Date::MONTHNAMES[prev_date.month]}"), prev_url))
+prev_link = link_to(raw("<strong>&laquo; #{Date::MONTHNAMES[prev_date.month]}</strong>"), prev_url)
 
 next_date = current + 1.month
 next_url = public ? "/public/#{next_date.year}/#{next_date.month}" : "/calendar/#{next_date.year}/#{next_date.month}"
-next_link = content_tag(:span, link_to(raw("#{Date::MONTHNAMES[next_date.month]} &raquo;"), next_url))
+next_link = link_to(raw("<strong>#{Date::MONTHNAMES[next_date.month]} &raquo;</strong>"), next_url)
 
 current_month = "#{Date::MONTHNAMES[current.month]}"
 %>

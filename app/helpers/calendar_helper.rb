@@ -10,10 +10,10 @@ module CalendarHelper
 		end
 	end
   
-	def print_calendar_episode(e, seen, user = current_user)
+	def print_calendar_episode(e, user = current_user)
 	  #show link
 	  url = "/show/#{e.show_permalink}"
-	  html = "<strong>#{link_to e.show_name, url, :class => (e.number.to_i == 1 ? "premiere" : "") }</strong>"
+	  html = "<strong>#{link_to e.show_name, url, :class => "alternative" + (e.number.to_i == 1 ? " premiere" : "") }</strong>"
 	  
 	  #get formats
 	  show_format = (user.nil? ? 1 : user.show_format)
@@ -21,10 +21,9 @@ module CalendarHelper
 	  
 	  #concat html
 		case show_format
-  		when 1 ; html += "<span rel=\"tip_#{e.id}\" class=\"tip\">: #{e.format(episode_format)} </span>"
-  		when 2..3 ; html += "<br /><span rel=\"tip_#{e.id}\" class=\"tip\">#{e.name} (#{e.format(episode_format)})</span>"
+  		when 1 ; html += "<span rel=\"tip_#{e.id}\" class=\"tip\">: #{e.format(episode_format)} </span> "
+  		when 2..3 ; html += "<br /><span rel=\"tip_#{e.id}\" class=\"tip\">#{e.name} (#{e.format(episode_format)})</span> "
 		end
-		html += icon_tag("tick_small", 12) if seen
     return html
 	end
 	

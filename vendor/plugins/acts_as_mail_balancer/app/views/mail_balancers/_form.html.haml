@@ -1,0 +1,13 @@
+= form_for @mail_balancer do |f|
+
+  .field
+    = f.label :username
+    = f.text_field :username
+  .field
+    = f.label :date
+    = f.date_select :date
+  .field
+    = f.label :usage_count
+    = f.text_field :usage_count
+  .actions
+    = f.submit 

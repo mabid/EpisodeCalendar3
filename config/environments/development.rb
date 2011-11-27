@@ -27,4 +27,7 @@ Episodecalendar2::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
+
+  # Don't actually send emails. View them in the browser instead using this gem
+  config.action_mailer.delivery_method = :letter_opener
 end

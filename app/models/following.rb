@@ -16,11 +16,11 @@ class Following < ActiveRecord::Base
 	belongs_to :user, :counter_cache => true
 	belongs_to :show, :counter_cache => :followers
 	
-	before_destroy :delete_seen_episodes
+	before_destroy :delete_seen_episodes, :delete_hidden_episodes
 	
 	def unseen_count
 	  aired_episodes = Episode.find(:all, :conditions => ["show_id = ? AND air_date <= ?", self.show_id, $TODAY])
-	  count = aired_episodes.size - self.marked_episodes_count
+	  count = aired_episodes.size - self.marked_episodes_count - self.hidden_episodes_count
   end
   
   private
@@ -29,6 +29,13 @@ class Following < ActiveRecord::Base
       episodes = Episode.find(:all, :conditions => { :show_id => self.show_id })
       SeenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)]).each do |seen_episode|
         seen_episode.destroy
+      end
+    end
+  
+    def delete_hidden_episodes
+      episodes = Episode.find(:all, :conditions => { :show_id => self.show_id })
+      HiddenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)]).each do |hidden_episode|
+        hidden_episode.destroy
       end
     end
   

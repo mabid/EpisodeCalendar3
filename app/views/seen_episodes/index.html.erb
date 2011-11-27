@@ -7,7 +7,7 @@
     <% @shows.each do |following| %>
       <li id="show_<%= following.show_id %>">
         <a href="<%= get_unwatched_episodes_path(following.show_id) %>">
-          <%= raw "#{following.name} (<span>#{following.available_episodes_count.to_i - following.marked_episodes_count}</span>)" %>
+          <%= raw "#{following.name} (<span>#{following.available_episodes_count.to_i - following.marked_episodes_count - following.hidden_episodes_count}</span>)" %>
         </a>
       </li>
     <% end %>

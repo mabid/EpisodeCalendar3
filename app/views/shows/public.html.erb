@@ -6,7 +6,7 @@
 <%= render :partial => "partials/month_navigation", :locals => {:current => @current, :public => true} %>
 
 <dl id="status_legend">
-  <dt><img width="16" height="16" src="/images/pixel.gif?1" class="icon clock" alt=""></dt> <dd>This public calendar is shown in US time zones.<br />It can be personalized by creating an account.</dd>
+  <dt><%= icon_tag("clock") %></dt> <dd>This public calendar is shown in US time zones.<br />It can be personalized by creating an account.</dd>
 </dl>
 
 <table id="calendar" cellspacing="2" cellpadding="0">
@@ -27,7 +27,7 @@
       	<ul>
       	<% show_episodes.each do |e| %>
       	  <li>
-      	    <%= print_calendar_episode(e, false) %>
+      	    <%= raw print_calendar_episode(e) %>
         	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(1)})" %></h3><span><%= raw e.friendly_overview %></span></div>
         	</li>
       	<% end %>

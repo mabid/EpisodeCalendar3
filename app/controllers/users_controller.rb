@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @top_shows = Following.where(user_id: @user.id).order("marked_episodes_count desc")
+    @recent_episodes = SeenEpisode.where(["user_id = ?", @user.id]).order("created_at desc").limit(20).joins([:episode, :season])
   end
   
 	def ical

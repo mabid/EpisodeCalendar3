@@ -11,29 +11,29 @@
         <dt><%= icon_tag("television_off") %></dt> <dd>No new episodes.</dd>
         <dt><%= icon_tag("television_on") %></dt> <dd class="green">Go watch more episodes!</dd>
       </dl>
-      <h1 class="center">My <%= pluralize(@followings_active.size, "favorite") %></h1>
+      <h2 class="center big">My <%= pluralize(@followings_active.size, "favorite") %></h2>
     </div>
-    <table class="my_shows" width="100%" cellspacing="2" cellpadding="0">
+    <table class="my_shows margin_bottom" width="100%" cellspacing="2" cellpadding="0">
       <thead>
         <tr>
-          <th width="30%" class="sort"><%= icon_tag("sort_asc") %><div><a href="#">Show</a></div></th>
+          <th width="25%" class="sort"><%= icon_tag("sort_asc") %><div><a href="#">Show</a></div></th>
           <th width="30%" class="sort"><%= icon_tag("sort_small") %><div><a href="#">Last episode</a></div></th>
           <th width="30%" class="sort"><%= icon_tag("sort_small") %><div><a href="#">Next episode</a></div></th>
           <th width="5%">
             <div class="center tip inverted" rel="tip_email_notification"><%= icon_tag("mail_exclamation") %></div>
             <div id="tip_email_notification" class="hidden"><h3>Email notifications</h3><span>Use the checkboxes to choose which shows you want to get email notifications for.<br /><br />Note that you also have to enable this option in your <strong>settings</strong>.</span></div>
           </th>
-          <th width="5%">
-            <div class="center">&nbsp;</div>
+          <th width="10%">
+            <div class="center">Options</div>
           </th>
         </tr>
       </thead>
       <tbody>
       <% @followings_active.each do |following| %>
-      <tr class="<%= get_css_for(following.show) %>">
+      <tr class="<%= cycle("even", "odd") %>">
         <td>
           <%= following.unseen_count > 0 ? icon_tag("television_on") : icon_tag("television_off") %>
-          <strong><%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink) %></strong> <%= raw print_unwatched(following.unseen_count) %>          
+          <strong><%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink), :class => "alternative" %></strong> <%= raw print_unwatched(following.unseen_count) %>          
         </td>
         <td><%= raw print_prev_episode(following.show.prev_episode(day_offset), day_offset) %></td>
         <td><%= raw print_next_episode(following.show.next_episode(day_offset), day_offset) %></td>
@@ -42,7 +42,10 @@
           <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{following.id}", :class => :ajaxLoader) %>
         </td>
         <td class="center">
-          <%= link_to(icon_tag("cross"), following, :confirm => "Are you sure that you want to delete [#{following.show.name}]?", :method => :delete, :class => "red") %>
+          <ul>
+            <li><strong><%= link_to("Remove", following, :confirm => "Are you sure that you want to unfollow [#{following.show.name}]?", :method => :delete, :class => "red") %></strong></li>
+            <li><em><%= link_to("Move to <strong>Watch later</strong>".html_safe, set_watch_later_path(following.id, 1)) %></em></li>
+          </ul>
         </td>
       </tr>
       <% end %>
@@ -51,35 +54,34 @@
     <p id="quick_note">
       <%= icon_tag("information") %> Note that the <strong>Extras</strong> episodes are also included in the "unwatched episodes" count.
     </p>
-    <ul id="amazon_products" class="products" data-product-type="DVD">
-      <% @followings_active.shuffle.first(5).each do |following| %>
-        <li><%= following.show.name %></li>
-      <% end %>
-    </ul>
+    
+    <div class="margin_top_big margin_bottom_big">
+      <%= render :partial => "partials/amazon_products", :locals => { :names => @followings_active.shuffle.first(5).map{ |f| f.show.name } } %>
+    </div>
   <% end %>
   
-  <% if @followings_ended.any? %>
-    <h1 class="center">My <%= pluralize(@followings_ended.size, "ended favorite") %></h1>
-    <table class="my_shows" width="100%" cellspacing="2" cellpadding="0">
+  <% if @followings_watch_later.any? %>
+    <h2 class="center big">Shows to watch later</h2>
+    <table class="my_shows margin_bottom_big" width="100%" cellspacing="2" cellpadding="0">
       <thead>
         <tr>
-          <th width="30%" class="sort"><%= icon_tag("sort_asc") %><div><a href="#">Show</a></div></th>
+          <th width="25%" class="sort"><%= icon_tag("sort_asc") %><div><a href="#">Show</a></div></th>
           <th width="30%" class="sort"><%= icon_tag("sort_small") %><div><a href="#">Last episode</a></div></th>
           <th width="30%" class="sort"><%= icon_tag("sort_small") %><div><a href="#">Next episode</a></div></th>
           <th width="5%">
             <div class="center inverted" rel="tip_email_notification">&nbsp;</div>
           </th>
-          <th width="5%">
-            <div class="center">&nbsp;</div>
+          <th width="10%">
+            <div class="center">Options</div>
           </th>
         </tr>
       </thead>
       <tbody>
-      <% @followings_ended.each do |following| %>
-      <tr class="<%= get_css_for(following.show) %>">
+      <% @followings_watch_later.each do |following| %>
+      <tr class="<%= cycle("even", "odd") %>">
         <td>
           <%= icon_tag("status_red") %>
-          <strong><%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink) %></strong> <%= raw print_unwatched(following.unseen_count) %>
+          <strong><%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink), :class => "alternative" %></strong> <%= raw print_unwatched(following.unseen_count) %>
         </td>
         <td><%= raw print_prev_episode(following.show.prev_episode(day_offset), day_offset) %></td>
         <td><%= raw print_next_episode(following.show.next_episode(day_offset), day_offset) %></td>
@@ -87,7 +89,49 @@
           <span class="ui-checkbox ui-checkbox-state-disabled"></span>
         </td>
         <td class="center">
-          <%= link_to(icon_tag("cross"), following, :confirm => "Are you sure that you want to delete [#{following.show.name}]?", :method => :delete, :class => "red") %>
+          <ul>
+            <li><strong><%= link_to("Remove", following, :confirm => "Are you sure that you want to unfollow [#{following.show.name}]?", :method => :delete, :class => "red") %></strong></li>
+            <li><em><%= link_to("Move to <strong>Favorites</strong>".html_safe,  set_watch_later_path(following.id, 0)) %></em></li>
+          </ul>
+        </td>
+      </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if @followings_ended.any? %>
+    <h2 class="center big">Ended favorites</h2>
+    <table class="my_shows margin_bottom_big" width="100%" cellspacing="2" cellpadding="0">
+      <thead>
+        <tr>
+          <th width="25%" class="sort"><%= icon_tag("sort_asc") %><div><a href="#">Show</a></div></th>
+          <th width="30%" class="sort"><%= icon_tag("sort_small") %><div><a href="#">Last episode</a></div></th>
+          <th width="30%" class="sort"><%= icon_tag("sort_small") %><div><a href="#">Next episode</a></div></th>
+          <th width="5%">
+            <div class="center inverted" rel="tip_email_notification">&nbsp;</div>
+          </th>
+          <th width="10%">
+            <div class="center">Options</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @followings_ended.each do |following| %>
+      <tr class="<%= cycle("even", "odd") %>">
+        <td>
+          <%= icon_tag("status_red") %>
+          <strong><%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink), :class => "alternative" %></strong> <%= raw print_unwatched(following.unseen_count) %>
+        </td>
+        <td><%= raw print_prev_episode(following.show.prev_episode(day_offset), day_offset) %></td>
+        <td><%= raw print_next_episode(following.show.next_episode(day_offset), day_offset) %></td>
+        <td class="center">
+          <span class="ui-checkbox ui-checkbox-state-disabled"></span>
+        </td>
+        <td class="center">
+          <ul>
+            <li><strong><%= link_to("Remove", following, :confirm => "Are you sure that you want to unfollow [#{following.show.name}]?", :method => :delete, :class => "red") %></strong></li>
+          </ul>
         </td>
       </tr>
       <% end %>

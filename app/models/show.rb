@@ -53,14 +53,14 @@ class Show < ActiveRecord::Base
   end
   
   def ended?
-    return self.status.downcase == "continuing" ? false : true
+    self.status.downcase == "continuing" ? false : true
   end
   
   def air_time
     parts = []
     parts << week_day_full(self.day_of_week) unless self.day_of_week.blank?
     parts << show.air_time_hour unless self.air_time_hour.blank?
-    return parts.join(" ")
+    parts.join(" ")
   end
 
 	def prev_episode(offset = 0.days)
@@ -83,6 +83,10 @@ class Show < ActiveRecord::Base
   
   def source_url
     "http://www.thetvdb.com/?tab=series&id=#{api_show_id}"
+  end
+
+  def popular?
+    self.followers > 100
   end
   
 end

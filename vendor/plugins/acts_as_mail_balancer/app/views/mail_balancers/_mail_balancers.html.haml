@@ -1,0 +1,18 @@
+%table.listing
+  %tr
+    %th Username
+    %th Ddate
+    %th Usage Count
+    %th
+    %th
+    %th
+
+  - @mail_balancers.each do |mail_balancer|
+    %tr
+      %td= mail_balancer.username
+      %td= mail_balancer.date
+      %td= mail_balancer.usage_count
+      %td= link_to 'Show', mail_balancer
+      %td= link_to 'Edit', edit_mail_balancer_path(mail_balancer)
+      %td= link_to 'Delete', mail_balancer, :confirm => t('standard.labels.are_you_sure'), :method => :delete
+

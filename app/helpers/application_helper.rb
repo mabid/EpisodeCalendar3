@@ -21,7 +21,7 @@ module ApplicationHelper
   end
   
 	def icon_tag(sprite, size=16)
-		return image_tag("pixel.gif?1", :class => "icon #{sprite}", :alt => "", :height => size, :width => size)
+		return image_tag("pixel.gif", :class => "icon #{sprite}", :alt => "", :height => size, :width => size)
 	end
 	
 	def render_special_flash(prefix)
@@ -45,10 +45,12 @@ module ApplicationHelper
 		html = ""
 		tag_cloud.each do |tag|
 			name = tag.name.gsub('&','&amp;').gsub(' ','&nbsp;')
-			link = link_to "#{name}", {:controller => "/shows", :action => "show", :permalink => tag.permalink}, :class => "#{style_list[(tag.followers.to_i - min) / divisor]}"
+      style = style_list[(tag.followers.to_i - min) / divisor]
+			#link = link_to(name, show_path(tag.permalink), :class => style)
+      link = "<a href='#{show_path(tag.permalink)}' class='#{style}'>#{name}</a>"
 			html += "<li>#{link}</li> "
 		end
-		return html.to_s
+		return html
 	end
 	
 	def is_current?(controller, action, id = nil)
@@ -63,6 +65,19 @@ module ApplicationHelper
     else
       "active" if params[:controller].eql?(controller.to_s) && params[:action].eql?(action.to_s)
     end
+  end
+
+  def find_named_routes
+    routes = []
+   
+    Rails.application.routes.named_routes.each do |name, route|
+      req = route.requirements
+      if req[:controller] == params[:controller] && req[:action] == params[:action]
+        routes << name
+      end
+    end
+   
+    routes
   end
 
 end

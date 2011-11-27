@@ -1,0 +1,13 @@
+<%= image_tag("icons/proloader_horizontal.gif", :id => "products_loader", :width => 133, :height => 20) %>
+<div id="amazon_products" class="products" data-product-type="DVD">
+  <h3 class="center big">You might like these</h3>
+  <ul>
+  <% names.each do |name| %>
+    <li data-name="<%= name %>">
+      <div class="image"></div>
+      <p><a class="link" rel="external"></a></p>
+      <p><strong class="title"></strong></p>
+    </li>
+  <% end %>
+  </ul>
+</div>

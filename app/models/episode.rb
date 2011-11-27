@@ -26,9 +26,9 @@ class Episode < ActiveRecord::Base
   
   def friendly_overview(plain = false)
     if self.overview.blank? || self.overview.match(/TBD/) || self.overview.match(/No synopsis available/)
-      return plain ? "This episode has no summary." : "<em>This episode has no summary.</em>"
+      plain ? "This episode has no summary." : "<em>This episode has no summary.</em>"
     else
-      return self.overview.gsub("&#039;", "'")
+      self.overview.gsub("&#039;", "'")
     end
   end
   

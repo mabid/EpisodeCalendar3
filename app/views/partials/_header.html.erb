@@ -1,14 +1,4 @@
-<%= content_tag(:a, "", :href => root_path, :id => "logo") %>
-<div id="search">
-  <p>
-    <%= link_to("Browse all shows", shows_path) %>
-    or search below <%= icon_tag("arrow_down") %>
-  </p>
-	<%= form_tag(search_path, :method => :get) do %>
-		<%= text_field_tag :q, nil, :title => "Enter show name" %>
-		<%= submit_tag "", :class => "submit icon", :name => nil %>
-	<% end %>
-</div>
+<%= link_to(image_tag("logos/logo.png"), root_path, :id => "logo") %>
 <% if logged_in? %>
 <div id="profile">
 	<%= link_to "view profile", profile_path(current_user) %>
@@ -18,6 +8,14 @@
 <div id="menu_wrapper">
   <% if logged_in? %>
 	<ul id="user_menu">
+		<li>
+		<div id="search">
+			<%= form_tag(search_path, :method => :get) do %>
+				<%= text_field_tag :q, nil, :title => "Enter show name" %>
+				<%= submit_tag "", :class => "submit icon", :name => nil %>
+			<% end %>
+		</div>
+		</li>
 		<li><%= link_to "#{icon_tag("calendar")}Calendar".html_safe, calendar_path, :class => is_current?(:shows,:calendar) %></li>
 		<li><%= link_to "#{icon_tag("eye")}Unwatched".html_safe, unwatched_path, :class => is_current?(:seen_episodes,:index) %></li>
 		<li><%= link_to "#{icon_tag("heart")}My shows".html_safe, followings_path, :class => is_current?(:followings,:index) %></li>
@@ -28,8 +26,8 @@
   <% end %>
 	<ul id="menu" class="<%= "logged_out" unless logged_in? %>">
 	<% if logged_in? %>
-		<li><%= link_to "#{icon_tag("chart_up")}Trends".html_safe, trends_path, :class => is_current?(:shows,:trends) %></li>
-		<li><%= link_to "#{icon_tag("information")}Info".html_safe, info_path, :class => is_current?(:support,:index) %></li>
+		<li><%= link_to "#{icon_tag("movie_folder")}All shows".html_safe, shows_path, :class => is_current?(:shows,:index) %></li>
+		<li><%= link_to "#{icon_tag("fire")}Trends".html_safe, trends_path, :class => is_current?(:shows,:trends) %></li>
 		<li><%= link_to "#{icon_tag("question")}FAQ".html_safe, faq_path, :class => is_current?(:support,:faq) %></li>
 		<li><%= link_to "#{icon_tag("blocks")}Settings".html_safe, settings_path, :class => is_current?(:registrations,:edit) %></li>
 		<li><%= link_to "#{icon_tag("minus_shield")}Logout (#{current_user.display_name})".html_safe, destroy_session_path(current_user), :class => is_current?(:sessions,:destroy), :method => :delete %></li>

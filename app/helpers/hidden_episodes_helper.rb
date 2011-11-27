@@ -1,0 +1,2 @@
+module HiddenEpisodesHelper
+end

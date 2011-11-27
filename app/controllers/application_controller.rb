@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   #protect_from_forgery # :secret => '05ceef8ef3014ff37b2dc1310bb80784'
   
-  before_filter :get_tags, :footer, :set_user_time_zone
+  before_filter :get_tags, :footer, :set_user_time_zone, :subdomain_view_path
   helper_method :admin?, :logged_in?
-  
+
   def logged_in?
     user_signed_in?
   end  
@@ -47,6 +47,10 @@ class ApplicationController < ActionController::Base
           return false
         end
       end
+    end
+
+    def subdomain_view_path
+      prepend_view_path "app/views/mobile" if request.server_name.include?("mobile") || request.user_agent =~ /Mobile|webOS/
     end
     
 end

@@ -102,15 +102,15 @@
         <h2>Do you prefer RSS readers?</h2>
         <p>
           <strong>Subscribe to your episodes with RSS using this link</strong><br />
-          <%#= text_field_tag "ical", rss_url(current_user.email.downcase), :class => :long, :readonly => :readonly %>
+          <%= text_field_tag "ical", rss_url(current_user.email.downcase), :class => :long, :readonly => :readonly %>
         </p>
   
         <p>
           <strong>Add your iCal feed to your Google Calendar using this link</strong><br />
-          <%#= text_field_tag "ical", ical_url(current_user.email.downcase), :class => :long, :readonly => :readonly %>
+          <%= text_field_tag "ical", ical_url(current_user.email.downcase), :class => :long, :readonly => :readonly %>
         </p>
         
-        <% form_for @current_user do |f| %>
+        <%= form_for @current_user do |f| %>
           <%= hidden_field_tag :tab, 4 %>          
           <p>
             Hide the episode overview in my feeds.<br />
@@ -136,8 +136,8 @@
         </div>
         <p>
           <strong>Episode Calendar uses gravatar.com</strong><br />
-          <blockquote><p><span>&ldquo;</span>A Globally Recognized Avatar our Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog. Avatars help identify your posts on blogs and web forums, so why not on any site?<span>&bdquo;</span></p></blockquote>
         </p>
+        <blockquote><p><span>&ldquo;</span>A Globally Recognized Avatar our Gravatar is an image that follows you from site to site appearing beside your name when you do things like comment or post on a blog. Avatars help identify your posts on blogs and web forums, so why not on any site?<span>&bdquo;</span></p></blockquote>
         <p>
           Simply sign up at Gravatar with your account's email: <strong><%= current_user.email %></strong>, and your image will show here automatically!<br /><br /><br />
           <%= link_to("Get a Gravatar", "http://www.gravatar.com", :rel => :external, :class => "awesome magenta") %>
@@ -153,7 +153,7 @@
           <li><strong>Width</strong> and <strong>Height:</strong> Choose values to fit your page. Pixel and percentage values work.</li>
           <li><strong>Scrolling:</strong> Since the widget only streches horizontally, we recommend setting scrolling to <strong>auto</strong>.<br />If you don't want a vertical scrollbar, set the value to <strong>no</strong> and adjust the <strong>height</strong> value instead.</li>
         </ul><br />
-        <%= link_to("View an example", "#{HOST}/iframe_example.html", :rel => :external, :class => "awesome small magenta") %>
+        <%= link_to("View an example", "#{HOST}/iframe_example.html", :rel => :external, :class => "awesome magenta") %>
       </div> <!-- .item -->
 
       <div class="item">

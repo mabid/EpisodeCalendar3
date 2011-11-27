@@ -17,7 +17,7 @@
   var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
 </script>
 
-<%# cache do %>
+<% cache do %>
 <div id="features_wrapper">
   <h1 class="center"><strong>Episode Calendar Features</strong></h1>
   <ul id="features">
@@ -88,68 +88,4 @@
     </li>
   </ul>
 </div>
-<%# end %>
-
-<div id="contact"> 
-  
-  <div class="width_33">
-    <h2 class="center big"><strong>Contact &amp; suggestions</strong></h2>
-    <h3><strong>Do you have a question or a suggestion?</strong></h3>
-    <p>
-      Let me know by filling out the form to your right,<br />and I'll answer as soon as I can!
-    </p>
-    <h3><strong>Missing a show?</strong></h3>
-    <p>
-      <%= link_to("Search and request a show", request_show_path, :class => "awesome medium magenta") %>
-    </p>
-    <h3><strong>Any incorrect data?</strong></h3>
-    <p>
-      All show- and episode information is fetched from <%= link_to("The TV Database", "http://www.thetvdb.com", :rel => :external) %>.
-    </p>
-  </div>
-  <div class="width_66">  
-    <%= form_for @ticket do |f| %>
-      <fieldset>
-        <div class="pad">
-            <div class="width_34">
-              <% if logged_in? %>
-                <div class="form_element">
-                  <%= f.label :from, "Sent from" %><br />
-                  <%= f.text_field :from, :value => current_user.display_name, :disabled => true %>
-                </div>
-              <% else %>
-                <div class="form_element">
-                  <%= f.label :email, "Your email" %><br />
-                  <%= f.text_field :email %>
-                </div>
-              <% end %>
-              <div class="form_element">
-                <%= f.label :subject %><br />
-                <%= f.text_field :subject %>
-              </div>
-              <div class="form_element">
-                <%= f.label :category %><br />
-                <div class="select_wrapper">
-                  <%= f.select(:category, options_for_select(Constant.ticket_categories.map(&:value)), :include_blank => true) %>
-                </div>
-              </div>
-            </div>
-            <div class="width_66">
-              <div class="form_element">
-                <%= f.label :message %><br />
-                <%= f.text_area :message, :rows => 8 %>
-              </div>
-              <div class="form_element">
-                <%= f.submit "Send", :class => "awesome magenta" %>
-                <%= f.text_field :human %>
-              </div>
-            </div>
-        </div>
-        <%= render "partials/error_messages", :model => @ticket %>
-        <%= content_tag(:div, flash[:notice], :id => :notice, :class => :static) if flash[:notice] %>
-        <%= content_tag(:div, flash[:error], :id => :error, :class => :static) if flash[:error] %>
-      </fieldset>
-    <% end %>
-  </div>
-  
-</div>
+<% end %>

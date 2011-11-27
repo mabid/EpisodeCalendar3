@@ -17,16 +17,18 @@ class SeenEpisodesController < ApplicationController
     @show = Show.find_by_id(show_id)
     seasons = Season.find_all_by_api_show_id(@show.api_show_id)
     watched_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND season_id IN (?)", current_user.id, seasons.collect(&:id)])
+    hidden_episodes = HiddenEpisode.find(:all, :conditions => ["user_id = ? AND season_id IN (?)", current_user.id, seasons.collect(&:id)])
+    excluded_episodes = watched_episodes.collect(&:episode_id) | hidden_episodes.collect(&:episode_id)
     corrected_date = ($TODAY - current_user.day_offset.days).end_of_day
-    if watched_episodes.any?
-      @episodes = Episode.find(:all, :conditions => ["show_id = ? AND id NOT IN (?) AND air_date <= ?", @show.id, watched_episodes.collect(&:episode_id), corrected_date], :order => "season_number asc")
+    if excluded_episodes.any?
+      @episodes = Episode.find(:all, :conditions => ["show_id = ? AND id NOT IN (?) AND air_date <= ?", @show.id, excluded_episodes, corrected_date], :order => "season_number asc")
     else
-      @episodes = Episode.find(:all, :conditions => ["show_id = ? AND id AND air_date <= ?", @show.id, corrected_date], :order => "season_number asc")
+      @episodes = Episode.find(:all, :conditions => ["show_id = ? AND air_date <= ?", @show.id, corrected_date], :order => "season_number asc")
     end
   end
   
   def mark_episode
-    @episode = Episode.find(params[:id])
+    @episode = Episode.find(params[:episode_id])
     @show = @episode.show
     
     @mark_as_seen = params[:mark].to_i
@@ -35,9 +37,9 @@ class SeenEpisodesController < ApplicationController
     if @mark_as_seen == 1
       episode = SeenEpisode.exists?(:user_id => current_user.id, :episode_id => @episode.id)
       if !episode
-        SeenEpisode.create(:user_id => current_user.id, :season_id => params[:season], :episode_id => @episode.id)
+        SeenEpisode.create(:user_id => current_user.id, :season_id => params[:season_id], :episode_id => @episode.id)
         Following.increment_counter(:marked_episodes_count, @following.id)
-      end      
+      end
     else
       episode = SeenEpisode.find_by_user_id_and_episode_id(current_user.id, @episode.id)
       if episode
@@ -50,7 +52,7 @@ class SeenEpisodesController < ApplicationController
       format.html { redirect_to show_path(@show) }
       format.js
     end
-  end
+  end 
   
   def mark_season
     @season_id = params[:season_id]
@@ -67,7 +69,6 @@ class SeenEpisodesController < ApplicationController
       end
     end
     
-    #seen_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND season_id = ?", current_user.id, @season_id])
     @following = Following.find_by_user_id_and_show_id(current_user.id, @show_id)
     
     if @following

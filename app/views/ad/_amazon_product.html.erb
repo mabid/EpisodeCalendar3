@@ -1,5 +1,0 @@
-<li>
-  <p><%= image_tag(amazon_product["MediumImage"]["URL"]) unless amazon_product["MediumImage"].blank? %></p>
-  <p><%= amazon_product["ItemAttributes"]["Title"] %></p>
-  <p><%= link_to("Buy", amazon_product["DetailPageURL"], :rel => :external) %></p>
-</li>
