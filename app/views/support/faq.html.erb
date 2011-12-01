@@ -28,64 +28,28 @@
 		<header>
     	<h2><a href="#">Important Questions</a></h2>
 		</header>
-    <ul>
-			<% if @important_questions.empty? %>
-				<li>Oh no, this section is empty!</li>
-			<% else %>
-				<% @important_questions.each do |faq| %>
-					<lh><%= faq.question %></lh>
-					<li><%= faq.answer %></li>
-				<% end %>
-			<% end %>
-    </ul>
+		<%= render 'faq', :faq => @important %>
   </article>
 
   <article id="position_hi">
 		<header>
     	<h2><a href="#">Very Frequently Asked Questions</a></h2>
 		</header>
-    <ul>
-			<% if @position_hi.empty? %>
-				<li>Oh no, this section is empty!</li>
-			<% else %>
-				<% @position_hi.each do |faq| %>
-					<lh><%= faq.question %></lh>
-					<li><%= faq.answer %></li>
-				<% end %>
-			<% end %>
-    </ul>
+    <%= render 'faq', :faq => @position_hi %>
   </article>
 
   <article id="position_mid">
 		<header>
     	<h2><a href="#">Questions</a></h2>
 		</header>
-    <ul>
-			<% if @position_mid.empty? %>
-				<li>Oh no, this section is empty!</li>
-			<% else %>
-				<% @position_mid.each do |faq| %>
-					<lh><%= faq.question %></lh>
-					<li><%= faq.answer %></li>
-				<% end %>
-			<% end %>
-    </ul>
+		<%= render 'faq', :faq => @position_mid %>
   </article>
 
   <article id="position_lo">
 		<header>
     	<h2><a href="#">Infrequently Asked Questions</a></h2>
 		</header>
-    <ul>
-			<% if @position_lo.empty? %>
-				<li>Oh no, this section is empty!</li>
-			<% else %>
-				<% @position_lo.each do |faq| %>
-					<lh><%= faq.question %></lh>
-					<li><%= faq.answer %></li>
-				<% end %>
-			<% end %>
-    </ul>
+    <%= render 'faq', :faq => @position_lo %>
   </article>
 </section>
 

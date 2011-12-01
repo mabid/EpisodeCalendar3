@@ -53,7 +53,7 @@ class SupportController < ApplicationController
   end
   
   def faq
-    @important_questions = Faq.important
+    @important = Faq.important
     @position_lo = Faq.position_lo
     @position_mid = Faq.position_mid
     @position_hi = Faq.position_hi
