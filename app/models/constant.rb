@@ -13,9 +13,9 @@
 class Constant < ActiveRecord::Base
   attr_accessible :key, :value, :additional_data
   
-  scope :ticket_categories, :conditions => { :key => "ticket_category" }
-  scope :command_types, :conditions => { :key => "command_type" }
-  scope :mobile_login, :conditions => { :key => "mobile_login" }
+  scope :ticket_categories, where(:key => "ticket_category")
+  scope :command_types, where(:key => "command_type")
+  scope :mobile_login, where(:key => "mobile_login")
   
   default_scope :order => "`key` asc"
 end

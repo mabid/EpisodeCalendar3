@@ -35,9 +35,9 @@ class Show < ActiveRecord::Base
 	has_many :episodes, :dependent => :destroy
 	has_many :banners
 	
-  scope :popular, :conditions => "followers > 0", :order => "followers DESC, updated_at DESC"
-  scope :active, :conditions => "status = 'continuing'",:order => "name ASC"
-  scope :ended, :conditions => "not status = 'continuing'", :order => "name ASC"
+  scope :popular, where("followers > 0").order("followers DESC, updated_at DESC")
+  scope :active, where(:status => 'continuing').order("name ASC")
+  scope :ended, where(:status => 'ended').order("name ASC")
 
   #def to_param
 	#	permalink

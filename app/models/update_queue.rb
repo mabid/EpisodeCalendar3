@@ -11,10 +11,10 @@
 
 class UpdateQueue < ActiveRecord::Base
   
-  scope :shows, :conditions => { :update_type => "show" }
-  scope :episodes, :conditions => { :update_type => "episode" }
-  scope :show_episodes, :conditions => { :update_type => "all_episodes" }
-  scope :show_banners, :conditions => { :update_type => "banner" }
+  scope :shows, where(:update_type => "show")
+  scope :episodes, where(:update_type => "episode")
+  scope :show_episodes, where(:update_type => "all_episodes")
+  scope :show_banners, where(:update_type => "banner")
   
   attr_accessible :api_id, :update_type
 end
