@@ -7,3 +7,4 @@ config/database.yml
 .project
 app/assets/images/psd/*
 .DS_Store
+.rvmrc
