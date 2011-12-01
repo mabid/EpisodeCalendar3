@@ -1846,6 +1846,30 @@ h3#season_pagination_header {
   @include border-radius(3px);
 }
 
+/* FAQ   --------------------------------------------------------------------------------------------------------------------------------- */
+
+#faq article {
+	margin-bottom: 5px;
+}
+
+#faq article header h2 a {
+	color: rgba(0, 0, 0, 1.0);
+}
+
+#faq article header h2 a.active,
+#faq article header h2 a:hover {
+	color: $pink_theme_color;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
+}
+
+#faq article ul lh {
+	font-weight: bold;
+}
+
 /* ADMIN --------------------------------------------------------------------------------------------------------------------------------- */
 
 #unwatched_episodes h2 {

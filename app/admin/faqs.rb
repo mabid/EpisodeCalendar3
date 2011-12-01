@@ -5,6 +5,9 @@ ActiveAdmin.register Faq do
   scope :important
   scope :unimportant
   scope :recently_asked
+  scope :position_hi
+  scope :position_mid
+  scope :position_lo
   
   filter :question
   filter :position
