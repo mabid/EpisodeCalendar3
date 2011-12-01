@@ -111,8 +111,8 @@ ActiveRecord::Schema.define(:version => 20111129084853) do
   create_table "faqs", :force => true do |t|
     t.text     "question"
     t.text     "answer"
-    t.integer  "position"
-    t.boolean  "important"
+    t.integer  "position",   :default => 0
+    t.boolean  "important",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
