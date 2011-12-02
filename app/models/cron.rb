@@ -17,13 +17,13 @@
 class Cron < ActiveRecord::Base
   attr_accessible :title, :every, :interval, :at, :am_pm, :command, :command_type
     
-  scope :queue_update, :conditions => { :title => "Queue update" }
-  scope :episodes_update, :conditions => { :title => "Episodes update" }
-  scope :shows_update, :conditions => { :title => "Shows update" }
-  scope :full_show_update, :conditions => { :title => "Full show update" }
-  scope :banners_update, :conditions => { :title => "Banners update" }
-  scope :trends_update, :conditions => { :title => "Trends update" }
-  scope :send_emails, :conditions => { :title => "Send emails" }
+  scope :queue_update, where(:title => "Queue update")
+  scope :episodes_update, where(:title => "Episodes update")
+  scope :shows_update, where(:title => "Shows update")
+  scope :full_show_update, where(:title => "Full show update")
+  scope :banners_update, where(:title => "Banners update")
+  scope :trends_update, where(:title => "Trends update")
+  scope :send_emails, where(:title => "Send emails")
   
   def run_interval
     eval("#{every}.#{interval}")

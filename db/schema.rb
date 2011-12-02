@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111115192146) do
+ActiveRecord::Schema.define(:version => 20111129084853) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -107,6 +107,15 @@ ActiveRecord::Schema.define(:version => 20111115192146) do
 
   add_index "episodes", ["api_episode_id"], :name => "episode_must_be_unique", :unique => true
   add_index "episodes", ["show_id", "air_date"], :name => "index_episodes_on_show_id_and_air_date"
+
+  create_table "faqs", :force => true do |t|
+    t.text     "question"
+    t.text     "answer"
+    t.integer  "position",   :default => 0
+    t.boolean  "important",  :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "followings", :force => true do |t|
     t.integer  "user_id"

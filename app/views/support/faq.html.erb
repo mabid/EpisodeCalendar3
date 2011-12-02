@@ -17,25 +17,67 @@
   var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
 </script>
 
-<h1 class="center">Frequently asked questions</h1>
+<%= javascript_include_tag :faq %>
 
-<div id="todo">
-  <div id="priority_4">
+<header>
+	<h1 class="center">Frequently Asked Questions</h1>
+</header>
+
+<section id="faq">
+  <article id="important">
+		<header>
+    	<h2><a href="#">Important Questions</a></h2>
+		</header>
+		<%= render 'faq', :faq => @important %>
+  </article>
+
+  <article id="position_hi">
+		<header>
+    	<h2><a href="#">Very Frequently Asked Questions</a></h2>
+		</header>
+    <%= render 'faq', :faq => @position_hi %>
+  </article>
+
+  <article id="position_mid">
+		<header>
+    	<h2><a href="#">Questions</a></h2>
+		</header>
+		<%= render 'faq', :faq => @position_mid %>
+  </article>
+
+  <article id="position_lo">
+		<header>
+    	<h2><a href="#">Infrequently Asked Questions</a></h2>
+		</header>
+    <%= render 'faq', :faq => @position_lo %>
+  </article>
+</section>
+
+<hr />
+<span style="color: red;">[Temporary &lt;hr /&gt;]</span>
+<hr />
+
+<section id="todo">
+	<div id="priority_4">
     <h2>Important notes</h2>
     <ul></ul>
   </div>
+
   <div id="priority_3">
     <h2>High priority</h2>
     <ul></ul>
   </div>
+
   <div id="priority_2">
     <h2>Medium priority</h2>
     <ul></ul>
   </div>
+
   <div id="priority_1">
     <h2>Low priority</h2>
     <ul></ul>
   </div>
+
   <div id="completed_tasks">
     <h2>Completed tasks</h2>
     <ul></ul>

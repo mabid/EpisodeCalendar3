@@ -13,12 +13,12 @@
 class Log < ActiveRecord::Base
   attr_accessible :key, :value, :additional_data
   
-  default_scope :order => "created_at desc", :limit => 25
-  named_scope :shows_updated, :conditions => { :key => "shows_updated" }
-  named_scope :episodes_updated, :conditions => { :key => "episodes_updated" }
-  named_scope :banners_updated, :conditions => { :key => "banners_updated" }
-  named_scope :show_trends_updated, :conditions => { :key => "show_trends_updated" }
-  named_scope :show_requested, :conditions => { :key => "show_requested" }
+  default_scope order("created_at desc").limit(25)
+  scope :shows_updated, where(:key => "shows_updated")
+  scope :episodes_updated, where(:key => "episodes_updated")
+  scope :banners_updated, where(:key => "banners_updated")
+  scope :show_trends_updated, where(:key => "show_trends_updated")
+  scope :show_requested, where(:key => "show_requested")
   
   def failed?
     value.blank?
