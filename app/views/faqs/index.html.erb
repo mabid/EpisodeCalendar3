@@ -25,13 +25,13 @@
   <ul class="pad">
 		<% @important.each do |faq| %>
     <li>
-      <h2 class="red"><%= faq.position %>: <%= faq.question %></h2>
+      <h2 class="red"><%= faq.question %></h2>
       <p class="big"><%= faq.answer %></p>
     </li>
     <% end %>
     <% @faqs.each do |faq| %>
     <li>
-      <h2><%= faq.position %>: <%= faq.question %></h2>
+      <h2><%= faq.question %></h2>
       <p class="big"><%= faq.answer %></p>
     </li>
     <% end %>
