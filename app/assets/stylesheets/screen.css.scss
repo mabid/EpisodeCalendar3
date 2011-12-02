@@ -428,6 +428,23 @@ fieldset #notice
 .width_34 { width: 34%; float: left; }
 .width_66 { width: 66%; float: left; }
 
+.divider {
+  position: relative;
+}
+.divider:before, .divider:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 50%;
+  @include linear-gradient(#eee, #999);
+}
+.divider:after {
+  top: 50%;
+  @include linear-gradient(#999, #eee);
+}
+
 .small { font-size: 0.8em; }
 .grey { color: #bbb; }
 .darker_grey { color: #999; }
@@ -1909,11 +1926,6 @@ h3#season_pagination_header {
   line-height: 1.1;
 }
 
-#tag_cloud a:hover {
-  color: #66f;
-  background-color: #eee;
-}
-
 #tag_cloud a.tag1  { font-size: 0.80em; font-weight: 100; color: #666; }
 #tag_cloud a.tag2  { font-size: 0.85em; font-weight: 200; color: #777; }
 #tag_cloud a.tag3  { font-size: 0.90em; font-weight: 300; color: #888; }
@@ -1924,6 +1936,11 @@ h3#season_pagination_header {
 #tag_cloud a.tag8  { font-size: 1.80em; font-weight: 800; color: #ddd; }
 #tag_cloud a.tag9  { font-size: 2.15em; font-weight: 900; color: #eee; }
 #tag_cloud a.tag10 { font-size: 2.40em; font-weight: 900; color: #fff; }
+
+#tag_cloud a:hover {
+  color: #66f;
+  background-color: #eee;
+}
 
 /* TOOLTIP
  * ----------------------------------------------------------------------------------------------------------------------- */

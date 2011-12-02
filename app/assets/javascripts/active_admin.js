@@ -15,7 +15,7 @@ $(function(){
     handle: '.drag_handle',
     helper: fixHelper,
     update: function(){
-      $.post("/sort_faqs", $(this).sortable('serialize'));
+      $.post("/faqs/sort", $(this).sortable('serialize'));
       $("#faqs tr:odd").removeClass("even");
       $("#faqs tr:even").addClass("even");
     }

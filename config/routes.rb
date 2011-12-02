@@ -15,11 +15,12 @@ Episodecalendar2::Application.routes.draw do
 	resources :episodes
 	resources :shows
 	resources :users
+  resources :faqs, :as => "faq" do
+    collection { post :sort }
+  end
 	
 	#Pages
 	match "/info" => "support#index"
-	match "/faq" => "faqs#index"
-  match "/sort_faqs" => "faqs#sort"
   match "/settings" => "users#settings"
   match "/top-shows" => "shows#top_shows", :as => "top_shows"
   match "/trends" => "shows#trends"
