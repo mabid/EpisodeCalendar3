@@ -1,14 +1,14 @@
 <div id="trends">
-  <div class="note_wrapper">
+  <div class="note_wrapper light">
     <dl class="note">
       <% @top_shows.each_with_index do |show, i| %>
-      <dt>#<%= show.current_trend_position %>. <%= show.name %> <span><%= show.followers %> followers (<%= raw print_trend(show) %>)</span></dt>
+      <dt>#<%= show.current_trend_position %>. <%= link_to(show.name, show, :class => :alternative) %> <span><%= show.followers %> followers (<%= raw print_trend(show) %>)</span></dt>
       <dd><%= raw print_popularity(show) %></dd>
       <% end %>
     </dl>
   </div>
   
-  <div class="note_wrapper">
+  <div class="note_wrapper light">
     <dl class="note">
       <% @top_new_followers.each_with_index do |show, i| %>
       <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= raw print_trend(show) %>)</span></dt>
@@ -17,7 +17,7 @@
     </dl>
   </div>
   
-  <div class="note_wrapper">
+  <div class="note_wrapper light">
     <dl class="note">
       <% @highest_grow.each_with_index do |show, i| %>
       <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= show.followers %> followers)</span></dt>
@@ -25,6 +25,23 @@
       <% end %>
     </dl>
   </div>
+
+  <div class="note_wrapper light">
+    <ul>
+      <% 0.upto(6) do |i| %>
+        <li>
+          <h3><%= current_user.sun_to_sat ? week_day(i) : week_day(i+1) %></h3>
+          <dl class="note">
+            <% @top_shows.select{ |s| s.day_of_week == i }.each do |show| %>
+            <dt><%= show.name %> <span>(<%= show.followers %> followers)</span></dt>
+            <dd><span class="green">a</span></dd>
+            <% end %>
+          </dl>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
 </div>
 
 <div class="margin_top_big margin_bottom_big">

@@ -587,6 +587,12 @@ a.alternative {
   @include box-shadow(0 2px 4px #999);
 }
 
+.note_wrapper.light {
+  background: #eee;
+  border: 5px #ccc solid;
+  color: #000;
+}
+
 #notice {
   margin: 20px 0;
   padding: 10px;
