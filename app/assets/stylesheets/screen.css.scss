@@ -149,6 +149,7 @@ h1 {
 h2 {
   font-size: 24px;
   &.big { font-size: 28px; }
+  &.red { color: $pink_theme_color; }
 }
 
 h3 {
