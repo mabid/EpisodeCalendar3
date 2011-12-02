@@ -11,10 +11,6 @@ class SupportController < ApplicationController
     end
   end
   
-  def faq
-    
-  end
-  
   def request_show
     @shows = []
     unless params[:query].blank?
@@ -50,13 +46,6 @@ class SupportController < ApplicationController
   
   def request_successful
     @show = Show.find_by_permalink(params[:permalink])
-  end
-  
-  def faq
-    @important = Faq.important
-    @position_lo = Faq.position_lo
-    @position_mid = Faq.position_mid
-    @position_hi = Faq.position_hi
   end
   
 end

@@ -18,7 +18,8 @@ Episodecalendar2::Application.routes.draw do
 	
 	#Pages
 	match "/info" => "support#index"
-	match "/faq" => "support#faq"
+	match "/faq" => "faqs#index"
+  match "/sort_faqs" => "faqs#sort"
   match "/settings" => "users#settings"
   match "/top-shows" => "shows#top_shows", :as => "top_shows"
   match "/trends" => "shows#trends"
