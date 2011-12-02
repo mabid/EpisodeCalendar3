@@ -15,7 +15,7 @@ Episodecalendar2::Application.routes.draw do
 	resources :episodes
 	resources :shows
 	resources :users
-  resources :faqs, :as => "faq" do
+  resources :faqs, :path => "faq" do
     collection { post :sort }
   end
 	
