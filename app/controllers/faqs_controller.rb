@@ -1,7 +1,8 @@
 class FaqsController < ApplicationController
   
   def index
-    @faqs = Faq.all
+    @important = Faq.important
+    @faqs = Faq.where(:important => false)
   end
   
   def sort
