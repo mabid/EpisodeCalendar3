@@ -19,7 +19,7 @@ ActiveAdmin.register Faq do
     end
     column :created_at
     column "" do |faq|
-      raw "#{link_to "Edit", edit_admin_faq_path(faq), :class => :member_link} #{link_to "Delete", admin_faq_path(faq), :class => :member_link, :method => :delete, :confirm => "Delete question '#{faq.question}'?"}" + content_tag(:span, "[drag]", :class => "drag_handle")
+      raw "#{link_to "Edit", edit_admin_faq_path(faq), :class => :member_link} #{link_to "Delete", admin_faq_path(faq), :class => :member_link, :method => :delete, :confirm => "Delete question '#{faq.question}'?"}" + icon_tag("drag_handle")
     end
   end
 end
