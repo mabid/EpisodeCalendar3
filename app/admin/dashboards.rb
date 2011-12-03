@@ -11,12 +11,13 @@ ActiveAdmin::Dashboards.build do
   section "Number of registered users the last 30 days, day by day", :priority => 1 do
     start_date = Date.today - 1.month
     end_date = Date.today
-    @user_count = User.count
-    @users_by_day = users_chart_series(start_date)
+    user_count = User.count
+    users_by_day = users_chart_series(start_date)
+    avg = (users_by_day.sum / users_by_day.size).round
     div do
-      render "registrations", :user_count => @user_count, :users_by_day => @users_by_day, :start_date => start_date, :end_date => end_date
+      render "registrations", :user_count => user_count, :users_by_day => users_by_day, :start_date => start_date, :end_date => end_date, :avg => avg
     end
-  end 
+  end
   
   section "Registered users - This month vs. last month", :priority => 2 do
     z = 2.hours

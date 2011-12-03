@@ -1864,9 +1864,21 @@ h3#season_pagination_header {
 .user_profile_image {
   float: left;
   margin: 0 20px 10px 0;
-  border: 3px solid $pink_theme_color;
-  padding: 1px;
-  @include border-radius(3px);
+  @include border-radius(10px);
+  position: relative;
+  overflow: hidden;
+  @include box-shadow(0 0 3px #666 inset);
+  border: 1px solid #666;
+}
+
+.user_profile_image:after {
+  content: "";
+  position: absolute;
+  @include box-shadow(3px 3px 5px #000 inset);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /* FAQ   --------------------------------------------------------------------------------------------------------------------------------- */

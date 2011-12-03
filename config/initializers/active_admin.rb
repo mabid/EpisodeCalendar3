@@ -11,6 +11,7 @@ ActiveAdmin.setup do |config|
   # users to your main site. Defaults to no link.
   #
   # config.site_title_link = "/"
+  config.site_title_link = :root
 
   # == Default Namespace
   #
@@ -99,7 +100,6 @@ ActiveAdmin.setup do |config|
   #   config.register_stylesheet 'my_stylesheet.css'
   #
   # To load a javascript file:
-  config.register_javascript 'http://www.google.com/jsapi'
   config.register_javascript 'jquery/highcharts'
   config.register_javascript 'jquery/highcharts_themes/grid'
 end

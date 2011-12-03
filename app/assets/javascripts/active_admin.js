@@ -15,7 +15,14 @@ $(function(){
     handle: '.drag_handle',
     helper: fixHelper,
     update: function(){
-      $.post("/faqs/sort", $(this).sortable('serialize'));
+      $.ajax({
+        url: "/faqs/sort",
+        type: "post",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        data: $(this).sortable('serialize')
+      });
       $("#faqs tr:odd").removeClass("even");
       $("#faqs tr:even").addClass("even");
     }
