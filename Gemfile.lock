@@ -70,7 +70,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
-    daemons (1.1.4)
+    daemons (1.0.10)
     devise (1.4.8)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -84,6 +84,7 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
+    gem_plugin (0.2.3)
     gravtastic (3.2.6)
     has_permalink (0.1.2)
     has_scope (0.5.1)
@@ -122,6 +123,9 @@ GEM
     mime-types (1.16)
     mocha (0.10.0)
       metaclass (~> 0.0.1)
+    mongrel (1.2.0.pre2)
+      daemons (~> 1.0.10)
+      gem_plugin (~> 0.2.3)
     multi_json (1.0.3)
     mysql2 (0.3.7)
     net-scp (1.0.4)
@@ -233,6 +237,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   mocha
+  mongrel (= 1.2.0.pre2)
   mysql2
   nifty-generators
   paperclip

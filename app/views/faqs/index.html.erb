@@ -26,13 +26,13 @@
 		<% @important.each do |faq| %>
 	    <li class="big">
 	      <h2 class="theme_color"><%= faq.question %></h2>
-				<%= raw RedCloth.new(faq.answer).to_html %>
+        <%= raw render_textile(faq.answer) %>
 	    </li>
     <% end %>
     <% @faqs.each do |faq| %>
 	    <li class="big">
 	      <h2><%= faq.question %></h2>
-				<%= raw RedCloth.new(faq.answer).to_html %>
+				<%= raw render_textile(faq.answer) %>
 	    </li>
     <% end %>
   </ul>
