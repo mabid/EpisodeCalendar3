@@ -7,7 +7,6 @@
 
 /* 0 16 32 48 64 80 96 112 128 144 160 */
 img.icon { position: relative; top: 3px; }
-td img.icon, th img.icon { top: 0; }
 
 .icon { background-image: image-url("sprites/icons.png") !important; background-position: 0 0; background-repeat: no-repeat; }
 .blank { background-position: 16px 16px; }
@@ -34,6 +33,9 @@ td img.icon, th img.icon { top: 0; }
 .lock { background-position: -128px -16px; }
 .tick { background-position: -144px -16px; }
 
+.drag_handle { background-position: -48px -32px; }
+.question { background-position: -64px -32px; }
+.movie_folder { background-position: -80px -32px; }
 .television { background-position: -96px -32px; }
 .eye { background-position: -112px -32px; }
 .status_red { background-position: -128px -32px; }
@@ -51,17 +53,11 @@ td img.icon, th img.icon { top: 0; }
 .mail_big { background-position: -24px -64px; }
 .feed_big { background-position: -48px -64px; }
 .key { background-position: -72px -64px; }
-.monitor { background-position: -96px -64px; }
-.log { background-position: -120px -64px; }
-.battery { background-position: -144px -64px; }
 
 .globe_big { background-position: 0px -88px; }
 .calendar_big { background-position: -24px -88px; }
-.terminal { background-position: -48px -88px; }
 .zone { background-position: -72px -88px; }
 .smiley { background-position: -96px -88px; }
-.plus_big { background-position: -120px -88px; }
-.tick_big { background-position: -144px -88px; }
 
 .dashboard tr {
   display: inline !important;
