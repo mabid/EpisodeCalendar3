@@ -24,16 +24,16 @@
 <div class="width_50 divider">
   <ul class="pad">
 		<% @important.each do |faq| %>
-    <li class="big">
-      <h2 class="red"><%= faq.question %></h2>
-			<%= raw RedCloth.new(faq.answer).to_html %>
-    </li>
+	    <li class="big">
+	      <h2 class="red"><%= faq.question %></h2>
+				<%= raw RedCloth.new(faq.answer).to_html %>
+	    </li>
     <% end %>
     <% @faqs.each do |faq| %>
-    <li class="big">
-      <h2><%= faq.question %></h2>
-			<%= raw RedCloth.new(faq.answer).to_html %>
-    </li>
+	    <li class="big">
+	      <h2><%= faq.question %></h2>
+				<%= raw RedCloth.new(faq.answer).to_html %>
+	    </li>
     <% end %>
   </ul>
 </div>
