@@ -29,6 +29,7 @@ Episodecalendar2::Application.routes.draw do
   match "/profile/:id" => "users#show", :as => "profile", :constraints => { :id => /.*/} #This regex breaks ajax calls
   match "/ical_feed/:id" => "users#ical", :as => "ical", :constraints => { :id => /.*/} #This regex breaks ajax calls
   match "/rss_feed/:id" => "users#rss", :as => "rss", :constraints => { :id => /.*/} #This regex breaks ajax calls
+  match "/render_progress/:user_id" => "users#render_progress"
 
   #Calendar
 	match "/calendar" => "shows#calendar"  

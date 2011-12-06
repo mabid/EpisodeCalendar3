@@ -1,0 +1,13 @@
+<div id="progress" data-user-id="<%= user.id %>">
+  <%= image_tag("icons/proloader_horizontal.gif", :id => "preloader", :width => 133, :height => 17) %>
+  <div class="header hidden">
+    <small><span class="left"></span> episodes left to watch.</small>
+    <p><%= me?(user) ? "You have" : "#{@user.name} has" %> watched <span class="marked"></span> out of <span class="count"></span> episodes. <div class="status"></div></p>
+  </div>
+  <div id="progress_bar_wrapper">
+    <div id="progress_bar">
+      <div class="bar"><p><span></span>%</p></div>
+    </div>
+  </div>
+  <div class="footer"><%= me?(user) ? "You have" : "#{@user.name} has" %> wasted about <strong></strong> watching TV shows.</div>
+</div>

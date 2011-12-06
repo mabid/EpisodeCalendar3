@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 	require "icalendar"
-	before_filter :authenticate_user!, :except => [:index, :show, :new, :create, :ical, :rss]
+	before_filter :authenticate_user!, :except => [:index, :set_format, :destroy, :update, :ical, :rss]
 	
 	def index
 	  @letter = params[:letter].blank? ? "a" : params[:letter]
@@ -12,8 +12,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @top_shows = Following.where(user_id: @user.id).order("marked_episodes_count desc")
-    @recent_episodes = SeenEpisode.where(["user_id = ?", @user.id]).order("created_at desc").limit(20).joins([:episode, :season])
+    @most_seen_shows = @user.followings.order("marked_episodes_count desc").limit(6)
+    @recent_shows = @user.followings.order("created_at desc").joins(:show).limit(6)
+    @recent_episodes = SeenEpisode.where(["user_id = ?", @user.id]).order("created_at desc").limit(@recent_shows.size * 2).joins([:episode, :season])
   end
   
 	def ical
@@ -114,6 +115,33 @@ class UsersController < ApplicationController
   
   def settings
     redirect_to(edit_user_registration_path(:anchor => 1))
+  end
+  
+  def render_progress
+    @episodes_count = 0
+    @seen = 0
+    @unseen = 0
+    @time_wasted = 0
+    @user = User.find(params[:user_id])
+    
+    #@marked_count = Rails.cache.fetch([@user.id, "marked_episodes_count"]) do
+      @marked_count = Following.sum("marked_episodes_count", :conditions => {:user_id => @user.id})
+    #end
+    Following.find(:all, :conditions => {:user_id => @user.id}).each do |following|
+      @time_wasted += following.show.runtime * following.marked_episodes_count unless following.show.runtime.blank?
+    end
+    @user.shows.each do |show|
+      @episodes_count += show.episodes.select{ |e| e.air_date < $TODAY }.size
+    end
+    
+    return if @episodes_count == 0
+    
+    @seen = ((@marked_count.to_f / @episodes_count.to_f) * 100).round(1)
+    @unseen = (((@episodes_count.to_f - @marked_count.to_f) / @episodes_count) * 100).round(1)
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
 end

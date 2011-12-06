@@ -70,30 +70,4 @@ class FollowingsController < ApplicationController
     redirect_to(followings_path)
   end
   
-  def render_progress
-    @episodes_count = 0
-    @seen = 0
-    @unseen = 0
-    @time_wasted = 0
-    
-    #@marked_count = Rails.cache.fetch([current_user.id, "marked_episodes_count"]) do
-      @marked_count = Following.sum("marked_episodes_count", :conditions => {:user_id => current_user.id})
-    #end
-    Following.find(:all, :conditions => {:user_id => current_user.id}).each do |following|
-      @time_wasted += following.show.runtime * following.marked_episodes_count unless following.show.runtime.blank?
-    end
-    current_user.shows.each do |show|
-      @episodes_count += show.episodes.select{ |e| e.air_date < $TODAY }.size
-    end
-    
-    return if @episodes_count == 0
-    
-    @seen = ((@marked_count.to_f / @episodes_count.to_f) * 100).round(1)
-    @unseen = (((@episodes_count.to_f - @marked_count.to_f) / @episodes_count) * 100).round(1)
-    
-    respond_to do |format|
-      format.js
-    end
-  end
-  
 end

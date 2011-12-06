@@ -2,13 +2,22 @@
 /* ! Layout for mobile version   */
 /* ============================= */
 
-/*@media handheld, only screen and (max-width: 767px) {*/
+@media handheld, only screen and (max-width: 767px) {
 
   #header_content,
   #page,
   #footer_content {
     width: auto;
-    padding: 0 10px;
+  }
+
+  #footer_content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  #logo {
+    width: 80px;
+    overflow: hidden;
   }
 
   #menu_wrapper {
@@ -77,14 +86,20 @@
   #footer .box {
     width: auto;
     float: none;
+    margin: 20px 0;
+    overflow: hidden;
   }
 
-  #footer .middle {
+  #footer .box .inner {
+    min-height: 0;
+  }
+
+  #footer .middle .inner {
     margin: 0;
   }
 
 
-/*}*/
+}
 
 
 /* ========================================== */

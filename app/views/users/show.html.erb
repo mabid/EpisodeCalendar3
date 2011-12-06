@@ -2,50 +2,98 @@
 
 <div class="page_header">
   <div class="note_wrapper">
-    <a id="edit_link" href="/admin/shows/desperate-housewives/edit">Edit</a>
-    <div id="status_icon"><img src="/assets/icons/big/accept_64.png" class="status_icon" alt=""><span class="green">Still airing</span></div>
     <ul class="note">
-      <li class="first"><strong>Started airing:</strong> October 2004</li>
-      <li><strong>Seasons:</strong> 8</li>
-      <li><strong>Episodes:</strong> 157 <span>(Avg. 17 per season)</span></li>
-      <li><strong>Followers:</strong> 1755 <span>+9%</span></li>
-      <li><strong>Popularity rank:</strong> #31 <span class="green">+1 places</span></li>
+      <li>Has been a member since <strong><%= @user.created_at.to_s(:title_date) %></strong></li>
+      <li>Is currently tracking <strong><%= @user.followings_count %></strong> shows</li>
+      <li>Seems to be in the <strong><%= @user.time_zone %></strong> timezone</li>
+      <% if @user.last_sign_in_at.present? %>
+        <li>Last seen <strong><%= distance_of_time_in_words(@user.last_sign_in_at.to_s, Time.now) %></strong> ago</li>
+      <% else %>
+        <li>Last seen <strong>is unknown</strong></li>
+      <% end %>
     </ul>
   </div>
   <div class="user_profile_image"><%= image_tag(@user.gravatar_size(110)) %></div>
-  <h1 class="big"><%= "#{@user.display_name.capitalize}'s profile" %></h1>
-  <p><strong>Member since:</strong> <%= @user.created_at.to_s(:long) %></p>
+  <h1 class="big"><%= me?(@user) ? "My" : "#{@user.display_name.capitalize}'s" %> profile</h1>
   <% if admin? %>
-  <p><%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome red") %></p>
+    <p>
+      <%= link_to("Edit", edit_admin_user_path(@user), :class => "awesome small magenta") %>
+      <%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome small red") %>
+    </p>
   <% end %>
+
+  <%= render :partial => "users/progress", :locals => { user: @user } %>
 </div>
 
-<h2>recent_episodes</h2>
-<ul>
-  <% @recent_episodes.each do |recent_episode| %>
-  <li><strong><%= recent_episode.episode.show.name %>:</strong> <%= recent_episode.episode.name %> (<%= recent_episode.episode.format(@user.episode_format) %>)</li>
-  <% end %>
-</ul>
+<div class="row margin_bottom_big">
 
-<h1 class="center">Top shows</h1>
-<div class="margin_bottom">
-  <ul class="show_list">
-  <% @top_shows.each do |following| %>
-	  <li class="user_show">
-	    <div class="banner">
-	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{following.show.banner(:small)}') 50% 50% no-repeat;") %>	      
-      </div>
-	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
-	    <% percentage = (following.marked_episodes_count.to_f / following.show.episodes_count).round(2) * 100 %>
-	    <div class="progress_small_header"><%= following.show.episodes_count - following.marked_episodes_count %> episodes left</div>
-      <div class="progress_small_bar_wrapper progress_small">
-      	<div class="progress_bar">
-      		<div class="bar" style="width: <%= percentage %>%">
-      			<p><%= percentage %>%</p>
-      		</div>
-      	</div>
-      </div>
-    </li>
-  <% end %>
-  </ul>
+  <div class="width_50 divider">
+    <div class="pad">
+      <h2 class="center">Recently added shows</h2>
+      <% if @recent_shows.any? %>
+      <ul class="show_list popular">
+        <% @recent_shows.each do |following| %>
+          <li>
+            <div class="banner">
+              <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
+            </div>
+            <%= link_to(following.show.name, following.show, class: "big") %>
+            <p>Followers: <%= following.show.followers %> | Episodes: <%= following.show.episodes_count %></p>
+          </li>
+        <% end %>
+      </ul>
+      <% else %>
+        <p class="center big darker_grey">No shows added yet :(</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="width_50">
+    <div class="pad">
+      <h2 class="center margin_bottom">Recently watched episodes</h2>
+      <% if @recent_episodes.any? %>
+      <ul class="list">
+        <% @recent_episodes.each do |recent_episode| %>
+          <li>
+            <small class="float_right darker_grey"><%= distance_of_time_in_words(recent_episode.created_at, Time.now) %> ago</small>
+            <strong><%= recent_episode.episode.show.name %>:</strong> <%= recent_episode.episode.name %> (<%= recent_episode.episode.format(@user.episode_format) %>)
+          </li>
+        <% end %>
+      </ul>
+      <% else %>
+        <p class="center big darker_grey">No watched episodes yet :(</p>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<div class="narrow_column">
+  <h2 class="center">Most watched shows</h2>
+  <div class="margin_bottom">
+  <% if @recent_shows.any? %>
+  <ul class="show_list popular">
+    <% @most_seen_shows.each do |following| %>
+  	  <li class="user_show">
+  	    <div class="banner">
+  	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
+        </div>
+  	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
+  	    <% percentage = (following.marked_episodes_count.to_f / following.show.episodes_count).round(2) * 100 %>
+  	    <div class="progress_small_header"><%= following.show.episodes_count - following.marked_episodes_count %> episodes left</div>
+        <div class="progress_small_bar_wrapper progress_small">
+        	<div class="progress_bar">
+        		<div class="bar" style="width: <%= percentage %>%">
+        			<p><%= percentage %>%</p>
+        		</div>
+        	</div>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+    <% else %>
+      <p class="center big darker_grey">No shows added yet :(</p>
+    <% end %>
+    </div>
+  </div>
 </div>

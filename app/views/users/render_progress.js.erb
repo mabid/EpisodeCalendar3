@@ -1,0 +1,15 @@
+$("#preloader").hide();
+
+var smiley = <%= @seen/7 %>;
+
+$("#progress .status").addClass("<%= progress_icon(@seen) %>");
+$("#progress span.left").text("<%= @episodes_count - @marked_count %>");
+$("#progress span.marked").text("<%= @marked_count %>");
+$("#progress span.count").text("<%= @episodes_count %>");
+$("#progress_bar span").text("<%= @seen %>");
+$("#progress .footer strong").text("<%= wasted_in_words(@time_wasted) %>");
+
+$("#progress .header, #progress .footer").fadeIn(200);
+$("#progress_bar_wrapper").fadeIn(200, function(){
+  $("#progress_bar .bar").animate({ width: "<%= @seen %>%" });
+});
