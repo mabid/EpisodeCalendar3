@@ -3,6 +3,7 @@ GEM
   remote: http://gemcutter.org/
   remote: http://gems.github.com/
   specs:
+    RedCloth (4.2.9)
     actionmailer (3.1.1.rc3)
       actionpack (= 3.1.1.rc3)
       mail (~> 2.3.0)
@@ -212,6 +213,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   activeadmin
   activerecord-import
   adzap-ar_mailer

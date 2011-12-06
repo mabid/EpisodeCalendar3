@@ -164,6 +164,33 @@ p {
   &.big { font-size: 17px; }
 }
 
+li {
+  &.big { margin-bottom: 5px; }
+  &.big p { font-size: 17px; }
+  
+  &.big > ul, &.big > ol {
+    margin-bottom: 15px;
+  }
+  ul, ol { margin-left: 20px; }
+  ul li { list-style: disc; }
+  ol li { list-style: decimal; }
+  
+  blockquote {
+    margin-left: 15px;
+    p { font-size: 10px; }
+  }
+  
+  dl {
+    margin-bottom: 15px;
+    dt { font-weight: bold; }
+  }
+  dd {
+    display: block;
+    margin-left: 40px;
+    p { font-size: 10px; }
+  }
+}
+
 /* Tags
  * -------------------------------------------------------------------------- */
 
