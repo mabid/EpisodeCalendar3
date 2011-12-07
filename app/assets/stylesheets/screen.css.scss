@@ -1,63 +1,6 @@
 @import "reset";
 @import "mixins";
-
-/* Icons
- * ----------------------------------------------------------------------------------------------------------------- */
-
-/* 0 16 32 48 64 80 96 112 128 144 160 */
-img.icon { position: relative; top: 3px; }
-td img.icon, th img.icon { top: 0; }
-
-.icon { background-image: image-url("sprites/icons.png") !important; background-position: 0 0; background-repeat: no-repeat; }
-.blank { background-position: 16px 16px; }
-.arrow_down { background-position: 0 0; }
-.plus_button { background-position: -16px 0; }
-.calendar { background-position: -32px 0px; }
-.heart { background-position: -48px 0px; }
-.vcard { background-position: -64px 0px; }
-.blocks { background-position: -80px 0px; }
-.users { background-position: -96px 0px; }
-.counter { background-position: -112px 0px; }
-.information { background-position: -128px 0; }
-.crown { background-position: -144px 0px; }
-.minus_shield { background-position: -160px 0px; }
-
-.cross { background-position: 0 -16px; }
-.cross_small { background-position: -16px -16px; }
-.mail_exclamation { background-position: -32px -16px; }
-.mail_minus { background-position: -48px -16px; }
-.sort_asc { background-position: -64px -16px; }
-.sort_desc { background-position: -80px -16px; }
-.sort_small { background-position: -96px -16px; }
-.globe { background-position: -112px -16px; }
-.lock { background-position: -128px -16px; }
-.tick { background-position: -144px -16px; }
-
-.gear { background-position: -48px -32px; }
-.question { background-position: -64px -32px; }
-.movie_folder { background-position: -80px -32px; }
-.television { background-position: -96px -32px; }
-.eye { background-position: -112px -32px; }
-.status_red { background-position: -128px -32px; }
-.status_green { background-position: -144px -32px; }
-.status_normal { background-position: -160px -32px; }
-
-.arrow_circle { background-position: -80px -48px; }
-.clock { background-position: -96px -48px; }
-.fire { background-position: -112px -48px; }
-.tick_small { background-position: -128px -48px; }
-.television_off { background-position: -144px -48px; }
-.television_on{ background-position: -160px -48px; }
-
-.user_big { background-position: 0px -64px; }
-.mail_big { background-position: -24px -64px; }
-.feed_big { background-position: -48px -64px; }
-.key { background-position: -72px -64px; }
-
-.globe_big { background-position: 0px -88px; }
-.calendar_big { background-position: -24px -88px; }
-.zone { background-position: -72px -88px; }
-.smiley { background-position: -96px -88px; }
+@import "icons";
 
 /* Containers
  * ------------------------------------------------------------------------------------------------------------------------- */
@@ -149,7 +92,6 @@ h1 {
 h2 {
   font-size: 24px;
   &.big { font-size: 28px; }
-  &.red { color: $pink_theme_color; }
 }
 
 h3 {
@@ -164,21 +106,8 @@ p {
   &.big { font-size: 17px; }
 }
 
-li {
-  &.big { margin-bottom: 5px; }
-  &.big p { font-size: 17px; }
-  
-  &.big > ul, &.big > ol {
-    margin-bottom: 15px;
-  }
-  ul, ol { margin-left: 20px; }
-  ul li { list-style: disc; }
-  ol li { list-style: decimal; }
-  
-  blockquote {
-    margin-left: 15px;
-    p { font-size: 10px; }
-  }
+.big p {
+  font-size: 17px;
 }
 
 /* Tags
@@ -209,6 +138,10 @@ a:link,
 a:visited,
 a:hover {
   color: $blue_theme_color;
+  &.big {
+    font-size: 17px;
+    line-height: 2em;
+  }
 }
 
 span.cancelled {
@@ -246,14 +179,22 @@ label.highlighted {
   padding: 5px 0;
 }
 
-ul.list {
+ul.bullet_list {
   padding-left: 14px;
   list-style-type: disc;
   line-height: 1.5em;
 }
 
-.list li span {
+.bullet_list li span {
   font-weight: bold;
+}
+
+ul.list li {
+  border-top: 1px solid #ddd;
+  padding: 15px 5px;
+  &:nth-child(2n+1) {
+    background: #f2f2f2;
+  }
 }
 
 blockquote p span {
@@ -441,6 +382,7 @@ fieldset #notice
   max-width: 900px;
 }
 
+.row { overflow: hidden; }
 .width_50 { width: 50%; float: left; }
 .width_33 { width: 33%; float: left; }
 .width_34 { width: 34%; float: left; }
@@ -462,12 +404,17 @@ fieldset #notice
   top: 50%;
   @include linear-gradient(#999, #eee);
 }
+.width_50 + .divider:before,
+.width_50 + .divider:after {
+  left: 0;
+}
 
 .small { font-size: 0.8em; }
 .grey { color: #bbb; }
 .darker_grey { color: #999; }
 .green { color: #990; }
 a.red, .red { color: #f00; }
+.theme_color { color: $pink_theme_color; }
 
 a.alternative {
   color: #000;
@@ -486,6 +433,23 @@ a.alternative {
 .bar {
   overflow: hidden;
   position: relative;
+}
+  
+.banner {
+  width: 252px;
+  background: image-url("missing_banner.jpg") 0 0 no-repeat;
+  height: 86px;
+  padding: 7px;
+  border: 1px solid #333;
+  margin: 0 0 4px 0;
+  img {
+    width: 252px;
+    height: 86px;
+  }
+  a {
+    display: block;
+    border: 0 !important;
+  }
 }
 
 .tab {
@@ -558,6 +522,8 @@ a.alternative {
   float: left;
   width: 250px;
 }
+
+  .profile .note { width: auto; }
 
   .note li,
   .note dt {
@@ -1168,32 +1134,14 @@ ul#menu li {
     background: none;
     border: 0 none;
     display: inline-block;
-    margin: 10px 0 0 0;
+    margin: 0 0 10px 0;
     width: 268px;
+    vertical-align: top;
   }
 
   .show_list li:hover {
     background: #fbffc0;
   }
-  
-    .show_list li .banner {
-      width: 252px;
-      background: image-url("missing_banner.jpg") 0 0 no-repeat;
-      height: 86px;
-      padding: 7px;
-      border: 1px solid #333;
-      margin: 0 0 4px 0;
-    }
-  
-      .show_list li .banner img {
-        width: 252px;
-        height: 86px;
-      }
-  
-      .show_list li .banner a {
-        display: block;
-        border: 0;
-    }
 
     .show_list li a {
       color: #000;
@@ -1459,14 +1407,19 @@ h3#season_pagination_header {
 
 #progress {
   padding: 0.5em;
-  height: 57px;
+  clear: both;
 }
   #progress .header {
     font-weight: bold;
     overflow: hidden;
+    display: none;
   }
   
-    #progress .header div {
+  #progress .footer {
+    display: none;
+  }
+  
+    #progress .status {
       height: 16px;
       width: 165px;
       overflow: hidden;
@@ -1482,15 +1435,15 @@ h3#season_pagination_header {
       float: left;
     }
     
-    #progress .header .cry      { background-position: 0   0; }
-    #progress .header .mad      { background-position: 0 -16px; }
-    #progress .header .sad      { background-position: 0 -32px; }
-    #progress .header .neutral  { background-position: 0 -48px; }
-    #progress .header .smile    { background-position: 0 -64px; }
-    #progress .header .grin     { background-position: 0 -80px; }
-    #progress .header .cool     { background-position: 0 -96px; }
+    #progress .cry      { background-position: 0   0; }
+    #progress .mad      { background-position: 0 -16px; }
+    #progress .sad      { background-position: 0 -32px; }
+    #progress .neutral  { background-position: 0 -48px; }
+    #progress .smile    { background-position: 0 -64px; }
+    #progress .grin     { background-position: 0 -80px; }
+    #progress .cool     { background-position: 0 -96px; }
     
-    #progress .header span {
+    #progress .header small {
       display: inline-block;
       float: right;
       color: #999;
@@ -1516,10 +1469,8 @@ h3#season_pagination_header {
       #progress_bar .bar {
         float: left;
         @include linear-gradient($progress_green_dark, $progress_green_light);
-      }
-      
-      #progress_bar .seen {
         text-align: right;
+        min-width: 30px;
       }
       
         #progress_bar .bar p {
@@ -1881,34 +1832,48 @@ h3#season_pagination_header {
 
 .user_profile_image {
   float: left;
-  margin: 0 20px 10px 0;
-  border: 3px solid $pink_theme_color;
-  padding: 1px;
-  @include border-radius(3px);
+  margin: 0 20px 20px 0;
+  @include border-radius(10px);
+  position: relative;
+  overflow: hidden;
+  @include box-shadow(0 0 3px #666 inset);
+  border: 1px solid #666;
+  width: 110px;
+  height: 110px;
+}
+
+.user_profile_image:after {
+  content: "";
+  position: absolute;
+  @include box-shadow(3px 3px 5px #000 inset);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /* FAQ   --------------------------------------------------------------------------------------------------------------------------------- */
 
 #faq article {
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 #faq article header h2 a {
-	color: rgba(0, 0, 0, 1.0);
+  color: rgba(0, 0, 0, 1.0);
 }
 
 #faq article header h2 a.active,
 #faq article header h2 a:hover {
-	color: $pink_theme_color;
-	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-	-webkit-transition: all 0.2s linear;
-	-moz-transition: all 0.2s linear;
-	-o-transition: all 0.2s linear;
-	transition: all 0.2s linear;
+  color: $pink_theme_color;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 
 #faq article ul lh {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 /* ADMIN --------------------------------------------------------------------------------------------------------------------------------- */
