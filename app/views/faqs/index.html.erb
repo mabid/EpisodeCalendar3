@@ -24,15 +24,15 @@
 <div class="width_50 divider">
   <ul class="pad">
 		<% @important.each do |faq| %>
-    <li>
+    <li class="big">
       <h2 class="theme_color"><%= faq.question %></h2>
-      <p class="big"><%= faq.answer %></p>
+      <%= raw render_textile(faq.answer) %>
     </li>
     <% end %>
     <% @faqs.each do |faq| %>
-    <li>
+    <li class="big">
       <h2><%= faq.question %></h2>
-      <p class="big"><%= faq.answer %></p>
+      <%= raw render_textile(faq.answer) %>
     </li>
     <% end %>
   </ul>

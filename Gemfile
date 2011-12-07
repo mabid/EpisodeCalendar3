@@ -27,6 +27,7 @@ gem "has_permalink"
 gem "paperclip"
 gem "icalendar"
 gem "amazon_product"
+gem "RedCloth"
 
 #Racks
 gem "activeadmin"
