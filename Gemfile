@@ -48,6 +48,7 @@ end
 
 group :development do
   gem "mongrel", "1.2.0.pre2"
+  gem "thin"
   gem "rails-dev-tweaks", "~> 0.5.1"
   gem "bullet"
   gem "letter_opener"
