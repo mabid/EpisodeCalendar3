@@ -15,5 +15,10 @@ module UsersHelper
 	def embed_url(user)
 	  "#{HOST}/icalendar/#{user.email}/#{user.password_salt}/?v=light"
   end
+
+  def me?(user)
+  	return if current_user.blank?
+  	current_user.id == user.id
+  end
 	
 end

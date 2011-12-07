@@ -1,9 +1,0 @@
-var header = '<div class="header"><span><%= @episodes_count - @marked_count %> episodes left to watch.</span><p>You have watched <%= @marked_count %> out of <%= @episodes_count %> episodes. <%= render_progress_icon(@seen) %></p></div>'
-var seen = '<div class="bar seen" style="width: <%= @seen %>%;"><p><%= @seen %>%</p></div>';
-var wasted = '<div>You have wasted about <strong><%= wasted_in_words(@time_wasted) %></strong> of your life watching your TV shows.</div>'
-$("#progress").prepend(header);
-$("#progress").append(wasted);
-$("#progress_bar").append(seen);
-
-$("#preloader").hide();
-$("#progress_bar_wrapper").fadeIn(200);

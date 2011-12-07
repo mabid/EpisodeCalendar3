@@ -207,9 +207,8 @@ function renderProgress()
   {
     $.ajax({
       type: "GET",
-      url: "/render_progress",
+      url: "/render_progress/" + $("#progress").data("user-id"),
       dataType: "script",
-      data: {},
       success: function(){}
     });
   }

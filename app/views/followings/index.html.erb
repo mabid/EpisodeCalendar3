@@ -138,12 +138,7 @@
       </tbody>
     </table>
   <% end %>
-  <div id="progress">
-    <%= image_tag("icons/proloader_horizontal.gif", :id => "preloader", :width => 133, :height => 20) %>
-    <div id="progress_bar_wrapper">
-      <div id="progress_bar"></div>
-    </div>
-  </div>
+  <%= render :partial => "users/progress", :locals => { user: current_user } %>
   
 <% else %>
   <div id="big_notice">
