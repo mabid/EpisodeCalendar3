@@ -9,7 +9,7 @@ class Notification < ActiveRecord::Base
   
   def self.deliver_daily_email_for_user(user)
     episodes_to_mail = []
-    today = Time.now.in_time_zone(user.time_zone)
+    today = Time.now.in_time_zone(user.time_zone) - user.day_offset.day
     
     followings = user.followings.reject{ |s| s.send_reminder != true }
     shows = Show.all(:conditions => ["id IN (?)", followings.collect(&:show_id)], :order => "name asc")
@@ -32,10 +32,10 @@ class Notification < ActiveRecord::Base
     end
   end
   
-  def self.deliver_weekly_email_for_user(user)
+  def self.deliver_weekly_email_for_user(user) 
     episodes_to_mail = []
     episodes_array = []
-    today = Time.now.in_time_zone(user.time_zone)
+    today = Time.now.in_time_zone(user.time_zone) - user.day_offset.day
 
     followings = user.followings.reject{ |s| s.send_reminder != true }
     shows = Show.all(:conditions => ["id IN (?)", followings.collect(&:show_id)], :order => "name asc")
