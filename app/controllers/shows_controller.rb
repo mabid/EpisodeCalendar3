@@ -39,12 +39,21 @@ class ShowsController < ApplicationController
     #end
     #@episodes = Rails.cache.fetch([current_user.id, "episodes", year, month]) do
       hidden_episodes_ids = HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
-      @episodes = Episode.all(
-        :joins => :show,
-        :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
-        :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ? AND episodes.id NOT IN (?)", @show_ids, @start_day - 1.days, @end_day + 1.days, hidden_episodes_ids],
-        :order => "show_name asc, episodes.season_number asc, episodes.number asc"
-        )
+      if hidden_episodes_ids.any?
+        @episodes = Episode.all(
+          :joins => :show,
+          :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
+          :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ? AND episodes.id NOT IN (?)", @show_ids, @start_day - 1.days, @end_day + 1.days, hidden_episodes_ids],
+          :order => "show_name asc, episodes.season_number asc, episodes.number asc"
+          )
+      else
+        @episodes = Episode.all(
+          :joins => :show,
+          :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
+          :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days],
+          :order => "show_name asc, episodes.season_number asc, episodes.number asc"
+          )
+      end
     #end
     
     @seen_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)]).map(&:episode_id)
