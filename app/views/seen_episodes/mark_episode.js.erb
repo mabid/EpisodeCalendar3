@@ -10,6 +10,7 @@ if ($("#unwatched_episodes")) {
   
   if (new_count == 0) {
     $("#" + show_id + "_episodes").slideUp(500);
+    $("#reload").hide();
     $anchor_counter.parents("li").hide(500, function() {
       var $anchors = $("#show_anchors").find("li:visible");
       if ($anchors.length == 0) {

@@ -299,8 +299,10 @@ function initUnwatchedAnchors() {
         success: function() {}
       });
     }
-    else
+    else {
       $wrapper.show();
+      $("#reload").show();
+    }
       
     return false;    
   });
@@ -311,6 +313,7 @@ function initUnwatchedAnchors() {
     var id = $link.parent().attr("id");
     $("#" + id + "_episodes").remove();
     $link.click();
+    return false;
   });
 }
 
