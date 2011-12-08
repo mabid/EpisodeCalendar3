@@ -70,7 +70,8 @@ class UsersController < ApplicationController
   		start_day.upto(end_day) do |date|
     	  rss_episodes = []
     	  show_banners = []
-  		  episodes.find_all{ |ep| ep.air_date.to_s(:air_date) == date.to_s(:air_date) }.each do |episode|
+        corrected_date = date + @user.day_offset.days
+  		  episodes.find_all{ |ep| ep.air_date.to_s(:air_date) == corrected_date.to_s(:air_date) }.each do |episode|
   		      rss_episodes << episode
   		      show_banners[episode.id] = episode.show.banner(:small)
   	    end
