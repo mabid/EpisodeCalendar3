@@ -67,4 +67,7 @@ $(document).ready(function(){
   //Init Todoist.com tasks
   initTodoList();
 
+  //Enable and disable the contact form
+  initContactForm();
+
 });

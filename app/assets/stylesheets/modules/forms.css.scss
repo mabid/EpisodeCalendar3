@@ -2,6 +2,34 @@
 
 /* FORMS ------------------------------------------------------------------------------------------------------------------------ */
 
+form.disabled {
+  opacity: 0.5;
+}
+
+label {
+  cursor: pointer;
+  color: #555;
+  display: inline-block;
+  font-size: 11px;
+  padding: 5px;
+}
+
+label.big {
+  font-size: 17px;
+}
+  
+label.disabled {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.label {
+  color: #999;
+  display: inline-block;
+  font-size: 11px;
+  padding: 5px 0;
+}
+
 input {
   background: #fff;
   font-size: 14px;
@@ -23,7 +51,6 @@ input.big {
 
 .select_wrapper {
   background: #fff;
-  color: #666;
   border: none;
   border-width: 1px;
   border-style: solid;
@@ -31,16 +58,21 @@ input.big {
   @include border-radius(5px);
   @include box-shadow(1px 1px 2px #ddd inset);
   width: 185px;
-  padding: 6px 10px;
+  padding: 5px 10px;
 }
 
   .select_wrapper select {
     width: 185px;
     border: 0;
     font-size: 14px;
+    color: #666;
   }
 
 .form_element { margin: 0 0 10px 0; }
+.form_element.inline {
+  display: inline-block;
+  margin-right: 15px;
+}
 
 input:focus,
 textarea:focus {
@@ -63,6 +95,8 @@ textarea {
   @include border-radius(5px);
   @include box-shadow(1px 1px 2px #ddd inset);
   padding: 6px 10px;
+  width: 70%;
+  height: 100px;
 }
 
 select {

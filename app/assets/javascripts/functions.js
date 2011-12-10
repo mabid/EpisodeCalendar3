@@ -390,3 +390,16 @@ function initEpisodeHider() {
     return false;
   });
 }
+
+function initContactForm() {
+  $form = $("#new_ticket");
+  $checkbox = $("#contact :checkbox");
+  $checkbox.checkBox("changeCheckStatus", false);
+  $checkbox.click(function(){
+    $form.toggleClass("disabled");
+  });
+  $form.submit(function(){
+    if ($form.hasClass("disabled"))
+      return false;
+  });  
+}
