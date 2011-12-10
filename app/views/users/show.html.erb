@@ -43,7 +43,7 @@
         <% end %>
       </ul>
       <% else %>
-        <p class="center big darker_grey">No shows added yet :(</p>
+        <p class="center big mid_grey">No shows added yet :(</p>
       <% end %>
     </div>
   </div>
@@ -55,13 +55,13 @@
       <ul class="list">
         <% @recent_episodes.each do |recent_episode| %>
           <li>
-            <small class="float_right darker_grey"><%= distance_of_time_in_words(recent_episode.created_at, Time.now) %> ago</small>
+            <small class="float_right mid_grey"><%= distance_of_time_in_words(recent_episode.created_at, Time.now) %> ago</small>
             <strong><%= recent_episode.episode.show.name %>:</strong> <%= recent_episode.episode.name %> (<%= recent_episode.episode.format(@user.episode_format) %>)
           </li>
         <% end %>
       </ul>
       <% else %>
-        <p class="center big darker_grey">No watched episodes yet :(</p>
+        <p class="center big mid_grey">No watched episodes yet :(</p>
       <% end %>
     </div>
   </div>
@@ -92,7 +92,7 @@
     <% end %>
     </ul>
     <% else %>
-      <p class="center big darker_grey">No shows added yet :(</p>
+      <p class="center big mid_grey">No shows added yet :(</p>
     <% end %>
     </div>
   </div>

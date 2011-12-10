@@ -49,6 +49,8 @@ Episodecalendar2::Application.routes.draw do
 	match "/show/:show_id/mark" => "seen_episodes#mark_show", :as => "mark_show"
 
   match "/hide_episode/:episode_id/:season_id" => "hidden_episodes#hide_episode", :as => "hide_episode"
+  match "/show/:show_id/hide-season/:season_id" => "hidden_episodes#hide_season", :as => "hide_season"
+  match "/show/:show_id/unhide-season/:season_id" => "hidden_episodes#unhide_season", :as => "unhide_season"
 
   match "/render_progress" => "followings#render_progress"
   match "/facebook_button/:id" => "shows#facebook_button"

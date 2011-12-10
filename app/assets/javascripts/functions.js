@@ -243,7 +243,7 @@ function insertFacebookButton()
 function initBannerReflection()
 {
   if ($("#show_info").length > 0)
-    $("#show_info .banner img").reflect({ opacity: 0.28, height: 0.42 });
+    $("#show_info .show_banner img").reflect({ opacity: 0.28, height: 0.42 });
 }
 
 function initEpisodeOverviewToggle()
@@ -299,8 +299,10 @@ function initUnwatchedAnchors() {
         success: function() {}
       });
     }
-    else
+    else {
       $wrapper.show();
+      $("#reload").show();
+    }
       
     return false;    
   });
@@ -311,6 +313,7 @@ function initUnwatchedAnchors() {
     var id = $link.parent().attr("id");
     $("#" + id + "_episodes").remove();
     $link.click();
+    return false;
   });
 }
 
@@ -386,4 +389,17 @@ function initEpisodeHider() {
     
     return false;
   });
+}
+
+function initContactForm() {
+  $form = $("#new_ticket");
+  $checkbox = $("#contact :checkbox");
+  $checkbox.checkBox("changeCheckStatus", false);
+  $checkbox.click(function(){
+    $form.toggleClass("disabled");
+  });
+  $form.submit(function(){
+    if ($form.hasClass("disabled"))
+      return false;
+  });  
 }

@@ -7,7 +7,7 @@
   <div id="show_info">
     <div class="banner_shadow"></div>
     <% if @show.banner %>
-    <div class="banner">
+    <div class="show_banner">
         <%= image_tag("http://www.episodecalendar.com" + @show.banner, :alt => @show.name, :width => 758, :height => 140) %>
     </div>
     <% else %>
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <h3 id="season_pagination_header">Seasons:</h3>
+  <h3 id="season_pagination_header"><strong>Seasons:</strong></h3>
   <ul id="season_pagination">
   <% @seasons.each do |season| %>
     <li class="tab <%= @season.number == season.number ? "selected" : ""%>">
@@ -71,8 +71,12 @@
         <%= link_to("Mark full show as watched", mark_show_path(@show.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
         <strong>or</strong> 
         <%= link_to("Mark season as watched", mark_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
-        <strong>or</strong> 
+        <strong>or</strong>
         <%= link_to("Mark season as unwatched", unmark_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
+        <strong>-</strong>
+        <%= link_to("Hide season", hide_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
+        <strong>or</strong>
+        <%= link_to("Unhide season", unhide_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
       </span>
     <% else %>
       You need to <%= logged_in? ? "add this show to your list" : "be logged in" %> to mark episodes as watched.

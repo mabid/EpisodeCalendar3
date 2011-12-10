@@ -61,10 +61,10 @@ before_filter :authenticate_user!
   def hide_season
     @season_id = params[:season_id]
     @show_id = params[:show_id]
-    @show = Show.find(@show_id)
+    @show = Show.where(@show_id)
     hidden_count = 0
 
-    episodes = Episode.find(:all, :conditions => ["show_id = ? AND season_id = ? AND air_date < ?", @show_id, @season_id, $TODAY])
+    episodes = Episode.where("show_id = ? AND season_id = ? AND air_date < ?", @show_id, @season_id, $TODAY)
     episodes.each do |episode|
       record = HiddenEpisode.exists?(:user_id => current_user.id, :episode_id => episode.id)
       if !record
@@ -89,10 +89,10 @@ before_filter :authenticate_user!
   def unhide_season
     @season_id = params[:season_id]
     @show_id = params[:show_id]
-    @show = Show.find(@show_id)
+    @show = Show.where(@show_id)
     hidden_count = 0
 
-    episodes = Episode.find(:all, :conditions => ["show_id = ? AND season_id = ?", @show_id, @season_id])
+    episodes = Episode.where("show_id = ? AND season_id = ?", @show_id, @season_id)
     episodes.each do |episode|
       episode = HiddenEpisode.find_by_user_id_and_episode_id(current_user.id, episode.id)
       if episode
