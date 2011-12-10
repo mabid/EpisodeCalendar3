@@ -1,0 +1,125 @@
+@import "mixins";
+
+/* FOOTER ------------------------------------------------------------------------------------------------------------------------- */
+
+#footer {
+  background-color: #000;
+  border-top: 3px #666 solid;
+  padding: 0 10px;
+}
+
+  #footer_content {
+    color: #fff;
+    padding: 30px 0 30px 0;
+    max-width: 1280px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+    #footer .box {
+      float: left;
+      width: 33%;
+      .inner {
+        @include linear-gradient(#212121, #000000);
+        padding: 10px 27px 5px 27px;
+        @include border-radius(20px);
+        border: 0;
+        min-height: 310px;
+      }
+    }
+
+    #footer .middle .inner { margin: 0 19px; }
+    
+    #footer h3 {
+      padding: 0;
+      margin-bottom: 5px;
+      font-family: Arial;
+      letter-spacing: -1px;
+      font-size: 2em;
+      line-height: 1.5em;
+      text-align: center;
+      text-shadow: 2px 2px 1px #000;
+      font-weight: normal;
+    }
+    
+    #footer ul {
+      padding: 10px 0;
+    }
+    
+      #footer li { line-height: 1.5em; border-bottom: 1px #333 dotted; }
+      
+      #recently_favorited li {
+        padding: 3px;
+      }
+      #recently_favorited li a {
+        color: #fff;
+        border-bottom: 1px #77f solid;
+      }
+    
+      #footer li span {
+        font-size: 11px;
+        color: #999;
+      }
+      
+    #follow {
+      border-bottom: 1px dotted #333;
+      border-top: 1px dotted #333;
+      padding: 10px 0 15px 0;
+      margin: 10px 0 15px 0;
+    }
+    
+    #frexuz_logo
+    {
+      display: block;
+      float: right;
+      background: image-url("logos/frexuz_logo.png") 0 0  no-repeat;
+      width: 226px;
+      height: 43px;
+      outline: none;
+    }
+    
+    #rails_logo
+    {
+      overflow: hidden;
+      border-bottom: 1px dotted #333;
+      padding: 0 0 15px 0;
+      margin: 0 0 15px 0;
+    }
+    
+      #rails_logo img
+      {
+        float: left;
+        margin: 0 10px 0 0;
+      }
+      
+      #rails_logo p
+      {
+        margin: 0 0 0 60px;
+      }
+
+
+/* Footer shares
+ * ------------------------------------------------------------------------------------------------------------------------- */
+
+ul#share {
+  clear: both;
+  overflow: hidden;
+  padding: 0;
+  margin: 0 0 0 -25px;
+}
+
+  #share .item {
+    float: left;
+    margin: 0 0 0 25px;
+    border: 0;
+    min-height: 70px;
+  }
+  
+  #paypal {
+    @include box-shadow(none);
+    border: none;
+    background: none;
+    padding: 0;
+    width: auto;
+    @include border-radius(0);
+  }

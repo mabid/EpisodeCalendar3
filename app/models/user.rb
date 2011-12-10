@@ -58,9 +58,9 @@ class User < ActiveRecord::Base
 
   def self.find_by_letter(letter)
     if letter == "0-9"
-      self.find(:all, :conditions => ["name < ?", "a"])
+      self.where("name < ?", "a")
     else
-      self.find(:all, :conditions => ["name LIKE ?", "#{letter}%"])
+      self.where("name LIKE ?", "#{letter}%")
     end
   end
   

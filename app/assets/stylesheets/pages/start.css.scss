@@ -1,0 +1,75 @@
+/* Start
+ * ------------------------------------------------------------------------------------------------------------------------- */
+
+#start { 
+  padding: 30px 0 50px 30px;
+}
+
+  #start h1 {
+    font-size: 4.5em;
+    text-transform: uppercase;
+    text-indent: -9999px;
+    background: image-url("start/heading.png") 0 0 no-repeat;
+    margin: 0;
+  }
+  
+  #start h1 + h2 {
+    font-weight: normal;
+    width: 600px;
+    margin: 0 0 50px 0;
+  }
+  
+  #start ul
+  {
+    width: 400px;
+  }
+  
+    #start li {
+      padding: 10px 0 0 90px;
+      margin: 0 0 15px 15px;
+      height: 75px;
+    }
+  
+    #start li.calendar { background: image-url("start/calendar.png") 0 0 no-repeat; }
+    #start li.mail { background: image-url("start/mail.png") 0 0 no-repeat; }
+    #start li.tick { background: image-url("start/tick.png") 0 0 no-repeat; padding-top: 0; }
+  
+      #start li p {
+        margin: 0;
+      }
+  
+      #start li h2 {
+        margin: 0;
+      }
+  
+  #start .big_button {
+    margin: 50px 0 1em 105px;
+    display: block;
+    width: 252px;
+    height: 80px;
+    background: image-url("big_button.png");
+    font-size: 28px;
+    letter-spacing: -2px;
+    text-align: center;
+    color: #fff;
+    line-height: 84px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+  }
+  
+  #start #public {
+    display: block;
+    font-size: 1.2em;
+    width: 252px;
+    margin: 2em 0 1em 105px;
+    text-align: center;
+  }
+
+  #screenshots {
+    position: absolute;
+    width: 660px;
+    height: 587px;
+    background: image-url("start/screenshots.jpg") 0 0 no-repeat;
+    right: 20px;
+    bottom: 0;
+  }

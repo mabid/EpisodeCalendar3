@@ -243,7 +243,7 @@ function insertFacebookButton()
 function initBannerReflection()
 {
   if ($("#show_info").length > 0)
-    $("#show_info .banner img").reflect({ opacity: 0.28, height: 0.42 });
+    $("#show_info .show_banner img").reflect({ opacity: 0.28, height: 0.42 });
 }
 
 function initEpisodeOverviewToggle()

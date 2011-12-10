@@ -1,12 +1,12 @@
 class ShowsController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index, :show, :autocomplete, :public, :search, :calendar_iframe]
+  before_filter :authenticate_user!, :except => [:index, :show, :public, :search, :calendar_iframe]
   
   def index
     @letter = params[:letter].blank? ? "a" : params[:letter]
     @active_shows = Show.active.find_by_letter(@letter)
     @ended_shows = Show.ended.find_by_letter(@letter)
-    @top_shows = Show.find(:all, :conditions => ["id IN (?)", @active_shows.collect(&:id)], :order => "followers desc, name asc, first_aired desc", :limit => 6)
+    @top_shows = Show.where("id IN (?)", @active_shows.collect(&:id)).order("followers desc, name asc, first_aired desc").limit(6)
     @alphabet = "a".."z"
   end
   
@@ -39,21 +39,12 @@ class ShowsController < ApplicationController
     #end
     #@episodes = Rails.cache.fetch([current_user.id, "episodes", year, month]) do
       hidden_episodes_ids = HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
-      if hidden_episodes_ids.any?
-        @episodes = Episode.all(
-          :joins => :show,
-          :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
-          :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ? AND episodes.id NOT IN (?)", @show_ids, @start_day - 1.days, @end_day + 1.days, hidden_episodes_ids],
-          :order => "show_name asc, episodes.season_number asc, episodes.number asc"
-          )
-      else
-        @episodes = Episode.all(
-          :joins => :show,
-          :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
-          :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days],
-          :order => "show_name asc, episodes.season_number asc, episodes.number asc"
-          )
-      end
+      scope = Episode.where("episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days)
+      scope = scope.select("episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink")
+      scope = scope.order("show_name asc, episodes.season_number asc, episodes.number asc")
+      scope = scope.joins(:show)
+      scope = scope.where("episodes.id NOT IN (?)", hidden_episodes_ids) if hidden_episodes_ids.any?
+      @episodes = scope.all
     #end
     
     @seen_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)]).map(&:episode_id)
@@ -171,7 +162,7 @@ class ShowsController < ApplicationController
   end
   
   def facebook_button
-    @show = Show.find(params[:id])
+    @show = Show.where(params[:id])
     respond_to do |format|
       format.js { render :layout => false }
     end
@@ -181,7 +172,7 @@ class ShowsController < ApplicationController
     @query = params[:q]
     unless @query.blank?
       @query.strip!
-      @shows = Show.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{@query}%"], :order => "followers DESC, status DESC, name ASC")
+      @shows = Show.where("LOWER(name) LIKE ?", "%#{@query}%").order("followers DESC, status DESC, name ASC")
       if @shows.size == 1
         redirect_to show_path(@shows.first)
       end

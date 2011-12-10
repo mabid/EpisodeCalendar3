@@ -1,0 +1,145 @@
+@import "mixins";
+
+.edit_user_registration {
+/* ------------------------------------------------------------------------------------------------------------ */
+
+#settings h1 {
+  margin: 0 0 28px 0;
+  font-weight: bold;
+  font-size: 2.75em;
+  float: left;
+}
+
+#settings h2 {
+  font-size: 2.4em;
+  margin: 0 0 1em 0;
+}
+
+#settings #notice,
+#settings #error {
+  float: left;
+  margin: 12px 0 0 20px;
+  clear: none;
+}
+
+#settings p {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+  #settings_pagination {
+    overflow: hidden;
+    clear: both;
+    position: relative;
+  }
+  
+    #settings_pagination li a {
+      color: #000;
+      font-size: 15px;
+      padding: 0 20px 10px 15px;
+      outline: none;
+    }
+    
+    #settings_pagination li .icon {
+      top: 7px;
+      margin: 0 5px 0 0;
+    }
+    
+  #content_carousel {
+    width: 1280px;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+  }
+  
+    #content_carousel #carousel_items {
+      left: 0;
+      top: 0;
+      overflow: hidden;
+      width: 8960px;
+      padding: 0 0 5px 0;
+    }
+  
+      #carousel_items .item {
+        width: 1280px;
+        float: left;
+      }
+      
+#setting_formatting {
+  margin: 0 0 50px 0;
+}
+  
+  #setting_formatting .setting {
+    float: left;
+    margin: 0 6px 6px 0;
+    padding: 5px;
+    background: #fff;
+    @include border-radius(5px);
+  }
+  
+  #setting_formatting .setting:hover {
+    background: #eecae0;
+  }
+  
+  #setting_formatting .active,
+  #setting_formatting .active:hover {
+    background: #bd0c75;
+  }
+  
+  #setting_formatting .group {
+    float: left;
+  }
+  
+    #setting_formatting a {
+      display: block;
+    }
+
+    #setting_formatting h3 {
+      font-size: 15px;
+      color: #999;
+      text-align: center;
+      margin: 0 0 20px 0;
+    }
+
+    #setting_formatting img {
+      border: 1px solid #eee;
+    }
+
+    #setting_formatting p {
+      margin: 0;
+      padding: 10px 10px 5px 10px;
+      color: #999;
+      font-size: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    #setting_formatting .active p,
+    #setting_formatting .setting:hover p {
+      color: #fff;
+    }
+
+#world_map {
+  float: right;
+  margin: 0 600px 0 0;
+}
+
+#gravatar_video {
+  float: right;
+  margin: 0 400px 0 50px;
+  border: 3px solid #000;
+  @include border-radius(3px);
+  padding: 1px;
+  background: image-url("icons/ajax-loader.gif") 50% 50% no-repeat;
+}
+
+  #gravatar_video a {
+    display: block;
+    width: 400px;
+    height: 224px;
+    background: image-url("settings/gravatar_video.jpg") 0 0 no-repeat;
+    text-indent: -9999px;
+  }
+
+/* ------------------------------------------------------------------------------------------------------------ */
+}

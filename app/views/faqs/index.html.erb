@@ -25,7 +25,7 @@
   <ul class="pad">
 		<% @important.each do |faq| %>
 	    <li class="big">
-	      <h2 class="theme_color"><%= faq.question %></h2>
+	      <h2 class="big"><strong><%= faq.question %></strong></h2>
         <%= raw render_textile(faq.answer) %>
 	    </li>
     <% end %>

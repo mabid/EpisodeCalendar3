@@ -1,0 +1,37 @@
+/* CHECKBOXES
+ * ----------------------------------------------------------------------------------------------------------------------- */
+
+.ui-helper-hidden-accessible { display: none; }
+
+.ui-checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: image-url("sprites/checkboxes.png") 0 -32px no-repeat;
+  cursor: pointer;
+  outline: none;
+}
+
+label.ui-checkbox {
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+.ui-helper-hidden { display: none; }
+
+.ui-radio-state-hover,
+.ui-checkbox-state-hover {
+  background-position: 0 -48px;
+}
+
+.ui-checkbox.small { width: 9px; height: 9px; background-position: 0 -144px; }
+.ui-checkbox-state-checked.small { width: 9px; height: 9px; background-position: 0 -160px; }
+
+.ui-checkbox-state-checked { background-position: 0 0; }
+.ui-checkbox-state-checked-disabled { background-position: 0 -96px; }
+.ui-checkbox-state-checked-disabled-hover { background-position: 0 -96px; }
+.ui-checkbox-state-checked-hover { background-position: 0 -16px; }
+
+.ui-checkbox-state-disabled,
+.ui-checkbox-state-disabled-hover { background-position: 0 -112px; }
