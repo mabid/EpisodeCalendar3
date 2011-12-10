@@ -5,15 +5,15 @@
 
 <div class="width_50 divider">
   <h1 class="center">Frequently Asked Questions</h1>
-  <ul class="pad">
+  <ul id="faq" class="pad">
 		<% @important.each do |faq| %>
-	    <li class="big">
-	      <h2 class="big"><strong><%= faq.question %></strong></h2>
+	    <li>
+	      <h2><strong><%= faq.question %></strong></h2>
         <%= raw render_textile(faq.answer) %>
 	    </li>
     <% end %>
     <% @faqs.each do |faq| %>
-	    <li class="big">
+	    <li>
 	      <h2><%= faq.question %></h2>
 				<%= raw render_textile(faq.answer) %>
 	    </li>
