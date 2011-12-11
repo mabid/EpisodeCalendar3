@@ -47,7 +47,7 @@ class ShowsController < ApplicationController
       @episodes = scope.all
     #end
     
-    @seen_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)]).map(&:episode_id)
+    @seen_episodes = SeenEpisode.where("user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)).map(&:episode_id)
     
     respond_to do |format|
       format.html
@@ -126,17 +126,13 @@ class ShowsController < ApplicationController
   def show
     @show = Show.find_by_permalink(params[:permalink])
     if @show
-      @season_size = 0
       @next_air_date = @show.next_episode.air_date unless @show.next_episode.nil?
-      @seasons = Season.find(:all, :conditions => ["api_show_id = ?", @show.api_show_id], :order => "number desc")
+      @seasons = Season.where("api_show_id = ?", @show.api_show_id).order("number desc")
       if params[:season]
-        @season = Season.find(:first, :conditions => ["api_show_id = ? AND number = ?", @show.api_show_id, params[:season]])
+        @season = Season.where("api_show_id = ? AND number = ?", @show.api_show_id, params[:season]).first
         @season = @seasons.first if @season.blank?
       else
         @season = @seasons.first
-      end
-      @seasons.each do |season|
-        @season_size += 1 unless season.number == 0
       end
       
       @is_following = false

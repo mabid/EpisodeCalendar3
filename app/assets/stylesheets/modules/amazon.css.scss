@@ -19,13 +19,18 @@
       margin: 0 0 20px 0;
     }
   }
-  li, li:hover {
-    float: left;
+  ul {
     text-align: center;
-    width: 20%;
+  }
+  li, li:hover {
+    display: inline-block;
+    text-align: center;
+    width: 19%;
     background: none;
+    vertical-align: top;
   }
   .image {
+    background: image-url("missing_product.png") 50% 30px no-repeat;
     height: 170px;
     vertical-align: middle;
     margin: 0 auto;

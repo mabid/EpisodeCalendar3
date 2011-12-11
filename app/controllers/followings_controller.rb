@@ -8,7 +8,6 @@ class FollowingsController < ApplicationController
     @followings = []
     unless current_user.followings.nil?
       #@followings = Rails.cache.fetch([current_user.id, "followings"]) do
-        #@followings = Following.find(:all, :conditions => { :user_id => current_user.id }, :include => [:show], :order => "shows.name")
         @followings = Following.where(:user_id => current_user.id).joins(:show).order("shows.name")
       #end
       @followings_active = @followings.select{ |f| f.show.status == "Continuing" && f.watch_later == false }

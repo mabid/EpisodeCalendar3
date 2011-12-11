@@ -2,42 +2,45 @@
 
 /* SHOW ------------------------------------------------------------------------------------------------------------------------------ */
  
-#show_info {
-  clear: both;
-  height: 229px;
+#show_info .show_banner {
+  float: left;
+  width: 65%;
+  max-width: 758px;
   position: relative;
-}
-
-  #show_info .show_banner img {
+  overflow: hidden;
+  img {
     margin: 0 0 2px 0;
   }
+}
 
-  #show_info .show_banner {
-    float: left;
-    width: 758px;
-    position: relative;
-  }
+#show_info .banner_shadow {
+  background: image-url("banner_shadow.png") 0 0 no-repeat;
+  height: 82px;
+  width: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+}
 
-  #show_info .banner_shadow {
-    background: image-url("banner_shadow.png") 0 0 no-repeat;
-    width: 758px;
-    height: 82px;
-    position: absolute;
-    z-index: 9999;
-  }
+#show_info .banner_shadow + .banner_shadow {
+  right: 0;
+  left: auto;
+  background-position: 100% 0;
+}
 
-  #show_info h1 {
-    float: left;
-    font-size: 4em !important;
-    color: #000;
-    text-shadow: 1px 1px 0 #ccc;
-    position: absolute;
-    top: 0;
-    left: 20px;
-    margin: 0 20px 0 0;
-    z-index: 9999;
-    width: 700px;
-  }
+#show_info h1 {
+  float: left;
+  font-size: 4em !important;
+  color: #000;
+  text-shadow: 1px 1px 0 #ccc;
+  position: absolute;
+  top: 0;
+  left: 20px;
+  margin: 0 20px 0 0;
+  z-index: 9999;
+  width: 700px;
+}
 
 #show_info h2 {
   font-size: 1.5em;
@@ -55,25 +58,15 @@
     text-shadow: none;
   }
   
-  #add_button {
-    background: image-url("add_button.png") 0 100% repeat-x;
-    display: block;
-    line-height: 39px;
-    width: 118px;
-    padding: 0 0 0 32px;
-    margin: 16px auto 0 auto;
-    color: #fff;
-    font-weight: bold;
-  }
-  
   #secondary_show_info {
+    width: 30%;
     float: right;
   }
 
   #time_and_network {
     overflow: hidden;
     clear: both;
-    padding: 10px 20px 0 20px;
+    padding: 4px 10px 0 10px;
   }
   
     #time_and_network .icon {
@@ -193,6 +186,12 @@ h3#season_pagination_header {
       @include linear-gradient(#830952, $pink_theme_color);
     }
 
+.show_season {
+  h1 {
+    display: inline-block;
+  }
+}
+
 .season_list {
   margin: 0 0 50px 0;
 }
@@ -229,12 +228,18 @@ h3#season_pagination_header {
 }
 
   .season_list .episode > div {
-    margin-left: 3%;
-    border-left: 1px solid #ddd;
     &:first-child {
       margin: 0;
       border: 0;
     }
+  }
+
+  .season_list .episode .separator {
+    margin-left: 1%;
+    border-left: 1px solid #ddd;
+    width: 1%;
+    min-height: 30px;
+    float: left;
   }
 
 .season_list .odd {

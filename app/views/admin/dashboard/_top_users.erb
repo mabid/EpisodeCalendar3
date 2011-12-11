@@ -2,31 +2,31 @@
 @user_count = User.count
 @user_show_count = Following.count
 @avg = @user_show_count.to_f / @user_count.to_f
-@users = User.find(:all, :order => "followings_count DESC", :conditions => "followings_count > 0", :limit => 25)
+@users = User.where("followings_count > 0").order("followings_count DESC").limit(25)
 %>
-    <script type="text/javascript">
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var dataTable = new google.visualization.DataTable();
-        
-        dataTable.addColumn('string');
-        dataTable.addColumn('number');
-        
-        dataTable.addRows([
-        <% @users.each do |user| %>
-          ['<%= user.name %>',<%= user.followings_count %>],
-        <% end %>
-        ]);
-        
-        var maxVal = <%= @users[0].followings_count + (@users[0].followings_count / 10) %>;
-        var interval = Math.floor((maxVal/100)*10);
-        var y_delimiter = 100 / <%= @users.size %>;
-        var x_delimiter = (100 / maxVal)*interval;
+<script type="text/javascript">
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var dataTable = new google.visualization.DataTable();
     
-        var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 550, height: 500, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter +',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|860954cc'};
-        var chart = new google.visualization.ImageChart(document.getElementById('top_users'));
-        chart.draw(dataTable, options);
-      }
-    </script>
-      <div id="top_users" class="graph"></div>
-      <h4>Average per user: <%= (@avg * 10**2).round.to_f / 10**2 %></h4>
+    dataTable.addColumn('string');
+    dataTable.addColumn('number');
+    
+    dataTable.addRows([
+    <% @users.each do |user| %>
+      ['<%= user.name %>',<%= user.followings_count %>],
+    <% end %>
+    ]);
+    
+    var maxVal = <%= @users[0].followings_count + (@users[0].followings_count / 10) %>;
+    var interval = Math.floor((maxVal/100)*10);
+    var y_delimiter = 100 / <%= @users.size %>;
+    var x_delimiter = (100 / maxVal)*interval;
+
+    var options = {min: 0, max: maxVal, valueLabelsInterval: interval, width: 550, height: 500, chf:'c,ls,90,FFFFFF,0.1,FFFFFF,0.1', chg: '' + x_delimiter + ',' + y_delimiter +',3,3,0,0', chm: 'N,000000,0,-1,12', cht: 'bhg', chds: '0,' + maxVal + '', chco: 'da0c87cc|860954cc'};
+    var chart = new google.visualization.ImageChart(document.getElementById('top_users'));
+    chart.draw(dataTable, options);
+  }
+</script>
+<div id="top_users" class="graph"></div>
+<h4>Average per user: <%= (@avg * 10**2).round.to_f / 10**2 %></h4>

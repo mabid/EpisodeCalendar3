@@ -4,26 +4,34 @@
 <% share_title "TV Episode Calendar - #{yield(:title)}" %>
 
 <div class="page_header">
-  <div id="show_info">
-    <div class="banner_shadow"></div>
+  <div class="row">
+  <h1><%= @show.name %></h1>
+    <% if logged_in? %>
+      <% unless current_user.is_following(@show) %>
+        <%= link_to("Add to My shows", add_show_path(@show.permalink)) %>
+      <% else %>
+          <%= link_to("Add to My shows", add_show_path(@show.permalink)) %>
+      <% end %>
+    <% end %>
+  </div>
+  <div id="show_info" class="row">
     <% if @show.banner %>
     <div class="show_banner">
+        <div class="banner_shadow"></div>
+        <div class="banner_shadow"></div>
         <%= image_tag("http://www.episodecalendar.com" + @show.banner, :alt => @show.name, :width => 758, :height => 140) %>
     </div>
     <% else %>
-    <%= content_tag(:h1, @show.name) %>
     <div class="banner">
-      <%= image_tag("missing_show_banner.png", :alt => @show.name, :width => 758, :height => 140) %>
+      <%= image_tag("missing_show_banner.png", :width => 758, :height => 140) %>
     </div>
     <% end %>
     <div id="secondary_show_info">
       <div class="note_wrapper">
         <%= link_to("Edit", edit_admin_show_path(@show), :id => :edit_link) if admin? %>
-        <div id="status_icon"><%= print_status_icon(@show) %></div>
         <ul class="note">
-          <li class="first"><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
+          <li><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
           <% if @seasons.any? %>
-          <li><strong>Seasons:</strong> <%= @season_size %></li>
           <li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
           <li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
           <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= raw print_popularity(@show) %></li>
@@ -33,21 +41,9 @@
           <li><strong>Followers:</strong> <%= @show.followers %> <%= print_trend(@show) %></li>
           <li><strong>Popularity rank:</strong> <%= raw print_popularity(@show) %></li>
           <% end %>
+          <li id="time_and_network"><%= raw print_air_time(@show) unless @show.ended? %></li>
         </ul>
       </div>
-      <div id="time_and_network">
-        <p><%= raw print_air_time(@show) unless @show.ended? %></p>
-      </div>
-      <% if logged_in? %>
-        <div id="add_or_like">
-        <% unless current_user.is_following(@show) %>
-          <%= link_to("Add to My shows", add_show_path(@show.permalink), :id => :add_button) %>
-        <% else %>
-            <%= icon_tag("smiley", 24) %> <strong>You are following this show</strong>
-            <span id="facebook_button"><span><%= @show.id %></span></span>
-        <% end %>
-        </div>
-      <% end %>
     </div>
   </div>
 
@@ -94,6 +90,7 @@
         <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
         <div class="rating"><span class="r<%= get_rating(e.rating) %>"></span></div>
       </div>
+      <div class="separator"></div>
       <div class="overview">
         <% if e.friendly_overview.size > 180 %>
           <div class="short"><%= raw truncate(e.friendly_overview, :length => 180, :separator => " ") %> <%= link_to(raw("read more &raquo;"), "#", :class => :toggle, :rel => "full") %></div>
@@ -102,12 +99,14 @@
           <div class="short"><%= raw e.friendly_overview %></div>
         <% end %>
       </div>
+      <div class="separator"></div>
       <div class="date">
-        <span>Air date:</span>
+        <span>Air date</span>
         <%= format_date(corrected_air_date) %>
       </div>
+      <div class="separator"></div>
       <div class="seen">
-        <% if e.air_date < $TODAY.end_of_day %>
+        <% if corrected_air_date < $TODAY.end_of_day %>
           <span>Watched this episode?</span>
           <% if logged_in? && @is_following %>
             <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if @seen_episode_ids.include?(e.id)}", :rel => "ajax_loader_#{e.id}") %>

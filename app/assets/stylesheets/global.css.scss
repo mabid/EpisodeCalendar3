@@ -316,8 +316,7 @@ a.alternative {
 #status_icon span.red { color: #e25a46; }
 
 .note {
-  float: left;
-  width: 250px;
+  padding: 10px;
 }
 
   .profile .note { width: auto; }
@@ -358,10 +357,10 @@ a.alternative {
   border-width: 5px 5px 0;
   display: inline-block;
   font-size: 10px;
-  padding: 0px 12px 4px;
+  padding: 4px 10px;
   position: absolute;
   right: 10px;
-  top: -23px;
+  bottom: -15px;
 }
 
 #print {
@@ -374,13 +373,9 @@ a.alternative {
 }
 
 .note_wrapper {
-  float: right;
   background: #000;
-  border: 5px #000 solid;
   color: #fff;
-  width: 380px;
   position: relative;
-  padding: 5px;
   @include border-radius(5px);
   @include box-shadow(0 2px 4px #999);
 }

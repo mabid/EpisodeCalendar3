@@ -126,9 +126,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     
     #@marked_count = Rails.cache.fetch([@user.id, "marked_episodes_count"]) do
-      @marked_count = Following.sum("marked_episodes_count", :conditions => {:user_id => @user.id})
+      @marked_count = Following.where(:user_id => @user.id).sum("marked_episodes_count")
     #end
-    Following.find(:all, :conditions => {:user_id => @user.id}).each do |following|
+    Following.where(:user_id => @user.id).each do |following|
       @time_wasted += following.show.runtime * following.marked_episodes_count unless following.show.runtime.blank?
     end
     @user.shows.each do |show|
