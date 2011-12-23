@@ -1,6 +1,10 @@
 @import "mixins";
 
-.calendar, .public {
+#calendar {
+  width: 100%;
+}
+
+.calendar, .public, #calendar {
 
 /* ------------------------------------------------------------------------------------------------------------ */
 #month_navigation h2 {
@@ -18,10 +22,6 @@
   text-align: center;
   color: #ccc;
   width: 100px;
-}
-
-#calendar {
-  width: 100%;
 }
 
 .ui-checkbox.small,

@@ -27,12 +27,12 @@ class Following < ActiveRecord::Base
   
     def delete_seen_episodes
       episodes = Episode.where(:show_id => self.show_id).all
-      SeenEpisode.delete_all("user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id))
+      SeenEpisode.delete_all(["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)])
     end
   
     def delete_hidden_episodes
       episodes = Episode.where(:show_id => self.show_id).all
-      HiddenEpisode.delete_all("user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id))
+      HiddenEpisode.delete_all(["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)])
     end
   
 end

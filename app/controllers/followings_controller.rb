@@ -36,7 +36,10 @@ class FollowingsController < ApplicationController
         end
       end
     end
-    redirect_to(followings_path)
+    respond_to do |format|
+      format.html { redirect_to(followings_path) }
+      format.js { flash.discard(:notice) }
+    end
   end
   
   def destroy

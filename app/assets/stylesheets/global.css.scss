@@ -41,11 +41,6 @@ body {
     z-index: 9999px;
   }
   
-  body.start #page_container { 
-    @include linear-gradient(#fff, #eaeaea);
-    padding-bottom: 0;
-  }
-  
   .page_header {
     position: relative;
     z-index: 0;
@@ -157,34 +152,38 @@ ul.bullet_list {
 
 ul.list li {
   border-top: 1px solid #ddd;
-  padding: 15px 5px;
+  padding: 15px 10px;
   &:nth-child(2n+1) {
     background: #f2f2f2;
   }
+  .icon {
+    margin: 0 0 0 10px;
+  }
 }
 
-ul.tick_list {
-  list-style-type: none;
-  line-height: 1.5em;
-  color: green;
+.numbered {
+  counter-reset: list;
   li {
-    padding-left: 20px;
+    overflow: hidden;
     position: relative;
-    &:before {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      left: 0;
-      top: 0;
-      background: image-url("sprites/icons.png") -144px -16px no-repeat;
-    }
+  }
+  li:before {
+    content: counter(list);
+    counter-increment: list;
+    position: absolute;
+    bottom: -35px;
+    right: 0;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 80px;
+    color: #ccc;
   }
 }
 
 /* Classes
  * ---------------------------------------------------------------------------------------------------------------------- */
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 .center { text-align: center; }
 .center div { margin: 0 auto; }
 
@@ -277,26 +276,16 @@ a.alternative {
   overflow: hidden;
 }
 
-#trends .note_wrapper {
-  float: left;
-  width: auto;
-  margin: 0 8px;
-}
-
-  #trends dl.note {
-    width: 390px;
+  #trends .list {
+    h2 {
+      display: inline-block;
+      float: right;
+      vertical-align: top;
+    }
+    img {
+      width: 126px;
+    }
   }
-
-    #trends dl dt {
-      float: left;
-      width: 300px;
-    }
-  
-    #trends dl dd {
-      float: left;
-      width: 70px;
-      text-align: right;
-    }
 
 #status_icon {
   float: right;

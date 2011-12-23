@@ -17,8 +17,6 @@
   }
 
     #footer .box {
-      float: left;
-      width: 33%;
       .inner {
         @include linear-gradient(#212121, #000000);
         padding: 10px 27px 5px 27px;
@@ -28,7 +26,9 @@
       }
     }
 
-    #footer .middle .inner { margin: 0 19px; }
+    #footer .width_34 .inner {
+      margin: 0 19px;
+    }
     
     #footer h3 {
       padding: 0;

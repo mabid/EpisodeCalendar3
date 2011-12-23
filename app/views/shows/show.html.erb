@@ -4,18 +4,9 @@
 <% share_title "TV Episode Calendar - #{yield(:title)}" %>
 
 <div class="page_header">
-  <div class="row">
-  <h1><%= @show.name %></h1>
-    <% if logged_in? %>
-      <% unless current_user.is_following(@show) %>
-        <%= link_to("Add to My shows", add_show_path(@show.permalink)) %>
-      <% else %>
-          <%= link_to("Add to My shows", add_show_path(@show.permalink)) %>
-      <% end %>
-    <% end %>
-  </div>
   <div id="show_info" class="row">
     <% if @show.banner %>
+    <h1 class="hidden"><%= @show.name %></h1>
     <div class="show_banner">
         <div class="banner_shadow"></div>
         <div class="banner_shadow"></div>
@@ -23,6 +14,7 @@
     </div>
     <% else %>
     <div class="banner">
+      <h1><%= @show.name %></h1>
       <%= image_tag("missing_show_banner.png", :width => 758, :height => 140) %>
     </div>
     <% end %>
@@ -41,9 +33,18 @@
           <li><strong>Followers:</strong> <%= @show.followers %> <%= print_trend(@show) %></li>
           <li><strong>Popularity rank:</strong> <%= raw print_popularity(@show) %></li>
           <% end %>
-          <li id="time_and_network"><%= raw print_air_time(@show) unless @show.ended? %></li>
+          <li id="time_and_network"><%= raw print_air_time(@show) %></li>
         </ul>
       </div>
+      <% if logged_in? %>
+        <% unless current_user.is_following(@show) %>
+          <%= link_to("Add to My shows", add_show_path(@show.permalink), :class => "ajaxLink awesome magenta large", :rel => "ajaxLoaderTop") %>
+          <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoaderTop") %>
+          <span class="awesome large disabled hidden">Added!</span>
+        <% else %>
+            <span class="awesome large disabled">In your list</span>
+        <% end %>
+      <% end %>
     </div>
   </div>
 

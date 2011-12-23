@@ -63,6 +63,16 @@
     float: right;
   }
 
+  #secondary_show_info .awesome {
+    margin: 20px 0 0 0;
+  }
+
+  #secondary_show_info .awesome + img {
+    position: relative;
+    top: 3px;
+    margin: 0 0 0 10px;
+  }
+
   #time_and_network {
     overflow: hidden;
     clear: both;
@@ -76,10 +86,6 @@
     #time_and_network .icon:first-child {
       margin: 0;
     }
-  
-  #add_or_like {
-    margin: 0 20px;
-  }
   
   #secondary_show_info #add_or_like .icon {
     top: 6px;
@@ -295,9 +301,6 @@ h3#season_pagination_header {
     float: left;
     width: 45%;
     padding: 1px 0 0 0;
-    & > div {
-      padding-left: 25px;
-    }
   }
 
   .season_list .overview .toggle {

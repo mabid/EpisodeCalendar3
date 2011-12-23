@@ -152,9 +152,11 @@ class ShowsController < ApplicationController
   end
   
   def trends
-    @top_shows = Show.all(:conditions => "current_trend_position IS NOT NULL", :order => "followers desc", :limit => 20)
-    @top_new_followers = Show.all(:select => "*, (followers - previous_trend_position_followers) AS new_followers", :conditions => "current_trend_position IS NOT NULL", :order => "new_followers desc", :limit => 20)
-    @highest_grow = Show.all(:select => "*, (followers/previous_trend_position_followers) AS grow", :conditions => "current_trend_position IS NOT NULL AND followers > 100", :order => "grow desc", :limit => 20)
+    @shows = Show.where("current_trend_position IS NOT NULL").order("followers desc").limit(200)
+    @top_shows = @shows.limit(20)
+    @top_new_followers = @shows.select("*, (followers - previous_trend_position_followers) AS new_followers").where("current_trend_position IS NOT NULL").order("new_followers desc").limit(20)
+    @highest_grow = Show.select("*, (followers/previous_trend_position_followers) AS grow").where("current_trend_position IS NOT NULL AND followers > 100").order("grow desc").limit(20)
+    @shows_by_day = @shows.active
   end
   
   def facebook_button

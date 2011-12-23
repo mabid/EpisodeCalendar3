@@ -70,30 +70,36 @@
 
 <div class="narrow_column">
   <h2 class="center">Most watched shows</h2>
-  <div class="margin_bottom">
-  <% if @recent_shows.any? %>
-  <ul class="show_list popular">
-    <% @most_seen_shows.each do |following| %>
-  	  <li class="user_show">
-  	    <div class="banner">
-  	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
-        </div>
-  	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
-  	    <% percentage = (following.marked_episodes_count.to_f / following.show.episodes_count).round(2) * 100 %>
-  	    <div class="progress_small_header"><%= following.show.episodes_count - following.marked_episodes_count %> episodes left</div>
-        <div class="progress_small_bar_wrapper progress_small">
-        	<div class="progress_bar">
-        		<div class="bar" style="width: <%= percentage %>%">
-        			<p><%= percentage %>%</p>
-        		</div>
-        	</div>
-        </div>
-      </li>
-    <% end %>
-    </ul>
+  <div class="margin_bottom_big">
+    <% if @recent_shows.any? %>
+      <ul class="show_list popular">
+        <% @most_seen_shows.each do |following| %>
+      	  <li class="user_show">
+      	    <div class="banner">
+      	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
+            </div>
+      	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
+      	    <p>Spent watching: <%= wasted_in_words(following.show.runtime * following.marked_episodes_count) %></p>
+          </li>
+        <% end %>
+      </ul>
     <% else %>
       <p class="center big mid_grey">No shows added yet :(</p>
     <% end %>
-    </div>
   </div>
+
+  <h2 class="center">All <%= me?(@user) ? "my" : "#{@user.display_name.capitalize}'s" %> shows</h2>
+  <% if @followings.any? %>
+  <ul class="list">
+    <% @followings.each do |following| %>
+      <li>
+        <small class="float_right mid_grey"></small>
+        <strong><%= link_to(following.show.name, following.show, :class => "alternative") %></strong>
+        <%= raw print_air_time(following.show) %>
+      </li>
+    <% end %>
+  </ul>
+  <% else %>
+    <p class="center big mid_grey">No shows yet :(</p>
+  <% end %>
 </div>

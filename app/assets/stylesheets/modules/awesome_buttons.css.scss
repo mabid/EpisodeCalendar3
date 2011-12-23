@@ -36,3 +36,10 @@
 .orange.awesome:hover { background-color: #d45500; }
 .yellow.awesome, .yellow.awesome:visited { background-color: #ffb515; }
 .yellow.awesome:hover { background-color: #fc9200; }
+
+.awesome.disabled {
+    background: -moz-linear-gradient(#999, #ccc);
+    border-color: #fff;
+    box-shadow: none;
+    cursor: text;
+}
