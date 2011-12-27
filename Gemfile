@@ -12,6 +12,7 @@ gem "therubyracer", require: "v8"
 gem "rack" , "!= 1.3.4"
 
 #Tools
+gem "rvm"
 gem "capistrano"
 gem "capistrano-ext"
 gem "hoptoad_notifier"
