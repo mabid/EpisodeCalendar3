@@ -45,8 +45,10 @@ gem "ambethia-smtp-tls"#, :lib => "smtp-tls"
 gem "devise"
 gem "warden"
 
+#Put Sass outside of the :assets group (ActiveAdmin fix)
+gem "sass-rails", "~> 3.1.4"
+
 group :assets do
-  gem "sass-rails",   "~> 3.1.4"
   gem "coffee-rails", "~> 3.1.1"
   gem "uglifier", ">= 1.0.3"
 end
