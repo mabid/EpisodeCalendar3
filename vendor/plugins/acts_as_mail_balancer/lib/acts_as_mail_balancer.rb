@@ -29,4 +29,4 @@ class MailBalancerObserver
   end
 end
 
-ActionMailer::Base.register_observer(MailBalancerObserver)
+Mailer.register_observer(MailBalancerObserver)

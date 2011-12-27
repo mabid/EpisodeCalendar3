@@ -1,17 +1,20 @@
 development: &development
   mails:
+    mail_0:
+      user_name: "account@episodecalendar.com"
+      password: "hxwnhuex"
     mail_1:
-      user_name: "no-reply1@mydomain.com"
-      password: "no-reply1_password"
+      user_name: "account1@episodecalendar.com"
+      password: "hxwnhuex"
     mail_2:
-      user_name: "no-reply2@mydomain.com"
-      password: "no-reply2_password"
+      user_name: "account2@episodecalendar.com"
+      password: "hxwnhuex"
     mail_3:
-      user_name: "no-reply1@anotherdomain.com"
-      password: "no-reply1_password"
+      user_name: "account3@episodecalendar.com"
+      password: "hxwnhuex"
     mail_4:
-      user_name: "no-reply2@anotherdomain.com"
-      password: "no-reply2_password"
+      user_name: "account4@episodecalendar.com"
+      password: "hxwnhuex"
 
 production:
   <<: *development

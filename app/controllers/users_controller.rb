@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 	require "icalendar"
-	before_filter :authenticate_user!, :except => [:index, :set_format, :destroy, :update, :ical, :rss]
+	before_filter :authenticate_user!, :except => [:index, :show, :set_format, :destroy, :update, :ical, :rss]
 	
 	def index
 	  @letter = params[:letter].blank? ? "a" : params[:letter]
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to(users_path)
+    redirect_to(root_path)
   end
   
   def set_format

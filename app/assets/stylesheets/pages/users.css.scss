@@ -5,6 +5,16 @@
     padding-bottom: 20px;
   }
 
+  h1 {
+    display: inline-block;
+  }
+
+  h1 + a {
+    position: relative;
+    top: -6px;
+    left: 10px;
+  }
+
   .note_wrapper {
     width: 30%;
     float: right;

@@ -4,7 +4,9 @@ class SupportController < ApplicationController
   require "hpricot"
   require "yaml"
   require "open-uri"
-    
+  require 'uri'
+  require 'net/https'
+
   def index
     unless @ticket = flash[:ticket]
       @ticket = Ticket.new
@@ -13,6 +15,11 @@ class SupportController < ApplicationController
   
   def request_show
     @shows = []
+    google_plus_url = "https://plusone.google.com/u/0/_/+1/fastbutton?url=#{u(DOMAIN)}&count=true"
+    result = RestClient.get(google_plus_url)
+    google_plus_doc = Hpricot.parse(result)
+    @count = google_plus_doc.search("div[@id=aggregateCount]").innerHTML
+
     unless params[:query].blank?
             
       #Get API url

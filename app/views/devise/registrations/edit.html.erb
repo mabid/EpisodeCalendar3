@@ -160,25 +160,32 @@
         <h2>Changing your profile?</h2>
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
           <%= devise_error_messages! %>
-          <div class="width_33">
-            <%= f.label :name %><span class="label">(Your profile name. If it's blank, your email will be used)</span><br />
-            <p><%= f.text_field :name %></p>
-  
-            <%= f.label :email %><br />
-            <p><%= f.text_field :email %></p>
+          <div class="row margin_bottom">
+            <div class="width_33">
+              <%= f.label :name %><span class="label">(Your profile name. If it's blank, your email will be used)</span><br />
+              <p><%= f.text_field :name %></p>
+    
+              <%= f.label :email %><br />
+              <p><%= f.text_field :email %></p>
+            </div>
+            <div class="width_33">
+              <%= f.label :password %><span class="label">(Leave blank if you don't want to change it)</span><br />
+              <p><%= f.password_field :password %></p>
+            
+              <%= f.label :password_confirmation %><br />
+              <p><%= f.password_field :password_confirmation %></p>
+            </div>
+            <div class="width_33">
+              <strong><%= f.label :current_password %></strong><span class="label">(We need your current password to confirm your changes)</span><br />
+              <p><%= f.password_field :current_password %></p><br /><br />
+    
+              <%= f.submit "Update", :class => "awesome magenta" %>
+            </div>
           </div>
-          <div class="width_33">
-            <%= f.label :password %><span class="label">(Leave blank if you don't want to change it)</span><br />
-            <p><%= f.password_field :password %></p>
-          
-            <%= f.label :password_confirmation %><br />
-            <p><%= f.password_field :password_confirmation %></p>
-          </div>
-          <div class="width_33">
-            <strong><%= f.label :current_password %></strong><span class="label">(We need your current password to confirm your changes)</span><br />
-            <p><%= f.password_field :current_password %></p><br /><br />
-  
-            <%= f.submit "Update", :class => "awesome magenta" %>
+          <h3 class="big">Wan't to leave?</h3>
+          <span class="label margin_bottom">All data will be deleted instantly!</span>
+          <div>
+            <%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome small red") %>
           </div>
         <% end %>
       </div> <!-- .item -->

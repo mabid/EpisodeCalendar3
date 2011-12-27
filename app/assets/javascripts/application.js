@@ -70,4 +70,7 @@ $(document).ready(function(){
   //Enable and disable the contact form
   initContactForm();
 
+  //Init profile share
+  initFacebookSend();
+
 });

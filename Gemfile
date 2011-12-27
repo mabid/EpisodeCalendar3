@@ -13,6 +13,7 @@ gem "rack" , "!= 1.3.4"
 
 #Tools
 gem "capistrano"
+gem "capistrano-ext"
 gem "hoptoad_notifier"
 gem "whenever"
 
@@ -28,6 +29,8 @@ gem "paperclip"
 gem "icalendar"
 gem "amazon_product"
 gem "RedCloth"
+gem "delayed_job_active_record"
+gem "rest-client"
 
 #Racks
 gem "activeadmin"

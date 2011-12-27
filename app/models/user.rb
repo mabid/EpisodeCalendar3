@@ -40,7 +40,8 @@ class User < ActiveRecord::Base
   
   has_many :followings, :dependent => :destroy
   has_many :shows, :through => :followings
-  has_many :seen_episodes
+  has_many :seen_episodes, :dependent => :destroy
+  has_many :hidden_episodes, :dependent => :destroy
   
   scope :nameless, where("name IS NULL or name = ''")
   scope :active, where("daily_notification = true")
@@ -74,7 +75,7 @@ class User < ActiveRecord::Base
 	end
 	
 	def is_admin?
-		self.admin == true
+		admin == true
 	end
 	
 	def display_name

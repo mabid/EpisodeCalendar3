@@ -22,8 +22,7 @@ function hijackAjaxLinks() {
   });
 }
 
-function initAjaxCheckbox()
-{  	
+function initAjaxCheckbox() {  	
   $(".ui-checkbox.ajaxLink").live("click", function(){
     var $link = $(this);
     
@@ -49,8 +48,7 @@ function initAjaxCheckbox()
   });
 }
 
-function initTooltip()
-{
+function initTooltip() {
   var standard = {tip: 'leftTop', target: 'rightTop', tooltip: 'leftTop'};
   var inverted = {tip: 'rightTop', target: 'leftTop', tooltip: 'rightTop'};
 
@@ -85,8 +83,7 @@ function initTooltip()
   }); //each
 }
 
-function initTableSorter()
-{
+function initTableSorter() {
 	if (!$(".my_shows tbody tr").length)
 		return;
 	
@@ -153,13 +150,11 @@ function initTableSorter()
   }); 
 }
 
-var myTextExtraction = function(node)
-{
+var myTextExtraction = function(node) {
   return $(node).text();
 }
 
-function initTogglers()
-{
+function initTogglers() {
   $("a.toggler").click( function(){
     var e = $("#" + $(this).attr("rel"));
     e.is(':hidden') ? e.fadeIn(1000) : e.fadeOut(500);
@@ -167,8 +162,7 @@ function initTogglers()
   });
 }
 
-function initCheckboxTogglers()
-{
+function initCheckboxTogglers() {
   $(".toggler:checkbox").each( function() {
       setCheckbox($(this));
     });
@@ -178,8 +172,7 @@ function initCheckboxTogglers()
   });
 }
 
-function setCheckbox(chk)
-{
+function setCheckbox(chk) {
   var checked = chk.is(':checked');
   
   var checkbox = $("#" + chk.attr("rel") + "");
@@ -201,8 +194,7 @@ function setCheckbox(chk)
     checkbox.checkBox('reflectUI');
 }
 
-function renderProgress()
-{
+function renderProgress() {
   if ($("#progress").length > 0)
   {
     $.ajax({
@@ -214,8 +206,7 @@ function renderProgress()
   }
 }
 
-function hideFlashes()
-{
+function hideFlashes() {
   if ($("#notice").not(".static").length > 0)
     $("#notice").delay(5000).slideUp();
     
@@ -223,13 +214,12 @@ function hideFlashes()
     $("#error").delay(10000).slideUp();
 }
 
-function initFacebookLike(){
+function initFacebookLike() {
   if ($("#facebook_button").length > 0)
     setTimeout("insertFacebookButton()", 1000);
 }
 
-function insertFacebookButton()
-{
+function insertFacebookButton() {
   var id = $("#facebook_button").text();
   $.ajax({
     type: "GET",
@@ -240,14 +230,24 @@ function insertFacebookButton()
   });
 }
 
-function initBannerReflection()
-{
+function initFacebookSend() {
+  if ($("#fb-root").length) {
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=165505650138958";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+}
+
+function initBannerReflection() {
   if ($("#show_info").length > 0)
     $("#show_info .show_banner img").reflect({ opacity: 0.28, height: 0.42 });
 }
 
-function initEpisodeOverviewToggle()
-{
+function initEpisodeOverviewToggle() {
   $(".season_list .overview a.toggle").live("click", function(){
     $this = $(this);
     $this.parent().hide();
@@ -256,8 +256,7 @@ function initEpisodeOverviewToggle()
   });
 }
 
-function initContentCarousel()
-{
+function initContentCarousel() {
   $("#settings_pagination a").click(function() {
     var index = $("#settings_pagination a").index(this);    
     $("#carousel_items .item").hide();

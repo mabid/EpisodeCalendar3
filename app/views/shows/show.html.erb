@@ -63,18 +63,17 @@
   
   <div class="options">
     <% if @is_following %>
-      <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoader") %>
-      <span class="hide_while_loading">
-        <%= link_to("Mark full show as watched", mark_show_path(@show.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
-        <strong>or</strong> 
-        <%= link_to("Mark season as watched", mark_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
-        <strong>or</strong>
-        <%= link_to("Mark season as unwatched", unmark_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
-        <strong>-</strong>
-        <%= link_to("Hide season", hide_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
-        <strong>or</strong>
-        <%= link_to("Unhide season", unhide_season_path(@show.id, @season.id), :class => "ajaxLink awesome magenta small", :rel => "ajaxLoader") %>
-      </span>
+      <div class="dropdown">
+        <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoader") %>
+        <span class="awesome magenta">Mark or hide multiple episodes<span class="arrow"></span></span>
+        <ul>
+          <li><%= link_to("Mark the entire show as watched", mark_show_path(@show.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
+          <li><%= link_to("Mark all episodes in this season as watched", mark_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
+          <li><%= link_to("Unmark all episodes in this season as watched", unmark_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
+          <li><%= link_to("Hide all episodes in this season", hide_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
+          <li><%= link_to("Unhide all episodes in this season", unhide_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
+        </ul>
+      </div>
     <% else %>
       You need to <%= logged_in? ? "add this show to your list" : "be logged in" %> to mark episodes as watched.
     <% end %>

@@ -192,12 +192,6 @@ h3#season_pagination_header {
       @include linear-gradient(#830952, $pink_theme_color);
     }
 
-.show_season {
-  h1 {
-    display: inline-block;
-  }
-}
-
 .season_list {
   margin: 0 0 50px 0;
 }
@@ -264,6 +258,7 @@ h3#season_pagination_header {
   display: block;
   .rating,
   .overview,
+  .separator,
   .date span,
   .seen > span,
   .seen > a,
@@ -274,13 +269,13 @@ h3#season_pagination_header {
     display: block;
   }
   .date {
-    margin: 0;
+    margin: 0 0 0 2%;
     border: 0;
     text-align: left;
   }
   .seen {
     float: right;
-    width: 137px;
+    width: 12%;
   }
   small {
     display: block;

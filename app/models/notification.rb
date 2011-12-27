@@ -21,12 +21,13 @@ class Notification < ActiveRecord::Base
     end
     
     if episodes_to_mail.any?
-      Emailer.deliver_daily_alert(user, episodes_to_mail)
+      Mailer.delay.weekly_email(user.id, episodes_to_mail)
     end
   end
     
 	def self.weekly
 	  user_ids = Following.all.collect(&:user_id).uniq
+    user_ids = [2]
     User.where("id IN (?) AND weekly_notification = ?", user_ids, true).each do |user|
       deliver_weekly_email_for_user(user)
     end
@@ -57,7 +58,7 @@ class Notification < ActiveRecord::Base
     end
     
     if episodes_array.any?
-      Emailer.deliver_weekly_alert(user, episodes_array)
+      Mailer.delay.weekly_email(user.id, episodes_array)
     end
   end
 	

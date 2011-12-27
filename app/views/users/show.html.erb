@@ -1,5 +1,10 @@
 <% title "#{@user.display_name}'s profile" %>
-
+<% content_for :head do %>
+  <meta property="og:title" content="<%= @user.display_name.capitalize %>'s profile @ EpisodeCalendar.com"/>
+  <meta property="og:url" content="<%= profile_url(@user) %>"/>
+  <meta property="og:site_name" content="EpisodeCalendar.com"/>
+  <meta property="og:description" content="See which TV-shows <%= @user.display_name.capitalize %> is watching!"/>
+<% end %>
 <div class="page_header">
   <div class="note_wrapper">
     <ul class="note">
@@ -16,10 +21,11 @@
   <div class="user_profile_image"><%= image_tag(@user.gravatar_size(110)) %></div>
   <h1 class="big"><%= me?(@user) ? "My" : "#{@user.display_name.capitalize}'s" %> profile</h1>
   <% if admin? %>
-    <p>
-      <%= link_to("Edit", edit_admin_user_path(@user), :class => "awesome small magenta") %>
-      <%= link_to("Delete account", @user, :method => :delete, :confirm => "Are you sure?", :class => "awesome small red") %>
-    </p>
+    <%= link_to("Edit", edit_admin_user_path(@user), :class => "awesome small magenta") %>
+  <% end %>
+  <% if me?(@user) %>
+    <div id="fb-root"></div>
+    <div class="fb-send" data-href="<%= profile_url(@user) %>"></div>
   <% end %>
 
   <%= render :partial => "users/progress", :locals => { user: @user } %>
