@@ -18,7 +18,7 @@ class Banner < ActiveRecord::Base
   
 	has_attached_file :image,
     :url => "/assets/uploads/banners/:id/:style_:basename.:extension",
-    :path => ":rails_root/assets/images/uploads/banners/:id/:style_:basename.:extension",
+    :path => ":rails_root/public/assets/uploads/banners/:id/:style_:basename.:extension",
     :styles => {
       :small => "252x86#"
     }
