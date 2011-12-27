@@ -186,6 +186,7 @@ GEM
     responders (0.6.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.1)
     rvm (1.9.2)
     sass (3.1.11)
     sass-rails (3.1.5)
@@ -257,6 +258,7 @@ DEPENDENCIES
   rails (= 3.1.1.rc3)
   rails-dev-tweaks (~> 0.5.1)
   rest-client
+  rmagick
   rvm
   sass-rails (~> 3.1.4)
   therubyracer

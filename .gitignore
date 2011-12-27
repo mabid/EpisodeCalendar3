@@ -10,3 +10,4 @@ config/deploy/*
 app/assets/images/psd/*
 .DS_Store
 .rvmrc
+public/assets/*

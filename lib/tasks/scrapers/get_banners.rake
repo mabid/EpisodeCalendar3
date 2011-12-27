@@ -61,7 +61,7 @@ namespace :db do
               file_path = "tmp/banners/#{file_name}" 
               banner_file = File.new(file_path)
               banner.image = banner_file
-              banner.save(false)
+              banner.save(:validate => false)
               banner_file.close()
               File.delete(file_path)
               

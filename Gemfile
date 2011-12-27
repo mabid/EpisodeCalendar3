@@ -32,6 +32,7 @@ gem "amazon_product"
 gem "RedCloth"
 gem "delayed_job_active_record"
 gem "rest-client"
+gem "rmagick"
 
 #Racks
 gem "activeadmin"
