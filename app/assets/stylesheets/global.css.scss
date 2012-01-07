@@ -183,7 +183,7 @@ ul.list li {
 /* Classes
  * ---------------------------------------------------------------------------------------------------------------------- */
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 .center { text-align: center; }
 .center div { margin: 0 auto; }
 
@@ -400,7 +400,7 @@ a.alternative {
     font-style: normal;
   }
 
-#error, #errorExplanation, #alert {
+#error, #error_explanation, #alert {
   margin: 20px 0;
   padding: 10px;
   font-weight: bold;
@@ -430,14 +430,14 @@ a.alternative {
   text-align: center;
 }
 
-#errorExplanation h2 { display: none; }
+#error_explanation h2 { display: none; }
 
 .field_with_errors label {
   font-weight: bold;
   color: #f00;
 }
 
-#errorExplanation p {
+#error_explanation p {
   font-family: Arial;
   font-size: 2em !important;
   font-weight: normal;
@@ -447,7 +447,7 @@ a.alternative {
   text-shadow: 1px 1px 0 #CCCCCC;
 }
 
-#errorExplanation li {
+#error_explanation li {
   list-style-type: disc;
   margin: 0 0 0 15px;
 }

@@ -1,22 +1,6 @@
 <% title "Information" %>
 <% body_class "info" %>
 
-<script type="text/javascript" charset="utf-8">
-  var is_ssl = ("https:" == document.location.protocol);
-  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-
-<script type="text/javascript" charset="utf-8">
-  var feedback_widget_options = {};
-  feedback_widget_options.display = "overlay";  
-  feedback_widget_options.company = "episode_calendar";
-  feedback_widget_options.placement = "right";
-  feedback_widget_options.color = "#000";
-  feedback_widget_options.style = "idea";
-  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-</script>
-
 <% cache do %>
 <div id="features_wrapper">
   <h1 class="center"><strong>Episode Calendar Features</strong></h1>
@@ -42,23 +26,22 @@
   <ul id="additional">
     <li>
       <%= image_tag("icons/big/notifications.png") %>
-      <h3>Notifications</h3>
+      <h3><strong>Notifications</strong></h3>
       <p>Daily or weekly emails.</p>
     </li>
     <li>
       <%= image_tag("icons/big/rss.png") %>
-      <h3>RSS feeds</h3>
+      <h3><strong>RSS feeds</strong></h3>
       <p>Instant updates in your favorite reader.</p>
     </li>
     <li>
       <%= image_tag("icons/big/user.png") %>
-      <%= image_tag("icons/big/coming_soon.png", :class => :coming_soon) %>
-      <h3>User profiles</h3>
+      <h3><strong>User profiles</strong></h3>
       <p>See what your friends are watching.</p>
     </li>
     <li>
       <%= image_tag("icons/big/phones.png") %>
-      <h3>Mobile support</h3>
+      <h3><strong>Mobile support</strong></h3>
       <p>Use Episode Calendar in your mobile device.</p>
     </li>
   </ul>

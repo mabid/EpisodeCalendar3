@@ -1,21 +1,69 @@
-<div id="screenshots"></div>
 <div id="start">
-  <h1>Never miss an episode</h1>
-  <h2>Having trouble keeping track of all the TV shows you want to watch? Episode Calendar is here to help!</h2>
-  <ul>
-    <li class="calendar">
-      <h2>Get Organized</h2>
-      <p class="big">Add and manage your favorite TV shows in your own personal calendar.</p>
-    </li>
-    <li class="mail">
-      <h2>Stay Notified</h2>
-      <p class="big">Receive emails when your shows air.</p>
-    </li>
-    <li class="tick">
-      <h2>Keep Track</h2>
-      <p class="big">Remember what comes next. Check off episodes after you watch them.</p>
-    </li>
-  </ul>
-  <%= link_to "Sign up now!", new_user_registration_path, :class => "big_button" %>
-  <%= link_to "View the calendar as a <strong>Guest</strong> &raquo;".html_safe, public_path, :id => "public" %>
+
+  <div class="width_66">
+    <h1>Never miss an episode</h1>
+    <h2>Having trouble keeping track of all the TV shows you want to watch? Episode Calendar is here to help!</h2>
+  </div>
+
+  <div class="width_34 center">
+    <%= link_to "Sign up now!", new_user_registration_path, :class => "awesome magenta huge margin_bottom" %>
+    <%= link_to "View the calendar as a <strong>Guest</strong> &raquo;".html_safe, public_path, :id => "public", :class => "awesome magenta grey" %>
+  </div>
+
+  <div class="width_66">
+    <div id="slides">
+      <div class="slides_container">
+        <div class="slide">
+          <%= image_tag("start/screenshots/calendar.png") %>
+          <div class="caption">
+            <p>We Eat Light</p>
+          </div>
+        </div>
+        <div class="slide">
+          <%= image_tag("start/screenshots/show_page.png") %>
+          <div class="caption">
+            <p>We Eat Light</p>
+          </div>
+        </div>
+        <div class="slide">
+          <%= image_tag("start/screenshots/my_shows.png") %>
+          <div class="caption">
+            <p>We Eat Light</p>
+          </div>
+        </div>
+        <div class="slide">
+          <%= image_tag("start/screenshots/trends.png") %>
+          <div class="caption">
+            <p>We Eat Light</p>
+          </div>
+        </div>
+        <div class="slide">
+          <%= image_tag("start/screenshots/profile.png") %>
+          <div class="caption">
+            <p>We Eat Light</p>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="prev"><%= image_tag("start/arrow-prev.png") %></a>
+      <a href="#" class="next"><%= image_tag("start/arrow-next.png") %></a>
+    </div>
+  </div>
+
+  <div class="width_34">
+    <ul class="margin_top_big">
+      <li class="calendar">
+        <h2>Get Organized</h2>
+        <p class="big">Add and manage your favorite TV shows in your own personal calendar.</p>
+      </li>
+      <li class="mail">
+        <h2>Stay Notified</h2>
+        <p class="big">Receive emails when your shows air.</p>
+      </li>
+      <li class="tick">
+        <h2>Keep Track</h2>
+        <p class="big">Remember what comes next. Check off episodes after you watch them.</p>
+      </li>
+    </ul>
+  </div>
+
 </div>

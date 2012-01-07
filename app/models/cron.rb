@@ -26,7 +26,11 @@ class Cron < ActiveRecord::Base
   scope :send_emails, where(:title => "Send emails")
   
   def run_interval
-    eval("#{every}.#{interval}")
+    if every.present?
+      eval("#{every}.#{interval}")
+    else
+      eval("#{interval}")
+    end
   end
   
   def time
@@ -39,12 +43,12 @@ class Cron < ActiveRecord::Base
   
   def humanize
     default = "every #{every} #{interval.pluralize}"
-    #case interval
-    #when "hour": every > 1 ? default : "hourly"
-    #when "week": every > 1 ? default : "weekly"
-    # when "day": every > 1 ? default : "daily"
-    # else default
-    #end
+    case interval
+      when "hour" then every > 1 ? default : "hourly"
+      when "week" then every > 1 ? default : "weekly"
+      when "day" then every > 1 ? default : "daily"
+      else default
+    end
   end
   
   def normalized
@@ -52,3 +56,4 @@ class Cron < ActiveRecord::Base
   end
   
 end
+

@@ -101,5 +101,4 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
   config.register_javascript 'jquery/highcharts'
-  config.register_javascript 'jquery/highcharts_themes/grid'
 end

@@ -85,7 +85,7 @@
       	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
             </div>
       	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
-      	    <p>Spent watching: <%= wasted_in_words(following.show.runtime * following.marked_episodes_count) %></p>
+      	    <p>Spent watching: <strong><%= minutes_ago_in_words(following.show.runtime * following.marked_episodes_count) %></strong></p>
           </li>
         <% end %>
       </ul>

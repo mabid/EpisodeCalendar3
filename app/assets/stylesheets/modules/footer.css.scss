@@ -3,7 +3,7 @@
 /* FOOTER ------------------------------------------------------------------------------------------------------------------------- */
 
 #footer {
-  background-color: #000;
+  @include linear-gradient(#000000, #212121);
   border-top: 3px #666 solid;
   padding: 0 10px;
 }
@@ -18,21 +18,21 @@
 
     #footer .box {
       .inner {
-        @include linear-gradient(#212121, #000000);
-        padding: 10px 27px 5px 27px;
-        @include border-radius(20px);
+        padding: 0 20px;
         border: 0;
-        min-height: 310px;
       }
     }
 
     #footer .width_34 .inner {
-      margin: 0 19px;
+      border-left: 1px dotted #333;
+      border-right: 1px dotted #333;
+      margin: 0 20px;
+      padding: 0 40px;
     }
     
     #footer h3 {
       padding: 0;
-      margin-bottom: 5px;
+      margin-bottom: 20px;
       font-family: Arial;
       letter-spacing: -1px;
       font-size: 2em;
@@ -42,11 +42,10 @@
       font-weight: normal;
     }
     
-    #footer ul {
-      padding: 10px 0;
-    }
-    
-      #footer li { line-height: 1.5em; border-bottom: 1px #333 dotted; }
+      #footer li {
+        line-height: 1.5em;
+        border-bottom: 1px #333 dotted;
+      }
       
       #recently_favorited li {
         padding: 3px;
@@ -81,7 +80,6 @@
     #rails_logo
     {
       overflow: hidden;
-      border-bottom: 1px dotted #333;
       padding: 0 0 15px 0;
       margin: 0 0 15px 0;
     }

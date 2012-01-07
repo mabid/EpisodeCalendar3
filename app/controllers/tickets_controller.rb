@@ -10,14 +10,14 @@ class TicketsController < ApplicationController
       end
       if @ticket.save
         flash[:notice] = "Your support ticket was successfully sent."
-        InstantMailer.deliver_support(@ticket)
+        SupportMailer.delay.support(@ticket)
       else
-        flash[:ticket] = @ticket
+        flash[:error] = @ticket.errors
       end
     else
       flash[:error] = "You seem to have filled out a hidden field. You must be a robot."
     end
-    redirect_to info_path(:anchor => :contact)
+    redirect_to faqs_path(:anchor => :contact)
   end
   
 end

@@ -8,7 +8,7 @@
         <ul class="list numbered">
           <% @top_shows.each_with_index do |show, i| %>
           <li>
-            <%= image_tag(DOMAIN + show.banner(:small)) %>
+            <%= image_tag(DOMAIN + show.banner(:small)) if show.banner %>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
           </li>
@@ -22,7 +22,7 @@
         <ul class="list numbered">
           <% @top_new_followers.each_with_index do |show, i| %>
           <li>
-            <%= image_tag(DOMAIN + show.banner(:small)) %>
+            <%= image_tag(DOMAIN + show.banner(:small)) if show.banner %>
             <h2 class="green">+<%= show.new_followers %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
@@ -37,7 +37,7 @@
         <ul class="list numbered">
           <% @highest_grow.each_with_index do |show, i| %>
           <li>
-            <%= image_tag(DOMAIN + show.banner(:small)) %>
+            <%= image_tag(DOMAIN + show.banner(:small)) if show.banner %>
             <h2 class="green"><%= raw print_trend(show) %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
@@ -53,15 +53,18 @@
     <table id="calendar" cellspacing="2" cellpadding="0">
     <tr>
       <% 0.upto(6) do |i| %>
-        <th class="calendar_weekday_name"><div><%= current_user.sun_to_sat ? week_day(i) : week_day(i + 1) %></div></th>
+        <th class="calendar_weekday_name"><div><%= current_user ? (current_user.sun_to_sat ? week_day(i) : week_day(i + 1)) : week_day(i) %></div></th>
       <% end %>
       </tr>
       <tr>
         <% 0.upto(6) do |i| %>
           <%
-          corrected_day = current_user.sun_to_sat ? i : (i + 1)
-          corrected_day -= current_user.day_offset
-          corrected_day = 0 if corrected_day > 6 || corrected_day < 0
+          corrected_day = i
+          if current_user
+            corrected_day = (i + 1) if current_user.sun_to_sat
+            corrected_day -= current_user.day_offset
+            corrected_day = 0 if corrected_day > 6 || corrected_day < 0
+          end
           %>
           <td class="calendar_day">
             <div class="calendar_cell_content">

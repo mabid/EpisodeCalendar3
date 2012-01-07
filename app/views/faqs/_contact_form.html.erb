@@ -1,6 +1,7 @@
 <h2>Contact us</h2>
-<p><%= check_box_tag :have_read %> Yes, I have read the <strong>FAQ</strong> before sending you an email.</p>
-<%= form_for @ticket, :html => { :class => "disabled" } do |f| %>
+<p><%= check_box_tag :have_read, true, true %> Yes, I have read the <strong>FAQ</strong> before sending you an email.</p>
+<%= content_tag(:div, flash[:notice], :id => :notice, :class => :static) if flash[:notice] %>
+<%= form_for @ticket, :html => { :class => "#{"disabled" unless flash[:error] }" } do |f| %>
   <% if logged_in? %>
     <div class="form_element">
       <label>Will be sent from <strong><%= current_user.email %></strong></label>
@@ -30,7 +31,11 @@
     <%= f.text_field :human %>
   </div>
 
-  <%#= f.error_messages %>
-  <%= content_tag(:div, flash[:notice], :id => :notice, :class => :static) if flash[:notice] %>
-  <%= content_tag(:div, flash[:error], :id => :error, :class => :static) if flash[:error] %>
+  <% if flash[:error] && flash[:error].any? %>
+    <ul id="error" class="static">
+      <% flash[:error].full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
 <% end %>

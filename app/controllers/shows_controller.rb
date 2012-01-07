@@ -1,6 +1,6 @@
 class ShowsController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index, :show, :public, :search, :calendar_iframe]
+  before_filter :authenticate_user!, :except => [:index, :show, :public, :search, :calendar_iframe, :trends]
   
   def index
     @letter = params[:letter].blank? ? "a" : params[:letter]
@@ -136,10 +136,10 @@ class ShowsController < ApplicationController
       end
       
       @is_following = false
+      @hidden_episode_ids = []
       if current_user
         @seen_episode_ids = []
         @seen_episode_ids = SeenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id) if @seasons.any?
-        @hidden_episode_ids = []
         @hidden_episode_ids = HiddenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id) if @seasons.any?
         @is_following = current_user.is_following(@show)
       end
@@ -152,8 +152,8 @@ class ShowsController < ApplicationController
   end
   
   def trends
-    @shows = Show.where("current_trend_position IS NOT NULL").order("followers desc").limit(200)
-    @top_shows = @shows.limit(20)
+    @shows = Show.where("current_trend_position IS NOT NULL").limit(200)
+    @top_shows = @shows.limit(20).order("followers desc")
     @top_new_followers = @shows.select("*, (followers - previous_trend_position_followers) AS new_followers").where("current_trend_position IS NOT NULL").order("new_followers desc").limit(20)
     @highest_grow = Show.select("*, (followers/previous_trend_position_followers) AS grow").where("current_trend_position IS NOT NULL AND followers > 100").order("grow desc").limit(20)
     @shows_by_day = @shows.active

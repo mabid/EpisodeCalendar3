@@ -328,7 +328,7 @@ function initProductAds() {
     var product_type = $container.data("product-type");
     ajaxReqs.push(
       $.ajax({
-        url: "http://virtualhost:9292/amazon_products/" + product_type + "/" + product_name + "?callback=?",
+        url: "http://api.episodecalendar.com/amazon_products/" + product_type + "/" + product_name + "?callback=?",
         dataType: "json",
         success: function(data) { drawProduct(data, product_name); }
       })
@@ -364,7 +364,7 @@ function initEpisodeHider() {
     var $link = $(this);
     var $episode = $link.parents(".episode");
     
-    var hide = $episode.hasClass("hidden") ? 0 : 1;
+    var hide = $episode.hasClass("hidden_episode") ? 0 : 1;
     
     $loader = $("#" + $link.attr("rel"));
     $loader.show();
@@ -382,7 +382,7 @@ function initEpisodeHider() {
         $episode.find(".hide_while_loading_small").show();
         $episode.find(".ui-checkbox-state-checked").removeClass("ui-checkbox-state-checked");
         $loader.hide();
-        hide === 0 ? $episode.removeClass("hidden") : $episode.addClass("hidden")
+        hide === 0 ? $episode.removeClass("hidden_episode") : $episode.addClass("hidden_episode")
       }
     });
     
@@ -401,4 +401,24 @@ function initContactForm() {
     if ($form.hasClass("disabled"))
       return false;
   });  
+}
+
+function initSlider() {
+  if (!$("#slides").length)
+    return;
+    
+  $("#slides").slides({
+    play: 5500,
+    pause: 3500,
+    hoverPause: true,
+    animationStart: function(current){
+      $('.caption').animate({ bottom: -38 }, 200);
+    },
+    animationComplete: function(current){
+      $('.caption').animate({ bottom: 0 }, 200);
+    },
+    slidesLoaded: function() {
+      $('.caption').animate({ bottom: 0 }, 200);
+    }
+  });
 }

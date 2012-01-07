@@ -13,9 +13,11 @@
         <%= image_tag("http://www.episodecalendar.com" + @show.banner, :alt => @show.name, :width => 758, :height => 140) %>
     </div>
     <% else %>
-    <div class="banner">
-      <h1><%= @show.name %></h1>
-      <%= image_tag("missing_show_banner.png", :width => 758, :height => 140) %>
+    <div class="show_banner">
+        <div class="banner_shadow"></div>
+        <div class="banner_shadow"></div>
+        <h1><%= @show.name %></h1>
+        <%= image_tag("missing_show_banner.png", :width => 758, :height => 140) %>
     </div>
     <% end %>
     <div id="secondary_show_info">
@@ -84,7 +86,7 @@
     <% css_class = cycle("odd", "even", :name => "classes") %>
     <% corrected_air_date = (current_user ? e.air_date + current_user.day_offset.days : e.air_date) %>
     <% css_class += " highlighted" if @next_air_date == e.air_date %>
-    <div class="episode <%= css_class %><%= " hidden" if @hidden_episode_ids.include?(e.id) %>">
+    <div class="episode <%= css_class %><%= " hidden_episode" if @hidden_episode_ids.include?(e.id) %>">
       <div class="name">
         <strong><%= format_episode_number(e) %></strong>: <%= e.name %>
         <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>

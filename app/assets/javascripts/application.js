@@ -5,6 +5,9 @@
 
 $(document).ready(function(){
 
+  //Start page slider
+  initSlider();
+
   //External links
   $("a[rel=external]").live("click", function(e) {
     $(this).attr({ target: "_blank" });

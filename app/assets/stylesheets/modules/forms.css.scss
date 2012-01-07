@@ -107,7 +107,7 @@ select {
   width: 205px;
 }
 
-input.checkbox {
+input[type=checkbox] {
   width: auto;
   border: 0 none;
 }
@@ -122,12 +122,6 @@ input.awesome {
 span.ui-checkbox {
   position: relative;
   top: 3px;
-}
-
-fieldset #errorExplanation,
-fieldset #notice
-{
-  margin-bottom: 0;
 }
 
 .date_select select { width: auto; }

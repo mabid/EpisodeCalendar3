@@ -35,11 +35,10 @@
   color: #000;
   text-shadow: 1px 1px 0 #ccc;
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 20px;
   margin: 0 20px 0 0;
   z-index: 9999;
-  width: 700px;
 }
 
 #show_info h2 {
@@ -247,11 +246,11 @@ h3#season_pagination_header {
 }
 
 .season_list .episode:hover,
-.season_list .episode.hidden:hover {
+.season_list .episode.hidden_episode:hover {
   background: #fbffc0;
 }
 
-.season_list .episode.hidden {
+.season_list .episode.hidden_episode {
   background: #fffce6;
   border: 1px dashed #ff7f7f;
   color: #666;
@@ -266,7 +265,7 @@ h3#season_pagination_header {
     display: none !important; /* important because of jQuery checkbox applies style inline-block */
   }
   .seen .unhide {
-    display: block;
+    display: block !important;
   }
   .date {
     margin: 0 0 0 2%;
@@ -429,8 +428,4 @@ h3#season_pagination_header {
       font-size: 11px;
       margin: 0;
       color: #999;
-    }
-
-    .show_list strong {
-      color: #f00;
     }
