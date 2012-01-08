@@ -17,6 +17,7 @@ gem "capistrano"
 gem "capistrano-ext"
 gem "hoptoad_notifier"
 gem "whenever"
+gem "airbrake"
 
 #Application
 gem "jquery-rails"

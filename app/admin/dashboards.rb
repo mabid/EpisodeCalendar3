@@ -30,17 +30,5 @@ ActiveAdmin::Dashboards.build do
       render "users_month", :users_last_month => @users_last_month, :users_this_month => @users_this_month, :users_last_week => @users_last_week, :users_this_week => @users_this_week
     end
   end
-  
-  section "Shows with the most followers", :priority => 3 do
-    div do
-      #render "top_shows"
-    end
-  end
-  
-  section "Users with the most shows followed", :priority => 4 do
-    div do
-      #render "top_users"
-    end
-  end
 
 end

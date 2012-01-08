@@ -46,6 +46,9 @@ GEM
       multi_json (~> 1.0)
     addressable (2.2.6)
     adzap-ar_mailer (2.1.10)
+    airbrake (3.0.9)
+      activesupport
+      builder
     amazon_product (3.0.1)
       nokogiri (~> 1.4)
     ambethia-smtp-tls (1.1.2)
@@ -233,6 +236,7 @@ DEPENDENCIES
   activeadmin
   activerecord-import
   adzap-ar_mailer
+  airbrake
   amazon_product
   ambethia-smtp-tls
   bullet
