@@ -14,6 +14,7 @@
         <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
         <div class="rating"><span class="r<%= get_rating(e.rating) %>"></span></div>
       </div>
+      <div class="separator"></div>
       <div class="overview">
         <% if e.friendly_overview.size > 180 %>
           <div class="short"><%= truncate(e.friendly_overview, :length => 180, :separator => " ") %> <%= link_to(raw("read more &raquo;"), "#", :class => :toggle, :rel => "full") %></div>
@@ -22,12 +23,12 @@
           <div class="short"><%= raw e.friendly_overview %></div>
         <% end %>
       </div>
+      <div class="separator"></div>
       <div class="date">
-        <p>
-          <span>Air date:</span>
-          <%= format_date(corrected_air_date) %>
-        </p>
+        <span>Air date:</span>
+        <%= format_date(corrected_air_date) %>
       </div>
+      <div class="separator"></div>
       <div class="seen center">
         <span>Mark and hide</span><br />
         <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading", :rel => "ajax_loader_#{e.id}") %>

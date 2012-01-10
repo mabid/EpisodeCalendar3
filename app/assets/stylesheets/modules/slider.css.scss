@@ -30,7 +30,7 @@
     left: 662px;
   }
   .caption {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     bottom: 0;
     color: #fff;
     position: absolute;
@@ -40,7 +40,9 @@
     z-index: 500;
     text-align: left;
     p {
+      font-weight: bold;
       margin: 0;
+      text-shadow: 0 1px 0 #000;
     }
   }
   .pagination {
