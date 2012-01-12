@@ -20,7 +20,7 @@ Episodecalendar2::Application.routes.draw do
   end
 	
 	#Pages
-	match "/features" => "features#index"
+	match "/info" => "features#index", :path => "features"
   match "/settings" => "users#settings"
   match "/top-shows" => "shows#top_shows", :as => "top_shows"
   match "/trends" => "shows#trends"
