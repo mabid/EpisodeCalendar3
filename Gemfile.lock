@@ -51,7 +51,6 @@ GEM
       builder
     amazon_product (3.0.1)
       nokogiri (~> 1.4)
-    ambethia-smtp-tls (1.1.2)
     ansi (1.4.1)
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
@@ -212,7 +211,6 @@ GEM
     time_diff (0.2.2)
       activesupport
       i18n
-    tlsmail (0.0.1)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -239,7 +237,6 @@ DEPENDENCIES
   adzap-ar_mailer
   airbrake
   amazon_product
-  ambethia-smtp-tls
   bullet
   capistrano
   capistrano-ext
@@ -269,7 +266,6 @@ DEPENDENCIES
   therubyracer
   thin
   time_diff
-  tlsmail
   turn
   uglifier (>= 1.0.3)
   warden

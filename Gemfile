@@ -15,7 +15,6 @@ gem "rack" , "!= 1.3.4"
 gem "rvm"
 gem "capistrano"
 gem "capistrano-ext"
-gem "hoptoad_notifier"
 gem "whenever"
 gem "airbrake"
 
@@ -37,11 +36,6 @@ gem "rmagick"
 
 #Racks
 gem "activeadmin"
-
-#Email
-gem "adzap-ar_mailer"#, :lib => "action_mailer/ar_mailer"
-gem "ambethia-smtp-tls"#, :lib => "smtp-tls"
-gem "tlsmail"
 
 #Devise
 gem "devise"
