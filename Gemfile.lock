@@ -212,6 +212,7 @@ GEM
     time_diff (0.2.2)
       activesupport
       i18n
+    tlsmail (0.0.1)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -268,6 +269,7 @@ DEPENDENCIES
   therubyracer
   thin
   time_diff
+  tlsmail
   turn
   uglifier (>= 1.0.3)
   warden

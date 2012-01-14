@@ -41,6 +41,7 @@ gem "activeadmin"
 #Email
 gem "adzap-ar_mailer"#, :lib => "action_mailer/ar_mailer"
 gem "ambethia-smtp-tls"#, :lib => "smtp-tls"
+gem "tlsmail"
 
 #Devise
 gem "devise"
