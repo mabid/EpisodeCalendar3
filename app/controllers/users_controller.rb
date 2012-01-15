@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @most_seen_shows = @user.followings.order("marked_episodes_count desc").limit(6)
+    @most_seen_shows = @user.followings.joins(:show).select("followings.*, marked_episodes_count * shows.runtime AS spent_watching").order("spent_watching desc").limit(6)
     @recent_shows = @user.followings.order("created_at desc").joins(:show).limit(6)
     @recent_episodes = SeenEpisode.where(["user_id = ?", @user.id]).order("created_at desc").limit(@recent_shows.size * 2).joins([:episode, :season])
     @followings = @user.followings.joins(:show).order("shows.name asc")

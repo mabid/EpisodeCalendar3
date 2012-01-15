@@ -9,7 +9,7 @@ class SeenEpisodesController < ApplicationController
     :conditions => ["user_id = ?", current_user.id],
     :joins => "INNER JOIN shows ON shows.id = followings.show_id",
     :order => "name asc")
-    @shows = followings.select{ |f| f.available_episodes_count.to_i != f.marked_episodes_count.to_i}
+    @shows = followings.select{ |f| f.available_episodes_count.to_i != (f.marked_episodes_count.to_i + f.hidden_episodes_count) }
   end
   
   def unwatched_episodes
