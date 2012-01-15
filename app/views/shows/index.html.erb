@@ -15,7 +15,7 @@
       <% @top_shows.each do |show| %>
         <li>
           <div class="banner">
-            <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), show, :style => "background: url('http://www.episodecalendar.com#{show.banner(:small)}') 50% 50% no-repeat;") %>
+            <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), show, :style => "background: url('#{show.banner(:small)}') 50% 50% no-repeat;") %>
           </div>
           <%= link_to(show.name, show_path(:permalink => show.permalink)) %>
           <p>Followers: <%= show.followers %> | Episodes: <%= show.episodes_count %><%= raw " | <strong class='red'>ended</strong>" if show.ended? %></p>
