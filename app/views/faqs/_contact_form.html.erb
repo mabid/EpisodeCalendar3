@@ -31,7 +31,7 @@
     <%= f.text_field :human %>
   </div>
 
-  <% if flash[:error] && flash[:error].any? %>
+  <% if flash[:error].present? %>
     <ul id="error" class="static">
       <% flash[:error].full_messages.each do |msg| %>
         <li><%= msg %></li>
