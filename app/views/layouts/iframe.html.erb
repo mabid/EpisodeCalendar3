@@ -5,10 +5,10 @@
   <title><%= yield(:title) %></title>
   <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" />
   <meta name="description" content="<%= yield(:meta) || "Complete TV Guide and listing for all of your favorite TV shows! Add and manage your favorite TV shows in your own personal calendar." %>" />
-  <%= stylesheet_link_merged :application %>
+  <%= stylesheet_link_tag :application %>
   <%= stylesheet_link_tag "iframe#{"_dark" if params[:v] == "dark"}" %>
-  <%= render :partial => "partials/scripts/jquery_include" %>
-  <%= javascript_include_merged :application %>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
+  <%= javascript_include_tag :application %>
   <%= yield :head %>
 	<link rel="icon" href="/favicon.png?1" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />

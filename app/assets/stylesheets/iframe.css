@@ -1,6 +1,7 @@
 body { background: transparent; }
 #page_container { background: none; padding: 0; position: static; }
+#page_container:before { display: none; }
 #calendar { margin: 0 0 10px 0; }
-h1 { font-size: 18px; }
-h2 { font-size: 14px; }
-h3 { font-size: 12px; }
+h1 { font-size: 22px; text-shadow: none; }
+h2 { font-size: 18px; text-shadow: none; }
+h3 { font-size: 12px; text-shadow: none; }
