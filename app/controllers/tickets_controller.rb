@@ -12,7 +12,10 @@ class TicketsController < ApplicationController
         flash[:notice] = "Your support ticket was successfully sent."
         SupportMailer.delay.support(@ticket)
       else
-        flash[:error] = @ticket.errors
+        flash[:error] = ""
+        @ticket.errors.full_messages.each do |msg|
+          flash[:error] += "<li>#{msg}</li>"
+        end
       end
     else
       flash[:error] = "You seem to have filled out a hidden field. You must be a robot."

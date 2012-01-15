@@ -33,9 +33,7 @@
 
   <% if flash[:error].present? %>
     <ul id="error" class="static">
-      <% flash[:error].full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+      <%= flash[:error].html_safe %>
     </ul>
   <% end %>
 <% end %>
