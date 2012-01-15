@@ -8,8 +8,9 @@
   </div>
 
   <div class="width_34 center">
-    <%= link_to "Sign up now!", new_user_registration_path, :class => "awesome magenta huge margin_bottom" %>
-    <%= link_to "View the calendar as a <strong>Guest</strong> &raquo;".html_safe, public_path, :id => "public", :class => "awesome magenta grey" %>
+    <%= link_to "Sign up now!", new_user_registration_path, :class => "awesome magenta huge margin_bottom" %><br />
+    <%= link_to "Login", new_user_session_path, :class => "awesome magenta large" %>
+    <%= link_to "Try the guest calendar &raquo;".html_safe, public_path, :id => "public", :class => "awesome grey large" %>
   </div>
 
   <div class="width_66">

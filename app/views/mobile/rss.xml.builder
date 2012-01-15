@@ -13,7 +13,7 @@ xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
         @rss_items.each do |rss_arr|
           
           item_date = rss_arr[0][0] #Standard time; 00:00
-          item_date = item_date.to_date + 1.day if @time_zone_offset.hours > -5
+          item_date += @user.day_offset.days
           titleDate = item_date.strftime("%Y-%m-%d")
           
           day = rss_arr[0]

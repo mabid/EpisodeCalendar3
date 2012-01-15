@@ -18,6 +18,11 @@ Episodecalendar2::Application.routes.draw do
   resources :faqs, :path => "faq" do
     collection { post :sort }
   end
+
+  #Mobile
+  match "/:platform/auth/:email/:password" => "mobile#authenticate", :format => "xml", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/ }
+  match "/:platform/rss_feed/:email/:auth_key" => "mobile#rss", :format => "xml", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/ }
+  match "/:platform/check_off/:episode_id/:value/:email/:auth_key" => "mobile#check_off", :format => "xml", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/ }
 	
 	#Pages
 	match "/info" => "features#index", :path => "features"
@@ -28,7 +33,7 @@ Episodecalendar2::Application.routes.draw do
   #User links
   match "/profile/:id" => "users#show", :as => "profile", :constraints => { :id => /.*/} #This regex breaks ajax calls
   match "/ical_feed/:id" => "users#ical", :as => "ical", :constraints => { :id => /.*/} #This regex breaks ajax calls
-  match "/rss_feed/:id" => "users#rss", :as => "rss", :constraints => { :id => /.*/} #This regex breaks ajax calls
+  match "/rss_feed/:id" => "users#rss", :as => "rss", :format => "xml", :constraints => { :id => /.*/} #This regex breaks ajax calls
   match "/render_progress/:user_id" => "users#render_progress"
 
   #Calendar
@@ -70,14 +75,9 @@ Episodecalendar2::Application.routes.draw do
   #Misc
 	match "/search" => "shows#search"
   match "/set-format/:show_format/:episode_format" => "users#set_format", :show_format => /\d{1}/, :episode_format => /\d{1}/
-  match "/sitemap" => "support#sitemap", :format => "rxml"
+  match "/sitemap" => "support#sitemap", :format => "xml"
   match "/statistics" => redirect("/")
 
-	#Mobile
-	match "/:platform/auth/:email/:password.:format" => "mobile#authenticate", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/}
-	match "/:platform/rss_feed/:email/:auth_key.:format" => "mobile#rss", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/}
-  match "/:platform/check_off/:episode_id/:value/:email/:auth_key.:format" => "mobile#check_off", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/}
-  
 	root :to => "start#index"
   match ':controller(/:action(/:id(.:format)))'
 end

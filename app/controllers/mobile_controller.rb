@@ -12,7 +12,7 @@ class MobileController < ApplicationController
     end
     
     if @valid_user
-      constant = Constant.where("key = ? AND value = ?", "mobile_login", params[:platform])
+      constant = Constant.where("`key` = ? AND `value` = ?", "mobile_login", params[:platform]).first
       constant.update_attributes(:additional_data => constant.additional_data.to_i + 1)
       @auth_key = @user.password_salt
     end

@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   		      show_banners[episode.id] = episode.show.banner(:small)
   	    end
   	    if rss_episodes.any?
-  	      @rss_items << [date, rss_episodes, show_banners]
+  	      @rss_items << [corrected_date, rss_episodes, show_banners]
         end
   	  end
       
