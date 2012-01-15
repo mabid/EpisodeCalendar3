@@ -119,7 +119,7 @@ class ShowsController < ApplicationController
       
       render :layout => "iframe"
     else
-      render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
+      render :file => "#{Rails.root}/public/404.html", :layout => false, :status => 404
     end
   end
 

@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       headers["Content-Type"] = "text/calendar; charset=UTF-8"
       render :layout => false, :text => cal.to_ical
     else
-      render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
+      render :file => "#{Rails.root}/public/404.html", :layout => false, :status => 404
     end
   end
   
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
       
       render :layout => false
     else
-      render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
+      render :file => "#{Rails.root}/public/404.html", :layout => false, :status => 404
     end
   end
   
