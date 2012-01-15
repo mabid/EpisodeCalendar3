@@ -156,7 +156,7 @@ class ShowsController < ApplicationController
     @top_shows = @shows.limit(20).order("followers desc")
     @top_new_followers = @shows.select("*, (followers - previous_trend_position_followers) AS new_followers").where("current_trend_position IS NOT NULL").order("new_followers desc").limit(20)
     @highest_grow = Show.select("*, (followers/previous_trend_position_followers) AS grow").where("current_trend_position IS NOT NULL AND followers > 100").order("grow desc").limit(20)
-    @shows_by_day = @shows.active
+    @shows_by_day = @shows.order("followers desc, name asc").active
   end
   
   def facebook_button

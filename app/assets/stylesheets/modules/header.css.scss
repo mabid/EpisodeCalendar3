@@ -22,6 +22,7 @@
   
   #search {
     margin: 5px 0 0 0;
+    position: relative;
   }
   
     #search form {
@@ -31,8 +32,6 @@
     
     #search input {
       float: left;
-      background-color: #222;
-      border: 1px #444 solid;
       color: #fff;
       padding: 5px 7px;
       height: 13px;
@@ -42,11 +41,11 @@
       background: #222;
       width: 130px;
       height: 20px;
-      padding: 5px 7px 6px;
+      padding: 5px 30px 6px 7px;
       line-height: 20px;
-      @include box-shadow(none);
-      border-width: 1px 0 1px 1px;
-      @include border-radius(5px 0 0 5px);
+      @include box-shadow(1px 1px 3px #000 inset);
+      border: 1px #444 solid;
+      @include border-radius(5px);
       color: #999;
       font-size: 0.9em;
       &:focus {
@@ -55,13 +54,17 @@
     }
     
     #search input.submit {
-      width: 24px;
+      background: transparent;
+      width: 30px;
       height: 33px;
       padding: 0;
-      border-width: 1px 1px 1px 0px;
-      background-position: 0 -32px;
-      @include border-radius(0 5px 5px 0);
+      background-position: 5px -31px;
+      background-repeat: no-repeat;
       @include box-shadow(none);
+      border: 0;
+      position: absolute;
+      right: 0;
+      cursor: pointer;
     }
 
     #search p {

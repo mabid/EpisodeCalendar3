@@ -41,7 +41,7 @@
         <% @recent_shows.each do |following| %>
           <li>
             <div class="banner">
-              <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
+              <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
             </div>
             <%= link_to(following.show.name, following.show, class: "big") %>
             <p>Followers: <%= following.show.followers %> | Episodes: <%= following.show.episodes_count %></p>
@@ -82,7 +82,7 @@
         <% @most_seen_shows.each do |following| %>
       	  <li class="user_show">
       	    <div class="banner">
-      	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{DOMAIN}#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
+      	      <%= link_to(image_tag("pixel.gif", :alt => "", :width => 252, :height => 86), following.show, :style => "background: url('#{following.show.banner(:small)}') 50% 50% no-repeat;") %>
             </div>
       	    <%= link_to(following.show.name, show_path(:permalink => following.show.permalink)) %>
       	    <p>Spent watching: <strong><%= minutes_ago_in_words(following.show.runtime * following.marked_episodes_count) %></strong></p>
