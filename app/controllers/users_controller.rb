@@ -135,6 +135,8 @@ class UsersController < ApplicationController
     @user.shows.each do |show|
       @episodes_count += show.episodes.select{ |e| e.air_date < $TODAY }.size
     end
+
+    @episodes_count -= @user.followings.sum(:hidden_episodes_count)
     
     return if @episodes_count == 0
     
