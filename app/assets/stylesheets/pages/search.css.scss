@@ -50,6 +50,8 @@ td span {
 .banner {
   width: 252px;
   height: 86px;
+  border: 0;
+  padding: 0;
   @include linear-gradient(#bbb, #ddd);
   position: relative;
   overflow: hidden;

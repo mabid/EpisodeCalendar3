@@ -8,7 +8,7 @@
         <ul class="list numbered">
           <% @top_shows.each_with_index do |show, i| %>
           <li>
-            <%= image_tag(show.banner(:small)) if show.banner %>
+            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
           </li>
@@ -22,7 +22,7 @@
         <ul class="list numbered">
           <% @top_new_followers.each_with_index do |show, i| %>
           <li>
-            <%= image_tag(show.banner(:small)) if show.banner %>
+            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
             <h2 class="green">+<%= show.new_followers %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
@@ -37,7 +37,7 @@
         <ul class="list numbered">
           <% @highest_grow.each_with_index do |show, i| %>
           <li>
-            <%= image_tag(show.banner(:small)) if show.banner %>
+            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
             <h2 class="green"><%= raw print_trend(show) %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>

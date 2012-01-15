@@ -59,6 +59,9 @@
   padding: 0;
   margin: 0 0 0 20px;
   text-align: right;
+  .image {
+    height: auto;
+  }
   #products_loader {
     position: relative;
     top: -35px;
@@ -72,7 +75,7 @@
     li {
       @include border-radius(0);
       border-top: 1px solid #ccc;
-      padding: 10px 0;
+      padding: 20px 0;
       float: none;
       margin: 0 auto;
       width: 90%;
