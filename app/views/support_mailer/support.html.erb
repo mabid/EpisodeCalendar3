@@ -4,5 +4,5 @@
   <% end %>
   <strong>Email:</strong> <%= @ticket.email %><br /><br />
   
-  <p><%= @ticket.message.gsub("\n", "<br />") %></p>
+  <p><%= @ticket.message.gsub("\n", "<br />").html_safe %></p>
 </div>

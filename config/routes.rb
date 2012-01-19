@@ -7,6 +7,10 @@ Episodecalendar2::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 	devise_for :users, :path => "account"
 	
+  #Browsing
+  match "/users/letter/:letter" => "users#index", :as => "users_by_letter"
+  match "/shows/letter(/:letter)" => "shows#index", :as => "shows_by_letter"
+  
   resources :tickets
   resources :seen_episodes, :as => "unwatched"
   resources :hidden_episodesr
@@ -67,10 +71,6 @@ Episodecalendar2::Application.routes.draw do
   match "/request-show/" => "support#request_show", :as => "request_show"
   match "/request-show/:show_id/:show_name" => "support#queue_requested_show", :as => "queue_requested_show"
   match "/request-successful/:permalink" => "support#request_successful", :as => "request_successful"
-  
-  #Browsing
-  match "/users/letter/:letter" => "users#index", :as => "users_by_letter"
-  match "/shows/letter/:letter" => "shows#index", :as => "shows_by_letter"
   
   #Misc
 	match "/search" => "shows#search"
