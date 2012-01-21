@@ -183,7 +183,8 @@ ul.list li {
 /* Classes
  * ---------------------------------------------------------------------------------------------------------------------- */
 
-.hidden { display: none !important; }
+/*.hidden { display: none !important; }*/
+.hidden { display: none; }
 .center { text-align: center; }
 .center div { margin: 0 auto; }
 

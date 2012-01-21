@@ -251,7 +251,7 @@ function initEpisodeOverviewToggle() {
   $(".season_list .overview a.toggle").live("click", function(){
     $this = $(this);
     $this.parent().hide();
-    $this.parents(".overview").find("." + $this.attr("rel")).show();
+    $this.parents(".overview").find("." + $this.attr("rel")).removeClass("hidden").show();
     return false;
   });
 }
@@ -283,13 +283,13 @@ function initUnwatchedAnchors() {
     var $link = $(this);
     $("#show_anchors li a").removeClass("selected");
     $link.addClass("selected");
-    $("#reload a span").text($link.text().trim().replace(/\s\(\d+\)$/, ""));
+    $("#reload a span").text($link.text().replace(/\s\(\d+\)$/, ""));
     $("#unwatched_episodes > div").hide();
     var $wrapper = $("#" + $link.parent().attr("id") + "_episodes");
     if (!$wrapper.length)
     {
       $("#reload").hide();
-      $("#unwatched_loader").show();
+      $("#unwatched_loader").removeClass("hidden").show();
       $.ajax({ 
         type: "POST",
         url: $link.attr("href"),

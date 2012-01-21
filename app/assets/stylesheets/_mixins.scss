@@ -27,6 +27,7 @@ $progress_green_light: #55dc76;
 }
 
 @mixin linear-gradient($from, $to) {
+  background: $from;
   background: -moz-linear-gradient($from, $to);
   background: -webkit-gradient(linear,left top,left bottom,color-stop(0, $from),color-stop(1, $to));
   background: -webkit-linear-gradient($from, $to);

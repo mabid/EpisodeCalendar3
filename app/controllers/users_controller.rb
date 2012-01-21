@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 	require "icalendar"
-	before_filter :authenticate_user!, :except => [:index, :show, :set_format, :destroy, :update, :ical, :rss]
+	before_filter :authenticate_user!, :only => [:set_format, :destroy, :update]
 	
 	def index
 	  @letter = params[:letter].blank? ? "a" : params[:letter]
