@@ -40,7 +40,9 @@ namespace :db do
   
       #Fetch new last_api_update and update the current one
       new_last_api_update = (doc/:time)
-      last_api_update.update_attributes(:value => new_last_api_update.innerHTML)
+      unless new_last_api_update.innerHTML.blank?
+        last_api_update.update_attributes(:value => new_last_api_update.innerHTML)
+      end
           
       #Update note
       show_log.update_attributes(:value => shows.size)

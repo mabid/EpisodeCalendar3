@@ -64,6 +64,9 @@
 
   #secondary_show_info .awesome {
     margin: 20px 0 0 0;
+    &.hidden {
+      display: none;
+    }
   }
 
   #secondary_show_info .awesome + img {
