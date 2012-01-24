@@ -24,7 +24,7 @@ ActiveAdmin.register Show do
       unless show.day_of_week.blank?
         day = show.day_of_week
         day = 0 if day == 7
-        day == -1 ? "Daily" : "#{Date::DAYNAMES[i]}s"
+        day == -1 ? "Daily" : "#{Date::DAYNAMES[day]}s"
       end
     end
     column :runtime
