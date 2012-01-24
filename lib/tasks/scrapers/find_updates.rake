@@ -28,6 +28,7 @@ namespace :db do
       shows = (doc/:series)
       puts "#{shows.size} shows need an update!"
       shows.each do |show|
+        UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => show.innerHTML, :update_type => "show")
         UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => show.innerHTML, :update_type => "all_episodes")
       end
   
