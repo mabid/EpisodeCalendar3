@@ -1,3 +1,4 @@
-$("#reload").show();
+$("#reload").removeClass("hidden").show();
 $("#unwatched_loader").hide();
 $(document.createElement("div")).attr("id", "show_<%= @show.id %>_episodes").html('<%= escape_javascript(render(:partial => "season_list", :locals => { :episodes => @episodes })) %>').appendTo("#unwatched_episodes");
+$link = $("#show_anchors ul .selected span").text("<%= @episodes.size %>");

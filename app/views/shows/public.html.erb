@@ -2,7 +2,6 @@
 <% share_url public_with_date_url(:year => @current.year, :month => @current.month) %>
 <% share_title "TV Episode Calendar - #{yield(:title)}" %>
 
-<%= link_to("print", "javascript:window.print();", :id => :print, :class => :icon) %>
 <%= render :partial => "partials/month_navigation", :locals => {:current => @current, :public => true} %>
 
 <dl id="status_legend">
@@ -48,11 +47,9 @@
 </div>
 
 <% unless logged_in? %>
-<div id="start" class="clearfix center">
-	<div id="public_box">
-		<h2>Don't want to see all these unnessesary TV shows?</h2>
-    <%= link_to "Sign up now!", new_user_registration_path, :class => "big_button" %>
-    <span>A private account lets you select <strong>only the shows YOU want</strong> to track!</span>
-	</div>
+<div id="public_box">
+	<h2>Don't want to see all these unnessesary TV shows?</h2>
+  <span>A private account lets you select <strong>only the shows YOU want</strong> to track!</span>
+  <p><%= link_to "Sign up now!", new_user_registration_path, :class => "awesome magenta large" %></p>
 </div>
 <% end %>

@@ -9,22 +9,18 @@ class SeenEpisodesController < ApplicationController
     :conditions => ["user_id = ?", current_user.id],
     :joins => "INNER JOIN shows ON shows.id = followings.show_id",
     :order => "name asc")
-    @shows = followings.select{ |f| f.available_episodes_count.to_i != f.marked_episodes_count.to_i}
+    @shows = followings.select{ |f| f.available_episodes_count.to_i != (f.marked_episodes_count.to_i + f.hidden_episodes_count) }
   end
   
   def unwatched_episodes
-    show_id = params[:show_id]
-    @show = Show.find_by_id(show_id)
+    @show = Show.find_by_id(params[:show_id])
     seasons = Season.find_all_by_api_show_id(@show.api_show_id)
-    watched_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND season_id IN (?)", current_user.id, seasons.collect(&:id)])
-    hidden_episodes = HiddenEpisode.find(:all, :conditions => ["user_id = ? AND season_id IN (?)", current_user.id, seasons.collect(&:id)])
-    excluded_episodes = watched_episodes.collect(&:episode_id) | hidden_episodes.collect(&:episode_id)
+    watched_episodes = SeenEpisode.where("user_id = ? AND season_id IN (?)", current_user.id, seasons.collect(&:id))
+    hidden_episodes = HiddenEpisode.where("user_id = ? AND season_id IN (?)", current_user.id, seasons.collect(&:id))
+    excluded_episodes = watched_episodes.collect(&:episode_id) | hidden_episodes.collect(&:episode_id) #merge arrays
     corrected_date = ($TODAY - current_user.day_offset.days).end_of_day
-    if excluded_episodes.any?
-      @episodes = Episode.find(:all, :conditions => ["show_id = ? AND id NOT IN (?) AND air_date <= ?", @show.id, excluded_episodes, corrected_date], :order => "season_number asc")
-    else
-      @episodes = Episode.find(:all, :conditions => ["show_id = ? AND air_date <= ?", @show.id, corrected_date], :order => "season_number asc")
-    end
+    @episodes = Episode.where("show_id = ? AND air_date <= ?", @show.id, corrected_date).order("season_number asc")
+    @episodes = @episodes.where("id NOT IN (?)", excluded_episodes) if excluded_episodes.any?
   end
   
   def mark_episode
@@ -57,10 +53,10 @@ class SeenEpisodesController < ApplicationController
   def mark_season
     @season_id = params[:season_id]
     @show_id = params[:show_id]
-    @show = Show.find(@show_id)
+    @show = Show.where(@show_id)
     marked_count = 0
 
-    episodes = Episode.find(:all, :conditions => ["show_id = ? AND season_id = ? AND air_date < ?", @show_id, @season_id, $TODAY])
+    episodes = Episode.where("show_id = ? AND season_id = ? AND air_date < ?", @show_id, @season_id, $TODAY)
     episodes.each do |episode|
       record = SeenEpisode.exists?(:user_id => current_user.id, :episode_id => episode.id)
       if !record
@@ -85,10 +81,10 @@ class SeenEpisodesController < ApplicationController
   def unmark_season
     @season_id = params[:season_id]
     @show_id = params[:show_id]
-    @show = Show.find(@show_id)
+    @show = Show.where(@show_id)
     marked_count = 0
 
-    episodes = Episode.find(:all, :conditions => ["show_id = ? AND season_id = ?", @show_id, @season_id])
+    episodes = Episode.where("show_id = ? AND season_id = ?", @show_id, @season_id)
     episodes.each do |episode|
       episode = SeenEpisode.find_by_user_id_and_episode_id(current_user.id, episode.id)
       if episode
@@ -96,8 +92,7 @@ class SeenEpisodesController < ApplicationController
         marked_count += 1
       end
     end
-    
-    #seen_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND season_id = ?", current_user.id, @season_id])
+
     @following = Following.find_by_user_id_and_show_id(current_user.id, @show_id)
     
     if @following
@@ -113,12 +108,12 @@ class SeenEpisodesController < ApplicationController
   
   def mark_show
     @show_id = params[:show_id]
-    @show = Show.find(@show_id)
+    @show = Show.where(@show_id)
     
     episodes_count = 0
     
-    seen_episodes_ids = SeenEpisode.find(:all, :conditions => ["user_id = ? AND season_id = ?", current_user.id, @season_id]).map(&:episode_id)
-    episodes = Episode.find(:all, :conditions => ["show_id = ? AND air_date < ?", @show_id, $TODAY])
+    seen_episodes_ids = SeenEpisode.where("user_id = ? AND season_id = ?", current_user.id, @season_id).map(&:episode_id)
+    episodes = Episode.where("show_id = ? AND air_date < ?", @show_id, $TODAY)
     
     episodes.each do |episode|
       unless seen_episodes_ids.include?(episode.id)

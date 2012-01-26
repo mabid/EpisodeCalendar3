@@ -11,7 +11,7 @@ class MailBalancerObserver
   def self.delivered_email(mail)
     used_user_name = ActionMailer::Base.smtp_settings[:user_name]
     
-    if used_balancer = MailBalancer.where("date = ? and username = ?", Date.today, used_user_name).first
+    if used_balancer = MailBalancer.where("date = ? and username = ?", Date.today, used_user_name).order("usage_count asc").first
       # increment usage counter
       used_balancer.update_attribute(:usage_count, used_balancer.usage_count+1)
     else
@@ -29,4 +29,4 @@ class MailBalancerObserver
   end
 end
 
-ActionMailer::Base.register_observer(MailBalancerObserver)
+Mailer.register_observer(MailBalancerObserver)

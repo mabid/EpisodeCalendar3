@@ -45,11 +45,8 @@ class Show < ActiveRecord::Base
   
   #Find shows by letter
   def self.find_by_letter(letter)
-    if letter == "0-9"
-      self.find(:all, :conditions => ["name < ?", "a"], :order => "name asc")
-    else
-      self.find(:all, :conditions => ["name LIKE ?", "#{letter}%"], :order => "name asc")
-    end
+    scope = (letter == "0-9") ? self.where("name < ?", "a") : self.where("name LIKE ?", "#{letter}%")
+    scope.order("name asc")
   end
   
   def ended?
@@ -64,19 +61,20 @@ class Show < ActiveRecord::Base
   end
 
 	def prev_episode(offset = 0.days)
-		Episode.find(:first, :conditions => ["show_id = ? AND air_date < ?", self.id, ($TODAY - offset).beginning_of_day], :order => "air_date desc, number desc")
+    Episode.where("show_id = ? AND air_date < ?", self.id, ($TODAY - offset).beginning_of_day).order("air_date desc, number desc").first
 	end
 
 	def next_episode(offset = 0.days)
-		Episode.find(:first, :conditions => ["show_id = ? AND air_date >= ?", self.id, ($TODAY - offset).beginning_of_day], :order => "air_date asc, number asc")
+    Episode.where("show_id = ? AND air_date >= ?", self.id, ($TODAY - offset).beginning_of_day).order("air_date asc, number asc").first
 	end
 	
-	def banner(size = nil)
-	  if banners.any?
-	    if size
-	      self.banners.first.image.url(size)
-	    else
-	      self.banners.first.image.url
+  def banner(size = nil)
+    show_banners = banners
+    if show_banners.any?
+      if size
+        show_banners.first.image.url(size)
+      else
+        show_banners.first.image.url
       end
     end
   end

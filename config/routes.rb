@@ -7,6 +7,10 @@ Episodecalendar2::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 	devise_for :users, :path => "account"
 	
+  #Browsing
+  match "/users/letter/:letter" => "users#index", :as => "users_by_letter"
+  match "/shows/letter(/:letter)" => "shows#index", :as => "shows_by_letter"
+  
   resources :tickets
   resources :seen_episodes, :as => "unwatched"
   resources :hidden_episodesr
@@ -18,9 +22,14 @@ Episodecalendar2::Application.routes.draw do
   resources :faqs, :path => "faq" do
     collection { post :sort }
   end
+
+  #Mobile
+  match "/:platform/auth/:email/:password" => "mobile#authenticate", :format => "xml", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/ }
+  match "/:platform/rss_feed/:email/:auth_key" => "mobile#rss", :format => "xml", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/ }
+  match "/:platform/check_off/:episode_id/:value/:email/:auth_key" => "mobile#check_off", :format => "xml", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/ }
 	
 	#Pages
-	match "/info" => "support#index"
+	match "/info" => "features#index", :path => "features"
   match "/settings" => "users#settings"
   match "/top-shows" => "shows#top_shows", :as => "top_shows"
   match "/trends" => "shows#trends"
@@ -28,7 +37,7 @@ Episodecalendar2::Application.routes.draw do
   #User links
   match "/profile/:id" => "users#show", :as => "profile", :constraints => { :id => /.*/} #This regex breaks ajax calls
   match "/ical_feed/:id" => "users#ical", :as => "ical", :constraints => { :id => /.*/} #This regex breaks ajax calls
-  match "/rss_feed/:id" => "users#rss", :as => "rss", :constraints => { :id => /.*/} #This regex breaks ajax calls
+  match "/rss_feed/:id" => "users#rss", :as => "rss", :format => "xml", :constraints => { :id => /.*/} #This regex breaks ajax calls
   match "/render_progress/:user_id" => "users#render_progress"
 
   #Calendar
@@ -49,6 +58,8 @@ Episodecalendar2::Application.routes.draw do
 	match "/show/:show_id/mark" => "seen_episodes#mark_show", :as => "mark_show"
 
   match "/hide_episode/:episode_id/:season_id" => "hidden_episodes#hide_episode", :as => "hide_episode"
+  match "/show/:show_id/hide-season/:season_id" => "hidden_episodes#hide_season", :as => "hide_season"
+  match "/show/:show_id/unhide-season/:season_id" => "hidden_episodes#unhide_season", :as => "unhide_season"
 
   match "/render_progress" => "followings#render_progress"
   match "/facebook_button/:id" => "shows#facebook_button"
@@ -61,21 +72,12 @@ Episodecalendar2::Application.routes.draw do
   match "/request-show/:show_id/:show_name" => "support#queue_requested_show", :as => "queue_requested_show"
   match "/request-successful/:permalink" => "support#request_successful", :as => "request_successful"
   
-  #Browsing
-  match "/users/letter/:letter" => "users#index", :as => "users_by_letter"
-  match "/shows/letter/:letter" => "shows#index", :as => "shows_by_letter"
-  
   #Misc
 	match "/search" => "shows#search"
   match "/set-format/:show_format/:episode_format" => "users#set_format", :show_format => /\d{1}/, :episode_format => /\d{1}/
-  match "/sitemap" => "support#sitemap", :format => "rxml"
+  match "/sitemap" => "support#sitemap", :format => "xml"
   match "/statistics" => redirect("/")
 
-	#Mobile
-	match "/:platform/auth/:email/:password.:format" => "mobile#authenticate", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/}
-	match "/:platform/rss_feed/:email/:auth_key.:format" => "mobile#rss", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/}
-  match "/:platform/check_off/:episode_id/:value/:email/:auth_key.:format" => "mobile#check_off", :constraints => { :platform => /android|iphone|wp7|air/, :email => /.*/}
-  
 	root :to => "start#index"
   match ':controller(/:action(/:id(.:format)))'
 end

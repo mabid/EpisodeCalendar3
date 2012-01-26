@@ -22,8 +22,7 @@ function hijackAjaxLinks() {
   });
 }
 
-function initAjaxCheckbox()
-{  	
+function initAjaxCheckbox() {  	
   $(".ui-checkbox.ajaxLink").live("click", function(){
     var $link = $(this);
     
@@ -49,8 +48,7 @@ function initAjaxCheckbox()
   });
 }
 
-function initTooltip()
-{
+function initTooltip() {
   var standard = {tip: 'leftTop', target: 'rightTop', tooltip: 'leftTop'};
   var inverted = {tip: 'rightTop', target: 'leftTop', tooltip: 'rightTop'};
 
@@ -85,8 +83,7 @@ function initTooltip()
   }); //each
 }
 
-function initTableSorter()
-{
+function initTableSorter() {
 	if (!$(".my_shows tbody tr").length)
 		return;
 	
@@ -153,13 +150,11 @@ function initTableSorter()
   }); 
 }
 
-var myTextExtraction = function(node)
-{
+var myTextExtraction = function(node) {
   return $(node).text();
 }
 
-function initTogglers()
-{
+function initTogglers() {
   $("a.toggler").click( function(){
     var e = $("#" + $(this).attr("rel"));
     e.is(':hidden') ? e.fadeIn(1000) : e.fadeOut(500);
@@ -167,8 +162,7 @@ function initTogglers()
   });
 }
 
-function initCheckboxTogglers()
-{
+function initCheckboxTogglers() {
   $(".toggler:checkbox").each( function() {
       setCheckbox($(this));
     });
@@ -178,8 +172,7 @@ function initCheckboxTogglers()
   });
 }
 
-function setCheckbox(chk)
-{
+function setCheckbox(chk) {
   var checked = chk.is(':checked');
   
   var checkbox = $("#" + chk.attr("rel") + "");
@@ -201,8 +194,7 @@ function setCheckbox(chk)
     checkbox.checkBox('reflectUI');
 }
 
-function renderProgress()
-{
+function renderProgress() {
   if ($("#progress").length > 0)
   {
     $.ajax({
@@ -214,8 +206,7 @@ function renderProgress()
   }
 }
 
-function hideFlashes()
-{
+function hideFlashes() {
   if ($("#notice").not(".static").length > 0)
     $("#notice").delay(5000).slideUp();
     
@@ -223,13 +214,12 @@ function hideFlashes()
     $("#error").delay(10000).slideUp();
 }
 
-function initFacebookLike(){
+function initFacebookLike() {
   if ($("#facebook_button").length > 0)
     setTimeout("insertFacebookButton()", 1000);
 }
 
-function insertFacebookButton()
-{
+function insertFacebookButton() {
   var id = $("#facebook_button").text();
   $.ajax({
     type: "GET",
@@ -240,24 +230,33 @@ function insertFacebookButton()
   });
 }
 
-function initBannerReflection()
-{
-  if ($("#show_info").length > 0)
-    $("#show_info .banner img").reflect({ opacity: 0.28, height: 0.42 });
+function initFacebookSend() {
+  if ($("#fb-root").length) {
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=165505650138958";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
 }
 
-function initEpisodeOverviewToggle()
-{
+function initBannerReflection() {
+  if ($("#show_info").length > 0)
+    $("#show_info .show_banner img").reflect({ opacity: 0.28, height: 0.42 });
+}
+
+function initEpisodeOverviewToggle() {
   $(".season_list .overview a.toggle").live("click", function(){
     $this = $(this);
     $this.parent().hide();
-    $this.parents(".overview").find("." + $this.attr("rel")).show();
+    $this.parents(".overview").find("." + $this.attr("rel")).removeClass("hidden").show();
     return false;
   });
 }
 
-function initContentCarousel()
-{
+function initContentCarousel() {
   $("#settings_pagination a").click(function() {
     var index = $("#settings_pagination a").index(this);    
     $("#carousel_items .item").hide();
@@ -284,13 +283,13 @@ function initUnwatchedAnchors() {
     var $link = $(this);
     $("#show_anchors li a").removeClass("selected");
     $link.addClass("selected");
-    $("#reload a span").text($link.text().trim().replace(/\s\(\d+\)$/, ""));
+    $("#reload a span").text($link.text().replace(/\s\(\d+\)$/, ""));
     $("#unwatched_episodes > div").hide();
     var $wrapper = $("#" + $link.parent().attr("id") + "_episodes");
     if (!$wrapper.length)
     {
       $("#reload").hide();
-      $("#unwatched_loader").show();
+      $("#unwatched_loader").removeClass("hidden").show();
       $.ajax({ 
         type: "POST",
         url: $link.attr("href"),
@@ -299,8 +298,10 @@ function initUnwatchedAnchors() {
         success: function() {}
       });
     }
-    else
+    else {
       $wrapper.show();
+      $("#reload").show();
+    }
       
     return false;    
   });
@@ -311,6 +312,7 @@ function initUnwatchedAnchors() {
     var id = $link.parent().attr("id");
     $("#" + id + "_episodes").remove();
     $link.click();
+    return false;
   });
 }
 
@@ -326,7 +328,7 @@ function initProductAds() {
     var product_type = $container.data("product-type");
     ajaxReqs.push(
       $.ajax({
-        url: "http://virtualhost:9292/amazon_products/" + product_type + "/" + product_name + "?callback=?",
+        url: "http://api.episodecalendar.com/amazon_products/" + product_type + "/" + product_name + "?callback=?",
         dataType: "json",
         success: function(data) { drawProduct(data, product_name); }
       })
@@ -362,7 +364,7 @@ function initEpisodeHider() {
     var $link = $(this);
     var $episode = $link.parents(".episode");
     
-    var hide = $episode.hasClass("hidden") ? 0 : 1;
+    var hide = $episode.hasClass("hidden_episode") ? 0 : 1;
     
     $loader = $("#" + $link.attr("rel"));
     $loader.show();
@@ -380,10 +382,43 @@ function initEpisodeHider() {
         $episode.find(".hide_while_loading_small").show();
         $episode.find(".ui-checkbox-state-checked").removeClass("ui-checkbox-state-checked");
         $loader.hide();
-        hide === 0 ? $episode.removeClass("hidden") : $episode.addClass("hidden")
+        hide === 0 ? $episode.removeClass("hidden_episode") : $episode.addClass("hidden_episode")
       }
     });
     
     return false;
+  });
+}
+
+function initContactForm() {
+  $form = $("#new_ticket");
+  $checkbox = $("#contact :checkbox");
+  $checkbox.checkBox("changeCheckStatus", false);
+  $checkbox.click(function(){
+    $form.toggleClass("disabled");
+  });
+  $form.submit(function(){
+    if ($form.hasClass("disabled"))
+      return false;
+  });  
+}
+
+function initSlider() {
+  if (!$("#slides").length)
+    return;
+    
+  $("#slides").slides({
+    play: 5500,
+    pause: 3500,
+    hoverPause: true,
+    animationStart: function(current){
+      $('.caption').animate({ bottom: -38 }, 200);
+    },
+    animationComplete: function(current){
+      $('.caption').animate({ bottom: 0 }, 200);
+    },
+    slidesLoaded: function() {
+      $('.caption').animate({ bottom: 0 }, 200);
+    }
   });
 }

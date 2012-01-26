@@ -21,25 +21,13 @@ ActiveAdmin::Dashboards.build do
   
   section "Registered users - This month vs. last month", :priority => 2 do
     z = 2.hours
-    @users_last_month = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", 1.month.ago.beginning_of_month+z, 1.month.ago.end_of_month+z]).size
-    @users_this_month = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", Date.today.beginning_of_month.beginning_of_day, Date.today.end_of_month.end_of_day]).size
+    @users_last_month = User.where("created_at BETWEEN ? AND ?", 1.month.ago.beginning_of_month+z, 1.month.ago.end_of_month+z).size
+    @users_this_month = User.where("created_at BETWEEN ? AND ?", Date.today.beginning_of_month.beginning_of_day, Date.today.end_of_month.end_of_day).size
     
-    @users_last_week = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", 1.week.ago.beginning_of_week+z, 1.week.ago.end_of_week+z]).size
-    @users_this_week = User.find(:all, :conditions => ["created_at BETWEEN ? AND ?", Date.today.beginning_of_week.beginning_of_day, Date.today.end_of_week.end_of_day]).size
+    @users_last_week = User.where("created_at BETWEEN ? AND ?", 1.week.ago.beginning_of_week+z, 1.week.ago.end_of_week+z).size
+    @users_this_week = User.where("created_at BETWEEN ? AND ?", Date.today.beginning_of_week.beginning_of_day, Date.today.end_of_week.end_of_day).size
     div do
       render "users_month", :users_last_month => @users_last_month, :users_this_month => @users_this_month, :users_last_week => @users_last_week, :users_this_week => @users_this_week
-    end
-  end
-  
-  section "Shows with the most followers", :priority => 3 do
-    div do
-      #render "top_shows"
-    end
-  end
-  
-  section "Users with the most shows followed", :priority => 4 do
-    div do
-      #render "top_users"
     end
   end
 

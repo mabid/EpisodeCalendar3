@@ -1,41 +1,63 @@
 <%= link_to(image_tag("logos/logo.png"), root_path, :id => "logo") %>
+
 <% if logged_in? %>
-<div id="profile">
-	<%= link_to "view profile", profile_path(current_user) %>
-	<%= content_tag(:div, nil, :style => "background-image: url('#{current_user.gravatar_size(80)}');", :title => "Profile from Gravatar.com") %>
-</div>
-<% end %>
-<div id="menu_wrapper">
-  <% if logged_in? %>
-	<ul id="user_menu">
-		<li>
-		<div id="search">
-			<%= form_tag(search_path, :method => :get) do %>
-				<%= text_field_tag :q, nil, :title => "Enter show name" %>
-				<%= submit_tag "", :class => "submit icon", :name => nil %>
+
+	<div id="profile">
+		<%= link_to "view profile", profile_path(current_user) %>
+		<%= content_tag(:div, nil, :style => "background-image: url('#{current_user.gravatar_size(80)}');", :title => "Profile image from Gravatar.com") %>
+	</div>
+	<div id="menu_wrapper">
+		<ul id="user_menu">
+			<li>
+				<div id="search">
+					<%= form_tag(search_path, :method => :get) do %>
+						<%= text_field_tag :q, nil, :title => "Enter show name" %>
+						<%= submit_tag "", :class => "submit icon", :name => nil %>
+					<% end %>
+				</div>
+			</li>
+			<li><%= link_to "#{icon_tag("calendar")}Calendar".html_safe, calendar_path, :class => is_current?(:shows,:calendar) %></li>
+			<li><%= link_to "#{icon_tag("eye")}Unwatched".html_safe, unwatched_path, :class => is_current?(:seen_episodes,:index) %></li>
+			<li><%= link_to "#{icon_tag("heart")}My shows".html_safe, followings_path, :class => is_current?(:followings,:index) %></li>
+			<% if current_user.is_admin? %>
+				<li><%= link_to "&nbsp;&nbsp;#{icon_tag("crown")}".html_safe, admin_dashboard_path, :class => is_current?(:admin,nil) %></li>
 			<% end %>
-		</div>
-		</li>
-		<li><%= link_to "#{icon_tag("calendar")}Calendar".html_safe, calendar_path, :class => is_current?(:shows,:calendar) %></li>
-		<li><%= link_to "#{icon_tag("eye")}Unwatched".html_safe, unwatched_path, :class => is_current?(:seen_episodes,:index) %></li>
-		<li><%= link_to "#{icon_tag("heart")}My shows".html_safe, followings_path, :class => is_current?(:followings,:index) %></li>
-		<% if current_user.is_admin? %>
-		<li><%= link_to "&nbsp;&nbsp;#{icon_tag("crown")}".html_safe, admin_dashboard_path, :class => is_current?(:admin,nil) %></li>
-		<% end %>
-	</ul>
-  <% end %>
-	<ul id="menu" class="<%= "logged_out" unless logged_in? %>">
-	<% if logged_in? %>
-		<li><%= link_to "#{icon_tag("movie_folder")}All shows".html_safe, shows_path, :class => is_current?(:shows,:index) %></li>
-		<li><%= link_to "#{icon_tag("fire")}Trends".html_safe, trends_path, :class => is_current?(:shows,:trends) %></li>
-		<li><%= link_to "#{icon_tag("question")}FAQ".html_safe, faqs_path, :class => is_current?(:faqs,:index) %></li>
-		<li><%= link_to "#{icon_tag("blocks")}Settings".html_safe, settings_path, :class => is_current?(:registrations,:edit) %></li>
-		<li><%= link_to "#{icon_tag("minus_shield")}Logout (#{current_user.display_name})".html_safe, destroy_session_path(current_user), :class => is_current?(:sessions,:destroy), :method => :delete %></li>
-	<% else %>
-		<li><%= link_to "#{icon_tag("globe")}Start".html_safe, root_path, :class => is_current?(:start,:index) %></li>
-		<li><%= link_to "#{icon_tag("information")}Info &amp; Help".html_safe, info_path, :class => is_current?(:support,:index) %></li>
-		<li><%= link_to "#{icon_tag("lock")}Login".html_safe, new_user_session_path, :class => is_current?(:sessions,:new) %></li>
-		<li><%= link_to "#{icon_tag("tick")}Signup".html_safe, new_user_registration_path, :class => is_current?(:registrations,:new) %></li>
-	<% end %>
-	</ul>
-</div>
+		</ul>
+		<ul id="menu">
+			<li><%= link_to "#{icon_tag("movie_folder")}All shows".html_safe, shows_path, :class => is_current?(:shows,:index) %></li>
+			<li><%= link_to "#{icon_tag("fire")}Trends".html_safe, trends_path, :class => is_current?(:shows,:trends) %></li>
+			<li><%= link_to "#{icon_tag("question")}FAQ".html_safe, faqs_path, :class => is_current?(:faqs,:index) %></li>
+			<li><%= link_to "#{icon_tag("blocks")}Settings".html_safe, settings_path, :class => is_current?(:registrations,:edit) %></li>
+			<li><%= link_to "#{icon_tag("minus_shield")}Logout (#{current_user.display_name})".html_safe, destroy_session_path(current_user), :class => is_current?(:sessions,:destroy), :method => :delete %></li>
+		</ul>
+	</div>
+
+<% else %>
+
+	<div id="profile">
+		<%= content_tag(:div, nil, :title => "Profile from Gravatar.com") %>
+	</div>
+
+	<div id="menu_wrapper">
+		<ul id="user_menu">
+			<li>
+				<div id="search">
+					<%= form_tag(search_path, :method => :get) do %>
+						<%= text_field_tag :q, nil, :title => "Enter show name" %>
+						<%= submit_tag "", :class => "submit icon", :name => nil %>
+					<% end %>
+				</div>
+			</li>
+			<li><%= link_to "#{icon_tag("globe")}Start".html_safe, root_path, :class => is_current?(:start,:index) %></li>
+			<li><%= link_to "#{icon_tag("lock")}Log in".html_safe, new_user_session_path, :class => is_current?("devise/sessions",:new) %></li>
+			<li><%= link_to "#{icon_tag("tick")}Sign up".html_safe, new_user_registration_path, :class => is_current?("devise/registrations",:new) %></li>
+		</ul>
+		<ul id="menu">
+			<li><%= link_to "#{icon_tag("movie_folder")}All shows".html_safe, shows_path, :class => is_current?(:shows,:index) %></li>
+			<li><%= link_to "#{icon_tag("fire")}Trends".html_safe, trends_path, :class => is_current?(:shows,:trends) %></li>
+			<li><%= link_to "#{icon_tag("information")}Features".html_safe, info_path, :class => is_current?(:features,:index) %></li>
+			<li><%= link_to "#{icon_tag("question")}FAQ".html_safe, faqs_path, :class => is_current?(:faqs,:index) %></li>
+		</ul>
+	</div>
+
+<% end %>

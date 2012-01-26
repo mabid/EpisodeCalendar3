@@ -32,9 +32,9 @@ module ShowsHelper
     return "<strong>#{format_episode_number(episode)} - #{episode.name}</strong><em>#{format_date(date)} | #{time_ago}</em>"
   end
 
-  def print_status_icon(show)
+  def print_show_status(show)
     if show.ended?
-      return image_tag("icons/big/delete_64.png", :class => :status_icon, :alt => "") + raw('<span class="red">Ended</span>')
+      return icon_tag("icons/big/delete_64.png", :class => :status_icon, :alt => "") + raw('<span class="red">Ended</span>')
     else
       return image_tag("icons/big/accept_64.png", :class => :status_icon, :alt => "") + raw('<span class="green">Still airing</span>')
     end
@@ -45,9 +45,9 @@ module ShowsHelper
     dir = show.current_trend_position == show.previous_trend_position ? 0 : (show.current_trend_position > show.previous_trend_position ? 1 : -1)
     diff = show.previous_trend_position - show.current_trend_position
     case dir
-      when -1 then "<span class=\"green\">+#{diff} places</span>"
-      when 0 then "<span>&plusmn;0</span>"
-      when 1 then "<span class=\"red\">#{diff} places</span>"
+      when -1 then "<span class=\"green\">+#{pluralize(diff, "place")}</span>"
+      when 0 then "<span class=\"grey\">&plusmn;0</span>"
+      when 1 then "<span class=\"red\">#{pluralize(diff, "place")}</span>"
     end
   end
   
@@ -62,6 +62,8 @@ module ShowsHelper
   end
   
   def print_air_time(show)
+    return content_tag(:span, raw("#{icon_tag("cross")} Ended"), :class => "red") if show.ended?
+    
     air_time_parts = []
     unless show.day_of_week.blank?
       day_of_week = (current_user ? show.day_of_week + current_user.day_offset : show.day_of_week)
@@ -71,8 +73,8 @@ module ShowsHelper
     air_time = air_time_parts.join(" ")
 
     output_parts = []
+    output_parts << "#{icon_tag("television")} " + show.network unless show.network.blank?
     output_parts << "#{icon_tag("clock")} " + air_time unless air_time.blank?
-    output_parts << "#{icon_tag("television")} " + @show.network unless @show.network.blank?
     return output_parts.join()
   end
   

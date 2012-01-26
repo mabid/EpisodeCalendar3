@@ -12,9 +12,11 @@ gem "therubyracer", require: "v8"
 gem "rack" , "!= 1.3.4"
 
 #Tools
+gem "rvm"
 gem "capistrano"
-gem "hoptoad_notifier"
+gem "capistrano-ext"
 gem "whenever"
+gem "airbrake"
 
 #Application
 gem "jquery-rails"
@@ -28,20 +30,21 @@ gem "paperclip"
 gem "icalendar"
 gem "amazon_product"
 gem "RedCloth"
+gem "delayed_job_active_record"
+gem "rest-client"
+gem "rmagick"
 
 #Racks
 gem "activeadmin"
-
-#Email
-gem "adzap-ar_mailer"#, :lib => "action_mailer/ar_mailer"
-gem "ambethia-smtp-tls"#, :lib => "smtp-tls"
 
 #Devise
 gem "devise"
 gem "warden"
 
+#Put Sass outside of the :assets group (ActiveAdmin fix)
+gem "sass-rails", "~> 3.1.4"
+
 group :assets do
-  gem "sass-rails",   "~> 3.1.4"
   gem "coffee-rails", "~> 3.1.1"
   gem "uglifier", ">= 1.0.3"
 end

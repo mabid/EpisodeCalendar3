@@ -1,31 +1,28 @@
+<% title "Change password" %>
 <% body_class "info" %>
-<div id="devise">
-  
-  <div class="width_50">
-    
-    <h2>Change your password</h2>
+
+<div class="width_50 center">
+  <div class="pad">
+    <h1><strong>Change your password</strong></h1>
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= f.hidden_field :reset_password_token %>
-    
       <p>
         <%= f.label :password %><br />
         <%= f.password_field :password, :class => :big %>
       </p>
-    
       <p>
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, :class => :big %>
       </p>
-    
       <p><%= f.submit "Change password", :class => "awesome magenta" %></p>
-
       <%= devise_error_messages! %>
     <% end %>
-    
   </div>
-  <div class="width_50">
+</div>
 
-    <h2>Did you know?</h2>
+<div class="width_50 center">
+  <div class="pad">
+    <h1><strong>Did you know?</strong></h1>
     <p class="big">Episode Calendar offers you mobile apps!</p>
     <p>
       <%= image_tag("phones/iphone.png?1", :width => 64) %>
@@ -33,7 +30,5 @@
       <%= image_tag("phones/windows.png?1", :width => 64) %>
     </p><br /><br />
     <p><%= link_to("Other features", info_path, :class => "awesome magenta") %></p>
-  
   </div>
-  
 </div>

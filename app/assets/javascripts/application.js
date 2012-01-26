@@ -5,6 +5,9 @@
 
 $(document).ready(function(){
 
+  //Start page slider
+  initSlider();
+
   //External links
   $("a[rel=external]").live("click", function(e) {
     $(this).attr({ target: "_blank" });
@@ -66,5 +69,11 @@ $(document).ready(function(){
 
   //Init Todoist.com tasks
   initTodoList();
+
+  //Enable and disable the contact form
+  initContactForm();
+
+  //Init profile share
+  initFacebookSend();
 
 });

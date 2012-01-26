@@ -1,0 +1,39 @@
+<h2>Contact us</h2>
+<p><%= check_box_tag :have_read, true, true %> Yes, I have read the <strong>FAQ</strong> before contacting you.</p>
+<%= content_tag(:div, flash[:notice], :id => :notice, :class => :static) if flash[:notice] %>
+<%= form_for @ticket, :html => { :class => "#{"disabled" unless flash[:error] }" } do |f| %>
+  <% if logged_in? %>
+    <div class="form_element">
+      <label>Will be sent from <strong><%= current_user.email %></strong></label>
+    </div>
+  <% else %>
+    <div class="form_element">
+      <%= f.label :email, "Your email" %><br />
+      <%= f.text_field :email %>
+    </div>
+    <% end %>
+  <div class="form_element inline">
+    <%= f.label :subject %><br />
+    <%= f.text_field :subject %>
+  </div>
+  <div class="form_element inline">
+    <%= f.label :category %><br />
+    <div class="select_wrapper">
+      <%= f.select(:category, options_for_select(Constant.ticket_categories.map(&:value)), :include_blank => "Select a category") %>
+    </div>
+  </div>
+  <div class="form_element">
+    <%= f.label :message %><br />
+    <%= f.text_area :message %>
+  </div>
+  <div class="form_element">
+    <%= f.submit "Send", :class => "awesome magenta" %>
+    <%= f.text_field :human %>
+  </div>
+
+  <% if flash[:error].present? %>
+    <ul id="error" class="static">
+      <%= flash[:error].html_safe %>
+    </ul>
+  <% end %>
+<% end %>

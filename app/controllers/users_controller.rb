@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 	require "icalendar"
-	before_filter :authenticate_user!, :except => [:index, :set_format, :destroy, :update, :ical, :rss]
+	before_filter :authenticate_user!, :only => [:set_format, :destroy, :update]
 	
 	def index
 	  @letter = params[:letter].blank? ? "a" : params[:letter]
@@ -12,9 +12,10 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @most_seen_shows = @user.followings.order("marked_episodes_count desc").limit(6)
+    @most_seen_shows = @user.followings.joins(:show).select("followings.*, marked_episodes_count * shows.runtime AS spent_watching").order("spent_watching desc").limit(6)
     @recent_shows = @user.followings.order("created_at desc").joins(:show).limit(6)
     @recent_episodes = SeenEpisode.where(["user_id = ?", @user.id]).order("created_at desc").limit(@recent_shows.size * 2).joins([:episode, :season])
+    @followings = @user.followings.joins(:show).order("shows.name asc")
   end
   
 	def ical
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
       headers["Content-Type"] = "text/calendar; charset=UTF-8"
       render :layout => false, :text => cal.to_ical
     else
-      render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
+      render :file => "#{Rails.root}/public/404.html", :layout => false, :status => 404
     end
   end
   
@@ -70,18 +71,19 @@ class UsersController < ApplicationController
   		start_day.upto(end_day) do |date|
     	  rss_episodes = []
     	  show_banners = []
-  		  episodes.find_all{ |ep| ep.air_date.to_s(:air_date) == date.to_s(:air_date) }.each do |episode|
+        corrected_date = date + @user.day_offset.days
+  		  episodes.find_all{ |ep| ep.air_date.to_s(:air_date) == corrected_date.to_s(:air_date) }.each do |episode|
   		      rss_episodes << episode
   		      show_banners[episode.id] = episode.show.banner(:small)
   	    end
   	    if rss_episodes.any?
-  	      @rss_items << [date, rss_episodes, show_banners]
+  	      @rss_items << [corrected_date, rss_episodes, show_banners]
         end
   	  end
       
       render :layout => false
     else
-      render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
+      render :file => "#{Rails.root}/public/404.html", :layout => false, :status => 404
     end
   end
   
@@ -98,7 +100,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to(users_path)
+    redirect_to(root_path)
   end
   
   def set_format
@@ -125,14 +127,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     
     #@marked_count = Rails.cache.fetch([@user.id, "marked_episodes_count"]) do
-      @marked_count = Following.sum("marked_episodes_count", :conditions => {:user_id => @user.id})
+      @marked_count = Following.where(:user_id => @user.id).sum("marked_episodes_count")
     #end
-    Following.find(:all, :conditions => {:user_id => @user.id}).each do |following|
+    Following.where(:user_id => @user.id).each do |following|
       @time_wasted += following.show.runtime * following.marked_episodes_count unless following.show.runtime.blank?
     end
     @user.shows.each do |show|
       @episodes_count += show.episodes.select{ |e| e.air_date < $TODAY }.size
     end
+
+    @episodes_count -= @user.followings.sum(:hidden_episodes_count)
     
     return if @episodes_count == 0
     

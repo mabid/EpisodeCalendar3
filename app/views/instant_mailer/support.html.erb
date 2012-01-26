@@ -1,8 +1,0 @@
-<div style="text-align: left;">
-  <% if @ticket.from.present? %>
-  <strong><%= @ticket.is_user ? "Username" : "Name" %>:</strong> <%= @ticket.from %><br />
-  <% end %>
-  <strong>Email:</strong> <%= @ticket.email %><br /><br />
-  
-  <p><%= @ticket.message.gsub("\n", "<br />") %></p>
-</div>

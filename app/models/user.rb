@@ -40,7 +40,8 @@ class User < ActiveRecord::Base
   
   has_many :followings, :dependent => :destroy
   has_many :shows, :through => :followings
-  has_many :seen_episodes
+  has_many :seen_episodes, :dependent => :destroy
+  has_many :hidden_episodes, :dependent => :destroy
   
   scope :nameless, where("name IS NULL or name = ''")
   scope :active, where("daily_notification = true")
@@ -50,17 +51,17 @@ class User < ActiveRecord::Base
   scope :weekly_notification, where("weekly_notification = true")
   scope :only_premiere_notification, where("only_premiere_notification = true")
   
-	gravtastic :filetype => :jpg, :size => 64, :default => "http://www.episodecalendar.com/images/pixel.gif?1"  
-  devise :database_authenticatable, :encryptable, :registerable, :recoverable, :rememberable, :validatable
+	gravtastic :filetype => :jpg, :size => 64, :default => "http://www.episodecalendar.com/assets/pixel.gif?1" 
+  devise :database_authenticatable, :encryptable, :registerable, :recoverable, :rememberable, :validatable, :trackable
   
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :sun_to_sat, :time_zone, :hide_overview_in_rss, :hide_profile,
                   :daily_notification, :weekly_notification, :only_premiere_notification, :show_format, :episode_format, :day_offset
 
   def self.find_by_letter(letter)
     if letter == "0-9"
-      self.find(:all, :conditions => ["name < ?", "a"])
+      self.where("name < ?", "a")
     else
-      self.find(:all, :conditions => ["name LIKE ?", "#{letter}%"])
+      self.where("name LIKE ?", "#{letter}%")
     end
   end
   
@@ -74,7 +75,7 @@ class User < ActiveRecord::Base
 	end
 	
 	def is_admin?
-		self.admin == true
+		admin == true
 	end
 	
 	def display_name

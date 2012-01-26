@@ -29,5 +29,27 @@ module DateHelper
       d.strftime("%B %Y") unless d.nil?
     end
   end
+
+  def minutes_ago_in_words(minutes)
+    parts = []
+
+    if minutes > 0
+      time = minutes
+      time /= 60                # Get rid of minutes
+      hours = time % 24         # Extract hours
+      time /= 24                # Get rid of hours
+      days = time % 30          # Extract days
+      time /= 30                # Get rid of days
+      months = time             # Months
+
+      { :month => months, :day => days, :hour => hours }.each do |key, val|
+        parts << "#{pluralize(val, key.to_s)}" if val > 0
+      end
+    else
+      parts << "0 minutes"
+    end
+
+    parts.to_sentence(:last_word_connector => " and ")
+  end
   
 end

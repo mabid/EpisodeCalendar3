@@ -1,49 +1,90 @@
+<% title "Trends" %>
 <div id="trends">
-  <div class="note_wrapper light">
-    <dl class="note">
-      <% @top_shows.each_with_index do |show, i| %>
-      <dt>#<%= show.current_trend_position %>. <%= link_to(show.name, show, :class => :alternative) %> <span><%= show.followers %> followers (<%= raw print_trend(show) %>)</span></dt>
-      <dd><%= raw print_popularity(show) %></dd>
-      <% end %>
-    </dl>
-  </div>
-  
-  <div class="note_wrapper light">
-    <dl class="note">
-      <% @top_new_followers.each_with_index do |show, i| %>
-      <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= raw print_trend(show) %>)</span></dt>
-      <dd><span class="green">+<%= show.new_followers %> followers</span></dd>
-      <% end %>
-    </dl>
-  </div>
-  
-  <div class="note_wrapper light">
-    <dl class="note">
-      <% @highest_grow.each_with_index do |show, i| %>
-      <dt>#<%= i + 1 %>. <%= show.name %> <span>(<%= show.followers %> followers)</span></dt>
-      <dd><span class="green">+<%= (show.grow.to_f * 100).round %>%</span></dd>
-      <% end %>
-    </dl>
+
+  <div class="row margin_bottom_big">
+    <div class="width_33 divider">
+      <div class="pad">
+        <h2 class="center margin_bottom"><strong>Top shows overall</strong></h2>
+        <ul class="list numbered">
+          <% @top_shows.each_with_index do |show, i| %>
+          <li>
+            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
+            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+            <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="width_34 divider">
+      <div class="pad">
+        <h2 class="center margin_bottom"><strong>New followers</strong></h2>
+        <ul class="list numbered">
+          <% @top_new_followers.each_with_index do |show, i| %>
+          <li>
+            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
+            <h2 class="green">+<%= show.new_followers %></h2>
+            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+            <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="width_33">
+      <div class="pad">
+        <h2 class="center margin_bottom"><strong>Fastest growing shows</strong></h2>
+        <ul class="list numbered">
+          <% @highest_grow.each_with_index do |show, i| %>
+          <li>
+            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
+            <h2 class="green"><%= raw print_trend(show) %></h2>
+            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+            <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 
-  <div class="note_wrapper light">
-    <ul>
+  <div class="pad">
+    <h2 class="center"><strong>Popular shows by week day</strong></h2>
+    <table id="calendar" cellspacing="2" cellpadding="0">
+    <tr>
       <% 0.upto(6) do |i| %>
-        <li>
-          <h3><%= current_user.sun_to_sat ? week_day(i) : week_day(i+1) %></h3>
-          <dl class="note">
-            <% @top_shows.select{ |s| s.day_of_week == i }.each do |show| %>
-            <dt><%= show.name %> <span>(<%= show.followers %> followers)</span></dt>
-            <dd><span class="green">a</span></dd>
-            <% end %>
-          </dl>
-        </li>
+        <th class="calendar_weekday_name"><div><%= current_user ? (current_user.sun_to_sat ? week_day(i) : week_day(i + 1)) : week_day(i) %></div></th>
       <% end %>
-    </ul>
+      </tr>
+      <tr>
+        <% 0.upto(6) do |i| %>
+          <%
+          corrected_day = i
+          if current_user
+            corrected_day = (i + 1) if current_user.sun_to_sat
+            corrected_day -= current_user.day_offset
+            corrected_day = 0 if corrected_day > 6
+          end
+          %>
+          <td class="calendar_day">
+            <div class="calendar_cell_content">
+              <ul>
+              <% @shows_by_day.select{ |s| s.day_of_week == corrected_day }.first(20).each do |show| %>
+                <li>
+                  <strong><%= link_to(show.name, show, :class => "alternative") %></strong><br />
+                  <span class="dark_grey"><%= show.followers %> followers</span>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          </td>
+        <% end %>
+      </tr>
+    </table>
   </div>
 
-</div>
+  <div class="margin_top_big margin_bottom_big">
+    <%= render :partial => "partials/amazon_products", :locals => { :names => @top_shows.shuffle.first(5).map{ |s| s.name } } %>
+  </div>
 
-<div class="margin_top_big margin_bottom_big">
-  <%= render :partial => "partials/amazon_products", :locals => { :names => @top_shows.shuffle.first(5).map{ |s| s.name } } %>
 </div>

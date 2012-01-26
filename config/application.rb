@@ -44,5 +44,11 @@ module Episodecalendar2
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    #Devise mailer layour
+    config.to_prepare do
+      Devise::Mailer.layout "email"
+    end
+    
   end
 end

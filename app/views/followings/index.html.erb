@@ -91,7 +91,7 @@
         <td class="center">
           <ul>
             <li><strong><%= link_to("Remove", following, :confirm => "Are you sure that you want to unfollow [#{following.show.name}]?", :method => :delete, :class => "red") %></strong></li>
-            <li><em><%= link_to("Move to <strong>Favorites</strong>".html_safe,  set_watch_later_path(following.id, 0)) %></em></li>
+            <li><em><%= link_to("Remove from <strong>Watch later</strong>".html_safe,  set_watch_later_path(following.id, 0)) %></em></li>
           </ul>
         </td>
       </tr>
@@ -131,6 +131,7 @@
         <td class="center">
           <ul>
             <li><strong><%= link_to("Remove", following, :confirm => "Are you sure that you want to unfollow [#{following.show.name}]?", :method => :delete, :class => "red") %></strong></li>
+            <li><em><%= link_to("Move to <strong>Watch later</strong>".html_safe, set_watch_later_path(following.id, 1)) %></em></li>
           </ul>
         </td>
       </tr>

@@ -4,6 +4,9 @@ log/*.log
 tmp/
 .sass-cache/
 config/database.yml
+config/initializers/mail_settings.rb
+config/deploy.rb
+config/deploy/*
 .project
 app/assets/images/psd/*
 .DS_Store

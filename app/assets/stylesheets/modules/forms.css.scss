@@ -1,0 +1,142 @@
+@import "mixins";
+
+/* FORMS ------------------------------------------------------------------------------------------------------------------------ */
+
+form.disabled {
+  opacity: 0.5;
+}
+
+label {
+  cursor: pointer;
+  color: #555;
+  display: inline-block;
+  font-size: 11px;
+  padding: 5px;
+}
+
+label.big {
+  font-size: 17px;
+}
+  
+label.disabled {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.label {
+  color: #999;
+  display: inline-block;
+  font-size: 11px;
+  padding: 5px 0;
+}
+
+input {
+  background: #fff;
+  font-size: 14px;
+  color: #666;
+  border: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #999 #ccc #ccc #999;
+  @include border-radius(5px);
+  @include box-shadow(1px 1px 2px #ddd inset);
+  width: 185px;
+  padding: 6px 10px;
+}
+
+input.big {
+  font-size: 24px;
+  width: 300px;
+}
+
+.select_wrapper {
+  background: #fff;
+  border: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #999 #ccc #ccc #999;
+  @include border-radius(5px);
+  @include box-shadow(1px 1px 2px #ddd inset);
+  width: 185px;
+  padding: 5px 10px;
+}
+
+  .select_wrapper select {
+    width: 185px;
+    border: 0;
+    font-size: 14px;
+    color: #666;
+  }
+
+.form_element { margin: 0 0 10px 0; }
+.form_element.inline {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+input:focus,
+textarea:focus {
+  color: #000;
+  border-color: #333 #999 #999 #333;
+}
+
+input.search { width: 300px; }
+input.long { width: 400px; }
+
+textarea {
+  font: 0.9em Tahoma, Verdana, Helvetica, Arial, Sans-serif;
+  background: #fff;
+  font-size: 14px;
+  color: #666;
+  border: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #999 #ccc #ccc #999;
+  @include border-radius(5px);
+  @include box-shadow(1px 1px 2px #ddd inset);
+  padding: 6px 10px;
+  width: 70%;
+  height: 100px;
+}
+
+select {
+  font: 0.9em Tahoma, Verdana, Helvetica, Arial, Sans-serif;
+  color: #000;
+  background-color: #fff;
+  border: 1px #ccc solid;
+  width: 205px;
+}
+
+input[type=checkbox] {
+  width: auto;
+  border: 0 none;
+}
+
+input.awesome {
+  border: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: auto;
+}
+
+span.ui-checkbox {
+  position: relative;
+  top: 3px;
+}
+
+.date_select select { width: auto; }
+
+.delete {
+  font: 0.9em Tahoma, Verdana, Helvetica, Arial, Sans-serif;
+  color: #660000;
+  border: none;
+  background: none;
+  text-align: left;
+  font-weight: bold;
+  width: auto;
+  cursor: pointer;
+}
+
+#ticket_human {
+  display: none;
+}

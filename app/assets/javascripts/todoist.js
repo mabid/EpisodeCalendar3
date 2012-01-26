@@ -16,8 +16,6 @@ function getTotodoistProjectsCallback(data) {
   var projectname = "EpisodeCalendarTodo";
   $(data).each(function(t) {
     if(this.name == projectname) {
-      var html = $("<h2>").text(this.name);
-      $("#projects").append(html);
       getUncompletedItems(this.id);
       getCompletedItems(this.id);
     }
@@ -32,9 +30,10 @@ function getUncompletedItems(project_id) {
 }
 
 function getUncompletedItemsCallback(data) {
+  $("#ajax_loader").hide();
   $(data).each(function(t) {
     var html = $("<li>").text(this.content);
-    $("#priority_" + this.priority + " ul").append(html).parent().find("h2").show();
+    $("#priority_" + this.priority + " ul").append(html).parent().find("h3").removeClass("hidden");
   });
 }
 
@@ -50,6 +49,6 @@ function getCompletedItemsCallback(data) {
     $("#completed_tasks h2").show();
   $(data).each(function(t) {
     var html = $("<li>").text(this.content);
-    $("#completed_tasks ul").append(html);
+    $("#completed_tasks ul").append(html).parent().find("h3").removeClass("hidden");
   });
 }

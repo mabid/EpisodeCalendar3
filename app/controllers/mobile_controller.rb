@@ -11,8 +11,8 @@ class MobileController < ApplicationController
       @valid_user = false
     end
     
-    if @valid_user 
-      constant = Constant.find(:first, :conditions => { :key => "mobile_login", :value => params[:platform]})
+    if @valid_user
+      constant = Constant.where("`key` = ? AND `value` = ?", "mobile_login", params[:platform]).first
       constant.update_attributes(:additional_data => constant.additional_data.to_i + 1)
       @auth_key = @user.password_salt
     end
@@ -34,10 +34,7 @@ class MobileController < ApplicationController
   		end_day = DateTime.now + 1.day
   		
   		show_ids = @user.shows.collect(&:id)
-      episodes = Episode.find(:all,
-                              :conditions => ["episodes.show_id IN (?) AND air_date IS NOT NULL AND air_date >= ? AND air_date <= ?", show_ids, start_day, end_day],
-                              :include => [:show],
-                              :order => "episodes.air_date desc, shows.name, episodes.number asc")
+      episodes = Episode.where("episodes.show_id IN (?) AND air_date IS NOT NULL AND air_date >= ? AND air_date <= ?", show_ids, start_day, end_day).joins(:show).order("episodes.air_date desc, shows.name, episodes.number asc")
   		@rss_items = episodes.group_by { |ep| [ep.air_date] }
     end #if user
     

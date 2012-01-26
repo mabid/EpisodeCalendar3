@@ -1,0 +1,126 @@
+@import "mixins";
+
+#calendar {
+  width: 100%;
+}
+
+.calendar, .public, #calendar {
+
+/* ------------------------------------------------------------------------------------------------------------ */
+#month_navigation h2 {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#month_navigation h3 {
+  margin: 0 20px 0 20px;
+  text-shadow: none;
+}
+
+.month {
+  margin: -5px auto 10px auto;
+  text-align: center;
+  color: #ccc;
+  width: 100px;
+}
+
+.ui-checkbox.small,
+.calendar_day_other_month .ui-checkbox.small {
+  border: 0;
+  position: relative;
+  top: 1px;
+}
+
+a.premiere {
+  color: #3db901;
+  font-size: 1.1em;
+  border-color: #000;
+  &:hover {
+    color: #000;
+    font-size: 1.1em;
+    border-color: #3db901;
+  }
+}
+
+.calendar_day_other_month a {
+  color: #999;
+  border-bottom: 1px $light_blue_theme_color solid;
+}
+
+.calendar_day_other_month a:hover {
+  color: #7777FF;
+  border-bottom: 1px #999 solid;
+}
+
+#calendar th { text-align: center; }
+#calendar tr td { height: 100px; }
+
+.calendar_date {
+  border: 1px #ccc solid;
+  background-color: #D6D6D6;
+  font-weight: bold;
+  padding: 2px;
+}
+
+.calendar_cell_content {
+  padding: 5px;
+  margin-bottom: 0;
+}
+
+.calendar_cell_content li { padding-bottom: 5px; }
+
+.calendar_weekday_name {
+  width: 13%;
+  height: 1%;
+}
+
+.calendar_weekday_name div {
+  text-align: center;
+}
+
+.calendar_today {
+  width: 13%;
+  height: 10%;
+  vertical-align: top;
+  font-size: 0.9em;
+  @include linear-gradient(#f0f944, #fff);
+}
+
+.calendar_day {
+  width: 13%;
+  height: 10%;
+  vertical-align: top;
+  font-size: 0.9em;
+}
+
+.calendar_day_other_month {
+  width: 13%;
+  height: 10%;
+  vertical-align: top;
+  color: #999;
+  font-size: 0.9em;
+}
+
+.calendar_day, .calendar_day_other_month {
+  background: #fff image-url("cell_bg.png") 0 0 repeat-x;
+}
+
+.calendar_day_other_month .calendar_date {
+  border: 1px #ddd solid;
+  background-color: #eee;
+  font-weight: bold;
+  padding: 2px;
+}
+
+#public_box {
+  font-size: 1.2em;
+  margin-top: 2em;
+  text-align: center;
+}
+
+#public_box .awesome {
+  margin: 1em auto;
+}
+
+/* ------------------------------------------------------------------------------------------------------------ */
+}

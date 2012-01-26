@@ -1,12 +1,12 @@
 class ShowsController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index, :show, :autocomplete, :public, :search, :calendar_iframe]
+  before_filter :authenticate_user!, :except => [:index, :show, :public, :search, :calendar_iframe, :trends]
   
   def index
     @letter = params[:letter].blank? ? "a" : params[:letter]
     @active_shows = Show.active.find_by_letter(@letter)
     @ended_shows = Show.ended.find_by_letter(@letter)
-    @top_shows = Show.find(:all, :conditions => ["id IN (?)", @active_shows.collect(&:id)], :order => "followers desc, name asc, first_aired desc", :limit => 6)
+    @top_shows = Show.where("id IN (?)", @active_shows.collect(&:id)).order("followers desc, name asc, first_aired desc").limit(6)
     @alphabet = "a".."z"
   end
   
@@ -39,15 +39,15 @@ class ShowsController < ApplicationController
     #end
     #@episodes = Rails.cache.fetch([current_user.id, "episodes", year, month]) do
       hidden_episodes_ids = HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
-      @episodes = Episode.all(
-        :joins => :show,
-        :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
-        :conditions => ["episodes.show_id in (?) AND air_date >= ? AND air_date <= ? AND episodes.id NOT IN (?)", @show_ids, @start_day - 1.days, @end_day + 1.days, hidden_episodes_ids],
-        :order => "show_name asc, episodes.season_number asc, episodes.number asc"
-        )
+      scope = Episode.where("episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days)
+      scope = scope.select("episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink")
+      scope = scope.order("show_name asc, episodes.season_number asc, episodes.number asc")
+      scope = scope.joins(:show)
+      scope = scope.where("episodes.id NOT IN (?)", hidden_episodes_ids) if hidden_episodes_ids.any?
+      @episodes = scope.all
     #end
     
-    @seen_episodes = SeenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)]).map(&:episode_id)
+    @seen_episodes = SeenEpisode.where("user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)).map(&:episode_id)
     
     respond_to do |format|
       format.html
@@ -119,31 +119,27 @@ class ShowsController < ApplicationController
       
       render :layout => "iframe"
     else
-      render :file => "#{RAILS_ROOT}/public/404.html", :layout => false, :status => 404
+      render :file => "#{Rails.root}/public/404.html", :layout => false, :status => 404
     end
   end
 
   def show
     @show = Show.find_by_permalink(params[:permalink])
     if @show
-      @season_size = 0
       @next_air_date = @show.next_episode.air_date unless @show.next_episode.nil?
-      @seasons = Season.find(:all, :conditions => ["api_show_id = ?", @show.api_show_id], :order => "number desc")
+      @seasons = Season.where("api_show_id = ?", @show.api_show_id).order("number desc")
       if params[:season]
-        @season = Season.find(:first, :conditions => ["api_show_id = ? AND number = ?", @show.api_show_id, params[:season]])
+        @season = Season.where("api_show_id = ? AND number = ?", @show.api_show_id, params[:season]).first
         @season = @seasons.first if @season.blank?
       else
         @season = @seasons.first
       end
-      @seasons.each do |season|
-        @season_size += 1 unless season.number == 0
-      end
       
       @is_following = false
+      @hidden_episode_ids = []
       if current_user
         @seen_episode_ids = []
         @seen_episode_ids = SeenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id) if @seasons.any?
-        @hidden_episode_ids = []
         @hidden_episode_ids = HiddenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id) if @seasons.any?
         @is_following = current_user.is_following(@show)
       end
@@ -156,13 +152,15 @@ class ShowsController < ApplicationController
   end
   
   def trends
-    @top_shows = Show.all(:conditions => "current_trend_position IS NOT NULL", :order => "followers desc", :limit => 20)
-    @top_new_followers = Show.all(:select => "*, (followers - previous_trend_position_followers) AS new_followers", :conditions => "current_trend_position IS NOT NULL", :order => "new_followers desc", :limit => 20)
-    @highest_grow = Show.all(:select => "*, (followers/previous_trend_position_followers) AS grow", :conditions => "current_trend_position IS NOT NULL AND followers > 100", :order => "grow desc", :limit => 20)
+    @shows = Show.where("current_trend_position IS NOT NULL").limit(200)
+    @top_shows = @shows.limit(20).order("followers desc")
+    @top_new_followers = @shows.select("*, (followers - previous_trend_position_followers) AS new_followers").where("current_trend_position IS NOT NULL").order("new_followers desc").limit(20)
+    @highest_grow = Show.select("*, (followers/previous_trend_position_followers) AS grow").where("current_trend_position IS NOT NULL AND followers > 100").order("grow desc").limit(20)
+    @shows_by_day = @shows.order("followers desc, name asc").active
   end
   
   def facebook_button
-    @show = Show.find(params[:id])
+    @show = Show.where(params[:id])
     respond_to do |format|
       format.js { render :layout => false }
     end
@@ -172,7 +170,7 @@ class ShowsController < ApplicationController
     @query = params[:q]
     unless @query.blank?
       @query.strip!
-      @shows = Show.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{@query}%"], :order => "followers DESC, status DESC, name ASC")
+      @shows = Show.where("LOWER(name) LIKE ?", "%#{@query}%").order("followers DESC, status DESC, name ASC")
       if @shows.size == 1
         redirect_to show_path(@shows.first)
       end

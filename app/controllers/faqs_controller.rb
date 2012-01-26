@@ -3,6 +3,7 @@ class FaqsController < ApplicationController
   def index
     @important = Faq.important
     @faqs = Faq.where(:important => false)
+    @ticket = Ticket.new
   end
   
   def sort

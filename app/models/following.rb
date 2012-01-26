@@ -19,24 +19,20 @@ class Following < ActiveRecord::Base
 	before_destroy :delete_seen_episodes, :delete_hidden_episodes
 	
 	def unseen_count
-	  aired_episodes = Episode.find(:all, :conditions => ["show_id = ? AND air_date <= ?", self.show_id, $TODAY])
+    aired_episodes = Episode.where("show_id = ? AND air_date <= ?", self.show_id, $TODAY).all
 	  count = aired_episodes.size - self.marked_episodes_count - self.hidden_episodes_count
   end
   
   private
   
     def delete_seen_episodes
-      episodes = Episode.find(:all, :conditions => { :show_id => self.show_id })
-      SeenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)]).each do |seen_episode|
-        seen_episode.destroy
-      end
+      episodes = Episode.where(:show_id => self.show_id).all
+      SeenEpisode.delete_all(["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)])
     end
   
     def delete_hidden_episodes
-      episodes = Episode.find(:all, :conditions => { :show_id => self.show_id })
-      HiddenEpisode.find(:all, :conditions => ["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)]).each do |hidden_episode|
-        hidden_episode.destroy
-      end
+      episodes = Episode.where(:show_id => self.show_id).all
+      HiddenEpisode.delete_all(["user_id = ? AND episode_id IN (?)", self.user_id, episodes.collect(&:id)])
     end
   
 end

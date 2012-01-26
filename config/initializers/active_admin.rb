@@ -38,7 +38,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the controller.
-  config.authentication_method = :authenticate_admin_user!
+  config.authentication_method = :authenticate_admin!
 
 
   # == Current User
@@ -101,5 +101,8 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
   config.register_javascript 'jquery/highcharts'
-  config.register_javascript 'jquery/highcharts_themes/grid'
+end
+
+def authenticate_admin!
+  redirect_to new_user_session_path unless current_user && current_user.is_admin?
 end
