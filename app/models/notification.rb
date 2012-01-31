@@ -21,7 +21,7 @@ class Notification < ActiveRecord::Base
     end
     
     if episodes_to_mail.any?
-      Mailer.delay.weekly_email(user.id, episodes_to_mail)
+      Mailer.delay.daily_email(user.id, episodes_to_mail)
     end
   end
     
