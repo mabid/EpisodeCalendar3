@@ -11,9 +11,18 @@ Episodecalendar2::Application.routes.draw do
   match "/users/letter/:letter" => "users#index", :as => "users_by_letter"
   match "/shows/letter(/:letter)" => "shows#index", :as => "shows_by_letter"
   
+  #API
+  scope "api", :module => :api, :format => :json do
+    resources :shows
+    resources :users do
+      resources :followings
+    end
+  end
+
+  #Resources  
   resources :tickets
   resources :seen_episodes, :as => "unwatched"
-  resources :hidden_episodesr
+  resources :hidden_episodes
   resources :banners
 	resources :followings, :path => "my-shows"
 	resources :episodes

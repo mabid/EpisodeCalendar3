@@ -33,6 +33,7 @@ gem "RedCloth"
 gem "delayed_job_active_record"
 gem "rest-client"
 gem "rmagick"
+gem "rabl"
 
 #Racks
 gem "activeadmin"
