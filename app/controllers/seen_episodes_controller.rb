@@ -6,7 +6,7 @@ class SeenEpisodesController < ApplicationController
     corrected_date = $TODAY - current_user.day_offset.days
     followings = Following.find(:all,
     :select => "followings.*, shows.name, (SELECT count(episodes.id) FROM episodes WHERE episodes.show_id = followings.show_id AND episodes.air_date <= '#{corrected_date}') as available_episodes_count",
-    :conditions => ["user_id = ?", current_user.id],
+    :conditions => ["user_id = ? AND watch_later = ?", current_user.id, false],
     :joins => "INNER JOIN shows ON shows.id = followings.show_id",
     :order => "name asc")
     @shows = followings.select{ |f| f.available_episodes_count.to_i != (f.marked_episodes_count.to_i + f.hidden_episodes_count) }

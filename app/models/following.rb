@@ -15,6 +15,8 @@
 class Following < ActiveRecord::Base
 	belongs_to :user, :counter_cache => true
 	belongs_to :show, :counter_cache => :followers
+
+  scope :current, where("watch_later = ?", false)
 	
 	before_destroy :delete_seen_episodes, :delete_hidden_episodes
 	

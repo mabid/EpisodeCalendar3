@@ -35,7 +35,8 @@ class ShowsController < ApplicationController
     
     #get episodes
     #@show_ids = Rails.cache.fetch([current_user.id, "shows_ids", year, month]) do
-      @show_ids = current_user.shows.collect(&:id)
+      #@show_ids = current_user.shows.collect(&:id)
+      @show_ids = Following.current.where("user_id = ?", current_user.id).collect(&:show_id)
     #end
     #@episodes = Rails.cache.fetch([current_user.id, "episodes", year, month]) do
       hidden_episodes_ids = HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)

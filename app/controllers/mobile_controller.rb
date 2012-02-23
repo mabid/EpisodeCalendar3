@@ -33,7 +33,8 @@ class MobileController < ApplicationController
   		start_day = DateTime.now.beginning_of_month.beginning_of_week - 1.month
   		end_day = DateTime.now + 1.day
   		
-  		show_ids = @user.shows.collect(&:id)
+      current_user_shows = Following.current.where("user_id = ?", @user.id)
+      show_ids = Show.find_all_by_id(current_user_shows.collect(&:show_id))
       episodes = Episode.where("episodes.show_id IN (?) AND air_date IS NOT NULL AND air_date >= ? AND air_date <= ?", show_ids, start_day, end_day).joins(:show).order("episodes.air_date desc, shows.name, episodes.number asc")
   		@rss_items = episodes.group_by { |ep| [ep.air_date] }
     end #if user
