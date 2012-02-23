@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       cal.custom_property("X-WR-CALNAME","EpisodeCalendar.com")
   		start_day = Time.now.in_time_zone(user.time_zone).beginning_of_month.beginning_of_week - 1.month
 
-      current_user_shows = Following.current.where("user_id = ?", current_user.id)
+      current_user_shows = Following.current.where("user_id = ?", user.id)
       shows = Show.find_all_by_id(current_user_shows.collect(&:show_id))
       shows.each do |show|
         show.episodes.find_all{|ep| !ep.air_date.nil? && ep.air_date >= start_day }.each do |episode|
