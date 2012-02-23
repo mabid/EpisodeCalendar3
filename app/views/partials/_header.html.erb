@@ -27,7 +27,7 @@
 			<li><%= link_to "#{icon_tag("movie_folder")}All shows".html_safe, shows_path, :class => is_current?(:shows,:index) %></li>
 			<li><%= link_to "#{icon_tag("fire")}Trends".html_safe, trends_path, :class => is_current?(:shows,:trends) %></li>
 			<li><%= link_to "#{icon_tag("question")}FAQ".html_safe, faqs_path, :class => is_current?(:faqs,:index) %></li>
-			<li><%= link_to "#{icon_tag("blocks")}Settings".html_safe, settings_path, :class => is_current?(:registrations,:edit) %></li>
+			<li><%= link_to "#{icon_tag("blocks")}Settings".html_safe, settings_path, :class => is_current?("devise/registrations",:edit) %></li>
 			<li><%= link_to "#{icon_tag("minus_shield")}Logout (#{current_user.display_name})".html_safe, destroy_session_path(current_user), :class => is_current?(:sessions,:destroy), :method => :delete %></li>
 		</ul>
 	</div>
