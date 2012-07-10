@@ -14,7 +14,7 @@ namespace :db do
           show.previous_trend_position_followers = show.followers
         end
         show.current_trend_position = index + 1
-        show.save(false)
+        show.save(:validate => false)
       end
       
       #Update note
