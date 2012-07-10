@@ -15,29 +15,29 @@
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <%= javascript_include_tag :application %>
   <%= yield :head %>
-	<link rel="icon" href="/favicon.png?1" type="image/x-icon" />
-	<link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
+    <link rel="icon" href="/favicon.png?1" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
 </head>
 <body class="<%= find_named_routes.join(" ") %> <%= yield :body_class %>">
-	<div id="container">
-		<div id="header">
-		  <div id="header_content">
-			  <%= render :partial => "partials/header" %>
-			</div>
-		</div>
-		<div id="page_container">
-			<div id="page" class="clearfix">
-				<%= yield %>
-			</div>
-		</div>
-		<div id="footer">
-		  <div id="footer_content">
-		    <% cache("footer") do %>
-  	      <%= render :partial => "partials/footer" %>
-  	    <% end %>
-	    </div>
-		</div>
-	</div>
-	<%= render :partial => "partials/scripts/google_analytics" %>
+    <div id="container">
+        <div id="header">
+          <div id="header_content">
+              <%= render :partial => "partials/header" %>
+            </div>
+        </div>
+        <div id="page_container">
+            <div id="page" class="clearfix">
+                <%= yield %>
+            </div>
+        </div>
+        <div id="footer">
+          <div id="footer_content">
+            <% cache("footer") do %>
+              <%= render :partial => "partials/footer" %>
+            <% end %>
+          </div>
+        </div>
+    </div>
+    <%= render :partial => "partials/scripts/google_analytics" %>
 </body>
 </html>
