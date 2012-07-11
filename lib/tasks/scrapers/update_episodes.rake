@@ -27,7 +27,8 @@ namespace :db do
         row = (doc/"episode")
         
         #Check fauly data
-        if (row/"episodename").innerHTML.blank? || (row/"firstaired").innerHTML.blank?
+        firstaired = Date.parse((row/"firstaired").innerHTML) rescue nil
+        if (row/"episodename").innerHTML.blank? || firstaired.blank?
           UpdateQueue.delete(queued_episode.id)
           next
         end
@@ -54,7 +55,7 @@ namespace :db do
             :season_number => season_number,
             :number => (row/"episodenumber").innerHTML,
             :overview => (row/"overview").innerHTML,
-            :air_date => (row/"firstaired").innerHTML,
+            :air_date => firstaired,
             :rating => (row/"rating").innerHTML,
             :api_updated_at => (row/"lastupdated").innerHTML
             )
