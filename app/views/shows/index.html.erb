@@ -27,10 +27,6 @@
 </div>
 
 <div class="narrow_column">
-  <h2>Active shows</h2>
-  <div class="product_sidebar">
-    <%= render :partial => "partials/amazon_products", :locals => { :names => @top_shows.map{ |s| s.name } } %>
-  </div>
   <div class="margin_bottom_big">
     <ul class="show_list">
       <% @active_shows.each do |show| %>

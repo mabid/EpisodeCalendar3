@@ -54,10 +54,6 @@
     <p id="quick_note">
       <%= icon_tag("information") %> Note that the <strong>Extras</strong> episodes are also included in the "unwatched episodes" count.
     </p>
-    
-    <div class="margin_top_big margin_bottom_big">
-      <%= render :partial => "partials/amazon_products", :locals => { :names => @followings_active.shuffle.first(5).map{ |f| f.show.name } } %>
-    </div>
   <% end %>
   
   <% if @followings_watch_later.any? %>

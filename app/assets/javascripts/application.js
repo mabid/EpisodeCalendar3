@@ -65,7 +65,7 @@ $(document).ready(function(){
   initUnwatchedAnchors();
   
   //Init buyable products
-  initProductAds();
+  //initProductAds();
 
   //Init Todoist.com tasks
   initTodoList();
