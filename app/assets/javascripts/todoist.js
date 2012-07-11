@@ -1,5 +1,5 @@
 function initTodoList() {
-  if ($("#todo")) {
+  if ($("#todo").length) {
     window.todoistApiKey = "0fce5320b6386d4ad490f96328053f7b06fc9520";
     getTotodoistProjects();
   }
