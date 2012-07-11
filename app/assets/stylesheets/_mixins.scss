@@ -13,13 +13,13 @@ $progress_green_light: #55dc76;
 //Mixins
 //-------------------------------------------------------------------------
 
-@mixin border-radius ($values) {
+@mixin border-radius($values) {
   -moz-border-radius: $values;
   -webkit-border-radius: $values;
   border-radius: $values;
 }
 
-@mixin box-shadow ($values) {
+@mixin box-shadow($values) {
   -moz-box-shadow: $values;
   -o-box-shadow: $values;
   -webkit-box-shadow: $values;
