@@ -7,7 +7,7 @@ namespace :db do
     Show.popular.each do |show|
       counter += 1
       print "#{counter}.." if counter%100 == 0
-      UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => show.api_show_id, :update_type => "all_episodes") if show
+      UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => show.api_show_id, :update_type => "all_episodes")
     end
     print "#{counter}!"
     
