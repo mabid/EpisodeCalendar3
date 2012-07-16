@@ -35,6 +35,10 @@ gem "rest-client"
 gem "rmagick"
 gem "rabl"
 
+#Cache
+gem "dalli"
+gem "cache_fu", :git => "https://github.com/kreetitech/cache_fu.git"
+
 #Racks
 gem "activeadmin"
 
