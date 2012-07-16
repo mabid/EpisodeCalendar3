@@ -275,6 +275,9 @@ a.alternative {
 
 #trends {
   overflow: hidden;
+  h2 {
+    margin-bottom: 0;
+  }
 }
 
   #trends .list {
@@ -285,6 +288,7 @@ a.alternative {
     }
     img {
       width: 126px;
+      height: 43px;
     }
   }
 
