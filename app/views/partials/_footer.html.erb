@@ -1,32 +1,40 @@
-<% unless @system_message.try(:value).blank? %>
-<div id="<%= @system_message.additional_data %>"><%= @system_message.value %></div>
+<% cache(@system_message) do %>
+  <% unless @system_message.try(:value).blank? %>
+    <div id="<%= @system_message.additional_data %>"><%= @system_message.value %></div>
+  <% end %>
+<% end %>
+
+<% cache("footer") do %>
+  <div class="box width_33">
+    <div class="inner">
+    	<h3>Most popular shows</h3>
+    	<ul id="tag_cloud">		  
+    		<%= raw(build_tag_cloud(@tags, %w(tag1 tag2 tag3 tag4 tag5 tag6 tag7 tag8 tag9 tag10))) %>
+    	</ul>
+    </div>
+  </div>
+
+  <div class="box width_34">
+    <div class="inner">
+    	<h3>Recently favorited shows</h3>
+    	<ul id="recently_favorited">
+      <% @recently_favorited.each do |following| %>
+    		<li>
+    		  <%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink) %> <span><%= "(#{pluralize(following.show.followers, "follower")})" %></span>
+    	  </li>
+    		<% end %>
+    	</ul>
+    </div>
+  </div>
 <% end %>
 
 <div class="box width_33">
   <div class="inner">
-  	<h3>Most popular shows</h3>
-  	<ul id="tag_cloud">		  
-  		<%= raw(build_tag_cloud(@tags, %w(tag1 tag2 tag3 tag4 tag5 tag6 tag7 tag8 tag9 tag10))) %>
-  	</ul>
-  </div>
-</div> 
-<div class="box width_34">
-  <div class="inner">
-  	<h3>Recently favorited shows</h3>
-  	<ul id="recently_favorited">
-    <% @recently_favorited.each do |following| %>
-  		<li>
-  		  <%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink) %> <span><%= "(#{pluralize(following.show.followers, "follower")})" %></span>
-  	  </li>
-  		<% end %>
-  	</ul>
-  </div>
-</div>
-<div class="box width_33">
-  <div class="inner">
   	<h3>Share, follow or contribute</h3>
   	
-    <%= render "partials/scripts/share" %>
+    <% cache("share") do %>
+      <%= render "partials/scripts/share" %>
+    <% end %>
   	
   	<p id="follow">
   	  <strong>See all new site updates and future ideas via Twitter!</strong>
