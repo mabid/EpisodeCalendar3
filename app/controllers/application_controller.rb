@@ -12,16 +12,11 @@ class ApplicationController < ActionController::Base
   end  
 
   def get_tags
-    #Rails.cache.fetch("footer") do
-      @tags = Show.order("followers DESC").limit(25)
-    #end
+    @tags = Show.order("followers DESC").limit(25)
   end
   
   def footer
-
-    #Rails.cache.fetch("footer") do
-      @recently_favorited = Following.select("DISTINCT(followings.show_id), followings.*").order("created_at DESC").limit(10).joins(:show)
-    #end
+    @recently_favorited = Following.select("DISTINCT(followings.show_id), followings.*").order("created_at DESC").limit(10).joins(:show)
     @system_message = Constant.where(:key => "system_message").first
   end
   

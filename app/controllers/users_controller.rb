@@ -126,7 +126,6 @@ class UsersController < ApplicationController
   def render_progress
     @episodes_count = 0
     @seen = 0
-    @unseen = 0
     @time_wasted = 0
     @user = User.find(params[:user_id])
     
@@ -144,8 +143,7 @@ class UsersController < ApplicationController
     
     return if @episodes_count == 0
     
-    @seen = ((@marked_count.to_f / @episodes_count.to_f) * 100).round(1)
-    @unseen = (((@episodes_count.to_f - @marked_count.to_f) / @episodes_count) * 100).round(1)
+    @seen = ((@marked_count.to_f / @episodes_count.to_f) * 100).floor
     
     respond_to do |format|
       format.js
