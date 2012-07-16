@@ -5,4 +5,4 @@ class FollowingSweeper < ActionController::Caching::Sweeper
     expire_fragment("footer") if following.show.followers >= 10
   end
   
-end 
+end
