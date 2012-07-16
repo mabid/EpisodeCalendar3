@@ -122,8 +122,7 @@ function initTableSorter() {
       type: "numeric"
   });
   
-	$(".my_shows").tablesorter(
-	{
+	$(".my_shows").tablesorter({
 	  cssAsc: "asc",
 	  cssDesc: "desc",
     headers: {
@@ -137,6 +136,7 @@ function initTableSorter() {
 	  textExtraction: myTextExtraction,
 	  sortMultiSortKey: 'altKey'
   });
+
   $(".my_shows").bind("sortEnd",function() {
     if ($("th.sort span").attr("style"))
     {
@@ -150,9 +150,9 @@ function initTableSorter() {
   }); 
 }
 
-var myTextExtraction = function(node) {
-  return $(node).text();
-}
+  var myTextExtraction = function(node) {
+    return $(node).text();
+  }
 
 function initTogglers() {
   $("a.toggler").click( function(){
@@ -164,39 +164,36 @@ function initTogglers() {
 
 function initCheckboxTogglers() {
   $(".toggler:checkbox").each( function() {
-      setCheckbox($(this));
-    });
+    setCheckbox($(this));
+  });
   
   $(".toggler:checkbox").change( function(){
     setCheckbox($(this));    
   });
 }
 
-function setCheckbox(chk) {
-  var checked = chk.is(':checked');
-  
-  var checkbox = $("#" + chk.attr("rel") + "");
-  var label = checkbox.nextAll("label");
-  var ui_checkbox = checkbox.nextAll("span.ui-checkbox");
-  
-  if (checked)
-  {
-    label.removeClass("disabled");
-    checkbox.removeAttr("disabled");
+  function setCheckbox(chk) {
+    var checked = chk.is(':checked');
+    
+    var checkbox = $("#" + chk.attr("rel") + "");
+    var label = checkbox.nextAll("label");
+    var ui_checkbox = checkbox.nextAll("span.ui-checkbox");
+    
+    if (checked) {
+      label.removeClass("disabled");
+      checkbox.removeAttr("disabled");
+    }
+    else {
+      label.addClass("disabled");
+      checkbox.attr({checked: false, disabled: true});
+    }
+    
+    if (ui_checkbox)
+      checkbox.checkBox('reflectUI');
   }
-  else
-  {
-    label.addClass("disabled");
-    checkbox.attr({checked: false, disabled: true});
-  }
-  
-  if (ui_checkbox)
-    checkbox.checkBox('reflectUI');
-}
 
 function renderProgress() {
-  if ($("#progress").length > 0)
-  {
+  if ($("#progress").length) {
     $.ajax({
       type: "GET",
       url: "/render_progress/" + $("#progress").data("user-id"),
@@ -219,16 +216,16 @@ function initFacebookLike() {
     setTimeout("insertFacebookButton()", 1000);
 }
 
-function insertFacebookButton() {
-  var id = $("#facebook_button").text();
-  $.ajax({
-    type: "GET",
-    url: "/facebook_button/" + id,
-    dataType: "script",
-    data: {},
-    success: function(){}
-  });
-}
+  function insertFacebookButton() {
+    var id = $("#facebook_button").text();
+    $.ajax({
+      type: "GET",
+      url: "/facebook_button/" + id,
+      dataType: "script",
+      data: {},
+      success: function(){}
+    });
+  }
 
 function initFacebookSend() {
   if ($("#fb-root").length) {
@@ -316,48 +313,6 @@ function initUnwatchedAnchors() {
   });
 }
 
-function initProductAds() {
-  if (!$("#amazon_products"))
-    return;
-
-  var ajaxReqs = [];
-  //window.amazon_requests_completed = 0;
-  var $container = $("#amazon_products");
-  $container.find("li").each(function() {
-    var product_name = $(this).data("name");
-    var product_type = $container.data("product-type");
-    ajaxReqs.push(
-      $.ajax({
-        url: "http://api.episodecalendar.com/amazon_products/" + product_type + "/" + product_name + "?callback=?",
-        dataType: "json",
-        success: function(data) { drawProduct(data, product_name); }
-      })
-    );
-  });
-
-  $.when.apply($, ajaxReqs).then(function() {
-    // all requests are complete
-    $("#products_loader").hide();
-    $container.hide().addClass("completed").slideDown();
-  });
-}
-
-function drawProduct(product, product_name) {
-  $container = $("#amazon_products ul");
-  $li = $container.find('li[data-name="' + product_name + '"]');
-
-  if (product === null) {
-    $li.remove();
-    return;
-  }
-
-  if (product.MediumImage)
-    $(document.createElement("img")).attr("src", product.MediumImage.URL).appendTo($li.find(".image"));
-
-  $li.find(".link").attr("href", product.DetailPageURL).text("Buy via Amazon").addClass("awesome magenta small");
-  $li.find(".title").text(product.ItemAttributes.Title);
-}
-
 function initEpisodeHider() {
   $(".episode .hide a, .episode .unhide a").click(function(){
 
@@ -391,6 +346,9 @@ function initEpisodeHider() {
 }
 
 function initContactForm() {
+  if (!$("#new_ticket").length)
+    return;
+
   $form = $("#new_ticket");
   $checkbox = $("#contact :checkbox");
   $checkbox.checkBox("changeCheckStatus", false);
@@ -421,4 +379,8 @@ function initSlider() {
       $('.caption').animate({ bottom: 0 }, 200);
     }
   });
+}
+
+function initLazyLoading() {
+  $("img.lazy").lazyload({ effect: "fadeIn" });
 }

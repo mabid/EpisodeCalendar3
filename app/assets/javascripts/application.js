@@ -3,7 +3,7 @@
 //= require functions
 //= require todoist
 
-$(document).ready(function(){
+$(function(){
 
   //Start page slider
   initSlider();
@@ -12,6 +12,9 @@ $(document).ready(function(){
   $("a[rel=external]").live("click", function(e) {
     $(this).attr({ target: "_blank" });
   });
+
+  //Lazy load images
+  initLazyLoading();
 
   //Hide flashes
   hideFlashes();
@@ -27,9 +30,6 @@ $(document).ready(function(){
   
   //Ajax checkboxes
   initAjaxCheckbox();
-	
-	//Hint the search input
-	$("#q").hint();
 	
 	//Init tooltip
 	initTooltip();
@@ -55,7 +55,7 @@ $(document).ready(function(){
   //Toggle episode overview
   initEpisodeOverviewToggle();
 
-  //Toggle episode overview
+  //Episode hider
   initEpisodeHider();
   
   //Content carousel
@@ -63,9 +63,6 @@ $(document).ready(function(){
   
   //Unwatched show links
   initUnwatchedAnchors();
-  
-  //Init buyable products
-  //initProductAds();
 
   //Init Todoist.com tasks
   initTodoList();
@@ -75,5 +72,5 @@ $(document).ready(function(){
 
   //Init profile share
   initFacebookSend();
-
+  
 });
