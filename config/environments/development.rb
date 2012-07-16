@@ -13,6 +13,10 @@ Episodecalendar2::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  #Cache testing
+  #config.action_controller.perform_caching = true
+  #config.cache_store = :dalli_store, { :namespace => "episodecalendar", :expires_in => 7.day, :compress => true, :keepalive => true }
+
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
@@ -31,5 +35,5 @@ Episodecalendar2::Application.configure do
   # Don't actually send emails. View them in the browser instead using this gem
   #config.action_mailer.delivery_method = :letter_opener
 
-  config.action_mailer.default_url_options = { :host => 'localhost' }
+  config.action_mailer.default_url_options = { :host => "localhost" }
 end
