@@ -67,7 +67,7 @@
         float: left;
         @include linear-gradient($progress_green_dark, $progress_green_light);
         text-align: right;
-        min-width: 36px;
+        min-width: 30px;
       }
       
         #progress_bar .bar p {
