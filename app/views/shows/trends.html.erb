@@ -4,11 +4,16 @@
   <div class="row margin_bottom_big">
     <div class="width_33 divider">
       <div class="pad">
-        <h2 class="center margin_bottom"><strong>Top shows overall</strong></h2>
+        <h2 class="center"><strong>Top shows</strong></h2>
+        <p class="center margin_bottom"><em>Most followers overall</em></p>
         <ul class="list numbered">
           <% @top_shows.each_with_index do |show, i| %>
           <li>
-            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
+            <% if show.banner %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
+            <% else %>
+              <%= image_tag("pixel.gif") %>
+            <% end %>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
           </li>
@@ -18,11 +23,16 @@
     </div>
     <div class="width_34 divider">
       <div class="pad">
-        <h2 class="center margin_bottom"><strong>New followers</strong></h2>
+        <h2 class="center"><strong>New followers</strong></h2>
+        <p class="center margin_bottom"><em>Based on monthly growth this month</em></p>
         <ul class="list numbered">
           <% @top_new_followers.each_with_index do |show, i| %>
           <li>
-            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
+            <% if show.banner %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
+            <% else %>
+              <%= image_tag("pixel.gif") %>
+            <% end %>
             <h2 class="green">+<%= show.new_followers %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
@@ -33,11 +43,16 @@
     </div>
     <div class="width_33">
       <div class="pad">
-        <h2 class="center margin_bottom"><strong>Fastest growing shows</strong></h2>
+        <h2 class="center"><strong>Fastest growing shows</strong></h2>
+        <p class="center margin_bottom"><em>Based on monthly growth this month</em></p>
         <ul class="list numbered">
           <% @highest_grow.each_with_index do |show, i| %>
           <li>
-            <%= link_to(image_tag(show.banner(:small)), show) if show.banner %>
+            <% if show.banner %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
+            <% else %>
+              <%= image_tag("pixel.gif") %>
+            <% end %>
             <h2 class="green"><%= raw print_trend(show) %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
             <strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %>
@@ -50,7 +65,7 @@
 
   <div class="pad">
     <h2 class="center"><strong>Popular shows by week day</strong></h2>
-    <table id="calendar" cellspacing="2" cellpadding="0">
+    <table id="calendar" cellspacing="2" cellpadding="0" class="margin_top">
     <tr>
       <% 0.upto(6) do |i| %>
         <th class="calendar_weekday_name"><div><%= current_user ? (current_user.sun_to_sat ? week_day(i) : week_day(i + 1)) : week_day(i) %></div></th>

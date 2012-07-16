@@ -20,7 +20,7 @@
         <td>
           <div class="banner">
             <% if show.banner %>
-              <%= link_to(image_tag(show.banner(:small)), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
             <% else %>
               <p>Missing banner</p>
             <% end %>
