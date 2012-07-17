@@ -1,6 +1,6 @@
 <% title "Trends" %>
 <div id="trends">
-
+  
   <div class="row margin_bottom_big">
     <div class="width_33 divider">
       <div class="pad">
@@ -65,6 +65,8 @@
 
   <div class="pad">
     <h2 class="center"><strong>Popular shows by week day</strong></h2>
+    <p class="center"><em>Daily shows not included</em></p>
+
     <table id="calendar" cellspacing="2" cellpadding="0" class="margin_top">
     <tr>
       <% 0.upto(6) do |i| %>
@@ -76,9 +78,16 @@
           <%
           corrected_day = i
           if current_user
-            corrected_day = (i + 1) if current_user.sun_to_sat
+            corrected_day = current_user.sun_to_sat ? i : i + 1
             corrected_day -= current_user.day_offset
-            corrected_day = 0 if corrected_day > 6
+
+            if current_user.day_offset > 0
+              corrected_day = 6 if i == 0
+              corrected_day = 0 if i == 0 && !current_user.sun_to_sat
+            else
+              corrected_day = 0 if i == 6 && !current_user.sun_to_sat
+            end
+
           end
           %>
           <td class="calendar_day">
@@ -96,6 +105,7 @@
         <% end %>
       </tr>
     </table>
+
   </div>
 
 </div>
