@@ -10,13 +10,20 @@
   background: image-url("sprites/checkboxes.png") 0 -32px no-repeat;
   cursor: pointer;
   outline: none;
-  vertical-align: top;
+  position: relative;
+  top: 3px;
 }
 
 label.ui-checkbox {
   width: auto;
   height: auto;
   background: none;
+}
+
+.ui-checkbox + label.ui-checkbox {
+  position: relative;
+  top: 0;
+  padding: 3px;
 }
 
 .ui-helper-hidden { display: none; }
