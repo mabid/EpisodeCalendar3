@@ -11,8 +11,10 @@ api_show_ids = [80379, 75760, 79349, 121361, 153021, 73255, 82066, 95011, 82283,
 api_show_ids.each do |api_show_id|
 	UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => api_show_id, :update_type => "show")
 	UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => api_show_id, :update_type => "all_episodes")
+	UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => api_show_id, :update_type => "banner")
 end
 
 puts "Queued shows for import. Run these commands to complete the import:"
 puts "1. rake db:update_shows"
 puts "2. rake db:get_show_episodes"
+puts "3. rake db:get_banners"
