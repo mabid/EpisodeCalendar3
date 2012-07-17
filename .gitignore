@@ -9,5 +9,6 @@ config/deploy.rb
 config/deploy/*
 .project
 app/assets/images/psd/*
+public/assets/uploads/*
 .DS_Store
 .rvmrc
