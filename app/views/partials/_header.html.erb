@@ -43,7 +43,7 @@
 			<li>
 				<div id="search">
 					<%= form_tag(search_path, :method => :get) do %>
-						<%= text_field_tag :q, nil, :title => "Enter show name" %>
+						<%= text_field_tag :q, nil, :placeholder => "Enter show name" %>
 						<%= submit_tag "", :class => "submit icon", :name => nil %>
 					<% end %>
 				</div>
