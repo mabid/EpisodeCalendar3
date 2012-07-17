@@ -382,5 +382,5 @@ function initSlider() {
 }
 
 function initLazyLoading() {
-  $("img.lazy").lazyload({ effect: "fadeIn" });
+  $("img.lazy").lazyload({ threshold: 100, failure_limit: 40 });
 }

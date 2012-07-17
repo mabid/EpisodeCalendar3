@@ -10,7 +10,7 @@
     <div class="show_banner">
         <div class="banner_shadow"></div>
         <div class="banner_shadow"></div>
-        <%= image_tag(@show.banner, :alt => @show.name, :width => 758, :height => 140) %>
+        <%= image_tag(DOMAIN + @show.banner, :alt => @show.name, :width => 758, :height => 140) %>
     </div>
     <% else %>
     <div class="show_banner">
