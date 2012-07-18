@@ -8,6 +8,8 @@
   <dt><%= icon_tag("clock") %></dt> <dd>This public calendar is shown in US time zones.<br />It can be personalized by creating an account.</dd>
 </dl>
 
+<%= content_tag(:div, flash[:error], :id => :error, :class => :static) if params[:month].to_i > 12 %>
+
 <table id="calendar" cellspacing="2" cellpadding="0">
 	<tr>
 	<%	0.upto(6) do |i| %>

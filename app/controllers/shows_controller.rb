@@ -14,6 +14,10 @@ class ShowsController < ApplicationController
     #flash.discard(:notice) if flash[:notice]
     year = params[:year]
     month = params[:month]
+    if month.to_i > 12
+      month = 12
+      flash[:error] = "You tried to view an invalid month (#{params[:month]}). Viewing December instead."
+    end
 
     if year.blank?
       #current month
@@ -66,6 +70,10 @@ class ShowsController < ApplicationController
       #year pagination
       year = params[:year]
       month = params[:month]
+      if month.to_i > 12
+        month = 12
+        flash[:error] = "You tried to view an invalid month (#{params[:month]}). Viewing December instead."
+      end
       @current = DateTime.parse("#{year}-#{month}-01")
       #limit the navigation to -1 year
       if year.to_i <= 1.year.ago.beginning_of_year.year && month.to_i <= 1.year.ago.beginning_of_year.month
