@@ -1,0 +1,13 @@
+<div data-role="page">
+	<%= render :partial => "partials/header" %>
+	<ul data-role="listview" data-divider-theme="b" data-inset="true">
+		<li data-role="list-divider" role="heading">Divider</li>
+		<li data-theme="c">
+		  <a href="<%= calendar_path %>" data-transition="slide">Calendar</a>
+		</li>
+		<li data-theme="c">
+		  <a href="<%= faqs_path %>" data-transition="slide">FAQ</a>
+		</li>
+	</ul>
+	<%= render :partial => "partials/footer" %>
+</div>

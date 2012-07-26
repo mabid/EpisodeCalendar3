@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     end
 
     def subdomain_view_path
-      prepend_view_path "app/views/mobile" if request.server_name.include?("mobile") || request.user_agent =~ /Mobile|webOS/
+      prepend_view_path "app/views/mobile" if request.server_name.include?("mobile") || request.user_agent =~ /Mobile|webOS|iPad/
     end
     
 end

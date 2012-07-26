@@ -5,39 +5,23 @@
   <title><%= yield(:title) || "Keep track of your TV shows!" %> - TV Episode Calendar</title>
   <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" />
   <meta name="description" content="<%= yield(:meta) || "Complete TV Guide and listing for all of your favorite TV shows! Add and manage TV shows in your own personal calendar." %>" />
-  <meta property="og:title" content="TV Episode Calendar" />
-  <meta property="og:description" content="Keep track of your favorite TV shows!" />
-  <meta property="og:image" content="<%= HOST + image_path('logos/episode_200x206.jpg') %>" />
+  <meta content="width=device-width, minimum-scale=1, maximum-scale=1" name="viewport">
 
-  <%= stylesheet_link_tag :application %>
-  <%= stylesheet_link_tag :mobile %>
+  <%= stylesheet_link_tag "http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" %>
+  <%#= stylesheet_link_tag :mobile %>
   <%= csrf_meta_tag %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
-  <%= javascript_include_tag :application %>
+  <%= javascript_include_tag "http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js" %>
+  <%= javascript_include_tag :mobile %>
   <%= yield :head %>
   <link rel="icon" href="/favicon.png?1" type="image/x-icon" />
   <link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
 </head>
-<body class="<%= find_named_routes.join(" ") %> <%= yield :body_class %> mobile">
-  <div id="container">
-    <div id="header">
-      <div id="header_content">
-        <%= render :partial => "partials/header" %>
-      </div>
-    </div>
-    <div id="page_container">
-      <div id="page" class="clearfix">
-        <%= yield %>
-      </div>
-    </div>
-    <div id="footer">
-      <div id="footer_content">
-        <% cache("footer") do %>
-          <%= render :partial => "partials/footer" %>
-        <% end %>
-      </div>
-    </div>
+<body class="<%= find_named_routes.join(" ") %> <%= yield :body_class %>">
+
+  <div data-role="content" style="padding: 15px">
+    <%= yield %>
   </div>
-  <%= render :partial => "partials/scripts/google_analytics" %>
+
 </body>
 </html>
