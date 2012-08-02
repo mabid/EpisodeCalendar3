@@ -19,8 +19,12 @@
 </head>
 <body class="<%= find_named_routes.join(" ") %> <%= yield :body_class %>">
 
-  <div data-role="content" style="padding: 15px">
-    <%= yield %>
+  <div data-role="page">
+    <%= render :partial => "partials/header" %>
+    <div data-role="content" style="padding: 15px">
+      <%= yield %>
+    </div>
+    <%= render :partial => "partials/footer" %>
   </div>
 
 </body>

@@ -1,10 +1,31 @@
-<div data-role="page" id="page1">
-	<%= render :partial => "partials/header" %>
-	<ul data-role="listview" data-divider-theme="b" data-inset="true">
-		<li data-role="list-divider" role="heading">Divider</li>
-		<li data-theme="c">
-		  <a href="<%= start_path %>" data-transition="slide">Start</a>
+<%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
+
+<ul data-role="listview" data-divider-theme="b" data-inset="true">
+	<% @start_day.upto(@end_day) do |date| %>
+		<% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
+		<% current_day_date = corrected_date.to_s(:air_date) %>
+		<li data-role="list-divider" role="heading" data-theme="a" class="calendar_date <%= get_cell_css_class(corrected_date, @current, $TODAY)%>">
+			<%= print_date(corrected_date) %> (<%= week_day(corrected_date.wday) %>)
 		</li>
-	</ul>
-	<%= render :partial => "partials/footer" %>
+		<% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
+		<li data-theme="c">
+		  <a href="#" data-transition="slide">How I Met Your Mother (s05e13)</a>
+		</li>
+		<% if show_episodes.any? %>
+			<div class="calendar_cell_content">
+				<ul>
+				<% show_episodes.each do |e| %>
+				  <li>
+					<% seen = @seen_episodes.include?(e.id) %>
+					<%= raw print_calendar_episode(e) %>
+				  </li>
+				<% end %>
+				</ul>
+			</div>
+		<% end %>
+	<% end %>
+</ul>
+
+<div id="bottom_legend">
+  <%= icon_tag("information") %> <strong class="premiere">Season premiere</strong> <strong class="normal">Normal episode</strong>
 </div>

@@ -1,1 +1,26 @@
-mobile login!
+<h2><strong>Login now</strong></h2>    
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :"data-ajax" => :false) do |f| %>
+    <div data-role="">
+        <fieldset data-role="">
+            <%= f.email_field :email, :placeholder => "Email" %>
+        </fieldset>
+    </div>
+    <div data-role="">
+        <fieldset data-role="">
+            <%= f.password_field :password, :placeholder => "Password" %>
+        </fieldset>
+    </div>
+    <% if devise_mapping.rememberable? %>
+    <div data-role="">
+        <fieldset data-role="" data-type="vertical">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+        </fieldset>
+    </div>
+    <% end %>
+    <%= f.submit "Enter" %>
+<% end %>
+
+<% flash.each do |key, msg| %>
+  <%= content_tag(:div, msg, :id => key) %>
+<% end %>
