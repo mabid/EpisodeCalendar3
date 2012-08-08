@@ -27,7 +27,7 @@ namespace :db do
         row = (doc/"episode")
         
         #Check fauly data
-        firstaired = Date.parse((row/"firstaired").innerHTML) rescue nil
+        firstaired = Time.zone.parse((row/"firstaired").innerHTML) rescue nil
         if (row/"episodename").innerHTML.blank? || firstaired.blank?
           UpdateQueue.delete(queued_episode.id)
           next
