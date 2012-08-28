@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   #protect_from_forgery # :secret => '05ceef8ef3014ff37b2dc1310bb80784'
   
-  before_filter :get_tags, :footer, :set_user_time_zone, :subdomain_view_path
+  before_filter :get_tags, :footer, :set_user_time_zone#, :subdomain_view_path
   helper_method :admin?, :logged_in?
 
   def logged_in?
