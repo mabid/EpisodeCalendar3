@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
   
   def footer
-    @recently_favorited = Following.select("DISTINCT(followings.show_id), followings.*").order("created_at DESC").limit(10).joins(:show)
+    @recently_favorited = Following.order("created_at DESC").limit(10)
     @system_message = Constant.where(:key => "system_message").first
   end
   

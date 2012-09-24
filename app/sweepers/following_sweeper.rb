@@ -2,7 +2,10 @@ class FollowingSweeper < ActionController::Caching::Sweeper
   observe Following
   
   def after_create(following)
-    expire_fragment("footer") if following.show.followers >= 10
+    if following.show.followers >= 10
+      expire_fragment("footer_recently_favorited") 
+      expire_fragment("footer_tag_cloud")
+    end
   end
   
 end
