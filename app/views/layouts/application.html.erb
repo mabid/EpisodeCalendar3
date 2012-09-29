@@ -12,11 +12,12 @@
   <%= stylesheet_link_tag :application %>
   <%= stylesheet_link_tag "print", :media => :print %>
   <%= csrf_meta_tag %>
+  <%= render :partial => "partials/scripts/google_analytics" %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <%= javascript_include_tag :application %>
   <%= yield :head %>
-    <link rel="icon" href="/favicon.png?1" type="image/x-icon" />
-    <link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
+  <link rel="icon" href="/favicon.png?1" type="image/x-icon" />
+  <link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
 </head>
 <body class="<%= find_named_routes.join(" ") %> <%= yield :body_class %>">
     <div id="container">
@@ -36,6 +37,5 @@
           </div>
         </div>
     </div>
-    <%= render :partial => "partials/scripts/google_analytics" %>
 </body>
 </html>
