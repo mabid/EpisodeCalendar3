@@ -48,6 +48,8 @@ namespace :db do
               language = (row/"language").innerHTML
               
               next unless banner_type.downcase == "series" && banner_type2.downcase == "graphical" && (language.downcase == "en" || language.blank?)
+
+              puts "Found matching banner!"
       
               #Update episode record
               file_name = banner_path.split("/").last
@@ -87,8 +89,4 @@ namespace :db do
     end
     
   end
-end
-
-def day_of_week_to_i(day_string)
-  return day_string.downcase.include?("daily") ? -1 : Date::DAYNAMES.index(day_string.capitalize)
 end

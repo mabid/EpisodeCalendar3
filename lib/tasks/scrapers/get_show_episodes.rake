@@ -83,7 +83,3 @@ namespace :db do
 
   end
 end
-
-def day_of_week_to_i(day_string)
-  return day_string.downcase.include?("daily") ? -1 : Date::DAYNAMES.index(day_string.capitalize)
-end
