@@ -43,6 +43,7 @@
           <%= link_to("Add to My shows", add_show_path(@show.permalink), :class => "ajaxLink awesome magenta large", :rel => "ajaxLoaderTop") %>
           <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoaderTop") %>
           <span class="awesome large disabled hidden">Added!</span>
+          <%= image_tag("icons/ajax-loader.gif", :class => "hidden", :id => "season_loader") %>
         <% else %>
             <span class="awesome large disabled">In your list</span>
         <% end %>
@@ -53,7 +54,7 @@
   <h3 id="season_pagination_header"><strong>Seasons:</strong></h3>
   <ul id="season_pagination">
   <% @seasons.each do |season| %>
-    <li class="tab <%= @season.number == season.number ? "selected" : ""%>">
+    <li class="tab<%= @season.number == season.number ? " selected" : ""%>" data-number="<%= season.number %>">
       <%= link_to(season.display_name, show_season_path(:permalink => @show.permalink, :season => season.number)) %>
     </li>
   <% end %>
@@ -62,68 +63,9 @@
 </div>
 
 <% if @seasons.any? %>
-  
-  <div class="options">
-    <% if @is_following %>
-      <div class="dropdown">
-        <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoader") %>
-        <span class="awesome magenta">Mark or hide multiple episodes<span class="arrow"></span></span>
-        <ul>
-          <li><%= link_to("Mark the entire show as watched", mark_show_path(@show.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
-          <li><%= link_to("Mark all episodes in this season as watched", mark_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
-          <li><%= link_to("Unmark all episodes in this season as watched", unmark_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
-          <li><%= link_to("Hide all episodes in this season", hide_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
-          <li><%= link_to("Unhide all episodes in this season", unhide_season_path(@show.id, @season.id), :class => "ajaxLink", :rel => "ajaxLoader") %></li>
-        </ul>
-      </div>
-    <% else %>
-      You need to <%= logged_in? ? "add this show to your list" : "be logged in" %> to mark episodes as watched.
-    <% end %>
-  </div>
-  <h2>Season <%= @season.display_name %></h2>
-  <div class="season_list">
-    <% @season.episodes.sort_by{ |e| [e.number] }.each do |e| %>
-    <% css_class = cycle("odd", "even", :name => "classes") %>
-    <% corrected_air_date = (current_user ? e.air_date + current_user.day_offset.days : e.air_date) %>
-    <% css_class += " highlighted" if @next_air_date == e.air_date %>
-    <div class="episode <%= css_class %><%= " hidden_episode" if @hidden_episode_ids.include?(e.id) %>">
-      <div class="name">
-        <strong><%= format_episode_number(e) %></strong>: <%= e.name %>
-        <%#= link_to("Edit", edit_admin_episode_path(e), :class => :edit_link) if admin? %>
-        <div class="rating"><span class="r<%= get_rating(e.rating) %>"></span></div>
-      </div>
-      <div class="separator"></div>
-      <div class="overview">
-        <% if e.friendly_overview.size > 180 %>
-          <div class="short"><%= raw truncate(e.friendly_overview, :length => 180, :separator => " ") %> <%= link_to(raw("read more &raquo;"), "#", :class => :toggle, :rel => "full") %></div>
-          <div class="full hidden"><%= raw e.friendly_overview %> <%= link_to(raw("&laquo; read less"), "#", :class => :toggle, :rel => "short") %></div>
-        <% else %>
-          <div class="short"><%= raw e.friendly_overview %></div>
-        <% end %>
-      </div>
-      <div class="separator"></div>
-      <div class="date">
-        <span>Air date</span>
-        <%= format_date(corrected_air_date) %>
-      </div>
-      <div class="separator"></div>
-      <div class="seen">
-        <% if corrected_air_date < $TODAY.end_of_day %>
-          <span>Watched this episode?</span>
-          <% if logged_in? && @is_following %>
-            <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if @seen_episode_ids.include?(e.id)}", :rel => "ajax_loader_#{e.id}") %>
-            <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{e.id}", :class => "ajaxLoader") %>
-            <small class="hide"><%= link_to "Mark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
-            <small class="unhide hidden"><%= link_to "Unmark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
-            <%= image_tag("icons/ajax-loader-small.gif", :id => "ajax_loader_small_#{e.id}", :class => "ajaxLoaderSmall") %>
-          <% else %>
-            <span class="ui-checkbox ui-checkbox-state-checked ui-checkbox-state-checked-disabled"></span>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-    <% end %>
-    <% reset_cycle("classes") %>
+
+  <div id="current-season">
+    <%= render :partial => "season" %>
   </div>
   
 <% else %>

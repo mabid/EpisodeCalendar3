@@ -157,7 +157,16 @@ class ShowsController < ApplicationController
       end
     else
       redirect_to search_path(:q => params[:permalink].gsub("-", " "))
-    end    
+    end
+  end
+
+  def get_season
+    @show = Show.find_by_permalink(params[:permalink])
+    @season = Season.where("api_show_id = ? AND number = ?", @show.api_show_id, params[:season]).first
+
+    @seen_episode_ids = SeenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id)
+    @hidden_episode_ids = HiddenEpisode.find_all_by_season_id_and_user_id(@season.id, current_user.id).collect(&:episode_id)
+    @is_following = current_user.is_following(@show)
   end
   
   def trends

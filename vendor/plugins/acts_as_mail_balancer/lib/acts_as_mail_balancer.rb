@@ -13,7 +13,7 @@ class MailBalancerObserver
     
     if used_balancer = MailBalancer.where("date = ? and username = ?", Date.today, used_user_name).order("usage_count asc").first
       # increment usage counter
-      used_balancer.update_attribute(:usage_count, used_balancer.usage_count+1)
+      used_balancer.update_attributes(:usage_count => used_balancer.usage_count + 1)
     else
       # the first call for today
       @mails.each do |mail|

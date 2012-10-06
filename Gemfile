@@ -43,7 +43,7 @@ gem "cache_fu", :git => "https://github.com/kreetitech/cache_fu.git"
 gem "activeadmin"
 
 #Devise
-gem "devise"
+gem "devise", "1.5.2"
 gem "warden"
 
 #Put Sass outside of the :assets group (ActiveAdmin fix)

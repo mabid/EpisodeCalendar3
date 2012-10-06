@@ -11,27 +11,26 @@
 <table width="100%" border="0" cellpadding="1" cellspacing="1" bgcolor="#666666">
   <tr>
     <td bgcolor="#eeeeee" style="text-align: center; font-family: arial, sans-serif; font-size: 12px; color: #222222;">
-			<% @episodes.group_by{ |item| item.date }.each do |date, episodes| %>
+			<% @episodes.group_by{ |item| item[:date] }.each do |date, episodes| %>
 				<table width="100%" border="0" cellpadding="5" cellspacing="0">
 			    <tr>
 			      <td bgcolor="#cccccc" style="text-align: center;">
-			      	<strong style="font-size: 16px; color: #da0c87;"><%= Date.parse(date).strftime("%A") %></strong>
+			      	<strong style="font-size: 16px; color: #da0c87;">
+			      		<%= Date.parse(date).strftime("%A") %>
+			      		<%= " (Today)" if Date.parse(date).today? %>
+			      	</strong>
 			      </td>
 			    </tr>
 			  </table><br />
 				<% episodes.each_with_index do |episode, index| %>
 					<% if index > 0 %>
-						<table width="100%" border="0" cellpadding="0" cellspacing="0">
-						  <tr>
-						    <td bgcolor="#cccccc" height="1" style="font-size: 1px;"></td>
-						  </tr>
-						</table><br />
+						<div style="border-bottom: 1px solid #cccccc; font-size: 1px; height: 1px;"></div><br />
 					<% end %>
-					<strong style="font-size: 14px;"><%= episode.show_name %></strong><br /><br />
-					<% unless episode.banner.blank? %>
-						<img src="<%= episode.banner %>" alt="" /><br /><br />
+					<strong style="font-size: 14px;"><%= episode[:show_name] %></strong><br /><br />
+					<% unless episode[:banner].blank? %>
+						<img src="<%= episode[:banner] %>" alt="" /><br /><br />
 					<% end %>
-			  	<span style="color: #666666;"><%= episode.format %>:</span> <%= episode.name %><br /><br />
+			  	<span style="color: #666666;"><%= episode[:format] %>:</span> <%= episode[:name] %><br /><br />
 				<% end %>
 			<% end %>
 		</td>

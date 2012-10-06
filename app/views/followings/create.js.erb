@@ -1,3 +1,19 @@
 $("#ajaxLoaderTop").hide();
 $("#secondary_show_info").find(".ajaxLink").hide();
 $("#secondary_show_info").find("span.hidden").removeClass("hidden");
+
+var season = $("#season_pagination .selected").data("number");
+$("#season_loader").removeClass("hidden").show();
+$("#current-season").css({ opacity: 0.5 });
+
+$.ajax({
+  type: "POST",
+  url: "/get_season/" + season + "/<%= @show.permalink %>",
+  dataType: "script",
+  data: {},
+  success: function(){
+  	initEpisodeHider();
+  	$("#season_loader").hide();
+  	$("#current-season").css({ opacity: 1 });
+  }
+});

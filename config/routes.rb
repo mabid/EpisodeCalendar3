@@ -74,6 +74,7 @@ Episodecalendar2::Application.routes.draw do
   match "/facebook_button/:id" => "shows#facebook_button"
   match "/unwatched" => "seen_episodes#index", :as => "unwatched"
   match "/get_unwatched_episodes/:show_id" => "seen_episodes#unwatched_episodes", :format => "js", :as => "get_unwatched_episodes"
+  match "/get_season/:season/:permalink" => "shows#get_season", :format => "js", :as => "get_season"
   match "/show/:show_id/watch_later/:mark" => "followings#set_watch_later", :as => "set_watch_later"
   
   #Support

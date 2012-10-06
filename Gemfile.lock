@@ -250,7 +250,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   dalli
   delayed_job_active_record
-  devise
+  devise (= 1.5.2)
   gravtastic
   has_permalink
   hpricot

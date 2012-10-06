@@ -4,8 +4,13 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   #protect_from_forgery # :secret => '05ceef8ef3014ff37b2dc1310bb80784'
   
-  before_filter :get_tags, :footer, :set_user_time_zone#, :subdomain_view_path
+  before_filter :get_tags, :footer, :set_user_time_zone, :subdomain_view_path
   helper_method :admin?, :logged_in?
+
+  # alias_method :devise_current_user, :current_user
+  # def current_user
+  #     User.find(12887)
+  # end
 
   def logged_in?
     user_signed_in?
@@ -45,7 +50,8 @@ class ApplicationController < ActionController::Base
     end
 
     def subdomain_view_path
-      prepend_view_path "app/views/mobile" if request.server_name.include?("mobile") || request.user_agent =~ /Mobile|webOS|iPad/
+      #prepend_view_path "app/views/mobile"
+      #prepend_view_path "app/views/mobile" if request.server_name.include?("mobile") || request.user_agent =~ /Mobile|webOS|iPad/
     end
     
 end
