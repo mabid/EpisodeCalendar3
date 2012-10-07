@@ -78,24 +78,32 @@
       </div> <!-- .item -->
       
       <div class="item">
-        <h2>Would you like to recieve emails?</h2> 
-        <%= form_for @current_user do |f| %>
-          <%= hidden_field_tag :tab, 3 %>
-          <p>
-            Get your daily fix straight to your inbox!<br />
-            <%= f.check_box :daily_notification, :class => :checkbox %> <%= f.label :daily_notification %>
-          </p>
-          <p>
-            This option will send you the upcoming week's episodes every Sunday.<br />
-            <%= f.check_box :weekly_notification, :class => "checkbox toggler", :rel => :user_only_premiere_notification %> <%= f.label :weekly_notification %>
-          </p>
-          <p>
-            Sends the weekly email only when there are premiering episodes.<br />
-            <%= f.check_box :only_premiere_notification, :class => :checkbox %> <%= f.label :only_premiere_notification, "Only premieres" %>
-          </p>
+        <div class="row">
+          <div class="width_50 margin_bottom">
+            <h2>Would you like to receive emails?</h2>
+            <%= form_for @current_user do |f| %>
+              <%= hidden_field_tag :tab, 3 %>
+              <p>
+                Get your daily fix straight to your inbox!<br />
+                <%= f.check_box :daily_notification, :class => :checkbox %> <%= f.label :daily_notification %>
+              </p>
+              <p>
+                This option will send you the upcoming week's episodes every Sunday.<br />
+                <%= f.check_box :weekly_notification, :class => "checkbox toggler", :rel => :user_only_premiere_notification %> <%= f.label :weekly_notification %>
+              </p>
+              <p>
+                Sends the weekly email only when there are premiering episodes.<br />
+                <%= f.check_box :only_premiere_notification, :class => :checkbox %> <%= f.label :only_premiere_notification, "Only premieres" %>
+              </p>
 
-          <%= f.submit("Update", :class => "awesome magenta") %>
-        <% end %>
+              <%= f.submit("Update", :class => "awesome magenta") %> <strong class="red">Important! &raquo;</strong>
+            <% end %>
+          </div>
+          <div class="width_50 margin_bottom">
+            <%= image_tag("settings/checkboxes.png") %>
+            <p class="width_66 margin_top" style="margin-left: 50px;"><em class="small">Don't forget to also check the checkboxes on the <%= link_to "My shows", followings_path %> page to decide which shows you want to include in the email notifications.</em></p>
+          </div>
+        </div>
       </div> <!-- .item -->
       
       <div class="item">
