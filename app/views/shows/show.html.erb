@@ -10,7 +10,7 @@
     <div class="show_banner">
         <div class="banner_shadow"></div>
         <div class="banner_shadow"></div>
-        <%= image_tag(@show.banner, :alt => @show.name, :width => 758, :height => 140) %>
+        <%= image_tag(environmentize(@show.banner), :alt => @show.name, :width => 758, :height => 140) %>
     </div>
     <% else %>
     <div class="show_banner">
@@ -27,14 +27,11 @@
           <li><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
           <% if @seasons.any? %>
           <li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
+          <% else %>
+          <li><strong>Episodes:</strong> 0</li>
+          <% end %>
           <li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
           <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= raw print_popularity(@show) %></li>
-          <% else %>
-          <li><strong>Seasons:</strong> 0</li>
-          <li><strong>Episodes:</strong> 0</li>
-          <li><strong>Followers:</strong> <%= @show.followers %> <%= print_trend(@show) %></li>
-          <li><strong>Popularity rank:</strong> <%= raw print_popularity(@show) %></li>
-          <% end %>
           <li id="time_and_network"><%= raw print_air_time(@show) %></li>
         </ul>
       </div>

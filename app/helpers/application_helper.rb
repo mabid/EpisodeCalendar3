@@ -79,4 +79,8 @@ module ApplicationHelper
     routes
   end
 
+  def environmentize(url)
+  	Rails.env.production? ? url : "#{DOMAIN}#{url}"
+  end
+
 end

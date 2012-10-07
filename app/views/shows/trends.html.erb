@@ -10,7 +10,7 @@
           <% @top_shows.each_with_index do |show, i| %>
           <li>
             <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
             <% else %>
               <%= image_tag("pixel.gif") %>
             <% end %>
@@ -29,7 +29,7 @@
           <% @top_new_followers.each_with_index do |show, i| %>
           <li>
             <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
             <% else %>
               <%= image_tag("pixel.gif") %>
             <% end %>
@@ -49,7 +49,7 @@
           <% @highest_grow.each_with_index do |show, i| %>
           <li>
             <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => show.banner(:small), :class => :lazy), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
             <% else %>
               <%= image_tag("pixel.gif") %>
             <% end %>
