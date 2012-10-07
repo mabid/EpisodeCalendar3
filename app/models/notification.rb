@@ -36,7 +36,6 @@ class Notification < ActiveRecord::Base
     
 	def self.weekly
 	  user_ids = Following.select("DISTINCT user_id").collect(&:user_id)
-    user_ids = 12887
     User.where("id IN (?) AND weekly_notification = ?", user_ids, true).each do |user|
       deliver_weekly_email_for_user(user)
     end
