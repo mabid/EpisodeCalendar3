@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111224133418) do
+ActiveRecord::Schema.define(:version => 20121006182501) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -136,15 +136,12 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
     t.integer  "user_id"
     t.integer  "show_id"
     t.boolean  "send_reminder"
-    t.integer  "marked_episodes_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "watch_later",           :default => false
+    t.integer  "marked_episodes_count", :default => 0
     t.integer  "hidden_episodes_count", :default => 0
+    t.boolean  "watch_later",           :default => false
   end
-
-  add_index "followings", ["user_id", "show_id"], :name => "index_followings_on_user_id_and_show_id"
-  add_index "followings", ["user_id"], :name => "index_followings_on_user_id"
 
   create_table "hidden_episodes", :force => true do |t|
     t.integer  "user_id"
@@ -153,6 +150,9 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "hidden_episodes", ["user_id", "season_id"], :name => "index_hidden_episodes_on_user_id_and_season_id"
+  add_index "hidden_episodes", ["user_id"], :name => "index_hidden_episodes_on_user_id"
 
   create_table "logs", :force => true do |t|
     t.string   "key"
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
     t.datetime "updated_at"
   end
 
-  add_index "seen_episodes", ["user_id", "season_id"], :name => "index_seen_episodes_on_user_id_and_season_id"
+  add_index "seen_episodes", ["user_id", "season_id"], :name => "index_seen_episodes_on_user_id_"
   add_index "seen_episodes", ["user_id"], :name => "index_seen_episodes_on_user_id"
 
   create_table "shows", :force => true do |t|
@@ -221,6 +221,14 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
   add_index "shows", ["name"], :name => "index_shows_on_name"
   add_index "shows", ["status"], :name => "index_shows_on_status"
 
+  create_table "statistics", :force => true do |t|
+    t.string   "key"
+    t.integer  "value"
+    t.string   "additional_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tickets", :force => true do |t|
     t.string   "from"
     t.string   "email"
@@ -238,7 +246,7 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
     t.datetime "updated_at"
   end
 
-  add_index "update_queues", ["update_type"], :name => "index_update_queues_on_update_type"
+  add_index "update_queues", ["update_type"], :name => "index_update_queues_on_update_t"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -249,20 +257,20 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
     t.datetime "updated_at"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.string   "reset_password_token"
     t.string   "confirmation_token",         :limit => 40
     t.datetime "confirmed_at"
-    t.integer  "show_format",                              :default => 2
-    t.integer  "episode_format",                           :default => 2
+    t.integer  "show_format",                              :default => 1
+    t.integer  "episode_format",                           :default => 1
+    t.string   "reset_password_token"
+    t.boolean  "admin",                                    :default => false
+    t.integer  "followings_count",                         :default => 0
     t.string   "time_zone",                                :default => "UTC"
     t.boolean  "sun_to_sat",                               :default => false
     t.boolean  "daily_notification",                       :default => false
     t.boolean  "weekly_notification",                      :default => false
     t.boolean  "only_premiere_notification",               :default => false
-    t.boolean  "admin",                                    :default => false
-    t.integer  "followings_count",                         :default => 0
-    t.boolean  "hide_overview_in_rss",                     :default => false
     t.boolean  "hide_profile",                             :default => false
+    t.boolean  "hide_overview_in_rss",                     :default => false
     t.string   "authentication_token"
     t.datetime "confirmation_sent_at"
     t.integer  "sign_in_count",                            :default => 0
@@ -275,6 +283,6 @@ ActiveRecord::Schema.define(:version => 20111224133418) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["name"], :name => "index_users_on_name"
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_t", :unique => true
 
 end

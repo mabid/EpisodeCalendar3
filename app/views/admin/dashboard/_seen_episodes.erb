@@ -1,0 +1,117 @@
+<script type="text/javascript">
+$(document).ready(function() {
+   function numberWithCommas(x) {
+       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+   }
+   var chart = new Highcharts.Chart({
+      chart: {
+         renderTo: "daily_seen_episodes",
+         margin: [ 40, 10, 70, 50],
+         borderWidth: 0,
+         plotBorderWidth: 0,
+         width: 1000,
+         shadow: false,
+         plotShadow: false,
+         backgroundColor: "#F4F4F4"
+      },
+			title: {
+			   text: "<%= number_with_delimiter(sum.to_i) %> marked episodes (<%= number_with_delimiter(seen_episodes_count) %> in total)"
+			},
+			credits: {
+         enabled: false
+      },
+      xAxis: {
+         categories: <%= raw (start_date..Date.today).map { |date| date.to_s(:short) } %>,
+         labels: {
+            rotation: -45,
+            align: "right",
+            style: {
+                font: "normal 13px Verdana, sans-serif"
+            }
+         }
+      },
+      plotOptions: {
+      	series: {
+            pointWidth: 25,
+            color: "#da0c87",
+               borderWidth: 0,
+               shadow: false
+         },
+         column: {
+            stacking: 'normal',
+            dataLabels: {
+               enabled: true,
+               color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+           }
+         }
+      },
+      yAxis: {
+         min: <%= seen_episodes_by_day_value[0] %>,
+         title: {
+            text: null
+         }
+      },
+      legend: {
+         enabled: false
+      },
+      tooltip: {
+      	enabled: false
+      },
+      series: [{
+         name: "Users",
+         type: "column",
+         data: <%= raw seen_episodes_by_day_increase.to_a %>,
+         color: "#55dc76",
+         dataLabels: {
+            enabled: true,
+            color: "#000000",
+            verticalAlign: "top",
+            rotation: 270,
+            y: -20,
+            x: 3,
+            formatter: function() {
+               var thousands = this.y / 1000;
+               return numberWithCommas(thousands).substring(0, 4) + "k";
+            },
+            style: {
+               font: "normal 13px Verdana, sans-serif"
+            }
+         },
+         enableMouseTracking: false
+         },
+         {
+         name: "Users2",
+         type: "column",
+         data: <%= raw seen_episodes_by_day_value.to_a %>,
+         color: "#da0c87",
+         dataLabels: {
+            enabled: true,
+            color: "#ffffff",
+            rotation: 270,
+            verticalAlign: "top",
+            y: 25,
+            x: 3,
+            formatter: function() {
+               var million = this.y / 1000000;
+               return numberWithCommas(million).substring(0, 4) + "m";
+            },
+            style: {
+               font: "normal 13px Verdana, sans-serif"
+            }
+         },
+         enableMouseTracking: false
+         },
+			{
+				type: 'line',
+				name: 'Regression Line',
+				data: [[0, <%= avg %>], [30, <%= avg %>]],
+				marker: {
+				   enabled: false
+				},
+      	color: "#000000",
+      	enableMouseTracking: false
+      }]
+   });
+});
+</script>
+<div id="daily_seen_episodes"></div>

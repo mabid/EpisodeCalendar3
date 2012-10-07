@@ -30,5 +30,25 @@ ActiveAdmin::Dashboards.build do
       render "users_month", :users_last_month => @users_last_month, :users_this_month => @users_this_month, :users_last_week => @users_last_week, :users_this_week => @users_this_week
     end
   end
+  
+  section "Number of seen episodes the last 30 days, day by day", :priority => 3 do
+    start_date = Date.today - 1.month
+    end_date = Date.today
+    arr = Statistic.where(:key => "seen_episodes", :created_at => start_date.beginning_of_day..Time.now.end_of_day)
+    seen_episodes_by_day_value = arr.map do |episode|
+      episode && episode.value.to_f || 0
+    end
+    seen_episodes_by_day_increase = arr.map do |episode|
+      episode && episode.additional_data.to_f || 0
+    end
+    seen_episodes_by_day_increase.shift
+
+    sum = seen_episodes_by_day_increase.sum
+    avg = (sum / seen_episodes_by_day_increase.size).round
+    seen_episodes_count = arr.last.value
+    div do
+      render "seen_episodes", :seen_episodes_count => seen_episodes_count, :seen_episodes_by_day_value => seen_episodes_by_day_value, :seen_episodes_by_day_increase => seen_episodes_by_day_increase, :start_date => start_date, :end_date => end_date, :sum => sum, :avg => avg
+    end
+  end
 
 end
