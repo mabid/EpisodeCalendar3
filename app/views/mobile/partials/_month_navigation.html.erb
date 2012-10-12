@@ -1,0 +1,18 @@
+<%
+prev_date = current - 1.month
+prev_url = public ? "/public/#{prev_date.year}/#{prev_date.month}" : "/calendar/#{prev_date.year}/#{prev_date.month}"
+prev_link = link_to(raw("<strong>&laquo; #{Date::MONTHNAMES[prev_date.month][0..2]}</strong>"), prev_url)
+
+next_date = current + 1.month
+next_url = public ? "/public/#{next_date.year}/#{next_date.month}" : "/calendar/#{next_date.year}/#{next_date.month}"
+next_link = link_to(raw("<strong>#{Date::MONTHNAMES[next_date.month][0..2]} &raquo;</strong>"), next_url)
+
+current_month = "#{Date::MONTHNAMES[current.month]}"
+%>
+
+<div class="ui-grid-b">
+	<div class="ui-block-a center"><%= content_tag(:h3, prev_link) if !@prev_limit %></div>
+	<div class="ui-block-b center"><%= content_tag(:h2, current_month) %></div>
+	<div class="ui-block-c center"><%= content_tag(:h3, next_link) if !@next_limit %></div>
+</div>
+<%= content_tag(:p, "<strong>#{@current.year}</strong>".html_safe, :class => "month center") %>

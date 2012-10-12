@@ -6,6 +6,9 @@ Episodecalendar2::Application.routes.draw do
   #Devise
   devise_for :admin_users, ActiveAdmin::Devise.config
 	devise_for :users, :path => "account"
+
+  #Old url in apps
+  match "/users/sign_up" => redirect("/account/sign_up")
 	
   #Browsing
   match "/users/letter/:letter" => "users#index", :as => "users_by_letter"

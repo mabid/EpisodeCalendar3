@@ -61,6 +61,7 @@ class Notification < ActiveRecord::Base
     shows.each do |show|
       episodes = Episode.where("show_id = ? AND air_date BETWEEN ? AND ?", show.id, beginning_of_week, end_of_week)
       episodes.each do |episode|
+        episode.air_date += user.day_offset.days
         if user.only_premiere_notification?
           episodes_to_mail << episode if episode.number == 1
         else

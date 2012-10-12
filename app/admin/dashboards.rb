@@ -46,7 +46,7 @@ ActiveAdmin::Dashboards.build do
       seen_episodes_by_day_increase.shift
 
       sum = seen_episodes_by_day_increase.sum
-      avg = (sum / seen_episodes_by_day_increase.size).round
+      avg = sum > 0 ? (sum / seen_episodes_by_day_increase.size).round : 0
       seen_episodes_count = arr.last.value
       div do
         render "seen_episodes", :seen_episodes_count => seen_episodes_count, :seen_episodes_by_day_value => seen_episodes_by_day_value, :seen_episodes_by_day_increase => seen_episodes_by_day_increase, :start_date => start_date, :end_date => end_date, :sum => sum, :avg => avg
