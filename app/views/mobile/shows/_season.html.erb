@@ -1,0 +1,53 @@
+<div class="ui-grid-a">
+  <div class="ui-block-a">
+
+      <select name="" data-mini="true" data-theme="a">
+      <% @seasons.each do |season| %>
+        <option value="<%= season.number %>">Season <%= season.number %></option>
+      <% end %>
+      </select>
+
+  </div>
+  <div class="ui-block-b">
+
+    <select name="select-choice-3" id="select-choice-3" data-native-menu="false" data-mini="true" data-theme="b" >
+      <option data-placeholder="true">Mark multiple</option>
+      <option value="">Mark the entire show as watched</option>
+      <option value="">Mark all episodes in this season as watched</option>
+      <option value="">Unmark all episodes in this season as watched</option>
+      <option value="">Hide all episodes in this season</option>
+      <option value="">Unhide all episodes in this season</option>
+    </select>
+
+  </div>     
+</div>
+
+<ul data-role="listview" data-split-icon="check" data-split-theme="d" data-divider-theme="b" data-inset="true">  
+  <% @season.episodes.sort_by{ |e| [e.number] }.each do |e| %>
+  <% css_class = cycle("odd", "even", :name => "classes") %>
+  <% corrected_air_date = (current_user ? e.air_date + current_user.day_offset.days : e.air_date) %>
+  <% css_class += " highlighted" if @next_air_date == e.air_date %>
+
+    <li data-theme="c">
+      <strong><%= format_episode_number(e) %></strong>: <%= e.name %>
+      <br /><%= format_date(corrected_air_date) %>
+
+        <!--<div class="seen">
+        <% if corrected_air_date < $TODAY.end_of_day %>
+          <span>Watched this episode?</span>
+          <% if logged_in? && @is_following %>
+            <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if @seen_episode_ids.include?(e.id)}", :rel => "ajax_loader_#{e.id}") %>
+            <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{e.id}", :class => "ajaxLoader") %>
+            <small class="hide"><%= link_to "Mark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
+            <small class="unhide hidden"><%= link_to "Unmark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
+            <%= image_tag("icons/ajax-loader-small.gif", :id => "ajax_loader_small_#{e.id}", :class => "ajaxLoaderSmall") %>
+          <% else %>
+            <span class="ui-checkbox ui-checkbox-state-checked ui-checkbox-state-checked-disabled"></span>
+          <% end %>
+        <% end %>
+      </div>-->
+
+    </li>
+
+  <% end %>
+</ul>

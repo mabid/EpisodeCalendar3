@@ -16,7 +16,10 @@
           <a href="<%= followings_path %>" data-theme="" data-icon="star">My shows</a>
         </li>
         <li>
-          <%= link_to "Logout", destroy_session_path(current_user), :method => :delete, :"data-icon" => "delete", :"data-ajax" => "false" %>
+          <a href="<%= followings_path %>" data-theme="" data-icon="star">Unwatched</a>
+        </li>
+        <li>
+          <a href="<%= followings_path %>" data-theme="" data-icon="star">Trends</a>
         </li>
       <% end %>
     </ul>

@@ -1,16 +1,13 @@
 <div data-theme="a" data-role="header">
-  <div class="ui-grid-a">
-    <div class="ui-block-a">
-      <%= link_to(image_tag("logos/transparent_logo.png", :width => 150), root_path, :id => "logo", :"data-transition" => "slide", :"data-direction" => "reverse") %>
-    </div>
-    <div class="ui-block-b">
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-mini="true">
-          <label for="searchinput3">
-          </label>
-          <input id="searchinput3" placeholder="" value="" type="search">
-        </fieldset>
+  <div class="ui-grid-b">
+      <div class="ui-block-a align-left">
+          <a data-role="button" href="#page1" data-icon="arrow-d" data-inline="true" data-iconpos="left">Menu</a>
       </div>
-    </div>
+      <div class="ui-block-b center">
+        <%= link_to(image_tag("logos/tv.png", :width => 41), root_path, :id => "logo", :"data-transition" => "slide", :"data-direction" => "reverse") %>
+      </div>
+      <div class="ui-block-c align-right">
+          <a data-role="button" href="#page1" data-icon="search" data-inline="true" data-iconpos="left">Search</a>
+      </div>
   </div>
 </div>

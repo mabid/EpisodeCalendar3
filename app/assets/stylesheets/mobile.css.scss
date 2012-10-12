@@ -1,1 +1,20 @@
+@import "reset";
+@import "mixins";
+@import "icons";
+
+/* Containers
+ * ------------------------------------------------------------------------------------------------------------------------- */ 
+
+html {}
+
+body {
+  background: #212121; 
+  cursor: default;  
+  font-size: 12px;
+  font-family: Helvetica, Arial, Sans-serif;
+  color: #000;
+}
+
+.align-left { text-align: left; }
 .center { text-align: center; }
+.align-right { text-align: right; }

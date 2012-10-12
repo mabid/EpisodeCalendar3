@@ -1,6 +1,6 @@
 <%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
 
-<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-divider-theme="b" data-inset="true">
+<ul data-role="listview" data-split-icon="check" data-split-theme="d" data-divider-theme="b" data-inset="true">
   <% @start_day.upto(@end_day) do |date| %>
     <% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
     <% current_day_date = corrected_date.to_s(:air_date) %>
@@ -12,7 +12,7 @@
       <% show_episodes.each do |e| %>
         <li data-theme="c">
           <%= m_print_calendar_episode(e).html_safe %>
-          <a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+          <a href="#purchase">hej</a>
         </li>
       <% end %>
     <% end %>
