@@ -1,0 +1,38 @@
+<% title @show.name %>
+<% meta @show.overview %>
+<% share_url show_url(:permalink => @show.permalink) %>
+<% share_title "TV Episode Calendar - #{yield(:title)}" %>
+
+<%= render :partial => "shows/show_header" %>
+
+vote!
+
+<table>
+  <tr>
+    <th><div>Show</div></th>
+    <th><div>User</div></th>
+    <th><div>Attribute</div></th>
+    <th><div>Value</div></th>
+    <th><div>Up votes</div></th>
+  </tr>
+  <% for show_attribute_vote in @show_attribute_votes %>
+    <tr>
+      <td><%= show_attribute_vote.show.name %></td>
+      <td><%= show_attribute_vote.user.name %></td>
+      <td><%= show_attribute_vote.show_attribute %></td>
+      <td><%= show_attribute_vote.attribute_value %></td>
+      <td><%= show_attribute_vote.votes_for %></td>
+      <td><%= link_to "Edit", edit_show_attribute_vote_path(show_attribute_vote) %></td>
+      <td><%= link_to "Destroy", show_attribute_vote, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% unless @has_voted %>
+        <td><%= link_to "Vote up", vote_show_attribute_vote_path(show_attribute_vote, :vote => :up) %></td>
+      <% else %>
+        <td><%= link_to "Remove vote", unvote_show_attribute_vote_path(show_attribute_vote) if current_user.voted_for?(show_attribute_vote) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<%= "Voted: #{@has_voted}" %>
+
+<p><%= link_to "New Show Attribute Vote", new_show_attribute_vote_path %></p>

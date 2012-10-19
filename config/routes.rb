@@ -21,7 +21,13 @@ Episodecalendar2::Application.routes.draw do
   resources :banners
 	resources :followings, :path => "my-shows"
 	resources :episodes
-	resources :shows
+	resources :shows do
+    member { get :votes }
+  end
+  resources :show_attribute_votes do
+    member { get :vote }
+    member { get :unvote }
+  end
 	resources :users
   resources :faqs, :path => "faq" do
     collection { post :sort }
@@ -60,9 +66,14 @@ Episodecalendar2::Application.routes.draw do
 	match "/icalendar/:email/:auth_key" => "shows#calendar_iframe", :as => "icalendar", :constraints => { :email => /.*/} #This regex breaks ajax calls
 	
 	#Show
-	match "/show/:permalink" => "shows#show", :as => "show"
+	match "/show/:permalink" => "shows#show", :as => "show" do
+    resources :show_attribute_votes, :as => :votes
+  end
 	match "/show/:permalink/season/:season" => "shows#show", :as => "show_season"
 	match "/add-show/:permalink" => "followings#create", :as => "add_show"
+
+  #Votes
+  match "/show/:permalink/votes" => "show_attribute_votes#index", :as => "show_votes"
 
 	match "/mark_episode/:episode_id/:season_id" => "seen_episodes#mark_episode", :as => "mark_episode"
 	match "/show/:show_id/mark-season/:season_id" => "seen_episodes#mark_season", :as => "mark_season"

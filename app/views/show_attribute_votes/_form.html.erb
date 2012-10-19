@@ -1,0 +1,20 @@
+<%= form_for @show_attribute_vote do |f| %>
+  <%#= f.error_messages %>
+  <p>
+    <%= f.label :show_id %><br />
+    <%= f.number_field :show_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :show_attribute %><br />
+    <%= f.text_field :show_attribute %>
+  </p>
+  <p>
+    <%= f.label :attribute_value %><br />
+    <%= f.text_field :attribute_value %>
+  </p>
+  <p><%= f.submit "Create vote", :class => "awesome magenta" %></p>
+<% end %>

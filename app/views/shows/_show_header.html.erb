@@ -1,0 +1,58 @@
+<div class="page_header">
+  <div id="show_info" class="row">
+    <% if @show.banner %>
+    <h1 class="hidden"><%= @show.name %></h1>
+    <div class="show_banner">
+        <div class="banner_shadow"></div>
+        <div class="banner_shadow"></div>
+        <%= image_tag(environmentize(@show.banner), :alt => @show.name, :width => 758, :height => 140) %>
+    </div>
+    <% else %>
+    <div class="show_banner">
+        <div class="banner_shadow"></div>
+        <div class="banner_shadow"></div>
+        <h1><%= @show.name %></h1>
+        <%= image_tag("missing_show_banner.png", :width => 758, :height => 140) %>
+    </div>
+    <% end %>
+    <div id="secondary_show_info">
+      <div class="note_wrapper">
+        <%= link_to("Edit", edit_admin_show_path(@show), :id => :edit_link) if admin? %>
+        <ul class="note">
+          <li><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
+          <% if @seasons.any? %>
+          <li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
+          <% else %>
+          <li><strong>Episodes:</strong> 0</li>
+          <% end %>
+          <li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
+          <li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= raw print_popularity(@show) %></li>
+          <li id="time_and_network"><%= raw print_air_time(@show) %></li>
+        </ul>
+      </div>
+      <% if logged_in? %>
+        <% unless current_user.is_following(@show) %>
+          <%= link_to("Add to My shows", add_show_path(@show.permalink), :class => "ajaxLink awesome magenta large", :rel => "ajaxLoaderTop") %>
+          <%= image_tag("icons/ajax-loader.gif", :class => "ajaxLoader icon", :id => "ajaxLoaderTop") %>
+          <span class="awesome large disabled hidden">Added!</span>
+          <%= image_tag("icons/ajax-loader.gif", :class => "hidden", :id => "season_loader") %>
+        <% else %>
+            <span class="awesome large disabled">In your list</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <h3 id="season_pagination_header"><strong>Seasons:</strong></h3>
+  <ul id="season_pagination">
+    <% @seasons.each do |season| %>
+      <li class="tab<%= @season.number == season.number ? " selected" : ""%>" data-number="<%= season.number %>">
+        <%= link_to(season.display_name, show_season_path(:permalink => @show.permalink, :season => season.number)) %>
+      </li>
+    <% end %>
+    <li class="tab">
+      <%= link_to "Contribute", votes_show_path(@show) %>
+    </li>
+  </ul>
+  
+</div>

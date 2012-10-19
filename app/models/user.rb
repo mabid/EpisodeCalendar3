@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
   
 	gravtastic :filetype => :jpg, :size => 64, :default => "http://www.episodecalendar.com/assets/pixel.gif?1" 
   devise :database_authenticatable, :encryptable, :registerable, :recoverable, :rememberable, :validatable, :trackable
+
+  acts_as_voter
   
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :sun_to_sat, :time_zone, :hide_overview_in_rss, :hide_profile,
                   :daily_notification, :weekly_notification, :only_premiere_notification, :show_format, :episode_format, :day_offset

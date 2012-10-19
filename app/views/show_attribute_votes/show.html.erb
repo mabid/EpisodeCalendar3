@@ -1,0 +1,32 @@
+<% title "Show Attribute Vote" %>
+
+<p>
+  <strong>Show:</strong>
+  <%= @show_attribute_vote.show.name %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @show_attribute_vote.user.name %>
+</p>
+<p>
+  <strong>Attribute:</strong>
+  <%= @show_attribute_vote.show_attribute %>
+</p>
+<p>
+  <strong>Value:</strong>
+  <%= @show_attribute_vote.attribute_value %>
+</p>
+<p>
+  <%= link_to "Vote up", vote_show_attribute_vote_path(:vote => :up) %> |
+  <%= link_to "Vote down", vote_show_attribute_vote_path(:vote => :down) %>
+</p>
+<p>
+  Up votes: <%= @show_attribute_vote.votes_for %> |
+  Down votes: <%= @show_attribute_vote.votes_against %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_show_attribute_vote_path(@show_attribute_vote) %> |
+  <%= link_to "Destroy", @show_attribute_vote, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", show_attribute_votes_path %>
+</p>

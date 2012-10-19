@@ -34,6 +34,7 @@ class Show < ActiveRecord::Base
 	has_many :followings, :dependent => :destroy
 	has_many :episodes, :dependent => :destroy
 	has_many :banners
+  has_many :show_attribute_votes
 	
   scope :popular, where("followers > 0").order("followers DESC, updated_at DESC")
   scope :active, where(:status => 'continuing').order("name ASC")
