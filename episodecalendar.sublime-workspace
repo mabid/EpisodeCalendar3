@@ -291,6 +291,47 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app/controllers/application_controller.rb",
+			"settings":
+			{
+				"buffer_size": 1454,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/mobile/shows/show.html.erb",
+			"settings":
+			{
+				"buffer_size": 1854,
+				"line_ending": "Windows",
+				"name": "<div data-role=\"fieldcontain\">"
+			}
+		},
+		{
+			"file": "app/views/mobile/shows/_season.html.erb",
+			"settings":
+			{
+				"buffer_size": 2638,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/assets/stylesheets/mobile.css.scss",
+			"settings":
+			{
+				"buffer_size": 441,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/mobile/partials/_header.html.erb",
+			"settings":
+			{
+				"buffer_size": 625,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -320,6 +361,13 @@
 	},
 	"file_history":
 	[
+		"/C/www/episodecalendar.com/app/views/shows/show.html.erb",
+		"/C/www/episodecalendar.com/app/assets/stylesheets/mobile.css.scss",
+		"/C/www/episodecalendar.com/app/views/mobile/shows/calendar.html.erb",
+		"/C/www/episodecalendar.com/app/assets/stylesheets/application.css.scss",
+		"/C/www/episodecalendar.com/app/views/mobile/partials/_header.html.erb",
+		"/C/www/episodecalendar.com/app/assets/stylesheets/global.css.scss",
+		"/C/www/episodecalendar.com/app/views/mobile/partials/_footer.html.erb",
 		"/C/Users/frexuz/VirtualBox VMs/Ubuntu 10.10/Ubuntu 10.10.vbox",
 		"/C/Windows/System32/drivers/etc/hosts",
 		"/C/www/episodecalendar.com/config/database.yml",
@@ -440,14 +488,7 @@
 		"/C/www/Casumo-Engine/web/site/src/main/webapp/WEB-INF/sass/modules/scrollbar.scss",
 		"/C/www/Casumo-Engine/web/site/src/main/webapp/WEB-INF/sass/modules/lists.scss",
 		"/C/www/Casumo-Engine/web/site/src/main/webapp/assets/templates/views/overlays/cash/deposit/moneybookers.html",
-		"/C/www/Casumo-Engine/web/site/src/main/webapp/WEB-INF/sass/modules/footer.scss",
-		"/C/www/Casumo-Engine/web/site/src/main/webapp/assets/js/module/extenders/smoothvalue.js",
-		"/C/www/Casumo-Engine/web/site/src/main/webapp/assets/js/3rdparty/hasher-1.1.0.js",
-		"/C/www/Casumo-Engine/web/site/src/main/webapp/WEB-INF/sass/pages/adventure.scss",
-		"/C/www/Casumo-Engine/web/site/src/main/webapp/WEB-INF/sass/pages/wp-pages.scss",
-		"/C/www/Casumo-Engine/.gitignore",
-		"/C/www/git push.bat",
-		"/C/www/Casumo-Engine/web/site/src/main/webapp/assets/js/module/custombindings/frontpagebanner.js"
+		"/C/www/Casumo-Engine/web/site/src/main/webapp/WEB-INF/sass/modules/footer.scss"
 	],
 	"find":
 	{
@@ -466,6 +507,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"=\"\"",
+			"li",
+			"data-role=\"f",
 			"pages/",
 			"wmode:",
 			"wmode=",
@@ -590,10 +634,7 @@
 			"selectMarket",
 			"trackOverlay",
 			"trackEvent",
-			"trackNavigation",
-			"trackingId",
-			"trackNavigation",
-			"trackEvent"
+			"trackNavigation"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -613,6 +654,145 @@
 		{
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/controllers/application_controller.rb",
+					"settings":
+					{
+						"buffer_size": 1454,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1262,
+								1262
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/views/mobile/shows/show.html.erb",
+					"settings":
+					{
+						"buffer_size": 1854,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								463,
+								463
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<div data-role=\"fieldcontain\">",
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/mobile/shows/_season.html.erb",
+					"settings":
+					{
+						"buffer_size": 2638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2638,
+								2638
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/assets/stylesheets/mobile.css.scss",
+					"settings":
+					{
+						"buffer_size": 441,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								438,
+								438
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/mobile/partials/_header.html.erb",
+					"settings":
+					{
+						"buffer_size": 625,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								101,
+								101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Rails/HTML (Rails).tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -657,6 +837,54 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"mobileheader",
+				"app/views/mobile/partials/_header.html.erb"
+			],
+			[
+				"mobilecs",
+				"app/assets/stylesheets/mobile.css.scss"
+			],
+			[
+				"_season",
+				"app/views/mobile/shows/_season.html.erb"
+			],
+			[
+				"mobilecalendar",
+				"app/views/mobile/shows/calendar.html.erb"
+			],
+			[
+				"glo",
+				"app/assets/stylesheets/global.css.scss"
+			],
+			[
+				"applcss",
+				"app/assets/stylesheets/application.css.scss"
+			],
+			[
+				"mobiles",
+				"app/assets/stylesheets/mobile.css.scss"
+			],
+			[
+				"showshow",
+				"app/views/shows/show.html.erb"
+			],
+			[
+				"mobilecale",
+				"app/views/mobile/shows/calendar.html.erb"
+			],
+			[
+				"_heam",
+				"app/views/mobile/partials/_header.html.erb"
+			],
+			[
+				"_footer",
+				"app/views/mobile/partials/_footer.html.erb"
+			],
+			[
+				"appl",
+				"app/controllers/application_controller.rb"
+			],
 			[
 				"regis",
 				"assets/templates/views/pages/registration.html"
@@ -860,10 +1088,6 @@
 			[
 				"tooltip",
 				"assets/js/module/custombindings/tooltip.js"
-			],
-			[
-				"glo",
-				"WEB-INF/sass/global.scss"
 			],
 			[
 				"anal",
@@ -1124,50 +1348,6 @@
 			[
 				"adveht",
 				"assets/templates/views/pages/adventure.html"
-			],
-			[
-				"sectionsel",
-				"assets/js/module/custombindings/section/sectionselector.js"
-			],
-			[
-				"layoutjs",
-				"assets/js/views/layout.js"
-			],
-			[
-				"faq",
-				"WEB-INF/sass/pages/faq.scss"
-			],
-			[
-				"gamesscs",
-				"WEB-INF/sass/pages/games.scss"
-			],
-			[
-				"lists",
-				"WEB-INF/sass/modules/lists.scss"
-			],
-			[
-				"scroll",
-				"WEB-INF/sass/modules/scrollbar.scss"
-			],
-			[
-				"place",
-				"assets/js/module/custombindings/placeholder.js"
-			],
-			[
-				"button",
-				"WEB-INF/sass/modules/buttons.scss"
-			],
-			[
-				"smooth",
-				"assets/js/module/extenders/smoothvalue.js"
-			],
-			[
-				"footersc",
-				"WEB-INF/sass/modules/footer.scss"
-			],
-			[
-				"streami",
-				"assets/templates/views/components/streamitem.html"
 			]
 		],
 		"width": 0.0

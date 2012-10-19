@@ -34,6 +34,7 @@ gem "delayed_job_active_record"
 gem "rest-client"
 gem "rmagick"
 gem "rabl"
+gem "thumbs_up"
 
 #Cache
 gem "dalli"
