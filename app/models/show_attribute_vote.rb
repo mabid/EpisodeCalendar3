@@ -12,9 +12,9 @@ class ShowAttributeVote < ActiveRecord::Base
     ]
   end
 
-  def self.has_votes_for?(show_id, user)
+  def self.has_votes_for?(show_id, user, show_attribute)
   	voted = false
-  	available_votes = where("show_id = ?", show_id)
+  	available_votes = where("show_id = ? AND show_attribute = ?", show_id, show_attribute)
   	available_votes.each do |votable|
   		voted = true if user.voted_on?(votable)
   	end

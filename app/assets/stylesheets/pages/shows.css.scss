@@ -127,12 +127,15 @@ h3#season_pagination_header {
     line-height: 26px;
     height: 24px;
     font-size: 15px;
-    padding: 0 20px;
+    padding: 0 15px;
     font-family: arial, sans-serif;
   }
 
   #season_pagination li.selected a {
     color: #fff;
+    border: 0;
+    margin-right: 1px;
+    padding-top: 1px;
   }
   
 .options {

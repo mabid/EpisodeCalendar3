@@ -46,11 +46,11 @@
   <h3 id="season_pagination_header"><strong>Seasons:</strong></h3>
   <ul id="season_pagination">
     <% @seasons.each do |season| %>
-      <li class="tab<%= @season.number == season.number ? " selected" : ""%>" data-number="<%= season.number %>">
+      <li class="tab<%= " selected" if @season.try(&:number) == season.number %>" data-number="<%= season.number %>">
         <%= link_to(season.display_name, show_season_path(:permalink => @show.permalink, :season => season.number)) %>
       </li>
     <% end %>
-    <li class="tab">
+    <li class="tab<%= " selected" if @season.blank? %>">
       <%= link_to "Contribute", votes_show_path(@show) %>
     </li>
   </ul>

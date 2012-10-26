@@ -107,25 +107,32 @@
   margin-right: 7px;
 }
 
-#profile {
-  border: 1px #666 solid;
-  padding: 1px;
+#header .profile {
+  background: image-url("avatar_dark.png") 50% 50% no-repeat;
   float: right;
   margin: 0 0 0 10px;
+}
+
+.profile {
+  border: 1px #666 solid;
+  padding: 1px;
   @include border-radius(5px);
   width: 80px;
   height: 80px;
-  background: image-url("avatar_dark.png") 50% 50% no-repeat;
   position: relative;
+  &.small {
+    height: 40px;
+    width: 40px;
+  }
 }
 
-  #profile div {
+  .profile div {
     @include border-radius(3px);
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
   }
   
-  #profile a {
+  .profile a {
     position: absolute;
     padding: 2px 0 0 0;
     background: rgba(0,0,0,0.5);

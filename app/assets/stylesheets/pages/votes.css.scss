@@ -1,0 +1,17 @@
+@import "mixins";
+
+.vote-box {
+  overflow: hidden;
+  border: 1px #ddd solid;
+  margin: 0 0 5px 0;
+  background: #f2f2f2;
+  @include border-radius(5px);
+  padding: 10px;
+  &.voted { background-color: #FBFF8F; }
+  .profile {
+  	margin-right: 20px;
+  }
+  p {
+  	margin-bottom: 0;
+  }
+}

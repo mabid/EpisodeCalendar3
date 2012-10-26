@@ -1,20 +1,4 @@
 class ShowAttributeVotesController < ApplicationController
-  def index
-    @show = Show.find_by_permalink(params[:permalink])
-    @seasons = Season.where("api_show_id = ?", @show.api_show_id).order("number desc")
-    if params[:season]
-      @season = Season.where("api_show_id = ? AND number = ?", @show.api_show_id, params[:season]).first
-      @season = @seasons.first if @season.blank?
-    else
-      @season = @seasons.first
-    end
-    @has_voted = ShowAttributeVote.has_votes_for?(@show.id, current_user)
-    @show_attribute_votes = @show.show_attribute_votes #ShowAttributeVote.all
-  end
-
-  def show
-    @show_attribute_vote = ShowAttributeVote.find(params[:id])
-  end
 
   def new
     @show_attribute_vote = ShowAttributeVote.new
@@ -50,13 +34,9 @@ class ShowAttributeVotesController < ApplicationController
 
   def vote
     voteable = ShowAttributeVote.find(params[:id])
-    if params[:vote] == "up"
-      current_user.vote_exclusively_for(voteable)
-      show = voteable.show
-      show.update_attributes(voteable.show_attribute.to_sym => voteable.attribute_value)
-    else
-      current_user.vote_exclusively_against(voteable)
-    end
+    current_user.vote_exclusively_for(voteable)
+    show = voteable.show
+    show.update_attributes(voteable.show_attribute.to_sym => voteable.attribute_value)
     redirect_to :back, :notice => "Successfully voted."
   end
 

@@ -196,18 +196,11 @@ class ShowsController < ApplicationController
   end
 
   def votes
-    puts "------------------------------------"
-    puts params
-    puts "------------------------------------"
     @show = Show.find_by_permalink(params[:id])
     @seasons = Season.where("api_show_id = ?", @show.api_show_id).order("number desc")
     if params[:season]
       @season = Season.where("api_show_id = ? AND number = ?", @show.api_show_id, params[:season]).first
-      @season = @seasons.first if @season.blank?
-    else
-      @season = @seasons.first
     end
-    @has_voted = ShowAttributeVote.has_votes_for?(@show.id, current_user)
     @show_attribute_votes = @show.show_attribute_votes #ShowAttributeVote.all    
   end
   

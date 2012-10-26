@@ -5,33 +5,36 @@
 
 <%= render :partial => "show_header" %>
 
+<h2>Vote on <%= @show.name %>'s info</h2>
 <% @show_attribute_votes.group_by(&:show_attribute).each do |show_attribute, votes| %>
-<h2><%= show_attribute %></h2>
-<table>
-  <tr>
-    <th><div>Show</div></th>
-    <th><div>User</div></th>
-    <th><div>Attribute</div></th>
-    <th><div>Value</div></th>
-    <th><div>Up votes</div></th>
-  </tr>
+  <% has_voted = ShowAttributeVote.has_votes_for?(@show.id, current_user, show_attribute) %>
+  <h3 class="margin_top"><%= show_attribute.humanize %></h3>
   <% for show_attribute_vote in votes %>
-    <tr>
-      <td><%= show_attribute_vote.show.name %></td>
-      <td><%= show_attribute_vote.user.name %></td>
-      <td><%= show_attribute_vote.show_attribute %></td>
-      <td><%= show_attribute_vote.attribute_value %></td>
-      <td><%= show_attribute_vote.votes_for %></td>
-      <td><%= link_to "Edit", edit_show_attribute_vote_path(show_attribute_vote) %></td>
-      <td><%= link_to "Destroy", show_attribute_vote, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% unless @has_voted %>
-        <td><%= link_to "Vote up", vote_show_attribute_vote_path(show_attribute_vote, :vote => :up) %></td>
-      <% else %>
-        <td><%= link_to "Remove vote", unvote_show_attribute_vote_path(show_attribute_vote) if current_user.voted_for?(show_attribute_vote) %></td>
-      <% end %>
-    </tr>
+    <div class="vote-box<%= " voted" if current_user.voted_for?(show_attribute_vote) %>">
+      <div class="profile small float_left">
+        <%= content_tag(:div, nil, :style => "background-image: url('#{show_attribute_vote.user.gravatar_size(40)}');", :title => "Profile image from Gravatar.com") %>
+      </div>
+      <div class="float_left">
+        <p>
+          <%= show_attribute_vote.user.name %> thinks that the <em><%= show_attribute_vote.show_attribute.humanize %></em> should be <strong><%= show_attribute_vote.attribute_value %></strong>
+          <% if show_attribute_vote.user == current_user %>
+            | <%= link_to "Edit", edit_show_attribute_vote_path(show_attribute_vote) %>
+            | <%= link_to "Destroy", show_attribute_vote, :confirm => 'Are you sure?', :method => :delete %>
+          <% end %>
+        </p>
+        <p>Votes: <%= show_attribute_vote.votes_for %></p>
+
+        <% if has_voted && current_user.voted_for?(show_attribute_vote) %>
+          <%= link_to icon_tag("cross") + " Remove my vote", unvote_show_attribute_vote_path(show_attribute_vote), class: "red" %>
+        <% elsif has_voted %>
+          <p>You have already voted for <em><%= show_attribute_vote.show_attribute.humanize %></em></p>
+        <% else %>
+            <%= link_to icon_tag("thumb_up") + " Vote up", vote_show_attribute_vote_path(show_attribute_vote, :vote => :up) %>
+        <% end %>
+
+      </div>
+    </div>
   <% end %>
-</table>
 <% end %>
 
 <%= "Voted: #{@has_voted}" %>

@@ -2,7 +2,7 @@
 
 <% if logged_in? %>
 
-	<div id="profile">
+	<div class="profile">
 		<%= link_to "view profile", profile_path(current_user) %>
 		<%= content_tag(:div, nil, :style => "background-image: url('#{current_user.gravatar_size(80)}');", :title => "Profile image from Gravatar.com") %>
 	</div>
