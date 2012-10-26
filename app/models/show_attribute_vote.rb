@@ -5,6 +5,13 @@ class ShowAttributeVote < ActiveRecord::Base
 
   acts_as_voteable
 
+  def self.votable_attributes
+    [
+      ["Air time", "air_time_hour"],
+      ["Network", "network"]
+    ]
+  end
+
   def self.has_votes_for?(show_id, user)
   	voted = false
   	available_votes = where("show_id = ?", show_id)

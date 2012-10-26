@@ -5,6 +5,8 @@
 
 <%= render :partial => "show_header" %>
 
+<% @show_attribute_votes.group_by(&:show_attribute).each do |show_attribute, votes| %>
+<h2><%= show_attribute %></h2>
 <table>
   <tr>
     <th><div>Show</div></th>
@@ -13,7 +15,7 @@
     <th><div>Value</div></th>
     <th><div>Up votes</div></th>
   </tr>
-  <% for show_attribute_vote in @show_attribute_votes %>
+  <% for show_attribute_vote in votes %>
     <tr>
       <td><%= show_attribute_vote.show.name %></td>
       <td><%= show_attribute_vote.user.name %></td>
@@ -30,7 +32,28 @@
     </tr>
   <% end %>
 </table>
+<% end %>
 
 <%= "Voted: #{@has_voted}" %>
 
-<p><%= link_to "New Show Attribute Vote", new_show_attribute_vote_path %></p>
+<%= form_for ShowAttributeVote.new do |f| %>
+  <%#= f.error_messages %>
+  <p>
+    <%= f.label :show_id %><br />
+    <%= f.number_field :show_id, :value => @show.id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id, :value => current_user.id %>
+  </p>
+  <p>
+    <%= f.label :show_attribute %><br />
+    <%#= f.text_field :show_attribute %>
+    <%= f.select :show_attribute, options_for_select(ShowAttributeVote.votable_attributes) %>
+  </p>
+  <p>
+    <%= f.label :attribute_value %><br />
+    <%= f.text_field :attribute_value %>
+  </p>
+  <p><%= f.submit "Create vote", :class => "awesome magenta" %></p>
+<% end %>

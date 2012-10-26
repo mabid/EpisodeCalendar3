@@ -196,9 +196,8 @@ ActiveRecord::Schema.define(:version => 20121019100147) do
   create_table "show_attribute_votes", :force => true do |t|
     t.integer  "show_id"
     t.integer  "user_id"
-    t.string   "attribute"
-    t.string   "value"
-    t.string   "value_type"
+    t.string   "show_attribute"
+    t.string   "attribute_value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

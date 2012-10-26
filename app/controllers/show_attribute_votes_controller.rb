@@ -23,7 +23,7 @@ class ShowAttributeVotesController < ApplicationController
   def create
     @show_attribute_vote = ShowAttributeVote.new(params[:show_attribute_vote])
     if @show_attribute_vote.save
-      redirect_to @show_attribute_vote, :notice => "Successfully created show attribute vote."
+      redirect_to :back, :notice => "Successfully created show attribute vote."
     else
       render :action => 'new'
     end
@@ -45,7 +45,7 @@ class ShowAttributeVotesController < ApplicationController
   def destroy
     @show_attribute_vote = ShowAttributeVote.find(params[:id])
     @show_attribute_vote.destroy
-    redirect_to show_attribute_votes_url, :notice => "Successfully destroyed show attribute vote."
+    redirect_to :back, :notice => "Successfully destroyed show attribute vote."
   end
 
   def vote
@@ -57,13 +57,13 @@ class ShowAttributeVotesController < ApplicationController
     else
       current_user.vote_exclusively_against(voteable)
     end
-    redirect_to show_attribute_votes_url, :notice => "Successfully voted."
+    redirect_to :back, :notice => "Successfully voted."
   end
 
   def unvote
     voteable = ShowAttributeVote.find(params[:id])
     current_user.unvote_for(voteable) # Clears all votes for that user
-    redirect_to show_attribute_votes_url, :notice => "Successfully voted."
+    redirect_to :back, :notice => "Successfully voted."
   end
 
 end
