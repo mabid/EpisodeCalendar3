@@ -48,7 +48,7 @@ gem "devise", "1.5.2"
 gem "warden"
 
 #Put Sass outside of the :assets group (ActiveAdmin fix)
-gem "sass-rails", "~> 3.1.4"
+gem "sass-rails", "3.1.4"
 
 group :assets do
   gem "coffee-rails", "~> 3.1.1"
