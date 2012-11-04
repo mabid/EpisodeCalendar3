@@ -16,4 +16,4 @@ current_month = "#{Date::MONTHNAMES[current.month]}"
 		<td width="44%"><%= content_tag(:h3, next_link) if !@next_limit %></td>
 	</tr>
 </table>
-<%= content_tag(:p, raw("<strong>#{@current.year}</strong>"), :class => "month") %>
+<%= content_tag(:p, raw("<strong>#{current.year}</strong>"), :class => "month") %>

@@ -14,8 +14,8 @@ Episodecalendar2::Application.configure do
   config.action_controller.perform_caching = false
 
   #Cache testing
-  #config.action_controller.perform_caching = true
-  #config.cache_store = :dalli_store, { :namespace => "episodecalendar", :expires_in => 7.day, :compress => true, :keepalive => true }
+  config.action_controller.perform_caching = true
+  config.cache_store = :dalli_store, { :namespace => "episodecalendar", :expires_in => 7.day, :compress => true, :keepalive => true }
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -34,6 +34,22 @@ Episodecalendar2::Application.configure do
 
   # Don't actually send emails. View them in the browser instead using this gem
   #config.action_mailer.delivery_method = :letter_opener
+
+  #Rack bug
+  #config.middleware.use "Rack::Bug", :secret_key => "someverylongandveryhardtoguesspreferablyrandomstring", :ip_masks => [IPAddr.new("192.168.1.100")]
+  #config.middleware.use "Rack::Insight::App", :secret_key => "someverylongandveryhardtoguesspreferablyrandomstring"
+
+  #Bullet
+  config.after_initialize do
+    Bullet.enable = true
+    #Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    #Bullet.growl = true
+    #Bullet.rails_logger = true
+    #Bullet.airbrake = true
+    Bullet.disable_browser_cache = true
+  end
 
   config.action_mailer.default_url_options = { :host => "localhost" }
 end

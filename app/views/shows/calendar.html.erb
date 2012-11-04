@@ -2,7 +2,9 @@
 <% share_url public_with_date_url(:year => @current.year, :month => @current.month) %>
 <% share_title "TV Episode Calendar - #{yield(:title)}" %>
 
-<%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
+<% cache "month_navigation_#{@current.year}_#{@current.month}" do %>
+  <%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
+<% end %>
 
 <script>
 $(function(){
@@ -35,8 +37,8 @@ $(function(){
         <div class="calendar_cell_content">
         	<ul>
         	<% show_episodes.each do |e| %>
-        	  <li>
-        	    <% seen = @seen_episodes.include?(e.id) %>
+            <% seen = @seen_episodes.include?(e.id) %>
+        	  <li class="<%= "seen" if seen %>">        	    
         	    <%= raw print_calendar_episode(e) %>
               <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading small #{"ui-checkbox-state-checked" if seen}", :rel => "ajax_loader_#{e.id}") if corrected_date <= $TODAY %>
               <%= image_tag("icons/ajax-loader-small.gif", :id => "ajax_loader_#{e.id}", :class => "ajaxLoader small") %>

@@ -1,5 +1,7 @@
-$("#ajax_loader_<%= @episode.id %>").hide();
-$("#ajax_loader_<%= @episode.id %>").siblings(".hide_while_loading").show();
+var $episode_loader = $("#ajax_loader_<%= @episode.id %>");
+$episode_loader.hide();
+$episode_loader.siblings(".hide_while_loading").show();
+$episode_loader.closest("li").toggleClass("seen");
 
 if ($("#unwatched_episodes")) {
   var show_id = $("#episode_<%= @episode.id %>").attr("rel");

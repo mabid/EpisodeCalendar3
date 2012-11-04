@@ -58,8 +58,6 @@ GEM
     airbrake (3.1.6)
       builder
       girl_friday
-    amazon_product (3.0.1)
-      nokogiri (~> 1.4)
     ansi (1.4.3)
     arbre (1.0.1)
       activesupport (>= 3.0.0)
@@ -159,7 +157,6 @@ GEM
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.5.0.1)
     nifty-generators (0.4.6)
-    nokogiri (1.5.5)
     orm_adapter (0.0.7)
     paperclip (3.3.1)
       activemodel (>= 3.0.0)
@@ -254,7 +251,6 @@ DEPENDENCIES
   activeadmin
   activerecord-import
   airbrake
-  amazon_product
   bullet
   cache_fu!
   capistrano

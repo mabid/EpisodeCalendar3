@@ -69,12 +69,14 @@ class Show < ActiveRecord::Base
 	end
 	
   def banner(size = nil)
-    show_banners = banners
-    if show_banners.any?
-      if size
-        show_banners.first.image.url(size)
-      else
-        show_banners.first.image.url
+    Rails.cache.fetch([self, "banner", size]) do
+      show_banners = banners
+      if show_banners.any?
+        if size
+          show_banners.first.image.url(size)
+        else
+          show_banners.first.image.url
+        end
       end
     end
   end

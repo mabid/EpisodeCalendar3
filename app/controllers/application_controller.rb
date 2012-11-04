@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   before_filter :get_tags, :footer, :set_user_time_zone, :subdomain_view_path, :fake_user
   helper_method :admin?, :logged_in?
 
-  #alias_method :devise_current_user, :current_user
   def fake_user
     if params[:fake_user_id].present? && admin?
       @current_user = User.find(params[:fake_user_id])

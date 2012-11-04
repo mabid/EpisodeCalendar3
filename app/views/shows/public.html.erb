@@ -22,13 +22,13 @@
   	<% current_day_date = corrected_date.to_s(:air_date) %>
 		<td class="<%=get_cell_css_class(corrected_date, @current, $TODAY)%>" rel="<%= date.wday == 0 ? 7 : date.wday %>">
 			<div class="calendar_date"><%= print_date(corrected_date) %></div>
-			<% show_episodes = @episodes.select {|e| e.air_date.to_s(:air_date) == current_day_date} %>
+			<% show_episodes = @episodes.select {|e| e.air_date.to_s(:air_date) == current_day_date}.first(10) %>
 		  <% if show_episodes.any? %>
       <div class="calendar_cell_content">
       	<ul>
       	<% show_episodes.each do |e| %>
       	  <li>
-      	    <%= raw print_calendar_episode(e) %>
+      	      <%= raw print_calendar_episode(e) %>
         	  <div id="tip_<%=e.id%>" class="hidden"><h3><%= "#{e.name} (#{e.format(1)})" %></h3><span><%= raw e.friendly_overview %></span></div>
         	</li>
       	<% end %>

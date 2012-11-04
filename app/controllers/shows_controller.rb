@@ -1,6 +1,7 @@
 class ShowsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:index, :show, :public, :search, :calendar_iframe, :trends]
+  require_dependency "episode"
   
   def index
     @letter = params[:letter].blank? ? "a" : params[:letter]
@@ -38,19 +39,25 @@ class ShowsController < ApplicationController
     end
     
     #get episodes
-    #@show_ids = Rails.cache.fetch([current_user.id, "shows_ids", year, month]) do
+
+    @show_ids = Rails.cache.fetch([current_user, "shows_ids", @current.year, @current.month]) do
       #@show_ids = current_user.shows.collect(&:id)
-      @show_ids = Following.current.where("user_id = ?", current_user.id).collect(&:show_id)
-    #end
-    #@episodes = Rails.cache.fetch([current_user.id, "episodes", year, month]) do
-      hidden_episodes_ids = HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
+      #@show_ids = Following.current.where("user_id = ?", current_user.id).collect(&:show_id)
+      Following.current.where("user_id = ?", current_user.id).collect(&:show_id)
+    end
+
+    hidden_episodes_ids = Rails.cache.fetch([current_user, "hidden_episode_ids"]) do    
+      HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
+    end
+
+    @episodes = Rails.cache.fetch([current_user, "episodes", @current.year, @current.month]) do
       scope = Episode.where("episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days)
       scope = scope.select("episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink")
       scope = scope.order("show_name asc, episodes.season_number asc, episodes.number asc")
       scope = scope.joins(:show)
       scope = scope.where("episodes.id NOT IN (?)", hidden_episodes_ids) if hidden_episodes_ids.any?
-      @episodes = scope.all
-    #end
+      scope
+    end
     
     @seen_episodes = SeenEpisode.where("user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)).map(&:episode_id)
     
@@ -96,9 +103,9 @@ class ShowsController < ApplicationController
     #get episodes
     @episodes = Episode.all(
       :joins => :show,
-      :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink",
+      :select => "episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.overview, shows.name AS show_name, shows.followers AS followers, shows.permalink AS show_permalink",
       :conditions => ["air_date >= ? AND air_date <= ?", @start_day - 1.days, @end_day + 1.days],
-      :order => "show_name asc"
+      :order => "followers desc"
       )
     @episodes.each do |episode|
       episode.real_air_date = episode.air_date.to_s(:air_date)

@@ -28,7 +28,7 @@ gem "time_diff"
 gem "has_permalink"
 gem "paperclip"
 gem "icalendar"
-gem "amazon_product"
+#gem "amazon_product"
 gem "RedCloth"
 gem "delayed_job_active_record"
 gem "rest-client"
@@ -62,6 +62,8 @@ group :development do
   gem "bullet"
   gem "letter_opener"
   gem "nifty-generators", :group => :development
+  #gem 'rack-bug', :require => 'rack/bug', :git => 'git://github.com/brynary/rack-bug.git', :branch => 'rails3'
+  #gem "rack-insight"
 end
 
 group :test do
