@@ -22,7 +22,7 @@ class FollowingsController < ApplicationController
     unless @show
       flash[:error] = "The show '#{params[:permalink]}' does not exist."
     else
-      if Following.exists?({:user_id => @following.user_id, :show_id => @following.show.id})
+      if Following.exists?({:user_id => @following.user_id, :show_id => @following.cached_show.id})
         flash[:error] = "You already have '#{@show.name}' in your list."
       else
         if @following.save

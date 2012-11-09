@@ -44,13 +44,13 @@ a.premiere {
 }
 
 .calendar_day_other_month a {
-  color: #999;
+  color: #bbb;
   border-bottom: 1px $light_blue_theme_color solid;
 }
 
 .calendar_day_other_month a:hover {
   color: #7777FF;
-  border-bottom: 1px #999 solid;
+  border-bottom: 1px #bbb solid;
 }
 
 #calendar th { text-align: center; }
@@ -98,7 +98,7 @@ a.premiere {
   width: 13%;
   height: 10%;
   vertical-align: top;
-  color: #999;
+  color: #bbb;
   font-size: 0.9em;
 }
 
@@ -126,6 +126,7 @@ a.premiere {
 .calendar_day .seen,
 .calendar_day .seen a {
   color: #999;
+  text-decoration: line-through;
 }
 
 .calendar_day .seen a:hover {

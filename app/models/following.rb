@@ -13,7 +13,7 @@
 #
 
 class Following < ActiveRecord::Base
-	belongs_to :user, :counter_cache => true
+	belongs_to :user, :counter_cache => true, :touch => true
 	belongs_to :show, :counter_cache => :followers
 
   scope :current, where("watch_later = ?", false)
@@ -23,6 +23,12 @@ class Following < ActiveRecord::Base
 	def unseen_count
     aired_episodes = Episode.where("show_id = ? AND air_date <= ?", self.show_id, $TODAY).all
 	  count = aired_episodes.size - self.marked_episodes_count - self.hidden_episodes_count
+  end
+
+  def cached_show
+    Rails.cache.fetch([self, :show]) do
+      show      
+    end
   end
   
   private

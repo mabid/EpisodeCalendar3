@@ -133,7 +133,8 @@ class UsersController < ApplicationController
       @marked_count = Following.where(:user_id => @user.id).sum("marked_episodes_count")
     #end
     Following.where(:user_id => @user.id).each do |following|
-      @time_wasted += following.show.runtime * following.marked_episodes_count unless following.show.runtime.blank?
+      show = following.cached_show
+      @time_wasted += show.runtime * following.marked_episodes_count unless show.runtime.blank?
     end
     @user.shows.each do |show|
       @episodes_count += show.episodes.select{ |e| e.air_date < $TODAY }.size

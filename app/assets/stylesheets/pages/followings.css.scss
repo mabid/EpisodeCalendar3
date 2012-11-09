@@ -82,17 +82,37 @@
     font-size: 11px;
     border-color: #000;
     border-bottom: 1px solid #000;
-    margin: 0 5px 0 0;
     position: relative;
     top: -1px;
   }
   
   #bottom_legend .normal {
-    border-bottom: 1px solid #AAAAFF;
-    color: #000000;
+    border-bottom: 1px solid #aaf;
+    color: #000;
     font-size: 10px;
     position: relative;
     top: -1px;
+  }
+
+  #bottom_legend .seen {
+    border-bottom: 1px solid #aaf;
+    color: #999;
+    font-size: 10px;
+    position: relative;
+    top: -1px;
+    text-decoration: line-through;
+  }
+
+  #bottom_legend .other {
+    border-bottom: 1px solid #aaf;
+    color: #bbb;
+    font-size: 10px;
+    position: relative;
+    top: -1px;
+  }
+
+  #bottom_legend > * {
+    margin: 0 2px;
   }
 
   #quick_note {

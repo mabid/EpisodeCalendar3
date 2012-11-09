@@ -22,7 +22,7 @@
     	<ul id="recently_favorited">
       <% @recently_favorited.each do |following| %>
     		<li>
-    		  <%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink) %> <span><%= "(#{pluralize(following.show.followers, "follower")})" %></span>
+    		  <%= link_to "#{following.cached_show.name}", show_path(:permalink => following.cached_show.permalink) %> <span><%= "(#{pluralize(following.cached_show.followers, "follower")})" %></span>
     	  </li>
     		<% end %>
     	</ul>
