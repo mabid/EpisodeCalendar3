@@ -13,7 +13,7 @@
 #
 
 class Banner < ActiveRecord::Base
-  belongs_to :show
+  belongs_to :show, :touch => true
   attr_accessible :show_id
   
 	has_attached_file :image,

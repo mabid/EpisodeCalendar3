@@ -20,9 +20,9 @@
     <div class="inner">
     	<h3>Recently favorited shows</h3>
     	<ul id="recently_favorited">
-      <% @recently_favorited.each do |following| %>
+      <% @recently_favorited.each do |show| %>
     		<li>
-    		  <%= link_to "#{following.cached_show.name}", show_path(:permalink => following.cached_show.permalink) %> <span><%= "(#{pluralize(following.cached_show.followers, "follower")})" %></span>
+    		  <%= link_to "#{show.name}", show_path(:permalink => show.permalink) %> <span><%= "(#{pluralize(show.followers, "follower")})" %></span>
     	  </li>
     		<% end %>
     	</ul>
