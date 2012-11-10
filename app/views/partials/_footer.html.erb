@@ -1,7 +1,5 @@
-<% cache(@system_message) do %>
-  <% unless @system_message.try(:value).blank? %>
-    <div id="<%= @system_message.additional_data %>"><%= @system_message.value %></div>
-  <% end %>
+<% unless @system_message.try(:value).blank? %>
+  <div id="<%= @system_message.additional_data %>"><%= @system_message.value %></div>
 <% end %>
 
 <% cache("footer_tag_cloud") do %>
