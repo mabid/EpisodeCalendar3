@@ -1,0 +1,3 @@
+<% @stats.each do |key, value| %>
+  <p><%= "#{key}: #{number_to_human_size(value)}" %></p>
+<% end %>
