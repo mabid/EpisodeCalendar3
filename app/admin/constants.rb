@@ -15,5 +15,9 @@ ActiveAdmin.register Constant do
       raw "#{link_to "Edit", edit_admin_constant_path(constant), :class => :member_link} #{link_to "Delete", admin_constant_path(constant), :class => :member_link, :method => :delete, :confirm => "Delete #{constant.key} (#{constant.value})?"}" 
     end
   end
+
+  controller do
+    cache_sweeper :constant_sweeper
+  end
   
 end

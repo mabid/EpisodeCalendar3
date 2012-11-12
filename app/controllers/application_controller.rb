@@ -24,8 +24,12 @@ class ApplicationController < ActionController::Base
   end
   
   def footer
-    @recently_favorited = Following.order("created_at DESC").limit(10)
-    @system_message = Constant.where(:key => "system_message").first
+    @recently_favorited = Rails.cache.fetch("recently_favorited_shows", expires_in: 1.minutes) do
+      Show.find(Following.order("created_at DESC").limit(10).collect(&:show_id))
+    end
+    @system_message = Rails.cache.fetch("system_message") do
+      Constant.where(:key => "system_message").first
+    end
   end
   
   def admin?
