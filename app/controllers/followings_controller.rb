@@ -3,6 +3,7 @@ class FollowingsController < ApplicationController
   before_filter :authenticate_user!
   protect_from_forgery :only => [:update, :delete, :create]
   cache_sweeper :following_sweeper
+  require_dependency "following"
   
   def index
     @followings = []
@@ -22,7 +23,7 @@ class FollowingsController < ApplicationController
     unless @show
       flash[:error] = "The show '#{params[:permalink]}' does not exist."
     else
-      if Following.exists?({:user_id => @following.user_id, :show_id => @following.cached_show.id})
+      if Following.exists?({:user_id => @following.user_id, :show_id => @following.show.id})
         flash[:error] = "You already have '#{@show.name}' in your list."
       else
         if @following.save

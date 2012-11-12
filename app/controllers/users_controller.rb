@@ -137,7 +137,7 @@ class UsersController < ApplicationController
       @time_wasted += show.runtime * following.marked_episodes_count unless show.runtime.blank?
     end
     @user.shows.each do |show|
-      @episodes_count += show.episodes.select{ |e| e.air_date < $TODAY }.size
+      @episodes_count += show.episodes.select{ |e| !e.air_date.blank? && e.air_date < $TODAY }.size
     end
 
     @episodes_count -= @user.followings.sum(:hidden_episodes_count)
