@@ -56,5 +56,10 @@ class SupportController < ApplicationController
     google_plus_doc = Hpricot.parse(result)
     @count = google_plus_doc.search("div[@id=aggregateCount]").innerHTML
   end
+
+  def cache_stats
+    @stats = Rails.cache.stats["127.0.0.1:11211"].select { |key, value| key.match(/bytes/) }
+    render :layout => false
+  end
   
 end

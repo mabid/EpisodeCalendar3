@@ -84,6 +84,7 @@ Episodecalendar2::Application.routes.draw do
   match "/request-show/" => "support#request_show", :as => "request_show"
   match "/request-show/:show_id/:show_name" => "support#queue_requested_show", :as => "queue_requested_show"
   match "/request-successful/:permalink" => "support#request_successful", :as => "request_successful"
+  match "/cache-stats" => "support#cache_stats"
   
   #Misc
 	match "/search" => "shows#search"
