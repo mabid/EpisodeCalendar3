@@ -1,46 +1,69 @@
-<!--<div data-role="navbar">-->
-  <!--<ul>-->
-    <!--<li><a data-theme="a" href="#">Top shows</a></li>-->
-    <!--<li><a data-theme="a" href="#">New followers</a></li>-->
-    <!--<li><a data-theme="a" href="#">Fastest growing shows</a></li>-->
-  <!--</ul>-->
-<!--</div>&lt;!&ndash; /navbar &ndash;&gt;-->
-<div class="ui-grid-b">
+<div data-role="navbar">
+  <ul>
+    <li><a id="topshows" class="navbar-links" data-theme="a" href="#">Top shows</a></li>
+    <li><a id="newfollowers" class="navbar-links" data-theme="a" href="#">New followers</a></li>
+    <li><a id="fastgrow" class="navbar-links" data-theme="a" href="#">Fastest growing shows</a></li>
+  </ul>
+</div><!-- /navbar -->
 
-  <div class="ui-block-a">
-    <ul data-role="listview" data-inset="true" data-mini="true">
-      <li data-theme="a"><strong>Top shows</strong></li>
-      <% @top_shows.each_with_index do |show, i| %>
-          <li>
-            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
-            <span class="ui-li-aside"><%= show.followers %> followers<%= raw print_popularity(show) %></span>
-          </li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="ui-block-b">
-    <ul data-role="listview" data-inset="true" data-mini="true">
-      <li data-theme="a"><strong>New followers</strong></li>
-      <% @top_new_followers.each_with_index do |show, i| %>
-          <li>
-            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
-            <span class="ui-li-aside"><%= show.followers %> followers<%= raw print_popularity(show) %></span>
-          </li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="ui-block-c">
-    <ul data-role="listview" data-inset="true" data-mini="true">
-      <li data-theme="a"><strong>Fastest shows</strong></li>
-      <% @highest_grow.each_with_index do |show, i| %>
-          <li>
-            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
-            <span class="ui-li-aside"><%= show.followers %> followers<%= raw print_popularity(show) %></span>
-          </li>
-      <% end %>
-    </ul>
-  </div>
-</div><!-- /grid-a -->
-
+<div class="data-content topshows" data-theme="c">
+  <ul data-role="listview" data-inset="true" data-mini="true">
+    <% @top_shows.each_with_index do |show, i| %>
+        <li>
+          <% if show.banner %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
+          <% else %>
+              <%= image_tag("pixel.gif") %>
+          <% end %>
+          <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+          <span class="ui-li-aside"><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></span>
+        </li>
+    <% end %>
+  </ul>
 </div>
 
+<div class="data-content newfollowers" data-theme="c">
+  <ul data-role="listview" data-inset="true" data-mini="true">
+    <% @highest_grow.each_with_index do |show, i| %>
+        <li>
+          <% if show.banner %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
+          <% else %>
+              <%= image_tag("pixel.gif") %>
+          <% end %>
+          <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+          <span class="ui-li-aside"><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></span>
+        </li>
+    <% end %>
+  </ul>
+</div>
+<div class="data-content fastgrow" data-theme="c">
+  <ul data-role="listview" data-inset="true" data-mini="true">
+    <% @top_new_followers.each_with_index do |show, i| %>
+        <li>
+          <% if show.banner %>
+              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
+          <% else %>
+              <%= image_tag("pixel.gif") %>
+          <% end %>
+          <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+          <span class="ui-li-aside"><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></span>
+        </li>
+    <% end %>
+  </ul>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.data-content').hide();
+      $('.topshows').show();
+      $('#topshows').addClass('ui-btn-active');
+      $(".navbar-links").click(function() {
+          var klass = $(this).attr('id');
+          $('.data-content').hide();
+          console.log(klass);
+          $('.' + klass).show();
+      });
+  });
+</script>
