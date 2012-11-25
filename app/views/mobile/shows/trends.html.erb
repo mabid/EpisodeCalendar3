@@ -15,8 +15,10 @@
           <% else %>
               <%= image_tag("pixel.gif") %>
           <% end %>
-          <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
-          <span class="ui-li-aside"><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></span>
+          <h3>
+            <strong><%= link_to(show.name, show, :class => "alternative big") %></strong>
+          </h3>
+          <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
         </li>
     <% end %>
   </ul>
@@ -31,8 +33,10 @@
           <% else %>
               <%= image_tag("pixel.gif") %>
           <% end %>
-          <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
-          <span class="ui-li-aside"><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></span>
+          <h3>
+            <strong><%= link_to(show.name, show, :class => "alternative big") %></strong>
+          </h3>
+          <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
         </li>
     <% end %>
   </ul>
@@ -46,8 +50,10 @@
           <% else %>
               <%= image_tag("pixel.gif") %>
           <% end %>
-          <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
-          <span class="ui-li-aside"><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></span>
+          <h3>
+            <strong><%= link_to(show.name, show, :class => "alternative big") %></strong>
+          </h3>
+          <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
         </li>
     <% end %>
   </ul>
@@ -62,7 +68,6 @@
       $(".navbar-links").click(function() {
           var klass = $(this).attr('id');
           $('.data-content').hide();
-          console.log(klass);
           $('.' + klass).show();
       });
   });
