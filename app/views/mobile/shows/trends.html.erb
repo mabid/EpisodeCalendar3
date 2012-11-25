@@ -1,0 +1,46 @@
+<!--<div data-role="navbar">-->
+  <!--<ul>-->
+    <!--<li><a data-theme="a" href="#">Top shows</a></li>-->
+    <!--<li><a data-theme="a" href="#">New followers</a></li>-->
+    <!--<li><a data-theme="a" href="#">Fastest growing shows</a></li>-->
+  <!--</ul>-->
+<!--</div>&lt;!&ndash; /navbar &ndash;&gt;-->
+<div class="ui-grid-b">
+
+  <div class="ui-block-a">
+    <ul data-role="listview" data-inset="true" data-mini="true">
+      <li data-theme="a"><strong>Top shows</strong></li>
+      <% @top_shows.each_with_index do |show, i| %>
+          <li>
+            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+            <span class="ui-li-aside"><%= show.followers %> followers<%= raw print_popularity(show) %></span>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="ui-block-b">
+    <ul data-role="listview" data-inset="true" data-mini="true">
+      <li data-theme="a"><strong>New followers</strong></li>
+      <% @top_new_followers.each_with_index do |show, i| %>
+          <li>
+            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+            <span class="ui-li-aside"><%= show.followers %> followers<%= raw print_popularity(show) %></span>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="ui-block-c">
+    <ul data-role="listview" data-inset="true" data-mini="true">
+      <li data-theme="a"><strong>Fastest shows</strong></li>
+      <% @highest_grow.each_with_index do |show, i| %>
+          <li>
+            <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>
+            <span class="ui-li-aside"><%= show.followers %> followers<%= raw print_popularity(show) %></span>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+</div><!-- /grid-a -->
+
+</div>
+
