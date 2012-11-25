@@ -1,8 +1,8 @@
 <div data-role="navbar">
   <ul>
     <li><a id="topshows" class="navbar-links" data-theme="a" href="#">Top shows</a></li>
-    <li><a id="newfollowers" class="navbar-links" data-theme="a" href="#">New followers</a></li>
-    <li><a id="fastgrow" class="navbar-links" data-theme="a" href="#">Fastest growing shows</a></li>
+    <li><a id="newfollowers" class="navbar-links" data-theme="a" href="#">By followers</a></li>
+    <li><a id="fastgrow" class="navbar-links" data-theme="a" href="#">By growth</a></li>
   </ul>
 </div><!-- /navbar -->
 
@@ -10,15 +10,15 @@
   <ul data-role="listview" data-inset="true" data-mini="true">
     <% @top_shows.each_with_index do |show, i| %>
         <li>
-          <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
-          <% else %>
-              <%= image_tag("pixel.gif") %>
-          <% end %>
-          <h3>
-            <strong><%= link_to(show.name, show, :class => "alternative big") %></strong>
-          </h3>
-          <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+          <a href="<%= show_path(show) %>">
+            <% if show.banner %>
+                <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
+            <% else %>
+                <%= image_tag("pixel.gif") %>
+            <% end %>
+            <h3><%= show.name %></h3>
+            <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+          </a>
         </li>
     <% end %>
   </ul>
@@ -28,15 +28,15 @@
   <ul data-role="listview" data-inset="true" data-mini="true">
     <% @highest_grow.each_with_index do |show, i| %>
         <li>
-          <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
-          <% else %>
-              <%= image_tag("pixel.gif") %>
-          <% end %>
-          <h3>
-            <strong><%= link_to(show.name, show, :class => "alternative big") %></strong>
-          </h3>
-          <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+          <a href="<%= show_path(show) %>">
+            <% if show.banner %>
+                <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
+            <% else %>
+                <%= image_tag("pixel.gif") %>
+            <% end %>
+            <h3><%= show.name %></h3>
+            <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+          </a>
         </li>
     <% end %>
   </ul>
@@ -45,15 +45,15 @@
   <ul data-role="listview" data-inset="true" data-mini="true">
     <% @top_new_followers.each_with_index do |show, i| %>
         <li>
-          <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
-          <% else %>
-              <%= image_tag("pixel.gif") %>
-          <% end %>
-          <h3>
-            <strong><%= link_to(show.name, show, :class => "alternative big") %></strong>
-          </h3>
-          <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+          <a href="<%= show_path(show) %>">
+            <% if show.banner %>
+                <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
+            <% else %>
+                <%= image_tag("pixel.gif") %>
+            <% end %>
+            <h3><%= show.name %></h3>
+            <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+          </a>
         </li>
     <% end %>
   </ul>
