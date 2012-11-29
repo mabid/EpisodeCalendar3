@@ -1,0 +1,47 @@
+<% day_offset = (current_user ? current_user.day_offset.days : 0.days) %>
+<!--<div class="bar">-->
+  <!--<dl id="status_legend">-->
+    <!--<dt><%= icon_tag("television_off") %></dt> <dd>No new episodes.</dd>-->
+    <!--<dt><%= icon_tag("television_on") %></dt> <dd class="green">Go watch more episodes!</dd>-->
+  <!--</dl>-->
+  <!--<h2 class="center big">My <%= pluralize(@followings_active.size, "favorite") %></h2>-->
+<!--</div>-->
+<% if @followings.any? %>
+    <div data-role="collapsible-set">
+      <% @followings.each do |following| %>
+        <div data-role="collapsible" data-theme="b" data-content-theme="c">
+          <h3><%= following.show.name %></h3>
+          <p>
+            <ul data-role="listview">
+              <!--<li>-->
+                <!--<%= following.unseen_count > 0 ? icon_tag("television_on") : icon_tag("television_off") %>-->
+                <!--<strong><%= link_to "#{following.show.name}", show_path(:permalink => following.show.permalink), :class => "alternative" %></strong>-->
+                <!--<%= raw print_unwatched(following.unseen_count) %>-->
+              <!--</li>-->
+              <li>
+                Last Episode:
+                <%= raw print_prev_episode(following.show.prev_episode(day_offset), day_offset,true) %>
+              </li>
+              <li>
+                Next Episode:
+                <%= raw print_next_episode(following.show.next_episode(day_offset), day_offset,true) %>
+              </li>
+              <% if following.show.status == "Continuing" %>
+                  <li>
+                    checkbox should go here later
+                    <!--<%= link_to("", {:controller => "followings", :action => "set_reminder", :id => following.id}, :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if following.send_reminder}", :rel => "ajax_loader_#{following.id}") %>-->
+                    <!--<%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{following.id}", :class => :ajaxLoader) %>-->
+                  </li>
+              <% end %>
+              <li>
+                <%= link_to("Remove", following, :confirm => "Are you sure that you want to unfollow [#{following.show.name}]?",
+                              :method => :delete, "data-role" => "button", "data-icon" => "delete", "data-mini" => "true", "data-iconpos" => "right ") %></li>
+              </li>
+            </ul>
+          </p>
+        </div>
+      <% end %>
+    </div>
+<% end %>
+
+

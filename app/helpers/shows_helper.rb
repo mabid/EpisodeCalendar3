@@ -7,7 +7,7 @@ module ShowsHelper
     return "<strong>#{episode.name}</strong><em>#{format_episode_number(episode)}</em>"
   end
   
-  def print_prev_episode(episode, day_offset)
+  def print_prev_episode(episode, day_offset, only_date =false)
     return "-" unless episode
     
     date = episode.air_date + day_offset
@@ -15,11 +15,14 @@ module ShowsHelper
       when $TODAY.yesterday.to_s(:air_date) ; "Yesterday"
       else "#{time_ago_in_words(date + 1.day)} ago"
     end
-    
-    return "<strong>#{format_episode_number(episode)} - #{episode.name}</strong><em>#{format_date(date)} | #{time_ago}</em>"
+    if only_date
+      return "<em>#{format_date(date)} | #{time_ago}</em>"
+    else
+      return "<strong>#{format_episode_number(episode)} - #{episode.name}</strong><em>#{format_date(date)} | #{time_ago}</em>"
+    end
   end
 
-  def print_next_episode(episode, day_offset)
+  def print_next_episode(episode, day_offset, only_date =false)
     return "-" unless episode
     
     date = episode.air_date + day_offset
@@ -28,8 +31,11 @@ module ShowsHelper
       when $TODAY.tomorrow.to_s(:air_date) ; "Tomorrow"
       else "#{time_ago_in_words(date + 1.day)} from now"
     end
-    
-    return "<strong>#{format_episode_number(episode)} - #{episode.name}</strong><em>#{format_date(date)} | #{time_ago}</em>"
+    if only_date
+      return "<em>#{format_date(date)} | #{time_ago}</em>"
+    else
+      return "<strong>#{format_episode_number(episode)} - #{episode.name}</strong><em>#{format_date(date)} | #{time_ago}</em>"
+    end
   end
 
   def print_show_status(show)
