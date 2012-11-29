@@ -10,7 +10,7 @@
     <div data-role="collapsible-set">
       <% @followings.each do |following| %>
         <div data-role="collapsible" data-theme="b" data-content-theme="c">
-          <h3><%= following.show.name %></h3>
+          <h3><%= following.show.name %><span class="ui-li-count"><%= raw following.unseen_count %></span></h3>
           <p>
             <ul data-role="listview">
               <!--<li>-->
@@ -44,4 +44,8 @@
     </div>
 <% end %>
 
+<style type="text/css">
+    .ui-collapsible-heading .ui-btn-text{ display:block;}
+    .ui-collapsible-heading .ui-li-count { position: absolute; font-size: 11px; font-weight: bold; padding: .2em .5em; top: 50%; margin-top: -.9em; right: 10px;  border-radius: 1em 1em 1em 1em; background: linear-gradient(#FFFFFF, #F1F1F1) repeat scroll 0 0 #EEEEEE;  border: 1px solid #CCCCCC; color: #ffffff;font-weight: bold;text-shadow: 0 1px 0 #FFFFFF; }
+</style>
 
