@@ -124,8 +124,17 @@ a.premiere {
 }
 
 .calendar_day .seen,
-.calendar_day .seen a {
+.calendar_day .seen a,
+.calendar_today .seen,
+.calendar_today .seen a {
   color: #999;
+  text-decoration: line-through;
+}
+
+
+.calendar_day_other_month .seen,
+.calendar_day_other_month .seen a {
+  color: #bbb;
   text-decoration: line-through;
 }
 
