@@ -1,9 +1,11 @@
-<ul data-role="listview" data-divider-theme="b" data-inset="true">
-	<li data-role="list-divider" role="heading">Questions</li>
-	<li data-theme="c">
-	  FAQ #1
-	</li>
-	<li data-theme="c">
-	  FAQ #2
-	</li>
-</ul>
+<div data-role="header" data-theme="b">
+  <h2>FAQ's</h2>
+</div>
+<% @faqs.each do |faq| %>
+    <div data-role="collapsible">
+      <h3><%= faq.question %></h3>
+      <p><%= raw render_textile(faq.answer) %></p>
+    </div>
+<% end %>
+
+<%= render "contact_form" %>
