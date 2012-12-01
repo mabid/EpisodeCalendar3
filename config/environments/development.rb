@@ -40,16 +40,16 @@ Episodecalendar2::Application.configure do
   #config.middleware.use "Rack::Insight::App", :secret_key => "someverylongandveryhardtoguesspreferablyrandomstring"
 
   #Bullet
-  config.after_initialize do
-    Bullet.enable = true
+  #config.after_initialize do
+    #Bullet.enable = true
     #Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
+    #Bullet.bullet_logger = true
+    #Bullet.console = true
     #Bullet.growl = true
     #Bullet.rails_logger = true
     #Bullet.airbrake = true
-    Bullet.disable_browser_cache = true
-  end
+    #Bullet.disable_browser_cache = true
+  #end
 
   config.action_mailer.default_url_options = { :host => "localhost" }
 end
