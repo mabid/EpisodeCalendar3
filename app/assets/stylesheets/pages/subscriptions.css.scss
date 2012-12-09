@@ -1,0 +1,30 @@
+// Place all the styles related to the subscriptions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.subscription_form {
+  width: 450px;
+  margin: 0 auto;
+}
+.grouped {
+  border: none;
+  margin-bottom: 5px;
+}
+.grouped label {
+  float: left;
+  width: 100px;
+}
+.grouped select {
+  height: 28px;
+  width: 102px;
+}
+.grouped input.submit {
+  mmargin-left: 110px;
+  width: 70px;
+}
+.subscription_form .error {
+  color: red;
+  border: 1px solid;
+  margin-bottom: 5px;
+  text-align: center;
+}

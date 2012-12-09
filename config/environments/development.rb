@@ -49,6 +49,14 @@ Episodecalendar2::Application.configure do
     #Bullet.rails_logger = true
     #Bullet.airbrake = true
     Bullet.disable_browser_cache = true
+
+    # activemercant's configurations'
+    ActiveMerchant::Billing::Base.mode = :test
+    ::GATEWAY = ActiveMerchant::Billing::PaypalRecurringGateway.new(
+        :login => "adnana_1354452754_biz_api1.gmail.com",
+        :password => "1354452779",
+        :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31Ap5obNLuwGlYxB-pYoq14OZfCtnU"
+    )
   end
 
   config.action_mailer.default_url_options = { :host => "localhost" }

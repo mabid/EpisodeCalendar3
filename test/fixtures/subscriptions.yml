@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  plan_id: 1
+  token: MyString
+  info: MyString
+
+two:
+  user_id: 1
+  plan_id: 1
+  token: MyString
+  info: MyString

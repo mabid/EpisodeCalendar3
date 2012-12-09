@@ -1,0 +1,40 @@
+<div class="subscription_form">
+  <% if flash[:error]%>
+      <div class="error">
+        <%= flash[:error]%>
+      </div>
+  <% end %>
+  <%= form_tag "/subscriptions", :method => "post" do%>
+      <%= hidden_field_tag "user_id", @current_user.id %>
+      <%= hidden_field_tag "plan_id", params[:plan_id]%>
+      <fieldset class="grouped">
+        <%= label_tag "credit_card[type]", "Card Type"%>
+        <%= select_tag "credit_card[type]", options_for_select([["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]])%>
+      </fieldset>
+      <fieldset class="grouped">
+        <%= label_tag "credit_card[first_name]", "First Name"%>
+        <%= text_field_tag "credit_card[first_name]"%>
+      </fieldset>
+      <fieldset class="grouped">
+        <%= label_tag "credit_card[last_name]", "Last Name"%>
+        <%= text_field_tag "credit_card[last_name]"%>
+      </fieldset>
+      <fieldset class="grouped">
+        <%= label_tag "credit_card[number]", "Card Number"%>
+        <%= text_field_tag "credit_card[number]"%>
+      </fieldset>
+      <fieldset class="grouped">
+        <%= label_tag "credit_card[verification_value]", "CVC"%>
+        <%= text_field_tag "credit_card[verification_value]"%>
+      </fieldset>
+      <fieldset class="grouped">
+        <%-#=date_select "card_expires_on", :disard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+        <%= label_tag "card_expires_on", "Card Expiration"%>
+        <%= date_select "card_expires_on", "", :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+      </fieldset>
+      <fieldset class="grouped">
+        <%= submit_tag "Submit", :class=> "submit" %>
+      </fieldset>
+  <%end%>
+  <%= link_to "Express Checkout", express_checkout_path %>
+</div>
