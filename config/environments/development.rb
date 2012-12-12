@@ -53,9 +53,9 @@ Episodecalendar2::Application.configure do
     # activemercant's configurations'
     ActiveMerchant::Billing::Base.mode = :test
     ::GATEWAY = ActiveMerchant::Billing::PaypalRecurringGateway.new(
-        :login => "adnana_1354452754_biz_api1.gmail.com",
-        :password => "1354452779",
-        :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31Ap5obNLuwGlYxB-pYoq14OZfCtnU"
+        :login => "adnans_1355337977_biz_api1.gmail.com",
+        :password => "1355338031",
+        :signature => "AAAyDlUyheTzrxb-MdBSdylJgYW-gAh6zI6wr6gFYfH7H5SOR.1TRHedX"
     )
   end
 

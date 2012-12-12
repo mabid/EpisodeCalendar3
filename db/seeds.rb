@@ -14,6 +14,15 @@ api_show_ids.each do |api_show_id|
 	UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => api_show_id, :update_type => "banner")
 end
 
+puts "Start of plans creation"
+Plan.delete_all
+Plan.create!(:name => "free", :price => 0.0, :duration => "unlimited")
+Plan.create!(:name => "1-Month", :price => 20.0, :duration => "1")
+Plan.create!(:name => "3-Month", :price => 15.0, :duration => "3")
+Plan.create!(:name => "6-Month", :price => 12.0, :duration => "6")
+Plan.create!(:name => "12-Month", :price => 9.0, :duration => "12")
+puts "Finishing plans creation"
+
 puts "Queued shows for import. Run these commands to complete the import:"
 puts "1. rake db:update_shows"
 puts "2. rake db:get_show_episodes"

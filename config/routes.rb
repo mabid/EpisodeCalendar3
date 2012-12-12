@@ -26,11 +26,10 @@ Episodecalendar2::Application.routes.draw do
   resources :faqs, :path => "faq" do
     collection { post :sort }
   end
+  match "/subscriptions/express_checkout" => "subscriptions#checkout", :as => "express_checkout"
+  match "/subscriptions/return_process_checkout" => "subscriptions#return_checkout", :as => "process_checkout"
+  match "/subscriptions/return_cancel_checkout" => "subscriptions#cancel_checkout", :as => "cancel_checkout"
   resources :subscriptions
-  match "/subscriptions/express_checkout" => "subscriptions#checkout", :as => "express_checkout_path"
-  match "/subscriptions/return_process_checkout" => "subscriptions#return_checkout", :as => "process_checkout_path"
-  match "/subscriptions/return_cancel_checkout" => "subscriptions#cancel_checkout", :as => "cancel_checkout_path"
-
   #API
   scope "api", :module => :api, :format => :json do
     resources :shows

@@ -201,12 +201,12 @@
     </div>
   </div>
 
-  <div class="upgrade_plans">
+  <div class="user_upgrade_plans">
     <h3>Upgrade Plan:</h3>
     <ul>
       <% Plan.all.each do |p| %>
         <% unless p.name.downcase == "free" %>
-          <li><%= link_to(p.name, new_subscription_path(:plan_id => p.id))%></li>
+          <li><%= link_to(p.name, new_subscription_path(:plan => p.name.downcase))%></li>
         <% end %>
       <% end %>
     </ul>

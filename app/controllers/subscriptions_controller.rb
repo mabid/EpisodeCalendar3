@@ -7,7 +7,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.new(:user_id => params[:user_id], :plan_id => params[:plan_id])
-    @plan = Plan.find_by_id(params[:plan_id])
+    @plan = Plan.find_by_name(params[:plan])
     response = credit_card_payment(params[:credit_card])
     if response.success?
       @subscription.token = response.token
@@ -15,12 +15,13 @@ class SubscriptionsController < ApplicationController
     else
       @subscription.destroy
       flash[:error] = response.message
-      redirect_to new_subscription_path(:plan_id => @plan.id)
+      redirect_to new_subscription_path(:plan => @plan.name)
     end
   end
 
   def checkout
-    setup_response = GATEWAY.setup_authorization(MONEY_IN_CENTS,
+    @plan = Plan.find_by_name(params[:plan])
+    setup_response = GATEWAY.setup_authorization(@plan.price || 0,
        :ip                => request.remote_ip,
        :return_url        => url_for(process_checkout_path),
        :cancel_return_url => url_for(new_subscription_path),
@@ -31,7 +32,7 @@ class SubscriptionsController < ApplicationController
 
   def return_checkout
     token = params[:token]
-    authorize_response = gateway.authorize(MONEY_IN_CENTS,
+    authorize_response = gateway.authorize(20,
      :ip       => request.remote_ip,
      :payer_id => params[:PayerID],
      :token    => params[:token]
