@@ -37,6 +37,7 @@
 
 class User < ActiveRecord::Base
   include Gravtastic
+  after_create :create_plan
   
   has_many :followings, :dependent => :destroy
   has_many :shows, :through => :followings
@@ -82,6 +83,10 @@ class User < ActiveRecord::Base
 	
 	def display_name
 	  name.blank? ? email : name
+  end
+
+  def create_plan
+    self.plan = Plan.find_by_name("Free")
   end
 	
 end

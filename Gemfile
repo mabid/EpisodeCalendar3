@@ -38,7 +38,8 @@ gem "rabl"
 gem "newrelic_rpm"
 
 #Billing
-gem 'activemerchant', :git => 'git://github.com/vantran/active_merchant.git'
+gem "activemerchant", "~> 1.29.3"
+#gem 'activemerchant', :git => 'git://github.com/vantran/active_merchant.git'
 
 #Cache
 gem "dalli"

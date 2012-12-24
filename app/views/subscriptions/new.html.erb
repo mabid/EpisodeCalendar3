@@ -5,8 +5,13 @@
       </div>
   <% end %>
   <%= form_tag "/subscriptions", :method => "post" do%>
-      <%= hidden_field_tag "user_id", @current_user.id %>
-      <%= hidden_field_tag "plan", params[:plan]%>
+      <%= hidden_field_tag "user_id", @current_user.id%>
+      <fieldset class="grouped">
+        <%-#= hidden_field_tag "plan", params[:plan]%>
+        <%- options = [["Free", ""],["1-Month", "1-month"],["3-Month", "3-month"],["6-Month", "6-month"],["12-Month", "12-month"]] %>
+        <%= label_tag "plan", "Plan"%>
+        <%= select_tag "plan", options_for_select(options, params[:plan])%>
+      </fieldset>
       <fieldset class="grouped">
         <%= label_tag "credit_card[type]", "Card Type"%>
         <%= select_tag "credit_card[type]", options_for_select([["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]])%>
@@ -35,5 +40,5 @@
         <%= submit_tag "Submit", :class=> "submit" %>
       </fieldset>
   <%end%>
-  <%= link_to "Express Checkout", express_checkout_path(:plan => params[:plan]) %>
+  <%-#= link_to "Express Checkout", express_checkout_path(:plan => params[:plan]) %>
 </div>

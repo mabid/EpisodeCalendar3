@@ -17,4 +17,16 @@ class Mailer < ActionMailer::Base
     mail(:to => @user.email, :reply_to => @user.email, :subject => subject)
   end
 
+  def successful_subscription(subscription)
+    @subscription = subscription
+    subject = "Successful Subscription"
+    mail(:from => "support@episodecalendar.com", :to => subscription.user.email, :reply_to => subscription.user.email, :subject => subject)
+  end
+
+  def remove_subscription(subscription)
+    @subscription = subscription
+    subject = "Subscription Removed"
+    mail(:from => "support@episodecalendar.com", :to => subscription.user.email, :reply_to => subscription.user.email, :subject => subject)
+  end
+
 end

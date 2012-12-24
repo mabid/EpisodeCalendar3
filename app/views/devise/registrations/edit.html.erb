@@ -202,11 +202,16 @@
   </div>
 
   <div class="user_upgrade_plans">
+    <% unless @current_user.subscription.profile_id.nil? %>
+        <%= link_to("Unsubscribe", subscription_path(@current_user.subscription), :confirm => "Are You Sure?", :method => :delete, :class => "awesome small red") %>
+    <% end %>
     <h3>Upgrade Plan:</h3>
     <ul>
       <% Plan.all.each do |p| %>
         <% unless p.name.downcase == "free" %>
-          <li><%= link_to(p.name, new_subscription_path(:plan => p.name.downcase))%></li>
+          <li>
+            <%= @current_user.plan == p ? p.name : link_to(p.name, new_subscription_path(:plan => p.name.downcase), :class => "awesome magenta") %>
+          </li>
         <% end %>
       <% end %>
     </ul>
