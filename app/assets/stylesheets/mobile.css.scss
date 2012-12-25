@@ -8,13 +8,209 @@
 html {}
 
 body {
-  background: #212121; 
+  background: #f2f2f2; 
   cursor: default;  
-  font-size: 12px;
+  font-size: 15px;
   font-family: Helvetica, Arial, Sans-serif;
-  color: #000;
+  color: #212121;
 }
 
 .align-left { text-align: left; }
 .center { text-align: center; }
 .align-right { text-align: right; }
+
+.scrollable {
+	position: absolute;
+	top: 46px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.ui-navbar + .scrollable {
+	top: 82px;
+}
+
+.show_banner {
+	overflow: hidden;
+	position: relative;
+	img {
+		margin-left: -25%;
+	}
+	&:after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		box-shadow: 0 0 10px #000 inset;
+		z-index: 2;
+		top: 0;
+	}
+}
+
+.unpad {
+	margin: -15px -15px 15px -15px;
+}
+
+/* jQuery Mobile Theme overrides
+ * ------------------------------------------------------------------------------------------------------------------------- */ 
+
+.ui-body-c, .ui-overlay-c {
+	background: #f6f6f6 url("/assets/mobile/background.png");
+	background-size: 50% 50%;
+	text-shadow: none;
+	color: #212121;
+}
+
+.ui-btn-inner,
+.ui-btn-up-a,
+.ui-btn-inner,
+.ui-btn-inner:hover,
+.ui-btn-up-a:hover,
+.ui-btn-inner:hover,
+.ui-btn-inner:active,
+.ui-btn-up-a:active,
+.ui-btn-inner:active {
+	border-bottom: 0;
+	&:first-child {
+		border-top: 0;
+	}
+}
+
+.ui-header:after {
+	content: "";
+	position: absolute;
+	bottom: -6px;
+	height: 10px;
+	width: 100%;
+	@include linear-gradient(#000, transparent);
+	z-index: 2;
+	opacity: 0.7;
+}
+
+.ui-bar-b {
+	border-left: 0;
+	border-right: 0;
+}
+
+.ui-listview .ui-icon {
+	background-image: url(images/icons-18-black.png);
+}
+
+.ui-btn-up-a,
+.ui-btn-hover-a {
+	background: url("/assets/mobile/background.png");
+	background-size: 100% 100%;
+}
+
+.ui-btn-hover-a {
+	border-top: 0;
+	border-bottom: 0;
+	border-color: #ccc;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+	padding: 0.2em 10px
+}
+
+.ui-listview-inset .ui-li {
+	border: 0;
+}
+
+.ui-listview-inset .ui-li.ui-li-divider {
+	text-shadow: 0 1px 0 #000;
+	border: 1px solid #DA0C87;
+	padding: 0.4em 10px;
+}
+
+.ui-li-link-alt {
+	border-right: 0;
+}
+
+.ui-bar-c {
+	border-color: #DA0C87;
+}
+
+.ui-btn-up-a {
+	border-color: #ccc;
+}
+
+.ui-btn-up-a,
+.ui-btn-up-a:hover,
+.ui-btn-up-a:active {
+	border-top: 0;
+}
+
+.ui-li + .ui-li {
+	border-top: 1px solid #ccc;
+}
+
+.ui-btn-inner .ui-shadow {
+	box-shadow: none;
+}
+
+.ui-listview.ui-shadow {
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ui-listview.ui-shadow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.ui-btn-up-c,
+.ui-btn-up-b {
+	text-shadow: 0 1px 0 #000;
+}
+
+.ui-collapsible {
+	.ui-btn-up-a {
+		font-weight: normal;
+		font-size: 0.85em;
+		padding: 0.4em 10px;
+	}
+	.ui-li {
+		border-left: 0;
+		border-right: 0;
+	}
+}
+
+#time_and_network {
+	min-height: 1px;
+	img {
+		margin-left: 10px;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+}
+
+.ui-collapsible-heading .ui-btn-inner, .ui-collapsible-heading .ui-btn-icon-left .ui-btn-inner {
+	padding-left: 30px;
+}
+
+.ui-navbar.unpad {
+	max-width: 200%;
+	margin: -15px -19px 0 -16px;
+}
+
+.ui-listview .index {
+	color: #ccc;
+	font-size: 1.2em;
+}
+
+ol.ui-listview h3,
+ol.ui-listview p {
+	padding-left: 20px;
+}
+
+img {
+	max-width: 100%;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.ui-listview .ui-icon {
+		background-image: url(images/icons-36-black.png);
+	}
+}

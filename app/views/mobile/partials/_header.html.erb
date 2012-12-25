@@ -1,13 +1,16 @@
-<div data-theme="a" data-role="header">
+<div data-theme="b" data-role="header">
   <div class="ui-grid-b">
       <div class="ui-block-a align-left">
           <a data-role="button" href="#page1" data-icon="arrow-d" data-inline="true" data-iconpos="left">Menu</a>
       </div>
       <div class="ui-block-b center">
-        <%= link_to(image_tag("logos/tv.png", :width => 41), root_path, :id => "logo", :"data-transition" => "slide", :"data-direction" => "reverse") %>
+        <%= link_to(image_tag("logos/tv.png", :width => 38), root_path, :id => "logo", :"data-transition" => "slide", :"data-direction" => "reverse") %>
       </div>
       <div class="ui-block-c align-right">
-          <a data-role="button" href="#page1" data-icon="search" data-inline="true" data-iconpos="left">Search</a>
+          <!--<a data-role="button" href="#page1" data-icon="search" data-inline="true" data-iconpos="left">Search</a>-->
+          <% if logged_in? %>
+            <a data-role="button" href="<%= destroy_session_path(current_user)%>" data-icon="forward" data-inline="true" data-iconpos="left" data-method="delete">Logout</a>
+          <% end %>
       </div>
   </div>
 </div>

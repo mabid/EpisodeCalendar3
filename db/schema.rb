@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110133518) do
+ActiveRecord::Schema.define(:version => 20121206210613) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20121110133518) do
     t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -144,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20121110133518) do
     t.boolean  "watch_later",           :default => false
   end
 
+  add_index "followings", ["created_at"], :name => "index_followings_on_created_at"
   add_index "followings", ["show_id"], :name => "index_followings_on_show_id"
   add_index "followings", ["user_id", "show_id"], :name => "index_followings_on_user_id_and_show_id"
 
@@ -172,6 +174,14 @@ ActiveRecord::Schema.define(:version => 20121110133518) do
     t.integer  "usage_count"
     t.string   "username"
     t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "plans", :force => true do |t|
+    t.string   "name"
+    t.float    "price"
+    t.string   "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -238,6 +248,15 @@ ActiveRecord::Schema.define(:version => 20121110133518) do
     t.string   "key"
     t.integer  "value"
     t.string   "additional_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "plan_id"
+    t.string   "token"
+    t.string   "info"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

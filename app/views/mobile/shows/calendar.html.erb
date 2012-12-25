@@ -6,13 +6,13 @@
     <% current_day_date = corrected_date.to_s(:air_date) %>
     <% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
     <% if show_episodes.any? %>
-      <li data-role="list-divider" role="heading" data-theme="a" class="calendar_date <%= get_cell_css_class(corrected_date, @current, $TODAY)%>">
+      <li data-form="ui-bar-c" role="" data-role="list-divider" class="ui-li ui-li-divider ui-btn ui-bar-c" data-swatch="c">
         <%= print_date(corrected_date) %> (<%= week_day(corrected_date.wday) %>)
       </li>
       <% show_episodes.each do |e| %>
-        <li data-theme="c">
+        <li data-theme="a">
           <%= m_print_calendar_episode(e).html_safe %>
-          <a href="#purchase">hej</a>
+          <a href="#"></a>
         </li>
       <% end %>
     <% end %>

@@ -1,74 +1,81 @@
-<div data-role="navbar">
+<div data-role="navbar" class="unpad">
   <ul>
-    <li><a id="topshows" class="navbar-links" data-theme="a" href="#">Top shows</a></li>
-    <li><a id="newfollowers" class="navbar-links" data-theme="a" href="#">By followers</a></li>
-    <li><a id="fastgrow" class="navbar-links" data-theme="a" href="#">By growth</a></li>
-  </ul>
-</div><!-- /navbar -->
-
-<div class="data-content topshows" data-theme="c">
-  <ul data-role="listview" data-inset="true" data-mini="true">
-    <% @top_shows.each_with_index do |show, i| %>
-        <li>
-          <a href="<%= show_path(show) %>">
-            <% if show.banner %>
-                <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
-            <% else %>
-                <%= image_tag("pixel.gif") %>
-            <% end %>
-            <h3><%= show.name %></h3>
-            <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
-          </a>
-        </li>
-    <% end %>
+    <li><a id="topshows" class="navbar-links ui-btn-hover-c" data-theme="b" href="#">All time</a></li>
+    <li><a id="newfollowers" class="navbar-links" data-theme="b" href="#">Followers</a></li>
+    <li><a id="fastgrow" class="navbar-links" data-theme="b" href="#">Growth</a></li>
   </ul>
 </div>
 
-<div class="data-content newfollowers" data-theme="c">
-  <ul data-role="listview" data-inset="true" data-mini="true">
-    <% @highest_grow.each_with_index do |show, i| %>
-        <li>
-          <a href="<%= show_path(show) %>">
-            <% if show.banner %>
-                <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
-            <% else %>
-                <%= image_tag("pixel.gif") %>
-            <% end %>
-            <h3><%= show.name %></h3>
-            <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
-          </a>
-        </li>
-    <% end %>
-  </ul>
-</div>
-<div class="data-content fastgrow" data-theme="c">
-  <ul data-role="listview" data-inset="true" data-mini="true">
-    <% @top_new_followers.each_with_index do |show, i| %>
-        <li>
-          <a href="<%= show_path(show) %>">
-            <% if show.banner %>
-                <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
-            <% else %>
-                <%= image_tag("pixel.gif") %>
-            <% end %>
-            <h3><%= show.name %></h3>
-            <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
-          </a>
-        </li>
-    <% end %>
-  </ul>
-</div>
+<div class="scrollable" data-role="content">
 
+  <div class="data-content topshows">
+    <h2 class="center">Based on most followers</h2>
+    <ul data-role="listview" data-inset="true" data-mini="true" data-theme="a">
+      <% @top_shows.each_with_index do |show, i| %>
+          <li>
+            <a href="<%= show_path(show) %>">
+              <% if show.banner %>
+                  <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
+              <% else %>
+                  <%= image_tag("pixel.gif") %>
+              <% end %>
+              <h3><span class="index"><%= i + 1 %>)</span> <%= show.name %></h3>
+              <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+            </a>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="data-content newfollowers">
+    <h2 class="center">Based on new followers this month</h2>
+    <ul data-role="listview" data-inset="true" data-mini="true" data-theme="a">
+      <% @top_new_followers.each_with_index do |show, i| %>
+          <li>
+            <a href="<%= show_path(show) %>">
+              <% if show.banner %>
+                  <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
+              <% else %>
+                  <%= image_tag("pixel.gif") %>
+              <% end %>
+              <h3><span class="index"><%= i + 1 %>)</span> <%= show.name %></h3>
+              <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+            </a>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="data-content fastgrow">
+    <h2 class="center">Based on highest growth this month</h2>
+    <ul data-role="listview" data-inset="true" data-mini="true" data-theme="a">
+      <% @highest_grow.each_with_index do |show, i| %>
+          <li>
+            <a href="<%= show_path(show) %>">
+              <% if show.banner %>
+                  <%= image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy) %>
+              <% else %>
+                  <%= image_tag("pixel.gif") %>
+              <% end %>
+              <h3><span class="index"><%= i + 1 %>)</span> <%= show.name %></h3>
+              <p><strong><%= show.followers %> followers</strong> <%= raw print_popularity(show) %></p>
+            </a>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>
 
 <script type="text/javascript">
   $(document).ready(function() {
       $('.data-content').hide();
       $('.topshows').show();
-      $('#topshows').addClass('ui-btn-active');
       $(".navbar-links").click(function() {
           var klass = $(this).attr('id');
           $('.data-content').hide();
           $('.' + klass).show();
+          $(".navbar-links").removeClass('ui-btn-hover-c');
+          $(this).addClass("ui-btn-hover-c");
       });
   });
 </script>

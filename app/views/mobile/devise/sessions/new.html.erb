@@ -1,4 +1,4 @@
-<h2><strong>Login now</strong></h2>    
+<h2 class="center">Login</h2>    
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :"data-ajax" => :false) do |f| %>
     <div data-role="">
         <fieldset data-role="">
@@ -13,7 +13,7 @@
     <% if devise_mapping.rememberable? %>
     <div data-role="">
         <fieldset data-role="" data-type="vertical">
-            <%= f.check_box :remember_me %>
+            <%= f.check_box :remember_me, :"data-theme" => "a" %>
             <%= f.label :remember_me %>
         </fieldset>
     </div>

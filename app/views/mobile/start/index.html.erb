@@ -1,9 +1,6 @@
-<ul data-role="listview" data-divider-theme="b" data-inset="true">
-	<li data-role="list-divider" role="heading">Divider</li>
-	<li data-theme="c">
-	  <a href="<%= calendar_path %>" data-transition="slide">Calendar</a>
-	</li>
-	<li data-theme="c">
-	  <a href="<%= faqs_path %>" data-transition="slide">FAQ</a>
-	</li>
-</ul>
+<div class="center">
+	<%= image_tag "logos/transparent_logo_inverted.png" %>
+</div>
+<a href="<%= trends_path %>" data-transition="slide" data-role="button" data-theme="a">Trends</a>
+<a href="<%= faqs_path %>" data-transition="slide" data-role="button" data-theme="a">FAQ</a>
+<a href="<%= new_user_session_path %>" data-transition="slide" data-role="button">Login</a>
