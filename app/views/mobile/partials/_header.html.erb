@@ -1,16 +1,39 @@
 <div data-theme="b" data-role="header">
   <div class="ui-grid-b">
       <div class="ui-block-a align-left">
-          <a data-role="button" href="#page1" data-icon="arrow-d" data-inline="true" data-iconpos="left">Menu</a>
+          <a data-role="button" href="#" class="toggle-button" data-icon="arrow-d" data-inline="true" data-iconpos="left">Menu</a>
+          <div class="main-menu toggle-content">
+            <ul>
+                <% if logged_in? %>
+                  <li><%= link_to "#{icon_font("calendar")}Calendar".html_safe, calendar_path, :"data-transition" => "slide", :class => is_current?(:shows,:calendar) %></li>
+                  <li><%= link_to "#{icon_font("heart")}My shows".html_safe, followings_path, :"data-transition" => "slide", :class => is_current?(:followings,:index) %></li>
+                  <li><%= link_to "#{icon_font("eye-open")}Unwatched".html_safe, unwatched_path, :"data-transition" => "slide", :class => is_current?(:seen_episodes,:index) %></li>
+                  <li><%= link_to "#{icon_font("folder-open")}All shows".html_safe, shows_path, :"data-transition" => "slide", :class => is_current?(:shows,:index) %></li>
+                  <li><%= link_to "#{icon_font("fire")}Trends".html_safe, trends_path, :"data-transition" => "slide", :class => is_current?(:shows,:trends) %></li>
+                  <li><%= link_to "#{icon_font("question-sign")}FAQ".html_safe, faqs_path, :"data-transition" => "slide", :class => is_current?(:faqs,:index) %></li>
+                  <li><%= link_to "#{icon_font("cog")}Settings".html_safe, settings_path, :"data-transition" => "slide", :class => is_current?("devise/registrations",:edit) %></li>
+                  <li><%= link_to "#{icon_font("minus-sign")}Logout (#{current_user.display_name})".html_safe, destroy_session_path(current_user), :"data-transition" => "slide", :class => is_current?(:sessions,:destroy), :method => :delete %></li>
+                <% else %>
+                  <li><%= link_to "#{icon_font("lock")}Log in".html_safe, new_user_session_path, :"data-transition" => "slide", :class => is_current?("devise/sessions",:new) %></li>
+                  <li><%= link_to "#{icon_font("key")}Sign up".html_safe, new_user_registration_path, :"data-transition" => "slide", :class => is_current?("devise/registrations",:new) %></li>
+                  <li><%= link_to "#{icon_font("folder-open")}All shows".html_safe, shows_path, :"data-transition" => "slide", :class => is_current?(:shows,:index) %></li>
+                  <li><%= link_to "#{icon_font("fire")}Trends".html_safe, trends_path, :"data-transition" => "slide", :class => is_current?(:shows,:trends) %></li>
+                  <li><%= link_to "#{icon_font("question-sign")}FAQ".html_safe, faqs_path, :"data-transition" => "slide", :class => is_current?(:faqs,:index) %></li>
+                <% end %>
+            </ul>
+          </div>
       </div>
       <div class="ui-block-b center">
         <%= link_to(image_tag("logos/tv.png", :width => 38), root_path, :id => "logo", :"data-transition" => "slide", :"data-direction" => "reverse") %>
       </div>
       <div class="ui-block-c align-right">
-          <!--<a data-role="button" href="#page1" data-icon="search" data-inline="true" data-iconpos="left">Search</a>-->
-          <% if logged_in? %>
-            <a data-role="button" href="<%= destroy_session_path(current_user)%>" data-icon="forward" data-inline="true" data-iconpos="left" data-method="delete">Logout</a>
-          <% end %>
+          <a data-role="button" href="#" class="toggle-button" data-icon="search" data-inline="true" data-iconpos="left">Search</a>
+          <div class="search toggle-content">
+            <form>
+              <input type="text" data-mini="true" placeholder="Search for a show" />
+              <input type="submit" data-inline="true" data-mini="true" value="Go" />
+            </form>
+          </div>
       </div>
   </div>
 </div>

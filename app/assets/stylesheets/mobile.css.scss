@@ -1,6 +1,7 @@
 @import "reset";
 @import "mixins";
 @import "icons";
+@import "modules/font-awesome";
 
 /* Containers
  * ------------------------------------------------------------------------------------------------------------------------- */ 
@@ -27,6 +28,15 @@ body {
 	right: 0;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
+	& > * {
+		-webkit-transform: translate3d(0,0,0);
+	}
+	& > :last-child:after {
+		content: "";
+		display: block;
+		height: 5px;
+		overflow: hidden;
+	}
 }
 
 .ui-navbar + .scrollable {
@@ -37,7 +47,7 @@ body {
 	overflow: hidden;
 	position: relative;
 	img {
-		margin-left: -25%;
+		//margin-left: -25%;
 	}
 	&:after {
 		content: "";
@@ -52,6 +62,127 @@ body {
 
 .unpad {
 	margin: -15px -15px 15px -15px;
+}
+
+.ui-header .toggle-content {
+	display: none;
+	position: absolute;
+	background: #000;
+	top: 58px;
+	min-width: 200px;
+	z-index: 9999;
+	@include border-radius(5px);
+	margin: 0 0 5px 0;
+	@include box-shadow(0 1px 3px rgba(0,0,0,0.75));
+	border-top: 1px solid #666;
+	&:before {
+		bottom: 100%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-bottom-color: #666;
+		border-width: 16px;
+		top: -33px;
+	}
+	&:after {
+		bottom: 100%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-bottom-color: #000;
+		border-width: 16px;
+		top: -32px;
+	}
+}
+.toggle-button.ui-btn-active-b + .toggle-content { display: block; }
+
+.main-menu {
+	left: 5px;
+	padding: 0px 10px;
+	&:before {
+		left: 25px;
+	}
+	&:after {
+		left: 25px;
+	}
+	li {
+		border-top: 1px dotted #666;
+		&:first-child {
+			border: 0;
+		}
+	}
+	a {
+		display: block;
+		padding: 10px 5px 10px 2px;
+		color: #fff !important;
+	}
+	img {
+		margin-right: 5px;
+	}
+	i {
+		position: relative;
+		top: 2px;
+		font-size: 20px;
+		margin-right: 5px;
+		color: #666;
+	}
+	.icon-calendar,
+	.icon-eye-open,
+	.icon-heart { color: #f39; }
+
+	.icon-minus-sign { color: #c33; }
+
+	.icon-lock,
+	.icon-key { color: #3c3; }
+
+	.icon-calendar { font-size: 22px; margin-right: 3px; }
+	.icon-folder-open { font-size: 18px; margin-left: 1px; margin-right: 6px; }
+}
+
+.search {
+	right: 5px;
+	padding: 1px 5px;
+	&:before {
+		right: 25px;
+	}
+	&:after {
+		right: 25px;
+	}
+	form {
+		overflow: hidden;
+		position: relative;
+		display: block;
+	}
+	input {
+		background: #333;
+		color: #fff;
+		border: 1px solid #111;
+		@include border-radius(5px);
+		@include transition(all 0.2s ease);
+	}
+	.ui-btn {
+		position: absolute;
+		top: 0;
+		right: -50px;
+		overflow: hidden;
+		margin-right: 0;
+		@include transition(all 0.2s ease);
+		.ui-button-inner {
+			padding: 0.45em 11px 0.4em;
+		}
+	}
+	input.filled {
+		width: 77%;
+	}
+	input.filled + .ui-btn {
+		right: 0;
+	}
 }
 
 /* jQuery Mobile Theme overrides
@@ -207,6 +338,11 @@ ol.ui-listview p {
 
 img {
 	max-width: 100%;
+}
+
+.ui-input-text.ui-focus, .ui-input-search.ui-focus,
+.ui-focus, .ui-btn:focus {
+    box-shadow: none;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {

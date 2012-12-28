@@ -33,3 +33,35 @@ $progress_green_light: #55dc76;
   background: -webkit-linear-gradient($from, $to);
   background: -o-linear-gradient($from, $to);
 }
+
+@mixin opacity($value) {
+  filter: alpha(opacity=($value * 100));
+  -moz-opacity: $value;
+  opacity: $value;
+}
+
+@mixin box-sizing($value: border-box) {
+  -webkit-box-sizing: $value;
+  -moz-box-sizing: $value;
+  box-sizing: $value;
+}
+
+@mixin transition($value: all 0.3s ease) {
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -o-transition: $value;
+  -ms-transition: $value;
+  transition: $value;
+}
+
+@mixin min-height($value) {
+  height: auto !important;
+  height: $value;
+  min-height: $value;
+}
+
+@mixin inline-block() {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}

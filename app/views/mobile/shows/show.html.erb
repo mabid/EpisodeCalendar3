@@ -1,47 +1,49 @@
-<% if @show.banner %>
-    <div class="show_banner unpad">
-        <%= image_tag(environmentize(@show.banner), :width => "150%", :alt => @show.name) %>
-    </div>
-    <% else %>
-    <div class="show_banner">
-        <h1><%= @show.name %></h1>
-    </div>
-<% end %>
+<div class="scrollable" data-role="content">
+  <% if @show.banner %>
+      <div class="show_banner unpad">
+          <%= image_tag(environmentize(@show.banner), :width => "150%", :alt => @show.name) %>
+      </div>
+      <% else %>
+      <div class="show_banner">
+          <h1><%= @show.name %></h1>
+      </div>
+  <% end %>
 
-<div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true" data-mini="true">
-	<h2><%= @show.name %></h2>
-	<ul data-role="listview" data-mini="true">
-		<li><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
-		<% if @seasons.any? %>
-		<li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
-		<% else %>
-		<li><strong>Episodes:</strong> 0</li>
-		<% end %>
-		<li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
-		<li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= raw print_popularity(@show) %></li>
-		<li id="time_and_network"><%= raw print_air_time(@show) %></li>
-	</ul>
+  <div data-role="collapsible" data-theme="b" data-content-theme="a" data-inset="true" data-mini="true">
+  	<h2><%= @show.name %></h2>
+  	<ul data-role="listview" data-mini="true">
+  		<li><strong>Started airing:</strong> <%= print_first_aired(@show.first_aired) %></li>
+  		<% if @seasons.any? %>
+  		<li><strong>Episodes:</strong> <%= @show.episodes.size %> <span>(Avg. <%= (@show.episodes.size.to_f/@seasons.size).round %> per season)</span></li>
+  		<% else %>
+  		<li><strong>Episodes:</strong> 0</li>
+  		<% end %>
+  		<li><strong>Followers:</strong> <%= @show.followers %> <%= raw print_trend(@show) %></li>
+  		<li><strong>Popularity rank:</strong> #<%= @show.current_trend_position %> <%= raw print_popularity(@show) %></li>
+  		<li id="time_and_network"><%= raw print_air_time(@show) %></li>
+  	</ul>
+  </div>
+
+  <% if @seasons.any? %>
+
+    <div id="current-season">
+      <%= render :partial => "season" %>
+    </div>
+    
+  <% else %>
+
+    <div id="no_show_episodes">
+      <h2>This show has no episodes.</h2>
+      <% if @is_queued %>
+        <p id="notice" class="static">'<%= @show.name%>' is already scheduled for an update. If any episodes exist, they will appear shortly.</p>
+      <% else %>
+        <p id="error" class="static">
+          It doesn't seem that we could collect any episodes.<br /><br />
+          They will be available as soon as our <%= link_to("source", @show.source_url, :rel => :external) %> get any.
+        </p>
+      <% end %>
+      <p>If you think any other data is wrong or incomplete, please <%= link_to("contact", info_path(:anchor => :contact)) %> us.</p>
+    </div>
+    
+  <% end %>
 </div>
-
-<% if @seasons.any? %>
-
-  <div id="current-season">
-    <%= render :partial => "season" %>
-  </div>
-  
-<% else %>
-
-  <div id="no_show_episodes">
-    <h2>This show has no episodes.</h2>
-    <% if @is_queued %>
-      <p id="notice" class="static">'<%= @show.name%>' is already scheduled for an update. If any episodes exist, they will appear shortly.</p>
-    <% else %>
-      <p id="error" class="static">
-        It doesn't seem that we could collect any episodes.<br /><br />
-        They will be available as soon as our <%= link_to("source", @show.source_url, :rel => :external) %> get any.
-      </p>
-    <% end %>
-    <p>If you think any other data is wrong or incomplete, please <%= link_to("contact", info_path(:anchor => :contact)) %> us.</p>
-  </div>
-  
-<% end %>

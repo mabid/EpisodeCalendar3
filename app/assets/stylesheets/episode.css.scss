@@ -285,7 +285,8 @@
 .ui-btn-hover-b a.ui-link-inherit {
 	color: #fff /*{b-bhover-color}*/;
 }
-.ui-btn-down-b {
+.ui-btn-down-b,
+.ui-btn-active-b {
 	border: 1px solid #000000 /*{b-bdown-border}*/;
 	background: #595959 /*{b-bdown-background-color}*/;
 	font-weight: bold;
