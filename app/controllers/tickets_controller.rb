@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
         end
       end
     else
-      flash[:error] = "You seem to have filled out the math question wrong. You must be a robot."
+      flash[:error] = "You seem to have filled out the number field wrong. You must be a robot."
     end
     redirect_to faqs_path(:anchor => :contact)
   end
