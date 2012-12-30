@@ -12,7 +12,7 @@ current_month = "#{Date::MONTHNAMES[current.month]}"
 
 <div class="ui-grid-b">
 	<div class="ui-block-a center"><%= content_tag(:h3, prev_link) if !@prev_limit %></div>
-	<div class="ui-block-b center"><%= content_tag(:h2, current_month) %></div>
+	<div class="ui-block-b center"><%= content_tag(:h3, current_month) %></div>
 	<div class="ui-block-c center"><%= content_tag(:h3, next_link) if !@next_limit %></div>
 </div>
 <%= content_tag(:p, "<strong>#{@current.year}</strong>".html_safe, :class => "month center") %>

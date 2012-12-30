@@ -1,24 +1,27 @@
-<%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
+<div class="scrollable" data-role="content">
 
-<ul data-role="listview" data-split-icon="check" data-split-theme="d" data-divider-theme="b" data-inset="true">
-  <% @start_day.upto(@end_day) do |date| %>
-    <% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
-    <% current_day_date = corrected_date.to_s(:air_date) %>
-    <% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
-    <% if show_episodes.any? %>
-      <li data-form="ui-bar-c" role="" data-role="list-divider" class="ui-li ui-li-divider ui-btn ui-bar-c" data-swatch="c">
-        <%= print_date(corrected_date) %> (<%= week_day(corrected_date.wday) %>)
-      </li>
-      <% show_episodes.each do |e| %>
-        <li data-theme="a">
-          <%= m_print_calendar_episode(e).html_safe %>
-          <a href="#"></a>
+  <%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
+  <ul data-role="listview" data-split-icon="check" data-split-theme="d" data-divider-theme="b" data-inset="true">
+    <% @start_day.upto(@end_day) do |date| %>
+      <% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
+      <% current_day_date = corrected_date.to_s(:air_date) %>
+      <% show_episodes = @episodes.select {|e| (e.air_date + current_user.day_offset.days).to_s(:air_date) == current_day_date} %>
+      <% if show_episodes.any? %>
+        <li data-form="ui-bar-c" role="" data-role="list-divider" class="ui-li ui-li-divider ui-btn ui-bar-c" data-swatch="c">
+          <%= print_date(corrected_date) %> (<%= week_day(corrected_date.wday) %>)
         </li>
+        <% show_episodes.each do |e| %>
+          <li data-theme="a">
+            <%= m_print_calendar_episode(e).html_safe %>
+            <a href="#"></a>
+          </li>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
 
-<div id="bottom_legend">
-  <%= icon_tag("information") %> <strong class="premiere">Season premiere</strong> <strong class="normal">Normal episode</strong>
+  <div id="bottom_legend">
+    <%= icon_tag("information") %> <strong class="premiere">Season premiere</strong> <strong class="normal">Normal episode</strong>
+  </div>
+
 </div>

@@ -16,9 +16,84 @@ body {
   color: #212121;
 }
 
+/* Typography
+ * -------------------------------------------------------------------------- */
+
+h1, h2 {
+  font-family: Arial;
+  margin: 0 0 10px 0;
+  text-shadow: 1px 1px 0px #ccc;
+ }
+
+h1 {
+  font-size: 32px;
+  &.big { font-size: 36px; }
+}
+
+h2 {
+  font-size: 24px;
+  &.big { font-size: 28px; }
+}
+
+h3 {
+  font-family: Arial;
+  font-size: 16px;
+  &.big { font-size: 20px; }
+}
+
+p {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+  padding: 0 0 0 0;
+  &.big { font-size: 17px; }
+}
+
+.big p {
+  font-size: 17px;
+}
+
+.ui-loader {
+	border: 6px solid #fff;
+	background: #fff;
+	opacity: 1;
+    width: 32px;
+    height: 32px;
+    margin-left: -19px;
+    margin-top: -19px;
+    @include box-shadow(0 0 3px rgba(0,0,0,0.5));
+	.ui-icon {
+	    background-color: #fff;
+	    @include border-radius(0);
+	    display: block;
+	    height: 32px;
+	    margin: 0;
+	    padding: 1px;
+	    width: 32px;
+	}
+	.ui-icon-loading {
+	    background-attachment: scroll;
+	    background-clip: border-box;
+	    background-color: transparent;
+	    background-image: url("images/ajax-loader.gif");
+	    background-origin: padding-box;
+	    background-position: 0 0;
+	    background-repeat: no-repeat;
+	    background-size: 32px 32px;
+	}
+}
+
+/* Classes
+ * -------------------------------------------------------------------------- */
+
 .align-left { text-align: left; }
 .center { text-align: center; }
 .align-right { text-align: right; }
+
+.margin_top { margin-top: 20px; }
+.margin_top_big { margin-top: 50px; }
+.margin_bottom { margin-bottom: 20px; }
+.margin_bottom_big { margin-bottom: 50px; }
 
 .scrollable {
 	position: absolute;
@@ -185,6 +260,17 @@ body {
 	}
 }
 
+.month {
+	margin-bottom: 10px;
+}
+
+#alert {
+	background: #c66;
+	color: #fff;
+	padding: 5px 10px;
+	@include border-radius(5px);
+}
+
 /* jQuery Mobile Theme overrides
  * ------------------------------------------------------------------------------------------------------------------------- */ 
 
@@ -343,6 +429,18 @@ img {
 .ui-input-text.ui-focus, .ui-input-search.ui-focus,
 .ui-focus, .ui-btn:focus {
     box-shadow: none;
+}
+
+.ui-checkbox {
+	.ui-btn {
+		border: 0;
+	}
+	.ui-btn-icon-left .ui-btn-inner {
+		padding-left: 40px;
+	}
+	.ui-btn-icon-left .ui-icon {
+		left: 10px;
+	}
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {

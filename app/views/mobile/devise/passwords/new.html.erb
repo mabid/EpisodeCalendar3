@@ -1,0 +1,16 @@
+<h2 class="center">Forgot your password?</h2>
+
+<% flash.each do |key, msg| %>
+  <%= content_tag(:div, msg, :id => key) %>
+<% end %>
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+    <p class="center">You will get an email to the address you enter below. Follow the instructions to reset your password.</p>
+    <div data-role="">
+        <fieldset data-role="">
+            <%= f.email_field :email, :placeholder => "Email" %>
+        </fieldset>
+    </div>
+    <%= f.submit "Reset password" %>
+<% end %>
+
+<p class="big center margin_top"><%= link_to("Back to login", new_user_session_path) %></p>

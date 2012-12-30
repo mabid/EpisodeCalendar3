@@ -9,7 +9,7 @@
 <div class="scrollable" data-role="content">
 
   <div class="data-content topshows">
-    <h2 class="center">Based on most followers</h2>
+    <h3 class="center">Based on most followers</h3>
     <ul data-role="listview" data-inset="true" data-mini="true" data-theme="a">
       <% @top_shows.each_with_index do |show, i| %>
           <li>
@@ -28,7 +28,7 @@
   </div>
 
   <div class="data-content newfollowers">
-    <h2 class="center">Based on new followers this month</h2>
+    <h3 class="center">Based on new followers this month</h3>
     <ul data-role="listview" data-inset="true" data-mini="true" data-theme="a">
       <% @top_new_followers.each_with_index do |show, i| %>
           <li>
@@ -46,7 +46,7 @@
     </ul>
   </div>
   <div class="data-content fastgrow">
-    <h2 class="center">Based on highest growth this month</h2>
+    <h3 class="center">Based on highest growth this month</h3>
     <ul data-role="listview" data-inset="true" data-mini="true" data-theme="a">
       <% @highest_grow.each_with_index do |show, i| %>
           <li>

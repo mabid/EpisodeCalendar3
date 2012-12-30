@@ -59,14 +59,14 @@
 .ui-overlay-a {
 	border: 1px solid #bbb /*{a-body-border}*/;
 	color: #eee /*{a-body-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 0 /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #000000 /*{a-body-shadow-color}*/;
-	background: #000000 /*{a-body-background-color}*/;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #000000 /*{a-body-background-start}*/), to( #000000 /*{a-body-background-end}*/)); /* Saf4 , Chrome */
-	background-image: -webkit-linear-gradient( #000000 /*{a-body-background-start}*/, #000000 /*{a-body-background-end}*/); /* Chrome 10 , Saf5.1  */
-	background-image:    -moz-linear-gradient( #000000 /*{a-body-background-start}*/, #000000 /*{a-body-background-end}*/); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #000000 /*{a-body-background-start}*/, #000000 /*{a-body-background-end}*/); /* IE10 */
-	background-image:      -o-linear-gradient( #000000 /*{a-body-background-start}*/, #000000 /*{a-body-background-end}*/); /* Opera 11.10  */
-	background-image:         linear-gradient( #000000 /*{a-body-background-start}*/, #000000 /*{a-body-background-end}*/);
+	text-shadow: 0 /*{a-body-shadow-x}*/ 0 /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #f2f2f2 /*{a-body-shadow-color}*/;
+	background: #f2f2f2 /*{a-body-background-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #f2f2f2 /*{a-body-background-start}*/), to( #f2f2f2 /*{a-body-background-end}*/)); /* Saf4 , Chrome */
+	background-image: -webkit-linear-gradient( #f2f2f2 /*{a-body-background-start}*/, #f2f2f2 /*{a-body-background-end}*/); /* Chrome 10 , Saf5.1  */
+	background-image:    -moz-linear-gradient( #f2f2f2 /*{a-body-background-start}*/, #f2f2f2 /*{a-body-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #f2f2f2 /*{a-body-background-start}*/, #f2f2f2 /*{a-body-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #f2f2f2 /*{a-body-background-start}*/, #f2f2f2 /*{a-body-background-end}*/); /* Opera 11.10  */
+	background-image:         linear-gradient( #f2f2f2 /*{a-body-background-start}*/, #f2f2f2 /*{a-body-background-end}*/);
 }
 .ui-overlay-a {
 	background-image: none;
@@ -210,13 +210,13 @@
 	border: 1px solid #bbbbbb /*{b-body-border}*/;
 	color: #eee /*{b-body-color}*/;
 	text-shadow: 0 /*{b-body-shadow-x}*/ 0 /*{b-body-shadow-y}*/ 0 /*{b-body-shadow-radius}*/ #000000 /*{b-body-shadow-color}*/;
-	background: #000000 /*{b-body-background-color}*/;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #000000 /*{b-body-background-start}*/), to( #000000 /*{b-body-background-end}*/)); /* Saf4 , Chrome */
-	background-image: -webkit-linear-gradient( #000000 /*{b-body-background-start}*/, #000000 /*{b-body-background-end}*/); /* Chrome 10 , Saf5.1  */
-	background-image:    -moz-linear-gradient( #000000 /*{b-body-background-start}*/, #000000 /*{b-body-background-end}*/); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #000000 /*{b-body-background-start}*/, #000000 /*{b-body-background-end}*/); /* IE10 */
-	background-image:      -o-linear-gradient( #000000 /*{b-body-background-start}*/, #000000 /*{b-body-background-end}*/); /* Opera 11.10  */
-	background-image:         linear-gradient( #000000 /*{b-body-background-start}*/, #000000 /*{b-body-background-end}*/);
+	background: #f2f2f2 /*{b-body-background-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #f2f2f2 /*{b-body-background-start}*/), to( #f2f2f2 /*{b-body-background-end}*/)); /* Saf4 , Chrome */
+	background-image: -webkit-linear-gradient( #f2f2f2 /*{b-body-background-start}*/, #f2f2f2 /*{b-body-background-end}*/); /* Chrome 10 , Saf5.1  */
+	background-image:    -moz-linear-gradient( #f2f2f2 /*{b-body-background-start}*/, #f2f2f2 /*{b-body-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #f2f2f2 /*{b-body-background-start}*/, #f2f2f2 /*{b-body-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #f2f2f2 /*{b-body-background-start}*/, #f2f2f2 /*{b-body-background-end}*/); /* Opera 11.10  */
+	background-image:         linear-gradient( #f2f2f2 /*{b-body-background-start}*/, #f2f2f2 /*{b-body-background-end}*/);
 }
 .ui-overlay-b {
 	background-image: none;

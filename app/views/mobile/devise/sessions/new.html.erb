@@ -1,4 +1,8 @@
-<h2 class="center">Login</h2>    
+<h2 class="center">Login now</h2>
+
+<% flash.each do |key, msg| %>
+  <%= content_tag(:div, msg, :id => key) %>
+<% end %>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :"data-ajax" => :false) do |f| %>
     <div data-role="">
         <fieldset data-role="">
@@ -21,6 +25,4 @@
     <%= f.submit "Enter" %>
 <% end %>
 
-<% flash.each do |key, msg| %>
-  <%= content_tag(:div, msg, :id => key) %>
-<% end %>
+<p class="big center margin_top"><%= link_to("Reset your password", new_user_password_path) %></p>
