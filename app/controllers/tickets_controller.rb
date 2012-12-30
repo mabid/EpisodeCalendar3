@@ -2,7 +2,7 @@ class TicketsController < ApplicationController
   
   def create
     @ticket = Ticket.new(params[:ticket])
-    if @ticket.human.blank?
+    if @ticket.human == "13"
       if current_user
         @ticket.is_user = true
         @ticket.from = current_user.display_name
@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
         end
       end
     else
-      flash[:error] = "You seem to have filled out a hidden field. You must be a robot."
+      flash[:error] = "You seem to have filled out the math question wrong. You must be a robot."
     end
     redirect_to faqs_path(:anchor => :contact)
   end

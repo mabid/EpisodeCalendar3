@@ -1,4 +1,3 @@
-<h2>Contact us</h2>
 <p>
   <%= check_box_tag :have_read, true, true %> <%= label_tag :have_read, raw("Yes, I have read the <strong>FAQ</strong> before contacting you.") %>
 </p>
@@ -29,8 +28,11 @@
     <%= f.text_area :message %>
   </div>
   <div class="form_element">
+    <%= f.label :human, "To prevent spam robots, type the number <strong>thirteen</strong> below".html_safe %><br />
+    <%= f.text_field :human, :maxlength => 2 %>
+  </div>
+  <div class="form_element">
     <%= f.submit "Send", :class => "awesome magenta" %>
-    <%= f.text_field :human %>
   </div>
 
   <% if flash[:error].present? %>
