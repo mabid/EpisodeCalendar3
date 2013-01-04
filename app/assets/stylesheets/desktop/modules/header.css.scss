@@ -1,0 +1,201 @@
+@import "mixins";
+
+/* HEADER ------------------------------------------------------------------------------------------------------------------------- */
+
+#header {
+  background: #000;
+  border-bottom: 3px #666 solid;
+  position: relative;
+  padding: 8px 10px;
+}
+
+  #header_content {
+    overflow: hidden;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  #logo {
+    float: left;
+    outline: none;
+  }
+  
+  #search {
+    margin: 5px 0 0 0;
+    position: relative;
+  }
+  
+    #search form {
+      overflow: hidden;
+      display: block;
+    }
+    
+    #search input {
+      float: left;
+      color: #fff;
+      padding: 5px 7px;
+      height: 13px;
+    }
+    
+    #search #q {
+      background: #222;
+      width: 130px;
+      height: 20px;
+      padding: 5px 30px 6px 7px;
+      line-height: 20px;
+      @include box-shadow(1px 1px 3px #000 inset);
+      border: 1px #444 solid;
+      @include border-radius(5px);
+      color: #999;
+      font-size: 0.9em;
+      &:focus {
+        color: #fff;
+      }
+    }
+    
+    #search input.submit {
+      background: transparent;
+      width: 30px;
+      height: 33px;
+      padding: 0;
+      background-position: 5px -31px;
+      background-repeat: no-repeat;
+      @include box-shadow(none);
+      border: 0;
+      position: absolute;
+      right: 0;
+      cursor: pointer;
+    }
+
+    #search p {
+      margin: 6px 0 4px 4px;
+      color: #fff;
+      font-size: 0.8em;
+      a {
+        font-size: 1.1em;
+        color: $light_blue_theme_color;
+      }
+    }
+
+#menu_wrapper { float: right; }
+
+#user_menu {
+  display: inline-block;
+  text-align: right;
+  float: right;
+  margin: 0 0 6px 0;
+}
+
+#header #user_menu li {
+  display: inline-block;
+  vertical-align: middle;
+  height: 46px;
+  margin-left: 5px;
+}
+
+#header ul#user_menu a,
+#header ul#user_menu a:visited,
+#header ul#user_menu a:link {
+  padding: 6px 12px 8px 10px;
+  @include border-radius(4px);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+#user_menu li a img.icon {
+  top: 2px;
+  margin-right: 7px;
+}
+
+#profile {
+  border: 1px #666 solid;
+  padding: 1px;
+  float: right;
+  margin: 0 0 0 10px;
+  @include border-radius(5px);
+  width: 80px;
+  height: 80px;
+  background: image-url("avatar_dark.png") 50% 50% no-repeat;
+  position: relative;
+}
+
+  #profile div {
+    @include border-radius(3px);
+    width: 80px;
+    height: 80px;
+  }
+  
+  #profile a {
+    position: absolute;
+    padding: 2px 0 0 0;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+ul#menu {
+  color: #fff;
+  clear: both;
+  text-align: right;
+}
+
+ul#menu li {
+  margin-left: 4px;
+  display: inline-block;
+}
+
+#header ul a,
+#header ul a:visited,
+#header ul a:link {
+  color: #fff;
+  @include linear-gradient(#222, #444);
+  padding: 1px 7px 5px 7px;
+  @include border-radius(3px);
+  font-size: 13px;
+  font-weight: bold;
+  outline: none;
+  display: block;
+  text-shadow: 1px 1px 1px #000;
+  font-family: Arial, Tahoma, sans-serif;
+  position: relative;
+}
+
+#header ul a small {
+  position: absolute;
+  font-weight: normal;
+  right: 5px;
+  top: -5px;
+}
+
+#container #header #menu_wrapper ul a:hover,
+#container #header #menu_wrapper ul a.active {
+  @include linear-gradient(#830952, $pink_theme_color);
+}
+
+#header ul a:active {
+  @include linear-gradient(#830952, $pink_theme_color);
+}
+
+#header ul img.icon { margin: 0 5px 0 0; }
+
+#header ul#menu.logged_out {
+  margin-top: 33px;
+}
+
+#header ul#menu.logged_out a {
+  color: #fff;
+  @include linear-gradient(#222, #444);
+  padding: 6px 14px 8px 10px;
+  @include border-radius(4px);
+  font-size: 14px;
+  font-weight: bold;
+  outline: none;
+  display: block;
+  margin-top: 5px;
+  font-family: Arial;
+}

@@ -1,0 +1,28 @@
+<div class="scrollable" data-role="content">
+  <% if @query.blank? %>
+  <p class="center"><%= image_tag("logos/sad-logo.png") %></p>
+  <h1 class="center margin_bottom margin_top">You didn't enter a show name.</h1>
+  <h2 class="center margin_bottom margin_top">Please try again.</h2>
+<% elsif @shows.empty? %>
+  <p class="center"><%= image_tag("logos/sad-logo.png") %></p>
+  <h1 class="center margin_bottom margin_top">Found <%= @shows.size %> shows matching <span class="highlight"><%= @query %></span></h1>
+  <h2 class="center margin_bottom margin_top">Please try again.</h2>
+  <h2 class="center"></h2>
+<% else %>
+  <h2 class="center">Found <%= @shows.size %> shows matching <span class="highlight"><%= @query %></span></h2>
+
+  <ul data-role="listview" data-inset="true" data-divider-theme="c" class="ui-no-thumb">
+    <% @shows.each do |show| %>
+      <li data-role="list-divider"><%= show.name %></li>
+      <li data-theme="a">
+        <a href="<%= show_path(show) %>">
+          <% if show.banner %>
+              <%= image_tag(environmentize(show.banner), :width => "100%", :alt => show.name) %>
+            <% else %>
+              <h2><%= show.name %></h2>
+          <% end %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

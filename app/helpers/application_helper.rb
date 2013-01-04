@@ -24,8 +24,9 @@ module ApplicationHelper
 		image_tag("pixel.gif", :class => "icon #{sprite}", :alt => "", :height => size, :width => size)
 	end
 
-	def icon_font(sprite)
-		"<i class='icon-#{sprite}'></i>"
+	def icon(sprite)
+		#"<span class='entypo'>#{sprite}</span>"
+		image_tag("sprites/mobile/2x/#{sprite}.png", :width => 16, :class => "icon")
 	end
 	
 	def render_special_flash(prefix)

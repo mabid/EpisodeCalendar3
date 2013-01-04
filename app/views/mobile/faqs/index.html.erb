@@ -1,11 +1,54 @@
-<div data-role="header" data-theme="b">
-  <h2>FAQ's</h2>
-</div>
-<% @faqs.each do |faq| %>
-    <div data-role="collapsible">
-      <h3><%= faq.question %></h3>
-      <p><%= raw render_textile(faq.answer) %></p>
-    </div>
-<% end %>
+<div class="scrollable" data-role="content">
+	<h2 class="center">FAQ</h2>
+	<%= content_tag(:div, flash[:notice], :id => :notice, :class => :static) if flash[:notice] %>
+	<% if flash[:error].present? %>
+	  <ul id="alert">
+	    <%= flash[:error].html_safe %>
+	  </ul>
+	<% end %>
+	<% @important.each do |faq| %>
+		<ul data-role="listview" data-theme="b" data-content-theme="a" data-inset="true" data-mini="true" class="faq-list">
+			<li data-role="divider" data-mini="true"><%= faq.question %></li>
+			<li data-theme="a">
+				<%= raw render_textile(faq.answer) %>
+			</li>
+		</ul>
+	<% end %>
 
-<%= render "contact_form" %>
+	<% @faqs.each do |faq| %>
+		<ul data-role="listview" data-theme="b" data-content-theme="a" data-inset="true" data-mini="true" class="faq-list">
+			<li data-role="divider" data-mini="true"><%= faq.question %></li>
+			<li data-theme="a">
+				<%= raw render_textile(faq.answer) %>
+			</li>
+		</ul>
+	<% end %>
+
+	<h2 class="center margin_top_big">Contact us</h2>
+	<% if logged_in? %>
+		<label>This message will be sent from <strong><%= current_user.email %></strong></label>
+	<% end %>
+	<%= form_for @ticket do |f| %>
+        <fieldset>
+        	<select name="select-choice-3" id="select-choice-3" data-mini="true" data-theme="b">
+        		<option value="">Select a category</option>
+        		<% Constant.ticket_categories.each do |category| %>
+        			<option value="<%= category.value %>"><%= category.value %></option>
+        		<% end %>
+        	</select>
+        </fieldset>
+        <fieldset>
+            <%= f.email_field :email, :placeholder => "Email" %>
+        </fieldset>
+        <fieldset>
+          <%= f.text_field :subject, :placeholder => "Subject" %>
+        </fieldset>
+        <fieldset>
+          <%= f.text_area :message, :placeholder => "Message" %>
+        </fieldset>
+        <fieldset>
+          <%= f.text_field :human, :value => "13", :class => "ui-hidden-accessible" %>
+        </fieldset>
+	    <%= f.submit "Send message" %>
+	<% end %>
+</div>

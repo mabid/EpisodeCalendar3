@@ -1,0 +1,55 @@
+/* Icons
+ * ----------------------------------------------------------------------------------------------------------------- */
+
+/* 0 16 32 48 64 80 96 112 128 144 160 */
+img.icon { position: relative; top: 3px; }
+td img.icon, th img.icon { top: 0; }
+
+.icon { background-image: image-url("sprites/icons.png") !important; background-position: 0 0; background-repeat: no-repeat; }
+.blank { background-position: 16px 16px; }
+.arrow_down { background-position: 0 0; }
+.plus_button { background-position: -16px 0; }
+.calendar { background-position: -32px 0px; }
+.heart { background-position: -48px 0px; }
+.vcard { background-position: -64px 0px; }
+.blocks { background-position: -80px 0px; }
+.users { background-position: -96px 0px; }
+.counter { background-position: -112px 0px; }
+.information { background-position: -128px 0; }
+.crown { background-position: -144px 0px; }
+.minus_shield { background-position: -160px 0px; }
+
+.cross { background-position: 0 -16px; }
+.cross_small { background-position: -16px -16px; }
+.mail_exclamation { background-position: -32px -16px; }
+.mail_minus { background-position: -48px -16px; }
+.sort_asc { background-position: -64px -16px; }
+.sort_desc { background-position: -80px -16px; }
+.sort_small { background-position: -96px -16px; }
+.globe { background-position: -112px -16px; }
+.lock { background-position: -128px -16px; }
+.tick { background-position: -144px -16px; }
+
+.drag_handle { background-position: -48px -32px; }
+.question { background-position: -64px -32px; }
+.movie_folder { background-position: -80px -32px; }
+.television { background-position: -96px -32px; }
+.eye { background-position: -112px -32px; }
+.status_red { background-position: -128px -32px; }
+.status_green { background-position: -144px -32px; }
+.status_normal { background-position: -160px -32px; }
+
+.arrow_circle { background-position: -80px -48px; }
+.clock { background-position: -96px -48px; }
+.fire { background-position: -112px -48px; }
+.tick_small { background-position: -128px -48px; }
+.television_off { background-position: -144px -48px; }
+.television_on{ background-position: -160px -48px; }
+
+.user_big { background-position: 0px -64px; }
+.mail_big { background-position: -24px -64px; }
+.feed_big { background-position: -48px -64px; }
+.key { background-position: -72px -64px; }
+.globe_big { background-position: -96px -64px; }
+.calendar_big { background-position: -120px -64px; }
+.zone { background-position: -144px -64px; }

@@ -1,7 +1,8 @@
 @import "reset";
 @import "mixins";
-@import "icons";
-@import "modules/font-awesome";
+@import "mobile/theme";
+@import "mobile/sprites";
+@import "mobile/modules/entypo";
 
 /* Containers
  * ------------------------------------------------------------------------------------------------------------------------- */ 
@@ -53,36 +54,6 @@ p {
   font-size: 17px;
 }
 
-.ui-loader {
-	border: 6px solid #fff;
-	background: #fff;
-	opacity: 1;
-    width: 32px;
-    height: 32px;
-    margin-left: -19px;
-    margin-top: -19px;
-    @include box-shadow(0 0 3px rgba(0,0,0,0.5));
-	.ui-icon {
-	    background-color: #fff;
-	    @include border-radius(0);
-	    display: block;
-	    height: 32px;
-	    margin: 0;
-	    padding: 1px;
-	    width: 32px;
-	}
-	.ui-icon-loading {
-	    background-attachment: scroll;
-	    background-clip: border-box;
-	    background-color: transparent;
-	    background-image: url("images/ajax-loader.gif");
-	    background-origin: padding-box;
-	    background-position: 0 0;
-	    background-repeat: no-repeat;
-	    background-size: 32px 32px;
-	}
-}
-
 /* Classes
  * -------------------------------------------------------------------------- */
 
@@ -111,6 +82,7 @@ p {
 		display: block;
 		height: 5px;
 		overflow: hidden;
+		margin: -5px;
 	}
 }
 
@@ -122,7 +94,8 @@ p {
 	overflow: hidden;
 	position: relative;
 	img {
-		//margin-left: -25%;
+		margin-left: -25%;
+		max-width: 200%;
 	}
 	&:after {
 		content: "";
@@ -196,31 +169,16 @@ p {
 		display: block;
 		padding: 10px 5px 10px 2px;
 		color: #fff !important;
+		text-shadow: none;
 	}
 	img {
-		margin-right: 5px;
-	}
-	i {
+		margin-right: 2px;
 		position: relative;
-		top: 2px;
-		font-size: 20px;
-		margin-right: 5px;
-		color: #666;
+		top: 3px;
 	}
-	.icon-calendar,
-	.icon-eye-open,
-	.icon-heart { color: #f39; }
-
-	.icon-minus-sign { color: #c33; }
-
-	.icon-lock,
-	.icon-key { color: #3c3; }
-
-	.icon-calendar { font-size: 22px; margin-right: 3px; }
-	.icon-folder-open { font-size: 18px; margin-left: 1px; margin-right: 6px; }
 }
 
-.search {
+.ui-header .search {
 	right: 5px;
 	padding: 1px 5px;
 	&:before {
@@ -243,10 +201,10 @@ p {
 	}
 	.ui-btn {
 		position: absolute;
-		top: 0;
+		top: 3px;
 		right: -50px;
 		overflow: hidden;
-		margin-right: 0;
+		margin: 0;
 		@include transition(all 0.2s ease);
 		.ui-button-inner {
 			padding: 0.45em 11px 0.4em;
@@ -265,14 +223,71 @@ p {
 }
 
 #alert {
-	background: #c66;
+	background: #d33;
 	color: #fff;
 	padding: 5px 10px;
-	@include border-radius(5px);
+	@include border-radius(0.2em);
+	border: 1px solid #c00;
+	@include box-shadow(0 0 3px rgba(0,0,0,0.25) inset);
+}
+
+.faq-list {
+	.ui-li-desc {
+		margin: 0;
+		text-overflow: none;
+		white-space: normal;
+	}
 }
 
 /* jQuery Mobile Theme overrides
  * ------------------------------------------------------------------------------------------------------------------------- */ 
+
+.ui-loader {
+	border: 6px solid #fff;
+	background: #fff;
+	opacity: 1;
+    width: 32px;
+    height: 32px;
+    margin-left: -19px;
+    margin-top: -19px;
+    @include box-shadow(0 0 3px rgba(0,0,0,0.5));
+	.ui-icon {
+	    background-color: #fff;
+	    @include border-radius(0);
+	    height: 32px;
+	    padding: 1px;
+	    width: 32px;
+	}
+	.ui-icon-loading {
+	    background-repeat: no-repeat;
+	    background-size: 32px 32px;
+	}
+}
+
+.ui-no-thumb {
+	.ui-li-thumb {
+		position: static;
+		float: none;
+		max-width: 9999px;
+		max-height: 9999px;
+		display: block;
+	}
+	.ui-li-static.ui-li,
+	.ui-li .ui-btn-inner a.ui-link-inherit {
+		padding: 0 1px 1px 1px;
+	}
+	.ui-link-inherit {
+		display: block;
+	}
+	.ui-li + .ui-li {
+		border-color: transparent;
+	}
+}
+
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit,
+.ui-li-static.ui-li-has-thumb {
+	min-height: 0;
+}
 
 .ui-body-c, .ui-overlay-c {
 	background: #f6f6f6 url("/assets/mobile/background.png");
@@ -313,7 +328,7 @@ p {
 }
 
 .ui-listview .ui-icon {
-	background-image: url(images/icons-18-black.png);
+	background-image: url("mobile/icons-18-black.png");
 }
 
 .ui-btn-up-a,
@@ -382,7 +397,8 @@ p {
 }
 
 .ui-collapsible {
-	.ui-btn-up-a {
+	.ui-btn-up-a,
+	.ui-btn-hover-a {
 		font-weight: normal;
 		font-size: 0.85em;
 		padding: 0.4em 10px;
@@ -445,6 +461,6 @@ img {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 	.ui-listview .ui-icon {
-		background-image: url(images/icons-36-black.png);
+		background-image: url("mobile/icons-36-black.png");
 	}
 }

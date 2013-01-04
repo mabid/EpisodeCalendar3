@@ -1,0 +1,116 @@
+@import "mixins";
+
+.info {
+/* ------------------------------------------------------------------------------------------------------------ */
+
+#page_container { 
+  @include linear-gradient(#e9e9e9, #fff);
+  &:before {
+    @include linear-gradient(#c0c0c0, #e9e9e9);
+  }
+}
+
+#features_wrapper {
+  width: 1224px;
+  margin: 0 auto;
+  h1 {
+    margin: 0;
+  }
+  h2 {
+    margin: 0 0 0.5em 0;
+  }
+}
+
+#features {
+  overflow: hidden;
+  margin: 40px 0 70px 0;
+}
+
+  #features li {
+    margin: 0 10px;
+    float: left;
+    width: 388px;
+    background: image-url("info/plate.png") 0 0 no-repeat;
+    padding: 4px 0 15px 0;
+    text-align: center;
+  }
+
+  #features h2 {
+    margin: 30px 0 0 0;
+  }
+
+  #features p {
+    font-size: 15px;
+    margin: 5px 0 0 0;
+    padding: 0 30px;
+  }
+
+#additional {
+  overflow: hidden;
+  margin: 30px 0 50px 0;
+  padding: 0 0 20px 0;
+}
+
+  #additional li {
+    margin: 0 10px;
+    float: left;
+    width: 242px;
+    background: image-url("info/feature_box.png") 0 100% no-repeat;
+    padding: 0 20px 15px 20px;
+    position: relative;
+  }
+
+    #additional img {
+      margin: 0 15px 0 0;
+      float: left;
+    }
+
+    #additional img.coming_soon {
+      position: absolute;
+      bottom: 10px;
+      right: -25px;
+    }
+
+    #additional h3 {
+      margin: 18px 0 0 0;
+      text-shadow: none;
+    }
+  
+    #additional p {
+      font-size: 13px;
+      margin: 0;
+    }
+
+#apps {
+  overflow: hidden;
+  margin: 30px 0 80px 0;
+}
+
+  #apps li {
+    background: image-url("info/small_plate.png") 0 100% no-repeat;
+    margin: 0 10px;
+    float: left;
+    width: 246px;
+    height: 160px;
+    padding: 0 20px 15px 20px;
+  }
+  
+    #apps li img {
+      margin: 0 10px 0 0;
+      float: left;
+    }
+  
+    #apps h3 {
+      margin: 0 0 0.5em 0;
+      font-size: 20px;
+      text-shadow: none;
+      line-height: 1;
+    }
+  
+    #apps p {
+      font-size: 13px;
+      margin: 0 0 1em 0;
+    }
+
+/* ------------------------------------------------------------------------------------------------------------ */
+}

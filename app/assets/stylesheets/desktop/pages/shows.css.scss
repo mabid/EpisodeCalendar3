@@ -1,0 +1,434 @@
+@import "mixins";
+
+/* SHOW ------------------------------------------------------------------------------------------------------------------------------ */
+ 
+#show_info .show_banner {
+  float: left;
+  width: 65%;
+  max-width: 758px;
+  position: relative;
+  img {
+    margin: 0 0 2px 0;
+  }
+}
+
+#show_info .banner_shadow {
+  background: image-url("banner_shadow.png") 0 0 no-repeat;
+  height: 82px;
+  width: 50%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+#show_info .banner_shadow + .banner_shadow {
+  right: 0;
+  left: auto;
+  background-position: 100% 0;
+}
+
+#show_info h1 {
+  float: left;
+  font-size: 4em !important;
+  color: #000;
+  text-shadow: 1px 1px 0 #ccc;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  margin: 0 20px 0 0;
+  z-index: 9999;
+}
+
+#show_info h2 {
+  font-size: 1.5em;
+  font-weight: normal;
+  clear: both;
+}
+
+  #show_info h2 img {
+    top: 6px;
+  }
+  
+  #show_info h2 a span {
+    border-bottom: 1px $light_blue_theme_color solid;
+    color: #000;
+    text-shadow: none;
+  }
+  
+  #secondary_show_info {
+    width: 30%;
+    float: right;
+  }
+
+  #secondary_show_info .awesome {
+    margin: 20px 0 0 0;
+    &.hidden {
+      display: none;
+    }
+  }
+
+  #secondary_show_info .awesome + img {
+    position: relative;
+    top: 3px;
+    margin: 0 0 0 10px;
+  }
+
+  #time_and_network {
+    overflow: hidden;
+    clear: both;
+    padding: 4px 10px 0 10px;
+  }
+  
+    #time_and_network .icon {
+      margin: 0 0 0 10px;
+    }
+  
+    #time_and_network .icon:first-child {
+      margin: 0;
+    }
+  
+  #secondary_show_info #add_or_like .icon {
+    top: 6px;
+  }
+
+  #secondary_show_info #add_or_like strong {
+    font-size: 14px;
+  }
+
+#no_show_episodes {
+  margin: 20px 0 0 0;
+}
+
+#no_show_episodes p {
+  margin: 20px 0 0 0;
+  font-size: 16px;
+}
+
+#no_show_episodes h2 {
+  margin-bottom: 40px;
+ }
+
+h3#season_pagination_header {
+  margin: 10px 0;
+}
+
+#season_pagination {
+  overflow: hidden;
+  position: relative;
+}
+
+  #season_pagination li {
+    float: left;
+    margin: 0 -1px 0 0
+  }
+
+  #season_pagination li a {
+    line-height: 26px;
+    height: 24px;
+    font-size: 15px;
+    padding: 0 20px;
+    font-family: arial, sans-serif;
+  }
+
+  #season_pagination li.selected a {
+    color: #fff;
+  }
+  
+.options {
+  float: right;
+  margin: 3px 0 0 0;
+}
+
+/* SEASON LIST --------------------------------------------------------------------------------------------------------------------------- */
+
+#show_anchors h1 {
+  margin: 0 0 18px 0;
+  font-weight: bold;
+  font-size: 2.75em;
+  display: inline-block;
+}
+
+#unwatched_loader {
+  margin: 0 0 0 20px;
+  position: relative;
+  top: -4px;
+}
+
+#reload {
+  margin: 0 0 0 20px;
+  position: relative;
+  top: -4px;
+}
+
+#show_anchors ul {
+  overflow: hidden;
+  margin: 0 0 25px 0;
+}
+  
+  #show_anchors ul li {
+    float: left;
+    margin: 0 5px 5px 0;
+    overflow: hidden;
+  }
+  
+    #show_anchors ul a,
+    #show_anchors ul a:visited,
+    #show_anchors ul a:link {
+      color: #fff;
+      @include linear-gradient(#222, #444);
+      padding: 7px 12px;
+      @include border-radius(4px);
+      font-size: 14px;
+      font-weight: bold;
+      outline: none;
+      display: block;
+      text-shadow: 1px 1px 1px #000;
+      font-family: Arial, Tahoma, sans-serif;
+      white-space: nowrap;
+    }
+    
+    #show_anchors ul a:hover,
+    #show_anchors ul a.selected {
+      @include linear-gradient(#830952, $pink_theme_color);
+    }
+
+.season_list {
+  margin: 0 0 50px 0;
+}
+
+#page .season_group h2,
+#page .season_group_static h2 {
+  margin: 0 0 20px 0;
+}
+
+.season_group h3,
+.season_group_static h3 {
+  margin: 0 0 10px 10px;
+}
+
+.season_group h3 a,
+.season_group_static h3 a {
+  color: #000;
+  border-bottom: 1px solid $blue_theme_color;
+}
+
+.season_group h3 a:hover,
+.season_group_static h3 a:hover {
+  color: $blue_theme_color;
+  border-bottom: 1px solid #000;
+}
+
+.season_list .episode {
+  overflow: hidden;
+  border: 1px #ddd solid;
+  margin: 0 0 5px 0;
+  background: #f2f2f2;
+  @include border-radius(5px);
+  padding: 10px;
+}
+
+  .season_list .episode > div {
+    &:first-child {
+      margin: 0;
+      border: 0;
+    }
+  }
+
+  .season_list .episode .separator {
+    margin-left: 1%;
+    border-left: 1px solid #ddd;
+    width: 1%;
+    min-height: 30px;
+    float: left;
+  }
+
+.season_list .odd {
+  background: #fcfcfc;
+}
+
+.season_list .episode:hover,
+.season_list .episode.hidden_episode:hover {
+  background: #fbffc0;
+}
+
+.season_list .episode.hidden_episode {
+  background: #fffce6;
+  border: 1px dashed #ff7f7f;
+  color: #666;
+  display: block;
+  .rating,
+  .overview,
+  .separator,
+  .date span,
+  .seen > span,
+  .seen > a,
+  .seen .hide {
+    display: none !important; /* important because of jQuery checkbox applies style inline-block */
+  }
+  .seen .unhide {
+    display: block !important;
+  }
+  .date {
+    margin: 0 0 0 2%;
+    border: 0;
+    text-align: left;
+  }
+  .seen {
+    float: right;
+    width: 12%;
+  }
+  small {
+    display: block;
+    padding: 2px;
+  }
+}
+
+.season_list .highlighted { background-color: #FBFF8F; }
+
+  .season_list .name {
+    float: left;
+    width: 22%;
+    border-right: 1px #ddd solid;
+    margin-right: 25px;
+  }
+  
+  .season_list .overview {
+    float: left;
+    width: 45%;
+    padding: 1px 0 0 0;
+  }
+
+  .season_list .overview .toggle {
+    white-space: nowrap;
+  }
+  
+  .season_list .date {
+    float: left;
+    width: 15%;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    p {
+      padding: 0 10px;
+      margin: 0;
+    }
+  }
+    
+    .season_list .date span {
+      display: block;
+      margin: 0 0 2px 0;
+      font-size: 11px;
+      font-weight: normal;
+      color: #999;
+    }
+
+  .season_list .seen {
+    float: left;
+    width: 11%;
+    margin: 0 !important;
+  }
+  
+    .season_list .seen span {
+      font-size: 11px;
+      font-weight: normal;
+      color: #999;
+      top: 0;
+    }
+
+  .season_list a.edit_link {
+    outline: none;
+    visibility: hidden;
+    font-size: 10px;
+  }
+  
+  .season_list .episode:hover a.edit_link {
+    visibility: visible;
+  }
+
+.season_group .season_loader {
+  margin: 0 0 50px 0;
+}
+
+.rating {
+  width: 160px;
+  margin: 0 10px 0 0;
+  background: image-url("sprites/stars.png") 0 0 repeat-x;
+}
+
+  .rating span {
+    display: block;
+    height: 16px;
+    background: image-url("sprites/stars.png") 0 100% repeat-x;
+  }
+  
+  .rating span.r0 { width: 0px; }
+  .rating span.r05 { width: 8px; }
+  .rating span.r1 { width: 16px; }
+  .rating span.r15 { width: 24px; }
+  .rating span.r2 { width: 32px; }
+  .rating span.r25 { width: 40px; }
+  .rating span.r3 { width: 48px; }
+  .rating span.r35 { width: 56px; }
+  .rating span.r4 { width: 64px; }
+  .rating span.r45 { width: 72px; }
+  .rating span.r5 { width: 80px; }
+  .rating span.r55 { width: 88px; }
+  .rating span.r6 { width: 96px; }
+  .rating span.r65 { width: 104px; }
+  .rating span.r7 { width: 112px; }
+  .rating span.r75 { width: 120px; }
+  .rating span.r8 { width: 128px; }
+  .rating span.r85 { width: 136px; }
+  .rating span.r9 { width: 144px; }
+  .rating span.r95 { width: 152px; }
+  .rating span.r10 { width: 160px; }
+
+  /* SHOW LIST ------------------------------------------------------------------------------------------------------------------------------ */
+
+.shows_by_letter h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+  .show_list .odd {
+    background: #fcfcfc;
+  }
+
+  .show_list li {
+    display: block;
+    line-height: 1.5em;
+    @include border-radius(5px);
+    margin: 0 0 5px 0;
+    padding: 10px;
+    border: 1px #ddd solid;
+  }
+
+.show_list.popular {
+    text-align: center;
+}
+
+  .show_list.popular li {
+    background: none;
+    border: 0 none;
+    display: inline-block;
+    margin: 0 0 10px 0;
+    width: 268px;
+    vertical-align: top;
+  }
+
+  .show_list li:hover {
+    background: #fbffc0;
+  }
+
+    .show_list li a {
+      color: #000;
+      border-bottom: 1px $light_blue_theme_color solid;
+      font-weight: bold;
+    }
+
+    .show_list li p {
+      font-size: 11px;
+      margin: 0;
+      color: #999;
+    }
