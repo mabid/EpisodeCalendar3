@@ -2,6 +2,7 @@
 //= require_tree ./jquery
 //= require functions
 //= require todoist
+//= require subscriptions
 
 $(function(){
 
