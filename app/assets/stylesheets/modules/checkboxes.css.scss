@@ -14,12 +14,25 @@
   top: 3px;
 }
 
+.ui-radio {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: image-url("sprites/checkboxes.png") 0 -64px no-repeat;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  top: 3px;
+}
+
+label.ui-radio,
 label.ui-checkbox {
   width: auto;
   height: auto;
   background: none;
 }
 
+.ui-radio + label.ui-radio,
 .ui-checkbox + label.ui-checkbox {
   position: relative;
   top: 0;
@@ -28,10 +41,8 @@ label.ui-checkbox {
 
 .ui-helper-hidden { display: none; }
 
-.ui-radio-state-hover,
-.ui-checkbox-state-hover {
-  background-position: 0 -48px;
-}
+
+.ui-checkbox-state-hover { background-position: 0 -48px; }
 
 .ui-checkbox.small { width: 9px; height: 9px; background-position: 0 -144px; }
 .ui-checkbox-state-checked.small { width: 9px; height: 9px; background-position: 0 -160px; }
@@ -43,3 +54,7 @@ label.ui-checkbox {
 
 .ui-checkbox-state-disabled,
 .ui-checkbox-state-disabled-hover { background-position: 0 -112px; }
+
+.ui-radio-state-hover { background-position: 0 -80px; }
+.ui-radio-state-checked { background-position: 0 -176px; }
+.ui-radio-state-checked-hover { background-position: 0 -192px; }
