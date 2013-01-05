@@ -29,6 +29,9 @@
       <li class="tab">
         <a href="#7"><%= icon_tag("key", 24) %> Account</a>
       </li>
+      <li class="tab">
+        <a href="#8"><%= icon_tag("key", 24) %> Plan</a>
+      </li>
     </ul>
   </div>
   
@@ -186,7 +189,7 @@
             <div class="width_33">
               <strong><%= f.label :current_password %></strong><span class="label">(We need your current password to confirm your changes)</span><br />
               <p><%= f.password_field :current_password %></p><br /><br />
-    
+
               <%= f.submit "Update", :class => "awesome magenta" %>
             </div>
           </div>
@@ -198,23 +201,27 @@
         <% end %>
       </div> <!-- .item -->
 
+      <div class="item">
+        <h2>Your Plan Information:</h2>
+        <div class="user_upgrade_plans">
+          <% unless @current_user.subscription.profile_id.nil? %>
+              <%= "You are currently subscribed to <i>#{@current_user.plan.name}</i> Plan".html_safe %>
+              <div>
+                <%- if @current_user.subscription.status.params['profile_status'] == 'ActiveProfile' %>
+                    <%= "Your Plan will expire on <b>#{(DateTime.parse(@current_user.subscription.status.params['billing_start_date'])+ @current_user.plan.duration.to_i.months).strftime('%b %d, %Y')}</b>".html_safe %>
+                <% else %>
+                    <%= "Your account is not in active state #{link_to('activate now!', '/subscriptions/update', :method => :put, :class => 'awesome magenta' ) }".html_safe %>
+                <% end %>
+              </div>
+              <%= link_to("Unsubscribe", subscription_path(@current_user.subscription), :confirm => "Are You Sure?", :method => :delete, :class => "awesome small red") %>
+          <% else %>
+            You are not subscribed to any Plan.
+            <%= link_to("Choose a Plan", new_subscription_path, :class => "awesome magenta") %>
+          <% end %>
+        </div>
+      </div><!-- .item -->
+
     </div>
   </div>
 
-  <div class="user_upgrade_plans">
-    <% unless @current_user.subscription.profile_id.nil? %>
-        <%= link_to("Unsubscribe", subscription_path(@current_user.subscription), :confirm => "Are You Sure?", :method => :delete, :class => "awesome small red") %>
-    <% end %>
-    <h3>Upgrade Plan:</h3>
-    <ul>
-      <% Plan.all.each do |p| %>
-        <% unless p.name.downcase == "free" %>
-          <li>
-            <%= @current_user.plan == p ? p.name : link_to(p.name, new_subscription_path(:plan => p.name.downcase), :class => "awesome magenta") %>
-          </li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
-  
 </div>

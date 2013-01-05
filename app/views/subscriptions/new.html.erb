@@ -7,10 +7,47 @@
   <%= form_tag "/subscriptions", :method => "post" do%>
       <%= hidden_field_tag "user_id", @current_user.id%>
       <fieldset class="grouped">
-        <%-#= hidden_field_tag "plan", params[:plan]%>
-        <%- options = [["Free", ""],["1-Month", "1-month"],["3-Month", "3-month"],["6-Month", "6-month"],["12-Month", "12-month"]] %>
-        <%= label_tag "plan", "Plan"%>
-        <%= select_tag "plan", options_for_select(options, params[:plan])%>
+        <%-#= label_tag "plan", "Plan"%>
+        <div class="tsc_pricingtable05">
+          <table>
+            <thead>
+            <tr>
+              <% @plans.each_with_index do |plan, i|%>
+                  <th class=<%="#{i}"%>><%= plan.name.split('-').map {|w| w.capitalize }.join(' ') %><br />
+                    <span><%= "$" + plan.price.to_s + "/month"%></span></th>
+              <% end %>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr class="pricing_btn">
+              <% @plans.each_with_index do |plan, i|%>
+                  <td class=<%="#{i}"%>><%= radio_button_tag 'plan', plan.name, params[:plan] == plan, :class => "radio_button" %></td>
+              <% end %>
+            </tr>
+            </tfoot>
+            <tbody>
+            <tr class="grey">
+              <% @plans.each_with_index do |plan, i|%>
+                  <td class=<%="#{i}"%>><%= "Period: #{plan.duration} " + "#{plan.duration.to_i ==1 ? 'Month' : 'Months'}" %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <% @plans.each_with_index do |plan, i|%>
+                  <td class=<%="#{i}"%>><%= "Save: #{(100-(plan.price/20*100)).to_i}%" %></td>
+              <% end %>
+            </tr>
+            <tr class="grey">
+              <% @plans.each_with_index do |plan, i|%>
+                  <td class=<%="#{i}"%>>Choose this plan</td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+      <fieldset class="grouped">
+        <%= label_tag "", "Expiration Date"%>
+        <div class="plan_info">Please choose a plan</div>
       </fieldset>
       <fieldset class="grouped">
         <%= label_tag "credit_card[type]", "Card Type"%>
@@ -18,26 +55,26 @@
       </fieldset>
       <fieldset class="grouped">
         <%= label_tag "credit_card[first_name]", "First Name"%>
-        <%= text_field_tag "credit_card[first_name]"%>
+        <%= text_field_tag "credit_card[first_name]",nil , :class => "form_entries" %>
       </fieldset>
       <fieldset class="grouped">
         <%= label_tag "credit_card[last_name]", "Last Name"%>
-        <%= text_field_tag "credit_card[last_name]"%>
+        <%= text_field_tag "credit_card[last_name]",nil , :class => "form_entries"%>
       </fieldset>
       <fieldset class="grouped">
         <%= label_tag "credit_card[number]", "Card Number"%>
-        <%= text_field_tag "credit_card[number]"%>
+        <%= text_field_tag "credit_card[number]",nil , :class => "form_entries"%>
       </fieldset>
       <fieldset class="grouped">
         <%= label_tag "credit_card[verification_value]", "CVC"%>
-        <%= text_field_tag "credit_card[verification_value]"%>
+        <%= text_field_tag "credit_card[verification_value]",nil , :class => "form_entries"%>
       </fieldset>
       <fieldset class="grouped">
         <%= label_tag "card_expires_on", "Card Expiration"%>
         <%= date_select "card_expires_on", "", :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
       </fieldset>
       <fieldset class="grouped">
-        <%= submit_tag "Submit", :class=> "submit" %>
+        <%= submit_tag "Submit", :class=> "submit awesome magenta" %>
       </fieldset>
   <%end%>
   <%-#= link_to "Express Checkout", express_checkout_path(:plan => params[:plan]) %>

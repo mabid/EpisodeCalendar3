@@ -20,11 +20,248 @@
 }
 .grouped input.submit {
   margin-left: 110px;
-  width: 70px;
 }
 .subscription_form .error {
-  color: red;
+  background: none repeat scroll 0 0 #BD0C75;
   border: 1px solid;
+  border-radius: 5px 5px 5px 5px;
+  color: SeaShell;
   margin-bottom: 5px;
-  text-align: center;
+  padding: 5px 0;
+  text-align: center;;
 }
+.grouped .radio_button {
+  display: inline !important;
+  margin-top: 5px;
+}
+.grouped .radio_text {
+  display: inline;
+  vertical-align: middle;
+}
+.grouped .plan_info {
+  color: #23B0F1;
+  font-size: 14px;
+}
+
+
+/* *** WHITE/DARK PRICING TABLES *** */
+
+.tsc_pricingtable05 table {
+  color: #666666;
+  width: 100%;
+  background: #f8f8f8;
+  font-family: Calibri, Arial, Helvetica;
+
+  border: 1px solid #ccc;
+
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  -moz-box-shadow: 8px 0 10px -10px rgba(0, 0, 0, .15), -8px 10px 10px -10px rgba(0, 0, 0, .15);
+  -webkit-box-shadow: 8px 0 10px -10px rgba(0, 0, 0, .15), -8px 10px 10px -10px rgba(0, 0, 0, .15);
+  box-shadow: 8px 0 10px -10px rgba(0, 0, 0, .15), -8px 10px 10px -10px rgba(0, 0, 0, .15);
+  border-collapse:collapse;
+  padding:0px;margin:0;
+
+}
+
+.w_table_l_grey{
+  background-color:#f6f6f6;
+}
+.w_table_d_grey{
+  background-color:#eeeeee;
+}
+
+.tsc_pricingtable05 table th {
+  border-left: 1px dotted #D5D5D5;
+  border-right: 1px dotted #D5D5D5;
+  border-top: 1px dotted #D5D5D5;
+  color: #2F2F2F;
+  font-size: 23px;
+  height: 90px;
+  background: #f6f6f6;
+  line-height: 120%;
+}
+
+
+.tsc_pricingtable05 table th span {
+  color: #23B0F1;
+  font-size: 14px;}
+
+.tsc_pricingtable05 table tr {
+  height: 30px;
+  text-align: center;}
+
+.tsc_pricingtable05 table .grey {
+  background-color:#fff;}
+
+.tsc_pricingtable05 table tr td {
+  border-left: 1px dotted #D5D5D5;
+  border-right: 1px dotted #D5D5D5;
+
+  font-weight: bold;}
+
+.tsc_pricingtable05 table .btn td {
+  border-left: 1px dotted #D5D5D5;
+  border-right: 1px dotted #D5D5D5;
+  border-bottom: 1px dotted #D5D5D5;}
+
+.tsc_pricingtable05 table tr .border_blue {
+  border-left: 1px dotted #d7d7d7;
+  border-right: 1px dotted #d7d7d7;
+  background: #ededed;}
+
+.tsc_pricingtable05 table tr th.border_blue {
+  border-left: 1px solid #d7d7d7;
+  border-top: 1px solid #d7d7d7;
+  border-right: 1px solid #d7d7d7;}
+
+.tsc_pricingtable05 table tr .border_blue_bottom {
+  border-bottom: 1px solid #d7d7d7;}
+.tsc_pricingtable05 table tfoot td.border_blue{
+  border-bottom: 1px solid #d7d7d7;
+  border-left: 1px solid #d7d7d7;
+  border-right: 1px solid #d7d7d7;
+}
+
+.tsc_pricingtable05 .pricing_btn {
+  border-bottom: 1px solid #D5D5D5;
+  height: 80px !important;
+  text-align:center;
+}
+
+.pricing_btn .the_button{
+  float: none;
+  margin-top: 0;
+}
+
+.tsc_pricingtable05 .pricing_btn .pricing_btn_orbed {
+  clear: both;
+  display: block;
+  float: left;
+  height: 44px;
+  margin: 0 0 0 52px;
+  padding-left: 13px;}
+
+.tsc_pricingtable05 .pricing_btn .pricing_btn_orbed span {
+  color: #FFFFFF;
+  display: block;
+  float: left;
+  font-size: 24px;
+  height: 44px;
+  line-height: 45px;
+  min-width: 100px;
+  padding: 0 10px 0 0;}
+
+.tsc_pricingtable06 {}
+
+.tsc_pricingtable06 .the_button{
+  border:#1b1b1b solid 1px !important;
+}
+
+.tsc_pricingtable06 table {
+  width: 100%;
+  background-color: #484848;
+  font-family: Calibri, Arial, Helvetica;
+  border: 1px solid #ccc;
+
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  -moz-box-shadow: 8px 0 10px -10px rgba(0, 0, 0, .15), -8px 10px 10px -10px rgba(0, 0, 0, .15);
+  -webkit-box-shadow: 8px 0 10px -10px rgba(0, 0, 0, .15), -8px 10px 10px -10px rgba(0, 0, 0, .15);
+  box-shadow: 8px 0 10px -10px rgba(0, 0, 0, .15), -8px 10px 10px -10px rgba(0, 0, 0, .15);
+  border-collapse:collapse;
+  padding:0px;margin:0;
+
+}
+
+.d_table_l_grey{
+  background-color:#303030
+}
+.d_table_d_grey{
+  background-color:#3a3a3a
+}
+
+.pricing_black_btn {
+  background: url("images/blue_bl_bg_black.jpg") repeat-x scroll 0 0 transparent;
+  border: 1px dotted #454545;
+  color: #FFFFFF;
+  font-size: 24px;
+  height: 44px;
+  padding: 9px 10px;}
+
+.pricing_blue_btn {
+  background: url("images/blue_bl_bg_blue.jpg") repeat-x scroll 0 0 transparent;
+  color: #FFFFFF;
+  font-size: 24px;
+  height: 44px;
+  padding: 9px 10px;}
+
+.the_button {
+  border-bottom: 1px dotted #9f9f9f;
+  border-right: 1px dotted #c5c5c5;
+  border-left: 1px dotted #c5c5c5;
+  float: left;
+  color: #050505;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  height: 33px;
+  letter-spacing: -0.7px;
+  line-height: 33px;
+  margin: 0;
+  text-align: center;
+  width: auto;
+  padding:0 15px;
+  position:relative;
+  z-index:1002;
+
+  -moz-border-radius:5px;
+  -khtml-border-radius:5px;
+  -webkit-border-radius:5px;
+  border-radius:5px;
+
+  background: #dddddd;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ffffff), to(#dddddd));
+  background: -webkit-linear-gradient(#ffffff, #dddddd);
+  background: -moz-linear-gradient(#ffffff, #dddddd);
+  background: -ms-linear-gradient(#ffffff, #dddddd);
+  background: -o-linear-gradient(#ffffff, #dddddd);
+  background: linear-gradient(#ffffff, #dddddd);
+  -pie-background: linear-gradient(#ffffff, #dddddd);
+}
+
+.the_button:hover, .the_button.active {
+  color: #ffffff;
+  border-bottom: 1px solid #9f9f9f;
+  border-right: 1px solid #c5c5c5;
+  border-left: 1px solid #c5c5c5;
+
+  background: #2e2e2e;
+  background: -webkit-gradient(linear, 0 0, 0 bottom, from(#2e2e2e), to(#2e2e2e));
+  background: -webkit-linear-gradient(#2e2e2e, #2e2e2e);
+  background: -moz-linear-gradient(#2e2e2e, #2e2e2e);
+  background: -ms-linear-gradient(#2e2e2e, #2e2e2e);
+  background: -o-linear-gradient(#2e2e2e, #2e2e2e);
+  background: linear-gradient(#2e2e2e, #2e2e2e);
+  -pie-background: linear-gradient(#2e2e2e, #2e2e2e);
+}
+
+a {
+  font-family:Calibri, Arial;
+  font-size:13px;
+  font-weight:normal;
+  text-decoration: none;
+  outline: medium none;
+  color:#000;
+}
+
+td:hover::after, th:hover::after {
+  content: '\00a0';
+  height: 10000px;
+  left: 0;
+  z-index: -1;
+}
+
+.hover { background-color: #F6F6F6; }

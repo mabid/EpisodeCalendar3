@@ -72,9 +72,10 @@ class Subscription < ActiveRecord::Base
     credit_card = ActiveMerchant::Billing::CreditCard.new(h[:credit_card])
     options = {
         :description => "DESCRIPTION_TEXT",
-        :start_date => Date.today + 1.day,
+        :start_date => Date.today,
         :period => 'Month',
-        :frequency => plan.duration || 1
+        :frequency => 1,
+        :cycles => plan.duration.to_i || 1
     }
     GATEWAY.recurring(plan.price.to_i*100 || 0, credit_card, options )
   end
