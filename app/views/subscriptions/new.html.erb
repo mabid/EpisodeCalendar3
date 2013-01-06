@@ -20,7 +20,10 @@
           <tbody>
             <tr class="grey">
               <% @plans.each_with_index do |plan, i| %>
-                  <td>Valid for <%= "#{pluralize(plan.duration, "month")}" %></td>
+                  <td>
+                    Valid for <%= "#{pluralize(plan.duration, "month")}" %><br />
+                    <span class="small">You will be billed <%= plan.duration.to_i %> times</span>
+                  </td>
               <% end %>
             </tr>
             <tr>
@@ -30,7 +33,7 @@
             </tr>
             <tr class="grey">
               <% @plans.each_with_index do |plan, i| %>
-                  <td>Save: <%= "#{(100 - (plan.price / @plans.first.price * 100)).to_i}" %>%</td>
+                  <td class="<%= cycle("red", "orange", "green") %>">Save: <%= "#{(100 - (plan.price / @plans.first.price * 100)).to_i}" %>%</td>
               <% end %>
             </tr>
           </tbody>

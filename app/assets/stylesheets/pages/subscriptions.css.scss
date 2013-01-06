@@ -42,7 +42,7 @@
 /* *** WHITE/DARK PRICING TABLES *** */
 
 .pricing_table table {
-  color: #666666;
+  color: #666;
   width: 100%;
   background: #f8f8f8;
 
@@ -85,13 +85,22 @@
   text-align: center;}
 
 .pricing_table table .grey {
-  background-color:#fff;}
+  background-color:#fff;
+  color: #666;
+}
 
-.pricing_table table tr td {
+.pricing_table td {
   border-left: 1px dotted #D5D5D5;
   border-right: 1px dotted #D5D5D5;
+  padding: 10px 5px;
+  font-weight: bold;
+}
 
-  font-weight: bold;}
+.pricing_table td span {
+  font-weight: normal;
+  color: #aaa;
+  line-height: 16px;
+}
 
 .pricing_table .pricing_btn {
   border-bottom: 1px solid #D5D5D5;
