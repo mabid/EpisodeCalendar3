@@ -2,6 +2,8 @@ class Subscription < ActiveRecord::Base
   belongs_to  :user
   belongs_to  :plan
 
+  after_save  :create_payment
+
   def upgrade(plan, credit_card, card_expires_on)
     self.plan_id = plan.id
     response = credit_card_payment(plan, credit_card, card_expires_on)
@@ -64,6 +66,10 @@ class Subscription < ActiveRecord::Base
   end
 
   private
+
+  def create_payment
+    Payment.create!(:user_id => user.id, :plan_id => plan.id, :amount => plan.price, :success => true)
+  end
 
   def credit_card_payment(plan, credit_card, card_expires_on)
     credit_card[:year] = card_expires_on[:"(1i)"].to_i

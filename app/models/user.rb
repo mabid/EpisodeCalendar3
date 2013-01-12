@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :shows, :through => :followings
   has_many :seen_episodes, :dependent => :destroy
   has_many :hidden_episodes, :dependent => :destroy
+  has_many :payments
   has_one  :subscription
   has_one  :plan, :through => :subscription
   
