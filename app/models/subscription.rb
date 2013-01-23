@@ -2,7 +2,7 @@ class Subscription < ActiveRecord::Base
   belongs_to  :user
   belongs_to  :plan
 
-  after_save  :create_payment
+  #after_save  :create_payment
 
   def upgrade(plan, credit_card, card_expires_on)
     self.plan_id = plan.id
