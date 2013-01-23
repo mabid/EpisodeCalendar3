@@ -25,6 +25,7 @@ end
 
 every 1.day do
   command "cd /var/www/episodecalendar.com/production/current && bundle exec whenever --update-crontab episodecalendar.com"
+  rake "subscription:check_subscription"
 end
 
 every '0 2 10 * *' do
