@@ -67,8 +67,8 @@ class Subscription < ActiveRecord::Base
 
   private
 
-  def create_payment
-    Payment.create!(:user_id => user.id, :plan_id => plan.id, :amount => plan.price, :success => true)
+  def create_payment(success = true)
+    Payment.create!(:user_id => user.id, :plan_id => plan.id, :amount => plan.price, :success => success)
   end
 
   def credit_card_payment(plan, credit_card, card_expires_on)
