@@ -1,7 +1,7 @@
 <div class="scrollable" data-role="content">
 
   <%= raw render :partial => "partials/month_navigation", :locals => {:current => @current, :public => false} %>
-  <ul data-role="listview" data-split-icon="check" data-split-theme="d" data-divider-theme="b" data-inset="true">
+  <ul data-role="listview"  data-split-theme="d" data-divider-theme="b" data-inset="true">
     <% @start_day.upto(@end_day) do |date| %>
       <% corrected_date = current_user.sun_to_sat ? (date - 1.day) : date %>
       <% current_day_date = corrected_date.to_s(:air_date) %>
@@ -11,9 +11,22 @@
           <%= print_date(corrected_date) %> (<%= week_day(corrected_date.wday) %>)
         </li>
         <% show_episodes.each do |e| %>
-          <li data-theme="a">
-            <%= m_print_calendar_episode(e).html_safe %>
-            <a href="#"></a>
+          <% seen = @seen_episodes.include?(e.id) %>
+          <li data-theme="a" id="<%= "episode_#{e.id}" %>" data-icon="<%= seen ? "check" : "check-off" %>" data-episode-id="<%= e.id %>">
+            <a href="#<%= "popup_#{e.id}" %>" data-rel="popup" data-position-to="window" data-transition="pop">
+              <%= m_print_calendar_episode(e).html_safe %>
+            </a>
+            <a href="<%= mark_episode_path(e.id, e.season_id) %>" class="mark" data-marked="<%= seen %>" data-ajax="false"></a>
+            <div data-role="popup" id="<%= "popup_#{e.id}" %>" data-theme="d" data-overlay-theme="b" class="ui-content">
+              <div class="show_banner unpad">
+                  <%= image_tag(environmentize(e.show.banner), :alt => e.show.name) %>
+              </div>
+              <h3><%= "#{e.name} (#{format_episode_number(e)})" %></h3>
+              <p class="overview"><%= e.friendly_overview.html_safe %></p>
+              <div class="buttons margin_top">
+                <a href="<%= "/show/#{e.show.permalink}" %>" data-role="button" data-mini="true">Go to show</a>
+              </div>
+            </div>
           </li>
         <% end %>
       <% end %>

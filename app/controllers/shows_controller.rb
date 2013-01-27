@@ -50,14 +50,14 @@ class ShowsController < ApplicationController
       HiddenEpisode.find_all_by_user_id(current_user.id).collect(&:episode_id)
     end
 
-    @episodes = Rails.cache.fetch([current_user, "episodes", @current.year, @current.month]) do
+    #@episodes = Rails.cache.fetch([current_user, "episodes", @current.year, @current.month]) do
       scope = Episode.where("episodes.show_id in (?) AND air_date >= ? AND air_date <= ?", @show_ids, @start_day - 1.days, @end_day + 1.days)
-      scope = scope.select("episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink")
-      scope = scope.order("show_name asc, episodes.season_number asc, episodes.number asc")
+      #scope = scope.select("episodes.id, episodes.name, episodes.air_date, episodes.number, episodes.season_number, episodes.season_id, episodes.overview, shows.name AS show_name, shows.permalink AS show_permalink")
+      scope = scope.order("shows.name asc, episodes.season_number asc, episodes.number asc")
       scope = scope.joins(:show)
       scope = scope.where("episodes.id NOT IN (?)", hidden_episodes_ids) if hidden_episodes_ids.any?
-      scope
-    end
+      @episodes = scope
+    #end
     
     @seen_episodes = SeenEpisode.where("user_id = ? AND episode_id IN (?)", current_user.id, @episodes.collect(&:id)).map(&:episode_id)
     

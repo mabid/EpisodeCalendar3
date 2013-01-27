@@ -24,6 +24,11 @@ class SeenEpisodesController < ApplicationController
   end
   
   def mark_episode
+    puts "==============================="
+    puts "params[:episode_id]: #{params[:episode_id]}"
+    puts "params[:mark]: #{params[:mark]}"
+    puts "params[:mark].to_i: #{params[:mark].to_i}"
+    puts "==============================="
     @episode = Episode.find(params[:episode_id])
     @show = @episode.show
     

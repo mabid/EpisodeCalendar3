@@ -112,6 +112,27 @@ p {
 	margin: -15px -15px 15px -15px;
 }
 
+.ui-popup.ui-content, .ui-popup .ui-content {
+	overflow: hidden;
+}
+
+.ui-popup.ui-content .show_banner img {
+	width: 100%;
+	margin: 0;
+}
+
+.ui-popup-screen.in {
+	opacity: 0.9;
+}
+
+.ui-header {
+	position: absolute;
+	z-index: 9999;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
 .ui-header .toggle-content {
 	display: none;
 	position: absolute;
@@ -234,10 +255,38 @@ p {
 .faq-list {
 	.ui-li-desc {
 		margin: 0;
-		text-overflow: none;
-		white-space: normal;
 	}
 }
+
+.ui-li-desc,
+.ui-li-heading {
+	text-overflow: none;
+	white-space: normal;
+}
+
+.overview {
+	max-height: 100px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.overview.long {
+	max-height: 200px;
+}
+
+.mark.loading .ui-btn-text {
+	background: url("/assets/mobile/ajax-loader.gif") 0 0 no-repeat;
+    height: 24px;
+    left: 7px;
+    top: 20px;
+    width: 24px;
+    background-size: 24px 24px;
+}
+
+.mark.loading .ui-btn {
+	display: none;
+}
+
 
 /* jQuery Mobile Theme overrides
  * ------------------------------------------------------------------------------------------------------------------------- */ 
@@ -345,6 +394,9 @@ p {
 
 .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
 	padding: 0.2em 10px
+}
+.ui-li-has-alt .ui-btn-inner a.ui-link-inherit {
+	padding-right: 53px;
 }
 
 .ui-listview-inset .ui-li {
@@ -457,6 +509,10 @@ img {
 	.ui-btn-icon-left .ui-icon {
 		left: 10px;
 	}
+}
+
+.ui-icon-check-off {
+	background-position: -9999px 50%;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {

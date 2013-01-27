@@ -1,4 +1,4 @@
-<ul data-role="listview" data-divider-theme="b" data-inset="true">
+<ul data-role="listview" data-divider-theme="a" data-inset="true" data-split-theme="d">
   <li data-form="ui-bar-c" role="" data-role="list-divider" class="ui-li ui-li-divider ui-btn ui-bar-c" data-swatch="c">
     <div class="ui-grid-a">
       <div class="ui-block-a">
@@ -22,30 +22,22 @@
       </div>     
     </div>
   </li>
+
   <% @season.episodes.sort_by{ |e| [e.number] }.each do |e| %>
-    <% css_class = cycle("odd", "even", :name => "classes") %>
     <% corrected_air_date = (current_user ? e.air_date + current_user.day_offset.days : e.air_date) %>
-    <% css_class += " highlighted" if @next_air_date == e.air_date %>
+    <% css_class = " highlighted" if @next_air_date == e.air_date %>
+    <% seen = @seen_episode_ids.include?(e.id) %>
 
-    <li data-theme="a">
-      <h3><%= format_episode_number(e) %>: <%= e.name %></h3>
-      <p><%= format_date(corrected_air_date) %></p>
-
-        <!--<div class="seen">
-        <% if corrected_air_date < $TODAY.end_of_day %>
-          <span>Watched this episode?</span>
-          <% if logged_in? && @is_following %>
-            <%= link_to("", mark_episode_path(e.id, e.season_id), :class => "ui-checkbox ajaxLink hide_while_loading #{"ui-checkbox-state-checked" if @seen_episode_ids.include?(e.id)}", :rel => "ajax_loader_#{e.id}") %>
-            <%= image_tag("icons/ajax-loader.gif", :id => "ajax_loader_#{e.id}", :class => "ajaxLoader") %>
-            <small class="hide"><%= link_to "Mark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
-            <small class="unhide hidden"><%= link_to "Unmark as hidden", hide_episode_path(e.id, e.season_id), :class => "hide_while_loading_small", :rel => "ajax_loader_small_#{e.id}" %></small>
-            <%= image_tag("icons/ajax-loader-small.gif", :id => "ajax_loader_small_#{e.id}", :class => "ajaxLoaderSmall") %>
-          <% else %>
-            <span class="ui-checkbox ui-checkbox-state-checked ui-checkbox-state-checked-disabled"></span>
-          <% end %>
-        <% end %>
-      </div>-->
-
+    <li data-theme="a" id="<%= "episode_#{e.id}" %>" data-icon="<%= seen ? "check" : "check-off" %>" data-episode-id="<%= e.id %>">
+      <a href="#<%= "popup_#{e.id}" %>" data-rel="popup" data-position-to="window" data-transition="pop">
+        <h3><%= format_episode_number(e) %></strong>: <%= e.name %></h3>
+        <p><%= format_date(corrected_air_date) %></p>
+        <div data-role="popup" id="<%= "popup_#{e.id}" %>" data-theme="d" data-overlay-theme="b" class="ui-content">
+          <h3><%= "#{e.name} (#{format_episode_number(e)})" %></h3>
+          <p class="overview long"><%= e.friendly_overview.html_safe %></p>
+        </div>
+      </a>
+      <a href="<%= mark_episode_path(e.id, e.season_id) %>" class="mark" data-marked="<%= seen %>" data-ajax="false"></a>
     </li>
 
   <% end %>

@@ -15,13 +15,24 @@
     <% @shows.each do |show| %>
       <li data-role="list-divider"><%= show.name %></li>
       <li data-theme="a">
-        <a href="<%= show_path(show) %>">
+        <a href="#<%= "popup_#{show.id}" %>" data-rel="popup" data-position-to="window" data-transition="pop">
           <% if show.banner %>
               <%= image_tag(environmentize(show.banner), :width => "100%", :alt => show.name) %>
             <% else %>
               <h2><%= show.name %></h2>
           <% end %>
         </a>
+        <div data-role="popup" id="<%= "popup_#{show.id}" %>" data-theme="d" data-overlay-theme="b" class="ui-content">
+          <div class="show_banner unpad">
+              <%= image_tag(environmentize(show.banner), :alt => show.name) %>
+          </div>
+          <h3><%= "#{show.name}" %></h3>
+          <p class="overview"><%= show.overview %></p>
+          <div class="buttons margin_top">
+            <a href="<%= "/show/#{show.permalink}" %>" data-role="button" data-mini="true">Add show</a>
+            <a href="<%= "/show/#{show.permalink}" %>" data-role="button" data-mini="true" data-theme="b">Go to show</a>
+          </div>
+        </div>
       </li>
     <% end %>
   </ul>
