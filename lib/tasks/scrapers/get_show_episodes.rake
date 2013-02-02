@@ -26,6 +26,7 @@ namespace :db do
         begin
           doc = Hpricot.parse(open(show_url))
           episodes = (doc/"episode")
+          episode_ids = []
           
           #Go through all episodes for this season
           puts "Found #{episodes.size} episodes!"
@@ -45,13 +46,14 @@ namespace :db do
               api_episode_id = (row/"id").innerHTML.to_i
               season = Season.find_or_create_by_number_and_api_show_id(:number => season_number, :api_show_id => api_show_id)
               seasons << season.number
+              episode_ids << api_episode_id
               
               #Update episode record
               episode = Episode.find_by_api_episode_id(api_episode_id)
               unless episode
                 episode = Episode.new
               end
-              puts (row/"episodename").innerHTML
+              #puts (row/"episodename").innerHTML
               episode.update_attributes(
                 :show_id => show.id,
                 :api_episode_id => api_episode_id,
@@ -67,11 +69,20 @@ namespace :db do
             end
             show.update_attributes(:episodes_count => episodes.size)
             show.update_attributes(:seasons_count => seasons.uniq.size)
+
+            #Mark faulty episodes for deletion
+            current_episode_ids = Episode.where("show_id = ?", show.id).map(&:api_episode_id)
+            episodes_for_delete = current_episode_ids - episode_ids
+            episodes_for_delete.each do |api_episode_id|
+              UpdateQueue.find_or_create_by_api_id_and_update_type(:api_id => api_episode_id, :update_type => "episode_deletion")
+            end
+
           end
-        rescue
+        rescue Exception => ex
+          puts ex.message
         end
         
-        queued_show.destroy
+        #queued_show.destroy
       end
       
       #Update note
