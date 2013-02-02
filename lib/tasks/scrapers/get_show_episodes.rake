@@ -53,7 +53,6 @@ namespace :db do
               unless episode
                 episode = Episode.new
               end
-              #puts (row/"episodename").innerHTML
               episode.update_attributes(
                 :show_id => show.id,
                 :api_episode_id => api_episode_id,
@@ -82,7 +81,7 @@ namespace :db do
           puts ex.message
         end
         
-        #queued_show.destroy
+        queued_show.destroy
       end
       
       #Update note
