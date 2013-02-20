@@ -20,7 +20,7 @@ namespace :db do
           puts "Updating marked cache column for user[#{seen.user_id}]"
           #Cache column
           following = Following.find_by_user_id_and_show_id(seen.user_id, invalid_episode.show_id)
-          Following.decrement_counter(:marked_episodes_count, following.id)
+          Following.decrement_counter(:marked_episodes_count, following.id) if following
           puts "Decrementing marked counter!"
           #Delete seen record
           SeenEpisode.delete(seen.id)
@@ -38,7 +38,7 @@ namespace :db do
           puts "Updating hidden cache column for user[#{hidden.user_id}]"
           #Cache column
           following = Following.find_by_user_id_and_show_id(hidden.user_id, invalid_episode.show_id)
-          Following.decrement_counter(:hidden_episodes_count, following.id)
+          Following.decrement_counter(:hidden_episodes_count, following.id) if following
           puts "Decrementing hidden counter!"
           #Delete hidden record
           HiddenEpisode.delete(hidden.id)
