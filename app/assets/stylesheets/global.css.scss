@@ -289,6 +289,13 @@ a.alternative {
     img {
       width: 126px;
       height: 43px;
+      border: 1px solid #ddd;
+    }
+    .loading {
+      background: url("/assets/icons/ajax-loader-small.gif") 50% 50% no-repeat;
+    }
+    .loaded {
+      border-color: transparent;
     }
   }
 

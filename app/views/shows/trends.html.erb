@@ -10,7 +10,7 @@
           <% @top_shows.each_with_index do |show, i| %>
           <li>
             <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-src" => environmentize(show.banner(:small)), :class => "lazy loading"), show) %>
             <% else %>
               <%= image_tag("pixel.gif") %>
             <% end %>
@@ -29,7 +29,7 @@
           <% @top_new_followers.each_with_index do |show, i| %>
           <li>
             <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-src" => environmentize(show.banner(:small)), :class => "lazy loading"), show) %>
             <% else %>
               <%= image_tag("pixel.gif") %>
             <% end %>
@@ -49,9 +49,9 @@
           <% @highest_grow.each_with_index do |show, i| %>
           <li>
             <% if show.banner %>
-              <%= link_to(image_tag("pixel.gif", :"data-original" => environmentize(show.banner(:small)), :class => :lazy), show) %>
+              <%= link_to(image_tag("pixel.gif", :"data-src" => environmentize(show.banner(:small)), :class => "lazy loading"), show) %>
             <% else %>
-              <%= image_tag("pixel.gif") %>
+              <%= image_tag("pixel.gif", :class => :broken) %>
             <% end %>
             <h2 class="green"><%= raw print_trend(show) %></h2>
             <h3><strong><%= link_to(show.name, show, :class => "alternative big") %></strong></h3>

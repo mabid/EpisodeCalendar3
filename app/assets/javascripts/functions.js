@@ -382,5 +382,12 @@ function initSlider() {
 }
 
 function initLazyLoading() {
-  $("img.lazy").lazyload({ threshold: 100, failure_limit: 100 });
+  $("img.lazy").lazy({
+    afterLoad: function(element) {
+      element.removeClass("loading").addClass("loaded");
+    },
+    onError: function(element) {
+      element.addClass("broken");
+    }
+  });
 }
