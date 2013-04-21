@@ -37,6 +37,7 @@ namespace :db do
               #Check fauly data
               firstaired = Time.zone.parse((row/"firstaired").innerHTML) rescue nil
               if (row/"episodename").innerHTML.blank? || firstaired.blank?
+                puts "episodename or firstaired are empty for episode id: #{(row/"id").innerHTML.to_i}.. skipping!"
                 next
               end
               
@@ -66,7 +67,7 @@ namespace :db do
                 :api_updated_at => (row/"lastupdated").innerHTML
                 )
             end
-            show.update_attributes(:episodes_count => episodes.size)
+            show.update_attributes(:episodes_count => episode_ids.size)
             show.update_attributes(:seasons_count => seasons.uniq.size)
 
             #Mark faulty episodes for deletion
