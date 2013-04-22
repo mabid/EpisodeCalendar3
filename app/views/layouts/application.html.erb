@@ -15,6 +15,15 @@
   <%= render :partial => "partials/scripts/google_analytics" %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
   <%= javascript_include_tag :application %>
+  <!-- Qualaroo for episodecalendar.com -->
+  <!-- Paste this code right after the <body> tag on every page of your site. -->
+  <script type="text/javascript">var _kiq = _kiq || [];</script>
+  <script type="text/javascript" src="//s3.amazonaws.com/ki.js/45209/8VE.js" async="true"></script>
+  <% if logged_in? %>
+  <script type="text/javascript" charset="utf-8">
+  _kiq.push(['identify', '<%= current_user.email %>']);
+  </script>
+  <% end %>
   <%= yield :head %>
   <link rel="icon" href="/favicon.png?1" type="image/x-icon" />
   <link rel="shortcut icon" href="/favicon.png?1" type="image/ico" />
